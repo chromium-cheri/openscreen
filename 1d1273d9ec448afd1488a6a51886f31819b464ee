@@ -18,6 +18,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6468a845_9448cdd7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-12-08T22:24:44Z",
+      "side": 1,
+      "message": "Makes sense, we should chat as a follow up.",
+      "parentUuid": "196f4058_f664173e",
+      "revId": "1d1273d9ec448afd1488a6a51886f31819b464ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "325863f7_481c0875",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-12-08T18:34:32Z",
       "side": 1,
       "message": "This means the receiver responds to capabilities requests from any sender_id (even different from a current or pending session negotation).  \n\nThis makes sense, just wanted to confirm.",
+      "revId": "1d1273d9ec448afd1488a6a51886f31819b464ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbf75273_891d89ce",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-12-08T22:24:44Z",
+      "side": 1,
+      "message": "Yeah, that\u0027s right. My thought process is that senders may want to get capabilities before sending an OFFER (most send an OFFER first in practice though) so no reason to reject their requests if they do happen.",
+      "parentUuid": "325863f7_481c0875",
       "revId": "1d1273d9ec448afd1488a6a51886f31819b464ee",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -52,6 +88,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60031807_dab1898f",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-12-08T22:24:44Z",
+      "side": 1,
+      "message": "Right now I only use it for testing purposes. I\u0027ll rename it _for_testing() and we can add a new callback or similar if we end up wanting it exposed to a client.",
+      "parentUuid": "2fbce250_03ab3941",
+      "revId": "1d1273d9ec448afd1488a6a51886f31819b464ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c64641a3_a5015986",
@@ -69,6 +123,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f17ebdb_ff486243",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-12-08T22:24:44Z",
+      "side": 1,
+      "message": "I figured these are the properties necessary to start a session and just happens to be a pending offer plus some additional fields.\n\nI think PendingOffer makes a lot of sense.",
+      "parentUuid": "c64641a3_a5015986",
+      "revId": "1d1273d9ec448afd1488a6a51886f31819b464ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d00de0e_8f000121",
@@ -82,6 +154,24 @@
       "writtenOn": "2021-12-08T18:34:32Z",
       "side": 1,
       "message": "Where does |sender_id| come from?  Is this from the virtual connection or is it some other ID that is specific to the streaming protocol?",
+      "revId": "1d1273d9ec448afd1488a6a51886f31819b464ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7eab8a0_2ba3c7e3",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-12-08T22:24:44Z",
+      "side": 1,
+      "message": "IIUC, it\u0027s from the virtual connection. It\u0027s a field on the message port.",
+      "parentUuid": "3d00de0e_8f000121",
       "revId": "1d1273d9ec448afd1488a6a51886f31819b464ee",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -138,6 +228,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5849e093_6f54adae",
+        "filename": "cast/streaming/receiver_session_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-12-08T22:24:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6eb74c92_f69fe7b4",
+      "revId": "1d1273d9ec448afd1488a6a51886f31819b464ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c5fc54f_5696c652",
@@ -155,6 +263,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11ff0a28_3aed0334",
+        "filename": "cast/streaming/receiver_session_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-12-08T22:24:44Z",
+      "side": 1,
+      "message": "Added a test: HandlesErrorOfferFromAnotherSender",
+      "parentUuid": "1c5fc54f_5696c652",
+      "revId": "1d1273d9ec448afd1488a6a51886f31819b464ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "395fe7b5_234bbbf7",
@@ -168,6 +294,24 @@
       "writtenOn": "2021-12-08T18:34:32Z",
       "side": 1,
       "message": "Where do you assert that the sender-id is passed correctly to the callback?",
+      "revId": "1d1273d9ec448afd1488a6a51886f31819b464ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "475aadb7_614c15d5",
+        "filename": "cast/streaming/session_messenger_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-12-08T22:24:44Z",
+      "side": 1,
+      "message": "Currently they don\u0027t, I\u0027ll add some checks.",
+      "parentUuid": "395fe7b5_234bbbf7",
       "revId": "1d1273d9ec448afd1488a6a51886f31819b464ee",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
