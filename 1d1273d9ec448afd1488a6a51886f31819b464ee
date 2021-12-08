@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "196f4058_f664173e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-12-08T18:34:32Z",
+      "side": 1,
+      "message": "I expect renegotiation to happen for the same sender_id but can\u0027t quite think of a use case for renegotiating a session under a new sender_id.  At least that\u0027s not how the Chrome sender behaves, IIUC.\n\nThis works but makes the ReceiverSession more complicated to reason about because messages from multiple senders are routed to a single object and it has to figure out what to do with each of them.\n\nHere is how I think about this design:\n\n- There\u0027s optionally a negotiated CurrentSession and optionally a PendingOffer.\n- Each of those corresponds to exactly one sender_id and those ids are different.\n- If a new offer appears it replaces the PendingOffer.\n- If a session is negotiated it is promoted from a PendingOffer to a CurrentSession and the PendingOffer becomes empty.\n- The message callbacks check the sender_id and route the message either to the CurrentSession, the PendingOffer, or create/replace a PendingOffer if needed (by checking the message\u0027s sender_id against the ones for the CurrentSession/PendingOffer).\n\nAnyway the idea is to have one layer that deals with routing messages and other layer in the code that handles the message content, right now they are sort of intertangled.  And it makes the state of the session more explicit (whether there is a negotiated session, and whether there is a negotiation-in-progress).\n\nI didn\u0027t see anything functionally wrong with the current patch, so it\u0027s OK to land this now (if Fuchsia is waiting for it) and refactor later behind the API.\n\n\n\n  ",
+      "revId": "1d1273d9ec448afd1488a6a51886f31819b464ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "325863f7_481c0875",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-12-08T18:34:32Z",
+      "side": 1,
+      "message": "This means the receiver responds to capabilities requests from any sender_id (even different from a current or pending session negotation).  \n\nThis makes sense, just wanted to confirm.",
+      "revId": "1d1273d9ec448afd1488a6a51886f31819b464ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fbce250_03ab3941",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-12-08T18:34:32Z",
+      "side": 1,
+      "message": "Would it make more sense to pass this with Client::OnNegotiated and/or Client::OnRemotingNegotiated, since that is when we know that a new session has been negotiated?  I don\u0027t see how a client finds out that a new sender has negotiated unless it remembers to check negotiated_sender_id() after OnOffer().\n\nIt depends on how you see this being used by the client.\n\nOTOH it is hard to introduce that sort of change without migrating callers.",
+      "revId": "1d1273d9ec448afd1488a6a51886f31819b464ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c64641a3_a5015986",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-12-08T18:34:32Z",
+      "side": 1,
+      "message": "This sounds like it should be named PendingOffer.",
+      "revId": "1d1273d9ec448afd1488a6a51886f31819b464ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d00de0e_8f000121",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-12-08T18:34:32Z",
+      "side": 1,
+      "message": "Where does |sender_id| come from?  Is this from the virtual connection or is it some other ID that is specific to the streaming protocol?",
+      "revId": "1d1273d9ec448afd1488a6a51886f31819b464ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bc99152_ef237047",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-12-08T18:34:32Z",
+      "side": 1,
+      "message": "current_sender_id_?",
+      "revId": "1d1273d9ec448afd1488a6a51886f31819b464ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6eb74c92_f69fe7b4",
+        "filename": "cast/streaming/receiver_session_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-12-08T18:34:32Z",
+      "side": 1,
+      "message": "Can you add a utility function to parse/assert on an answer message?",
+      "revId": "1d1273d9ec448afd1488a6a51886f31819b464ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c5fc54f_5696c652",
+        "filename": "cast/streaming/receiver_session_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-12-08T18:34:32Z",
+      "side": 1,
+      "message": "Can you add a test case that asserts that an improper negotiation from another sender-id is handled properly?",
+      "revId": "1d1273d9ec448afd1488a6a51886f31819b464ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "395fe7b5_234bbbf7",
+        "filename": "cast/streaming/session_messenger_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-12-08T18:34:32Z",
+      "side": 1,
+      "message": "Where do you assert that the sender-id is passed correctly to the callback?",
+      "revId": "1d1273d9ec448afd1488a6a51886f31819b464ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
