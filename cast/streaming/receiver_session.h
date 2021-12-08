@@ -300,6 +300,11 @@ class ReceiverSession final : public Environment::SocketSubscriber {
   void OnSocketReady() override;
   void OnSocketInvalid(Error error) override;
 
+  // The ID of the sender that the currently negotiated OFFER belongs to.
+  const std::string& negotiated_sender_id() const {
+    return negotiated_sender_id_;
+  }
+
  private:
   // In some cases, such as waiting for the UDP socket to be bound, we
   // may have a pending session that cannot start yet. This class provides
@@ -307,6 +312,9 @@ class ReceiverSession final : public Environment::SocketSubscriber {
   struct SessionProperties {
     // The cast mode the OFFER was sent for.
     CastMode mode;
+
+    // The sneder that provided the OFFER.
+    std::string sender_id;
 
     // The selected audio and video streams from the original OFFER message.
     std::unique_ptr<AudioStream> selected_audio;
@@ -321,9 +329,13 @@ class ReceiverSession final : public Environment::SocketSubscriber {
   };
 
   // Specific message type handler methods.
-  void OnOffer(SenderMessage message);
-  void OnCapabilitiesRequest(SenderMessage message);
-  void OnRpcMessage(SenderMessage message);
+  void OnOffer(const std::string& sender_id, SenderMessage message);
+  void OnCapabilitiesRequest(const std::string& sender_id,
+                             SenderMessage message);
+  void OnRpcMessage(const std::string& sender_id, SenderMessage message);
+
+  // Sends an RPC message to the currently negotiated sender.
+  void SendRpcMessage(std::vector<uint8_t> message);
 
   // Selects streams from an offer based on its configuration, and sets
   // them in the session properties.
@@ -351,7 +363,9 @@ class ReceiverSession final : public Environment::SocketSubscriber {
   void ResetReceivers(Client::ReceiversDestroyingReason reason);
 
   // Sends an error answer reply and notifies the client of the error.
-  void SendErrorAnswerReply(int sequence_number, const char* message);
+  void SendErrorAnswerReply(const std::string& sender_id,
+                            int sequence_number,
+                            const char* message);
 
   Client* const client_;
   Environment* const environment_;
@@ -359,6 +373,10 @@ class ReceiverSession final : public Environment::SocketSubscriber {
 
   // The sender_id of this session.
   const std::string session_id_;
+
+  // The ID of the sender that has the current negotiation. We ignore
+  // RPC messages from other senders.
+  std::string negotiated_sender_id_;
 
   // The session messenger used for the lifetime of this session.
   ReceiverSessionMessenger messenger_;
