@@ -663,6 +663,70 @@ TEST_F(ReceiverSessionTest, HandlesNoValidVideoStream) {
   EXPECT_EQ(19088748, answer_body["ssrcs"][0].asInt());
 }
 
+TEST_F(ReceiverSessionTest, HandlesRenegotiationFromSameSender) {
+  InSequence s;
+  EXPECT_CALL(client_, OnNegotiated(session_.get(), _));
+  EXPECT_CALL(client_,
+              OnReceiversDestroying(session_.get(),
+                                    ReceiverSession::Client::kRenegotiated));
+  EXPECT_CALL(client_, OnNegotiated(session_.get(), _));
+  EXPECT_CALL(client_,
+              OnReceiversDestroying(session_.get(),
+                                    ReceiverSession::Client::kEndOfSession));
+
+  message_port_->ReceiveMessage("first-sender", kCastWebrtcNamespace,
+                                kValidOfferMessage);
+  const auto& messages = message_port_->posted_messages();
+  EXPECT_EQ(1u, messages.size());
+  const auto message_body = json::Parse(messages[0]);
+  EXPECT_TRUE(message_body.is_value());
+  const Json::Value& answer_body = message_body.value()["answer"];
+  EXPECT_TRUE(answer_body.isObject());
+  EXPECT_EQ("first-sender", session_->negotiated_sender_id());
+
+  message_port_->ReceiveMessage("first-sender", kCastWebrtcNamespace,
+                                kValidOfferMessage);
+  const auto& updated_messages = message_port_->posted_messages();
+  EXPECT_EQ(2u, updated_messages.size());
+  const auto second_message_body = json::Parse(updated_messages[1]);
+  EXPECT_TRUE(second_message_body.is_value());
+  const Json::Value& second_answer_body = second_message_body.value()["answer"];
+  EXPECT_TRUE(second_answer_body.isObject());
+  EXPECT_EQ("first-sender", session_->negotiated_sender_id());
+}
+
+TEST_F(ReceiverSessionTest, HandlesRenegotiationFromAnotherSender) {
+  InSequence s;
+  EXPECT_CALL(client_, OnNegotiated(session_.get(), _));
+  EXPECT_CALL(client_,
+              OnReceiversDestroying(session_.get(),
+                                    ReceiverSession::Client::kRenegotiated));
+  EXPECT_CALL(client_, OnNegotiated(session_.get(), _));
+  EXPECT_CALL(client_,
+              OnReceiversDestroying(session_.get(),
+                                    ReceiverSession::Client::kEndOfSession));
+
+  message_port_->ReceiveMessage("first-sender", kCastWebrtcNamespace,
+                                kValidOfferMessage);
+  const auto& messages = message_port_->posted_messages();
+  EXPECT_EQ(1u, messages.size());
+  const auto message_body = json::Parse(messages[0]);
+  EXPECT_TRUE(message_body.is_value());
+  const Json::Value& answer_body = message_body.value()["answer"];
+  EXPECT_TRUE(answer_body.isObject());
+  EXPECT_EQ("first-sender", session_->negotiated_sender_id());
+
+  message_port_->ReceiveMessage("some-other-sender", kCastWebrtcNamespace,
+                                kValidOfferMessage);
+  const auto& updated_messages = message_port_->posted_messages();
+  EXPECT_EQ(2u, updated_messages.size());
+  const auto second_message_body = json::Parse(updated_messages[1]);
+  EXPECT_TRUE(second_message_body.is_value());
+  const Json::Value& second_answer_body = second_message_body.value()["answer"];
+  EXPECT_TRUE(second_answer_body.isObject());
+  EXPECT_EQ("some-other-sender", session_->negotiated_sender_id());
+}
+
 TEST_F(ReceiverSessionTest, HandlesNoValidStreams) {
   // We shouldn't call OnNegotiated if we failed to negotiate any streams.
   message_port_->ReceiveMessage(kNoAudioOrVideoOfferMessage);
