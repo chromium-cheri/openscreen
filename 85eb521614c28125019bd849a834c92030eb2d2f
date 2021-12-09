@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c69cd6a_7420797f",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-12-09T01:21:00Z",
+      "side": 1,
+      "message": "Since receiver_session is the main public API for streaming, I\u0027d prefer there be no test-only APIs declared on it.  Would it be possible to friend the tests that need access to negotiated_sender_id_?",
+      "revId": "85eb521614c28125019bd849a834c92030eb2d2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
