@@ -16,6 +16,57 @@
       "message": "Went in a different direction for the negotiated sender_id. Thoughts?",
       "revId": "3755820554f51ef6bc963657429ac8e1f271b0e6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd187a18_c57b03aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-12-14T22:59:35Z",
+      "side": 1,
+      "message": "Looks good with one more thing clarified.",
+      "revId": "3755820554f51ef6bc963657429ac8e1f271b0e6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7f9fbb7_6d1c4592",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-12-14T22:59:35Z",
+      "side": 1,
+      "message": "What if we received an offer from sender-id-1, then an offer from sender-id-2? Should we ignore it, accept it (and return an error to sender-id-1), or reject it (and return an error to sender-id-2)?",
+      "revId": "3755820554f51ef6bc963657429ac8e1f271b0e6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0b2c5ca_adb877a0",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-12-14T22:59:35Z",
+      "side": 1,
+      "message": "Add sender_id to this message?",
+      "revId": "3755820554f51ef6bc963657429ac8e1f271b0e6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
