@@ -36,14 +36,14 @@ void PrettyPrintAsciiHex(std::ostream& os, It first, It last) {
       // Output a hex escape sequence for non-printable values.
       os.put('\\');
       os.put('x');
-      char digit = (c >> 4) & 0xf;
-      if (digit >= 0 && digit <= 9) {
+      unsigned char digit = (c >> 4) & 0xf;
+      if (digit <= 9) {
         os.put(digit + '0');
       } else {
         os.put(digit - 10 + 'a');
       }
       digit = c & 0xf;
-      if (digit >= 0 && digit <= 9) {
+      if (digit <= 9) {
         os.put(digit + '0');
       } else {
         os.put(digit - 10 + 'a');
