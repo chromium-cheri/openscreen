@@ -51,6 +51,23 @@
       "message": "The CQ is failing a unit test, which means the code is indeed dead and the failure is unrelated. How do we proceed?",
       "revId": "791f276f62abc88ea3fadd2c69e65eb99555cd27",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "055cf88d_bb2da967",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-19T00:37:52Z",
+      "side": 1,
+      "message": "Ryan, it looks like this patch hit a spurious failure in MdnsProbeTests.TestNoCancelationOnUnrelatedMessages.  Is it possible for this test to flake?  Can we disable this test on Mac to unblock things?",
+      "revId": "791f276f62abc88ea3fadd2c69e65eb99555cd27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
