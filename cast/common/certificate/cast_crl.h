@@ -5,8 +5,6 @@
 #ifndef CAST_COMMON_CERTIFICATE_CAST_CRL_H_
 #define CAST_COMMON_CERTIFICATE_CAST_CRL_H_
 
-#include <openssl/x509.h>
-
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -27,6 +25,9 @@ using Crl = ::cast::certificate::Crl;
 using TbsCrl = ::cast::certificate::TbsCrl;
 using SerialNumberRange = ::cast::certificate::SerialNumberRange;
 
+class ParsedCertificate;
+class TrustStore;
+
 // This class represents the certificate revocation list information parsed from
 // the binary in a protobuf message.
 class CastCRL {
@@ -46,7 +47,7 @@ class CastCRL {
   //
   // Output:
   // Returns true if no certificate in the chain was revoked.
-  bool CheckRevocation(const std::vector<X509*>& trusted_chain,
+  bool CheckRevocation(const std::vector<ParsedCertificate*>& trusted_chain,
                        const DateTime& time) const;
 
  private:
@@ -70,8 +71,6 @@ class CastCRL {
 
   OSP_DISALLOW_COPY_AND_ASSIGN(CastCRL);
 };
-
-struct TrustStore;
 
 // Parses and verifies the CRL used to verify the revocation status of
 // Cast device certificates, using the built-in Cast CRL trust anchors.

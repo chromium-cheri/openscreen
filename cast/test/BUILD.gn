@@ -13,6 +13,7 @@ source_set("unittests") {
     "../../testing/util",
     "../../third_party/googletest:gmock",
     "../../third_party/googletest:gtest",
+    "../common:boringssl_certificate_impl",
     "../common:channel",
     "../common:test_helpers",
     "../common/channel/proto:channel_proto",
@@ -40,6 +41,7 @@ if (is_posix && !build_with_chromium) {
       "../../third_party/googletest:gmock",
       "../../third_party/googletest:gtest",
       "../../util",
+      "../common:boringssl_certificate_impl",
       "../common:certificate",
       "../common:channel",
       "../common:test_helpers",
@@ -56,6 +58,7 @@ if (is_posix && !build_with_chromium) {
       "../../platform:test",
       "../../third_party/boringssl",
       "../../util",
+      "../common:boringssl_certificate_impl",
       "../common:test_helpers",
       "../common/certificate/proto:certificate_proto",
     ]

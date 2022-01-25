@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef CAST_COMMON_CERTIFICATE_TYPES_H_
-#define CAST_COMMON_CERTIFICATE_TYPES_H_
+#ifndef CAST_COMMON_PUBLIC_CERTIFICATE_TYPES_H_
+#define CAST_COMMON_PUBLIC_CERTIFICATE_TYPES_H_
 
 #include <stdint.h>
 
@@ -36,4 +36,4 @@ std::chrono::seconds DateTimeToSeconds(const DateTime& time);
 }  // namespace cast
 }  // namespace openscreen
 
-#endif  // CAST_COMMON_CERTIFICATE_TYPES_H_
+#endif  // CAST_COMMON_PUBLIC_CERTIFICATE_TYPES_H_
