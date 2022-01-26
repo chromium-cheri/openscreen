@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e136792a_0b45ef01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2022-01-26T00:40:47Z",
+      "side": 1,
+      "message": "PTAL, thanks!\n\nNew files in cast/common/public/ are the interface.\n\nboringssl_* are the boringssl implementations of the interface, which is just a regrouping of existing code.\n\nThis CL alone doesn\u0027t work as-is in chromium because there a two integration options, so see the comment in cast/common/BUILD.gn.",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90dcecb8_36f5cc5e",
+        "filename": "cast/common/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2022-01-26T00:40:47Z",
+      "side": 1,
+      "message": "I think there are two options for how to go about merging this into chromium.\n\n1. Rename this something like \"channel_base\" and make a new group(\"channel\") which includes this + the boringssl impl.  Then, everything in libcast will depend on channel_base, and chromium can later point to channel_base the its verifier impl is landed.\n\n2. We could do a multi-change back and forth so we go through the following stages: \"channel\" points to this (\"channel_base\" again?) + boringssl, chromium adds its verifier impl and points directly to \"channel_base\", rename \"channel\" to an alias for \"channel_base\", repoint chromium, this target goes back to where it started as \"channel\" and no boringssl dep.\n\nThe latter is obviously a little more convoluted, but I guess it depends on whether you care that the final state of 1 makes \"channel_base\" the main target.  Do you have an opinion on this?",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
