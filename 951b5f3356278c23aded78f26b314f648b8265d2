@@ -18,6 +18,40 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "220c1aaa_6731049f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "This will take a while to get through so thanks in advance for your patience, however, the overall API shape looks good.  I had some minor feedback on the API, code locations, etc. and a few style things.  I will probably have a feq more comments/questions in future rounds of review.\n\nI have some questions about the safety of the X509 APIs, however, some of this may be pre-existing code that was already understood.  I think having davidben@ or someone review the X509 code would be great if they can spare the time.\n\nIt was hard to tell how much code is new and how much was moved around so some of the things I commented on may be pre-existing.  Maybe we can collect small issues that could be improved into a generic clean-up bug and focus future cleanups on the API and utility layer shared between boringssl and Chromium (as I think the boringssl version will only be used for development and testing after we launch).\n\n\n",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ddc1d55_7f3f8ad5",
+        "filename": "cast/common/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "\"certificate_boringssl\"?",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90dcecb8_36f5cc5e",
@@ -31,6 +65,602 @@
       "writtenOn": "2022-01-26T00:40:47Z",
       "side": 1,
       "message": "I think there are two options for how to go about merging this into chromium.\n\n1. Rename this something like \"channel_base\" and make a new group(\"channel\") which includes this + the boringssl impl.  Then, everything in libcast will depend on channel_base, and chromium can later point to channel_base the its verifier impl is landed.\n\n2. We could do a multi-change back and forth so we go through the following stages: \"channel\" points to this (\"channel_base\" again?) + boringssl, chromium adds its verifier impl and points directly to \"channel_base\", rename \"channel\" to an alias for \"channel_base\", repoint chromium, this target goes back to where it started as \"channel\" and no boringssl dep.\n\nThe latter is obviously a little more convoluted, but I guess it depends on whether you care that the final state of 1 makes \"channel_base\" the main target.  Do you have an opinion on this?",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3988ed62_3eea3b4d",
+        "filename": "cast/common/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "I would go with option #2 but update openscreen targets to manually link in the :certificate_boringssl target (like you\u0027ve done here).  This would break the Chromium roll temporarily until we updated its target to also link :certificate_boringssl.   \n\nLater, Chrome can just switch away from :certificate_boringssl when it\u0027s ready.",
+      "parentUuid": "90dcecb8_36f5cc5e",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdf1541f_88f257e0",
+        "filename": "cast/common/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "Do all of these deps need to be public?",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fab99db5_1ed023fd",
+        "filename": "cast/common/certificate/boringssl_parsed_certificate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "Can these free functions go into the anonymous namespace?",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46a89ac3_f4e1beeb",
+        "filename": "cast/common/certificate/boringssl_parsed_certificate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "Nit: Extra newline",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5db81eba_bf025269",
+        "filename": "cast/common/certificate/boringssl_parsed_certificate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "Is this from openscreen/util/crypto?  It might be more readable for those functions to go into their own namespace, like openscreen::crypto.",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6faee099_a2ad2bf4",
+        "filename": "cast/common/certificate/boringssl_parsed_certificate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "For example, it\u0027s not obvious this came from util/ since there are free functions defined in this same file.",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d6c7d7e_2e09f525",
+        "filename": "cast/common/certificate/boringssl_parsed_certificate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "Are there more specific errors we could return here, as it looks like there are multiple failure modes (bad digest algorithm, failure to init verifier, verification failure)",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "405a8702_48c33fb1",
+        "filename": "cast/common/certificate/boringssl_parsed_certificate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "Can X509_get_pubkey return nullptr?",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bc9044a_9c6b39f5",
+        "filename": "cast/common/certificate/boringssl_parsed_certificate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "I hope that a non-negative |pos| guarantees that the various pointers returned by the getters are non-null.",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e4063f4_1837eb31",
+        "filename": "cast/common/certificate/boringssl_parsed_certificate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "Should this go inside the null-check for policies?",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8b52917_b3863990",
+        "filename": "cast/common/certificate/boringssl_parsed_certificate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "Add comment that this object takes ownership of |cert|?  I know it\u0027s implied by passing as unique_ptr but it can\u0027t hurt",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26c7c7e4_ce1d2a13",
+        "filename": "cast/common/certificate/boringssl_parsed_certificate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "Can you use a more descriptive name here?  I know what \"spki\" stands for but no idea on \"tlv\"",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10b8bdf7_8d1e96bc",
+        "filename": "cast/common/certificate/boringssl_trust_store.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "Nit: No need to update copyright when moving files.",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e4537e9_9ef7ac8a",
+        "filename": "cast/common/certificate/boringssl_trust_store.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "Declaring leaky singletons as static local pointers is preferred, but these don\u0027t seem to be true leaky singletons since you want to be able to reset the pointers...",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e92e5009_c0ed4c19",
+        "filename": "cast/common/certificate/boringssl_trust_store.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "FWIW, this patch has landed now.",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8069742e_077a6896",
+        "filename": "cast/common/certificate/boringssl_trust_store.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "For parsing errors, it could be helpful to log the offending certificate (if we don\u0027t already).  If there isn\u0027t a logging function already to dump the raw bytes as base64, might be useful to add in the future.",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c8038d2_1f90c5a1",
+        "filename": "cast/common/certificate/boringssl_trust_store.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "Eliminating various casts is why I tried to convert all the code to use std::vector\u003cuint8_t\u003e, but it got quite messy.",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d13e7f8_e09b9c19",
+        "filename": "cast/common/certificate/boringssl_trust_store.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "Since the number of certs is known in advance, the TrustStore could take a std::array\u003c2\u003e",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0b27ebf_299258df",
+        "filename": "cast/common/certificate/boringssl_trust_store.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "Do you need to pass a vector? There is only one CRL root.",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb6ab2c3_4ef3c8d2",
+        "filename": "cast/common/certificate/boringssl_trust_store.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "Is this needed?",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3616d097_1ab615bd",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "Can you hold the certificates by pointer-to-const?",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35b6ac92_5aae2ee3",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "s/uint32_t/size_t/",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53bf6b80_72706ccd",
+        "filename": "cast/common/public/certificate_types.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "Would prefer to pass a std::vector\u003cuint8_t\u003e but understand if that is too big a change.  I attempted something like that in https://chromium-review.googlesource.com/c/openscreen/+/3180780 but somehow ended up breaking the tests.\n\nstd::span is C++-20 only and we don\u0027t want to use absl::span in our APIs so maybe this is the best we can do.",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38fc3e04_79559d00",
+        "filename": "cast/common/public/certificate_types.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "Do these functions need to be part of the public API or could they be moved to an implementation folder?",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "420b8fa9_a5d2c410",
+        "filename": "cast/common/public/parsed_certificate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "Could the ParsedCertificate implementations implement move operators so they don\u0027t have to be passed by unique_ptr?",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01b17a28_803dd79d",
+        "filename": "cast/common/public/parsed_certificate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "Document possible error codes",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2397ad5_1eb96739",
+        "filename": "cast/common/public/parsed_certificate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "Document possible error codes for these methods",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17ceedb1_663e71b0",
+        "filename": "cast/common/public/parsed_certificate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "Document this method",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b0461bc_36e52945",
+        "filename": "cast/common/public/parsed_certificate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "How does the caller figure that out from the API?  Should there be a method like size_t GetSerialNumberBitLength()?",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ed8b4f7_4907e41d",
+        "filename": "cast/common/public/parsed_certificate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "Documen terror codes.",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af40eebd_9e729089",
+        "filename": "cast/common/public/trust_store.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "Document possible error codes",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4766265_1ef73f57",
+        "filename": "cast/receiver/application_agent_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "Can you refactor to avoid passing a nullptr?  Can InitStaticCredentialsFromFiles create its own TrustStore using the API?",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6eab7445_51af7841",
+        "filename": "cast/sender/channel/cast_auth_util.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7b3959a_d0f98e4f",
+        "filename": "cast/sender/channel/cast_auth_util.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "This time logic seems backwards .... it would be simpler to convert the not_before and not_after to std::chrono::seconds for comparisons rather than attempting to deal with human calendar math.",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a93c0b16_a8867f4b",
+        "filename": "util/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-01-27T19:03:32Z",
+      "side": 1,
+      "message": "This is potentially problematic if we are using a mix of boringssl and chromium code to handle certificates.",
       "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
