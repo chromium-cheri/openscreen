@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14f4efdd_08eb9f07",
+        "filename": "cast/common/public/certificate_types.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-02-03T23:15:43Z",
+      "side": 1,
+      "message": "Can you document that this must be in UTC (because it\u0027s parsed from an ASN generalized time string).",
+      "revId": "57a6a9e8560b8a743066dd7b7d331c516484d302",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32eee975_98391a69",
+        "filename": "cast/common/public/parsed_certificate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-02-03T23:15:43Z",
+      "side": 1,
+      "message": "Elsewhere DER is represented as std::vector\u003cuint8_t\u003e, a little unfortunate to pass as std::string here, but see my comments about earlier attempts to make types in the certificate code more consistent.",
+      "revId": "57a6a9e8560b8a743066dd7b7d331c516484d302",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "698404c4_0e34aeea",
+        "filename": "cast/common/public/parsed_certificate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-02-03T23:15:43Z",
+      "side": 1,
+      "message": "Can you provide a bit more detail over the syntax of |data| and |signature|?\n\n- Does |data| have any length or alignment requirements?\n\n- Is signature an arbitrary-length integer, big-endian?  Is it fixed-length or arbitrary?  How does its length relate to |algorithm|?",
+      "revId": "57a6a9e8560b8a743066dd7b7d331c516484d302",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

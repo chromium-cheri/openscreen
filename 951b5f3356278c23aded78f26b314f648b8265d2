@@ -141,6 +141,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aae48068_5891452d",
+        "filename": "cast/common/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-02-03T23:15:43Z",
+      "side": 1,
+      "message": "Yup, you\u0027ll have to manually fix the roll, but since Chromium is almost certainly the only one using these targets it should not be a big deal.",
+      "parentUuid": "21db6cb0_3039d0e6",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cdf1541f_88f257e0",
@@ -207,6 +225,24 @@
       "side": 1,
       "message": "These are shared with the TrustStore impl.  They could go in a third separate file if you prefer.",
       "parentUuid": "fab99db5_1ed023fd",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab2431bf_34578f2f",
+        "filename": "cast/common/certificate/boringssl_parsed_certificate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-02-03T23:15:43Z",
+      "side": 1,
+      "message": "I would prefer to move them to e.g. boringssl_util.h, but don\u0027t feel strongly about it.",
+      "parentUuid": "69eb7aa0_4806037a",
       "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -405,6 +441,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d41c5d3c_79959a24",
+        "filename": "cast/common/certificate/boringssl_parsed_certificate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-02-03T23:15:43Z",
+      "side": 1,
+      "message": "Yes.  I did some codesearching and it looks like boringssl does null-check the return value from X509_get_ext.",
+      "parentUuid": "1445e3fb_c77888ec",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e4063f4_1837eb31",
         "filename": "cast/common/certificate/boringssl_parsed_certificate.cc",
         "patchSetId": 2
@@ -434,6 +488,24 @@
       "side": 1,
       "message": "You mean should this go outside its current scope so we also call free(null)?  I don\u0027t see why but I don\u0027t see why not.",
       "parentUuid": "2e4063f4_1837eb31",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c0ab702_7f03bd1f",
+        "filename": "cast/common/certificate/boringssl_parsed_certificate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-02-03T23:15:43Z",
+      "side": 1,
+      "message": "This looks OK as-is; I think I mis-read the indentation when I made that comment.",
+      "parentUuid": "b5130870_68e0b509",
       "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -504,6 +576,24 @@
       "side": 1,
       "message": "TLV typically stands for type-length-value or tag-length-value and is a general encoding style description.  FWIW it\u0027s commonly used as acronym-only in chromium certificate code and our util/ function is also GetSpkiTlv().\n\nAs a result, I\u0027d prefer to either just comment this or change both names.  I don\u0027t think GetSubjectPublicKeyInfoTagLengthValue() is a good name, so maybe GetEncodedSubjectPublicKeyInfo() or GetSubjectPublicKeyInfoDER()?  FYI, this is only hashed for CRL lookup ATM.",
       "parentUuid": "26c7c7e4_ce1d2a13",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e25a003_a34d0382",
+        "filename": "cast/common/certificate/boringssl_parsed_certificate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-02-03T23:15:43Z",
+      "side": 1,
+      "message": "Let\u0027s keep the current name for consistency, but a comment on the base class declaration would be nice to have.",
+      "parentUuid": "09e0cd07_f5efd23e",
       "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -696,6 +786,24 @@
       "side": 1,
       "message": "We need a one argument and two argument version for this and the CRL trust store.  However, test code also calls CreateInstanceFromPemFile().  Currently, this technically allows an arbitrary number of root certificates to be added, although it\u0027s only ever used with one.  We could restrict test code to a limit of two to be consistent with these constructors.  However, we could then debate whether we should use std::array\u003c2\u003e in BoringSSLTrustStore to simplify memory or std::vector, because for the former, iterating of certs_.size() becomes broken.  I\u0027d prefer to punt all of that discussion to a follow-up CL since it\u0027s not very impactful/blocking.",
       "parentUuid": "7d13e7f8_e09b9c19",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79121805_20e1fd76",
+        "filename": "cast/common/certificate/boringssl_trust_store.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-02-03T23:15:43Z",
+      "side": 1,
+      "message": "Yeah, if this needs to be dynamically sized then not worth trying to hack a std::array to make it work.",
+      "parentUuid": "9ea4502a_f0b6a6c6",
       "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -1190,6 +1298,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dbed72b_1fa94f00",
+        "filename": "cast/receiver/application_agent_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-02-03T23:15:43Z",
+      "side": 1,
+      "message": "Not exactly. I was hoping to change the pattern here to clarify how the trust store gets set up for tests, but started looking at the code, and realized it\u0027s complicated.\n\nI find the testing of the trust store confusing, because  InitStaticCredentialsFromFiles seems to want to create and pass back a new, separate trust store, versus using the test APIs in CastTrustStore:: to create a test trust store.\n\nIt\u0027s also not clear how the singleton trust store pointer gets overridden for tests; maybe code that uses the singleton gets bypassed during tests?  But then maybe we don\u0027t need a singleton after all if there is an API that allows the trust store to be passed-in?\n\nThere are probably a few different ways to make this a little clearer, but they are probably out of scope for this CL, and I can\u0027t argue that they are a super high priority.",
+      "parentUuid": "294e87ec_b22f1479",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6eab7445_51af7841",
@@ -1291,6 +1417,24 @@
       "side": 1,
       "message": "In case this isn\u0027t clear, this isn\u0027t a new dep, it was just missing.\n\nOne option would be to pull out all x509-related utilities into something like //util:x509 (or similar, since we don\u0027t have a util/crypto/BUILD.gn).  Then we could use a GN visibility rule to limit who depends on it.  We could further add a DEPS include_rule that prohibits \"openssl/x509*.h\" except certain directories/files.  That doesn\u0027t necessarily prevent creating a transitive dep, but _would_ give us the ability to manually check that chrome code is definitely not linking to //util:x509.\n\nMixing it currently seems unlikely though since x509*.h is limited to test code and these boringssl_* files.\n\nWDYT?",
       "parentUuid": "a93c0b16_a8867f4b",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20680291_8d750edc",
+        "filename": "util/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-02-03T23:15:43Z",
+      "side": 1,
+      "message": "I think pulling out all of the boringssl utilities into their own target would be a good step, then we can use GN visiblity and/or DEPS to limit who can use them.\n\nFeel free to do this in a follow-up patch or leave a TODO however, since it sounds like Chrome won\u0027t actually be linking in anything once this refactor lands.",
+      "parentUuid": "6973cc15_7cbb1da4",
       "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
