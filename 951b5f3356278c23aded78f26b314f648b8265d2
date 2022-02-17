@@ -247,6 +247,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "430088b6_db0f3630",
+        "filename": "cast/common/certificate/boringssl_parsed_certificate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2022-02-17T14:18:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab2431bf_34578f2f",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46a89ac3_f4e1beeb",
@@ -457,6 +475,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2666f8e_25b215f8",
+        "filename": "cast/common/certificate/boringssl_parsed_certificate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2022-02-17T14:18:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d41c5d3c_79959a24",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e4063f4_1837eb31",
@@ -594,6 +630,24 @@
       "side": 1,
       "message": "Let\u0027s keep the current name for consistency, but a comment on the base class declaration would be nice to have.",
       "parentUuid": "09e0cd07_f5efd23e",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48ba1211_2c7654f6",
+        "filename": "cast/common/certificate/boringssl_parsed_certificate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2022-02-17T14:18:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e25a003_a34d0382",
       "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -1435,6 +1489,24 @@
       "side": 1,
       "message": "I think pulling out all of the boringssl utilities into their own target would be a good step, then we can use GN visiblity and/or DEPS to limit who can use them.\n\nFeel free to do this in a follow-up patch or leave a TODO however, since it sounds like Chrome won\u0027t actually be linking in anything once this refactor lands.",
       "parentUuid": "6973cc15_7cbb1da4",
+      "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b3f3c94_36825fe7",
+        "filename": "util/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2022-02-17T14:18:32Z",
+      "side": 1,
+      "message": "I added this to the follow-up list.  Note that separating these targets doesn\u0027t completely stop us from linking boringssl in Chrome.  At least some of the other uses of boringssl are streaming: RandomBytes, AES; CRL verification: SHA256 hashing.",
+      "parentUuid": "20680291_8d750edc",
       "revId": "951b5f3356278c23aded78f26b314f648b8265d2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
