@@ -67,6 +67,9 @@ class ParsedCertificate {
                                 const ConstDataSpan& signature) const = 0;
 
   virtual bool HasPolicyOid(const ConstDataSpan& oid) const = 0;
+
+  virtual void SetNotBeforeTimeForTesting(time_t not_before) = 0;
+  virtual void SetNotAfterTimeForTesting(time_t not_after) = 0;
 };
 
 }  // namespace cast
