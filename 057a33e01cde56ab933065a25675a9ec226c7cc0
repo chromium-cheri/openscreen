@@ -33,6 +33,24 @@
       "message": "I would slightly prefer these to accept a std::chrono::seconds value, since you can convert the DateTime returned by the getters to std::chrono::seconds.  Also we generally prefer using the std::chrono types in the library.\n\nHowever don\u0027t feel strongly since that change requires more annoying conversions (via std::chrono::system_clock::to_time_t, or something like it), and it sounds like you just want to plug in a floating value from the fuzz test generator.  If it\u0027s left as time_t, maybe note that the reason is for for fuzz testing.\n\nEither way, can you please document the meaning of the argument, i.e. // Seconds since the epoch.",
       "revId": "057a33e01cde56ab933065a25675a9ec226c7cc0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a85f29e_09c6fda9",
+        "filename": "cast/common/public/parsed_certificate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2022-03-01T00:19:12Z",
+      "side": 1,
+      "message": "Since this is just plugging in from the fuzzer for testing, leaving as time_t.  But I documented the parameters.",
+      "parentUuid": "2248bd7f_2331603f",
+      "revId": "057a33e01cde56ab933065a25675a9ec226c7cc0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
