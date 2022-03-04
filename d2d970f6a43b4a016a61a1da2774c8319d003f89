@@ -69,6 +69,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc59e998_887b1b2e",
+        "filename": "cast/common/certificate/cast_cert_validator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2022-03-04T23:32:10Z",
+      "side": 1,
+      "message": "Ack per other comment.",
+      "parentUuid": "4dff8e88_d872744f",
+      "revId": "d2d970f6a43b4a016a61a1da2774c8319d003f89",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1a18537_d3d10498",
@@ -176,6 +194,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff5e0a04_c7d91226",
+        "filename": "cast/sender/channel/cast_auth_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2022-03-04T23:32:10Z",
+      "side": 1,
+      "message": "The issue is that for the chromium implementation, TrustStore can\u0027t be const because FindCertificatePath.  So none of the TrustStore params can be const\u0026, unless we want to const_cast\u003c\u003e/mutable in the chromium implementation.  I\u0027ll leave that as a note in the cleanup bug if we want to discuss further.  For now I\u0027ll leave them as non-const pointers.",
+      "parentUuid": "dcd21cb0_6a16a0ac",
+      "revId": "d2d970f6a43b4a016a61a1da2774c8319d003f89",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6018647_bd650c10",
@@ -189,6 +225,24 @@
       "writtenOn": "2022-03-04T19:07:06Z",
       "side": 1,
       "message": "Ditto",
+      "revId": "d2d970f6a43b4a016a61a1da2774c8319d003f89",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfc52c08_7f95480d",
+        "filename": "cast/sender/channel/cast_auth_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2022-03-04T23:32:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f6018647_bd650c10",
       "revId": "d2d970f6a43b4a016a61a1da2774c8319d003f89",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
