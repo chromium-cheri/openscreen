@@ -71,6 +71,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5f9832ae_244bb51a",
+        "filename": "cast/sender/channel/cast_auth_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2022-03-04T20:33:07Z",
+      "side": 1,
+      "message": "|crl_trust_store| can be null in tests, but it isn\u0027t checked (its use is skipped because of other parameters).  So it could still be const\u0026 but would you rather it remain a pointer in that case?  optional\u003c\u003e is also a possibility, although it seems like a strange use for it.",
+      "parentUuid": "d1a18537_d3d10498",
+      "revId": "d2d970f6a43b4a016a61a1da2774c8319d003f89",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f6018647_bd650c10",
         "filename": "cast/sender/channel/cast_auth_util.h",
         "patchSetId": 1
@@ -103,6 +121,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fefe63c9_eff3ab26",
+        "filename": "cast/test/cast_socket_e2e_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2022-03-04T20:33:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e4c474a_a1667223",
+      "revId": "d2d970f6a43b4a016a61a1da2774c8319d003f89",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b48984ad_5e09329f",
@@ -116,6 +152,24 @@
       "writtenOn": "2022-03-04T19:07:06Z",
       "side": 1,
       "message": "|cast_trust_store| is only used to construct the SenderSocketFactory, so I would be okay just calling this inline.",
+      "revId": "d2d970f6a43b4a016a61a1da2774c8319d003f89",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9814584_a35448ff",
+        "filename": "cast/test/cast_socket_e2e_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2022-03-04T20:33:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b48984ad_5e09329f",
       "revId": "d2d970f6a43b4a016a61a1da2774c8319d003f89",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
