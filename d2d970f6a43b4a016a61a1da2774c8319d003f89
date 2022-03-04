@@ -35,6 +35,23 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e4d8cb2_03fa8689",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-03-04T23:03:14Z",
+      "side": 1,
+      "message": "Optional to clean up the pointer passing.   Maybe cast_auth_util should be converted to an object so there is an API to override parameters like the CRL trust store.",
+      "revId": "d2d970f6a43b4a016a61a1da2774c8319d003f89",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4dff8e88_d872744f",
@@ -137,6 +154,24 @@
       "side": 1,
       "message": "Actually, I remembered why FindCertificatePath wasn\u0027t already const: the chromium implementation won\u0027t be able to be const because of TrustStoreInMemory needing to be mutable.\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:net/cert/internal/path_builder.h;l\u003d164",
       "parentUuid": "f69d0ffe_b131736e",
+      "revId": "d2d970f6a43b4a016a61a1da2774c8319d003f89",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcd21cb0_6a16a0ac",
+        "filename": "cast/sender/channel/cast_auth_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-03-04T23:03:14Z",
+      "side": 1,
+      "message": "It looks like the nullptr crl_trust_store is only used in tests.  In which case, it should be possible to pass as reference here for use in production code, and as a pointer below for tests.\n\nI think |cast_strust_store| can be passed as reference all the way down as it\u0027s mandatory.",
+      "parentUuid": "e7414c56_9972dc9b",
       "revId": "d2d970f6a43b4a016a61a1da2774c8319d003f89",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
