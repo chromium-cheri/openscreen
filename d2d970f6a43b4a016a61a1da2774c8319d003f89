@@ -125,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e7414c56_9972dc9b",
+        "filename": "cast/sender/channel/cast_auth_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2022-03-04T21:59:09Z",
+      "side": 1,
+      "message": "Actually, I remembered why FindCertificatePath wasn\u0027t already const: the chromium implementation won\u0027t be able to be const because of TrustStoreInMemory needing to be mutable.\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:net/cert/internal/path_builder.h;l\u003d164",
+      "parentUuid": "f69d0ffe_b131736e",
+      "revId": "d2d970f6a43b4a016a61a1da2774c8319d003f89",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f6018647_bd650c10",
         "filename": "cast/sender/channel/cast_auth_util.h",
         "patchSetId": 1
