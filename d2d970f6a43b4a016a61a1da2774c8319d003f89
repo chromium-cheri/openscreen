@@ -16,6 +16,108 @@
       "message": "PTAL, thanks!",
       "revId": "d2d970f6a43b4a016a61a1da2774c8319d003f89",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c760ccc_45c6c16f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-03-04T19:07:06Z",
+      "side": 1,
+      "message": "Nice cleanup!  Thanks!",
+      "revId": "d2d970f6a43b4a016a61a1da2774c8319d003f89",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dff8e88_d872744f",
+        "filename": "cast/common/certificate/cast_cert_validator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-03-04T19:07:06Z",
+      "side": 1,
+      "message": "const ref?",
+      "revId": "d2d970f6a43b4a016a61a1da2774c8319d003f89",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1a18537_d3d10498",
+        "filename": "cast/sender/channel/cast_auth_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-03-04T19:07:06Z",
+      "side": 1,
+      "message": "Can either of these be passed as a const ref?",
+      "revId": "d2d970f6a43b4a016a61a1da2774c8319d003f89",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6018647_bd650c10",
+        "filename": "cast/sender/channel/cast_auth_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-03-04T19:07:06Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "d2d970f6a43b4a016a61a1da2774c8319d003f89",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e4c474a_a1667223",
+        "filename": "cast/test/cast_socket_e2e_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-03-04T19:07:06Z",
+      "side": 1,
+      "message": "calling .value() on an error will fail an assertion, so you can just write\n\ncredentials_ \u003d GenerateCredentialsForTesting(\"Device ID\").value();",
+      "revId": "d2d970f6a43b4a016a61a1da2774c8319d003f89",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b48984ad_5e09329f",
+        "filename": "cast/test/cast_socket_e2e_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-03-04T19:07:06Z",
+      "side": 1,
+      "message": "|cast_trust_store| is only used to construct the SenderSocketFactory, so I would be okay just calling this inline.",
+      "revId": "d2d970f6a43b4a016a61a1da2774c8319d003f89",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
