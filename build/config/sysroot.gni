@@ -11,14 +11,16 @@ declare_args() {
   # The relative path to directory containing sysroot images
   target_sysroot_dir = "../"
 
-  use_sysroot = current_cpu == "arm" || current_cpu == "arm64"
+  # We only use sysroots for cross compilation on Linux. Modern Mac M1
+  # processors report current_cpu as "arm64" but should not use sysroots.
+  use_sysroot = is_linux && (current_cpu == "arm" || current_cpu == "arm64")
 
   sysroot_platform = "sid"
 }
 
 if (use_sysroot) {
   assert(sysroot_platform == "sid" || sysroot_platform == "stretch")
-  assert(current_cpu == "arm" || current_cpu == "arm64")
+  assert(is_linux && (current_cpu == "arm" || current_cpu == "arm64"))
 
   # By default build against a sysroot image downloaded from Cloud Storage
   # during gclient runhooks.
