@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79626f5d_17ad3102",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-03-14T20:27:16Z",
+      "side": 1,
+      "message": "Works for me; I wonder if any of the other -m flags apply to M1 though.\n\nIf you could wait until a downstream patch lands to fix the chromium_* builds that would be great. ",
+      "revId": "94dcf1182e8f9e160547a5a1c75d90734aa437d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8af93c1a_d4fd5ff0",
+        "filename": "build/config/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-03-14T20:27:16Z",
+      "side": 1,
+      "message": "Only the --target flag seems to be specific to Linux?",
+      "revId": "94dcf1182e8f9e160547a5a1c75d90734aa437d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81220c15_fae9781f",
+        "filename": "build/config/sysroot.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-03-14T20:27:16Z",
+      "side": 1,
+      "message": "Side comment: If we base our sysroot on \"sid\", which is the debian unstable trunk, that would imply that we are refreshing it regularly from upstream ... but we\u0027re not as far as I know.",
+      "revId": "94dcf1182e8f9e160547a5a1c75d90734aa437d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
