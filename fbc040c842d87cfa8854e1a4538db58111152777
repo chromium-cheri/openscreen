@@ -16,6 +16,57 @@
       "message": "Lemme know if you have any suggestions for test coverage. I\u0027ll take a look at adding some tests to the receiver tomorrow morning.",
       "revId": "fbc040c842d87cfa8854e1a4538db58111152777",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c35f8973_f737c6a0",
+        "filename": "cast/streaming/clock_drift_smoother.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-03-15T17:37:07Z",
+      "side": 1,
+      "message": "This could be \u003c\u003d instead of \u003c, but with the logic you added you will still end up calling Reset() even if now \u003d\u003d last_update_time_.",
+      "revId": "fbc040c842d87cfa8854e1a4538db58111152777",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6309d721_6dd396c0",
+        "filename": "cast/streaming/receiver_base.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-03-15T17:37:07Z",
+      "side": 1,
+      "message": "FYI, I didn\u0027t see a usage example?",
+      "revId": "fbc040c842d87cfa8854e1a4538db58111152777",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66d07efb_26ca7506",
+        "filename": "cast/streaming/receiver_base.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-03-15T17:37:07Z",
+      "side": 1,
+      "message": "Well the default was definitely too low as a 60Hz display will need at least 16ms to wait for vsync for the frame to appear.\n\nI\u0027d like to understand better whose job it is to schedule the frame to appear at its intended playout time; I don\u0027t see any playout timestamp data being propagated through this API so is that libcast\u0027s job?\n\nNote that increasing this constant beyond its actual, real-world value will reduce the time window for receiving retransmissions, so there will be more skipped frames in poor network conditions.  Ideally this would be set to the actual value for the implementation so the retransmission window can be maximized.",
+      "revId": "fbc040c842d87cfa8854e1a4538db58111152777",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
