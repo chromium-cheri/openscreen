@@ -62,7 +62,9 @@ class ReceiverBase {
   // otherwise fully process a frame for on-time playback. This information is
   // used by the Receiver to decide whether to skip past frames that have
   // arrived too late. This method can be called repeatedly to make adjustments
-  // based on changing environmental conditions.
+  // based on changing environmental conditions. It is HIGHLY recommended that
+  // consumers of this API provide a proper processing time, otherwise there
+  // may be significantly larger playout delays.
   //
   // Default setting: kDefaultPlayerProcessingTime
   virtual void SetPlayerProcessingTime(Clock::duration needed_time) = 0;
@@ -95,7 +97,10 @@ class ReceiverBase {
   virtual EncodedFrame ConsumeNextFrame(absl::Span<uint8_t> buffer) = 0;
 
   // The default "player processing time" amount. See SetPlayerProcessingTime().
-  static constexpr std::chrono::milliseconds kDefaultPlayerProcessingTime{5};
+  // This value is based on real world experimentation, however may vary
+  // widely depending on the platform of the receiver and what type of
+  // decoder is available.
+  static constexpr std::chrono::milliseconds kDefaultPlayerProcessingTime{100};
 
   // Returned by AdvanceToNextFrame() when there are no frames currently ready
   // for consumption.
