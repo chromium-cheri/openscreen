@@ -203,12 +203,20 @@ hooks = [
     'condition': 'host_os == "linux" and not build_with_chromium',
   },
   {
-    'name': 'clang_format_mac',
+    'name': 'clang_format_mac_x64',
     'pattern': '.',
     'action': [ 'download_from_google_storage.py', '--no_resume', '--no_auth',
                 '--bucket', 'chromium-clang-format',
-                '-s', 'buildtools/mac/clang-format.sha1' ],
-    'condition': 'host_os == "mac" and not build_with_chromium',
+                '-s', 'buildtools/mac/clang-format.x64.sha1', '-o', 'clang-format' ],
+    'condition': 'host_os == "mac" and host_cpu == "x64" and not build_with_chromium',
+  },
+  {
+    'name': 'clang_format_mac_arm64',
+    'pattern': '.',
+    'action': [ 'download_from_google_storage.py', '--no_resume', '--no_auth',
+                '--bucket', 'chromium-clang-format',
+                '-s', 'buildtools/mac/clang-format.arm64.sha1', '-o', 'clang-format' ],
+    'condition': 'host_os == "mac" and host_cpu == "arm64" and not build_with_chromium',
   },
 ]
 
