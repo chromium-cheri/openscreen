@@ -30,6 +30,7 @@ TEST(CastStreamingAppIdsTest, Test) {
   EXPECT_TRUE(IsCastStreamingReceiverAppId("8E6C866D"));
   EXPECT_TRUE(IsCastStreamingReceiverAppId("96084372"));
   EXPECT_TRUE(IsCastStreamingReceiverAppId("BFD92C23"));
+  EXPECT_TRUE(IsCastStreamingReceiverAppId("35708D08"));
   EXPECT_FALSE(IsCastStreamingReceiverAppId("DEADBEEF"));
   EXPECT_FALSE(IsCastStreamingReceiverAppId(""));
   EXPECT_FALSE(IsCastStreamingReceiverAppId("foo"));
@@ -47,6 +48,7 @@ TEST(CastStreamingAppIdsTest, Test) {
   EXPECT_STREQ("8E6C866D", GetAndroidMirroringAudioOnlyAppId());
   EXPECT_STREQ("96084372", GetAndroidAppStreamingAudioVideoAppId());
   EXPECT_STREQ("BFD92C23", GetIosAppStreamingAudioVideoAppId());
+  EXPECT_STREQ("35708D08", GetPlatformSharedAppStreamingAudioVideoAppId());
 }
 
 }  // namespace cast
