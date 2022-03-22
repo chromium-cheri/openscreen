@@ -49,5 +49,29 @@ TEST(CastStreamingAppIdsTest, Test) {
   EXPECT_STREQ("BFD92C23", GetIosAppStreamingAudioVideoAppId());
 }
 
+TEST(CastStreamingAppIdsTest,
+     TestGetRemoteDisplayAppStreamingAudioVideoAppIds) {
+  auto app_ids = GetRemoteDisplayAppStreamingAudioVideoAppIds();
+  EXPECT_TRUE(std::find(app_ids.begin(), app_ids.end(), "35708D08") !=
+              app_ids.end());
+  EXPECT_TRUE(std::find(app_ids.begin(), app_ids.end(), "E28F3A40") !=
+              app_ids.end());
+  EXPECT_TRUE(std::find(app_ids.begin(), app_ids.end(), "5864F981") !=
+              app_ids.end());
+  EXPECT_TRUE(std::find(app_ids.begin(), app_ids.end(), "225DAEF5") !=
+              app_ids.end());
+  EXPECT_TRUE(std::find(app_ids.begin(), app_ids.end(), "D4BA69B9") !=
+              app_ids.end());
+  EXPECT_TRUE(std::find(app_ids.begin(), app_ids.end(), "B27C9432") !=
+              app_ids.end());
+
+  EXPECT_TRUE(IsCastStreamingReceiverAppId("35708D08"));
+  EXPECT_TRUE(IsCastStreamingReceiverAppId("E28F3A40"));
+  EXPECT_TRUE(IsCastStreamingReceiverAppId("5864F981"));
+  EXPECT_TRUE(IsCastStreamingReceiverAppId("225DAEF5"));
+  EXPECT_TRUE(IsCastStreamingReceiverAppId("D4BA69B9"));
+  EXPECT_TRUE(IsCastStreamingReceiverAppId("B27C9432"));
+}
+
 }  // namespace cast
 }  // namespace openscreen
