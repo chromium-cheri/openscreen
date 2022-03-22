@@ -58,6 +58,10 @@ constexpr const char* GetIosAppStreamingAudioVideoAppId() {
   return "BFD92C23";
 }
 
+// Returns the app ID for the audio and video streaming receiver associated with
+// the remote display API.
+const std::vector<std::string>& GetRemoteDisplayAppStreamingAudioVideoAppIds();
+
 }  // namespace cast
 }  // namespace openscreen
 
