@@ -55,6 +55,7 @@ void StopTracing() {
   // most of their time executing the TraceLoggingPlatform methods, yet those
   // methods are supposed to be super-cheap and take near-zero time to execute!
   int iters = 0;
+  (void)iters;
   while (g_use_count.load(std::memory_order_relaxed) != 0) {
     assert(iters < 1024);
     std::this_thread::yield();
