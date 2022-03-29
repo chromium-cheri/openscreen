@@ -12,6 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include <chrono>
+#include <ostream>
 #include <ratio>
 
 namespace openscreen {
@@ -106,6 +107,10 @@ enum class AudioCodec { kAac, kOpus, kNotSpecified };
 enum class VideoCodec { kH264, kVp8, kHevc, kNotSpecified, kVp9, kAv1 };
 
 enum class CastMode : uint8_t { kMirroring, kRemoting };
+
+std::ostream& operator<<(std::ostream& os, AudioCodec codec);
+std::ostream& operator<<(std::ostream& os, VideoCodec codec);
+std::ostream& operator<<(std::ostream& os, CastMode cast_mode);
 
 }  // namespace cast
 }  // namespace openscreen
