@@ -345,12 +345,16 @@ message RpcMessage {
         "RPC_R_SETCDM";
 
     // Remoting setup
+    //
+    // Sent FROM the sender TO the streaming receiver .
     RPC_INTERNAL = 0;
     RPC_ACQUIRE_RENDERER = 1;
     RPC_ACQUIRE_RENDERER_DONE = 2;
     RPC_ACQUIRE_DEMUXER = 5;
 
     // Renderer message
+    //
+    // Sent FROM the sender TO the streaming receiver .
     RPC_R_INITIALIZE = 1000;
     RPC_R_FLUSHUNTIL = 1001;
     RPC_R_STARTPLAYINGFROM = 1002;
@@ -358,11 +362,15 @@ message RpcMessage {
     RPC_R_SETVOLUME = 1004;
 
     // Renderer callbacks
+    //
+    // Sent FROM the streaming receiver TO the sender.
     RPC_R_INITIALIZE_CALLBACK = 1100;
     RPC_R_FLUSHUNTIL_CALLBACK = 1101;
     RPC_R_SETCDM_CALLBACK = 1102;
 
     // Renderer client message
+    //
+    // Sent FROM the streaming receiver TO the sender.
     RPC_RC_ONTIMEUPDATE = 2000;
     RPC_RC_ONBUFFERINGSTATECHANGE = 2001;
     RPC_RC_ONENDED = 2002;
@@ -374,12 +382,16 @@ message RpcMessage {
     RPC_RC_ONVIDEOCONFIGCHANGE = 2010;
 
     // DemuxerStream message
+    //
+    // Sent FROM the streaming receiver TO the sender.
     RPC_DS_INITIALIZE = 3000;
     RPC_DS_READUNTIL = 3001;
     RPC_DS_ENABLEBITSTREAMCONVERTER = 3002;
     RPC_DS_ONERROR = 3003;
 
     // DemuxerStream callbacks
+    //
+    // Sent FROM the sender TO the streaming receiver .
     RPC_DS_INITIALIZE_CALLBACK = 3100;
     RPC_DS_READUNTIL_CALLBACK = 3101;
   };
