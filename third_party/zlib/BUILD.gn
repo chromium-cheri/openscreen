@@ -8,7 +8,11 @@ config("zlib_config") {
 
 config("zlib_internal_config") {
   defines = [ "ZLIB_IMPLEMENTATION" ]
-  cflags = [ "-w" ]  # Disable all warnings.
+  cflags = [
+    "-Wno-implicit-function-declaration",
+    "-Wno-deprecated-non-prototype",
+    "-Wno-implicit-fallthrough",
+  ]
 }
 
 static_library("zlib") {
