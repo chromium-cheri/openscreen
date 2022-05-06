@@ -455,6 +455,8 @@ void Receiver::ScheduleFrameReadyCheck(Clock::time_point when) {
           const int next_frame_buffer_size = AdvanceToNextFrame();
           if (next_frame_buffer_size != kNoFramesReady) {
             consumer_->OnFramesReady(next_frame_buffer_size);
+          } else {
+            ScheduleFrameReadyCheck(now_() + std::chrono::milliseconds(2));
           }
         }
       },

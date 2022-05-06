@@ -54,8 +54,17 @@ class RpcMessenger {
   void RegisterMessageReceiverCallback(Handle handle,
                                        ReceiveMessageCallback callback);
 
+  // Register a component to receive messages via the given
+  // ReceiveMessageCallback for any handle for which a specific ReceiverCallback
+  // has not been registered via the above message.
+  void RegisterDefaultMessageReceiverCallback(ReceiveMessageCallback callback);
+
   // Allows components to unregister in order to stop receiving message.
   void UnregisterMessageReceiverCallback(Handle handle);
+
+  // Clears any default callback as set via
+  // RegisterDefaultMessageReceiverCallback().
+  void ClearDefaultMessageReceiverCallback();
 
   // Distributes an incoming RPC message to the registered (if any) component.
   // The |serialized_message| should be already base64-decoded and ready for
@@ -101,6 +110,8 @@ class RpcMessenger {
 
   // Callback that is ran to send a serialized message.
   SendMessageCallback send_message_cb_;
+
+  ReceiveMessageCallback default_callback_;
 
   WeakPtrFactory<RpcMessenger> weak_factory_{this};
 };

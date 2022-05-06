@@ -42,6 +42,8 @@ class FakeMessenger {
   void set_handle(RpcMessenger::Handle handle) { handle_ = handle; }
   RpcMessenger::Handle handle() { return handle_; }
 
+  MOCK_METHOD1(DefaultCallback, void(std::unique_ptr<RpcMessage>));
+
  private:
   std::unique_ptr<RpcMessage> received_rpc_;
   int received_count_ = 0;
@@ -156,6 +158,29 @@ TEST_F(RpcMessengerTest, Registration) {
 
   rpc_messenger_->UnregisterMessageReceiverCallback(handle);
   ASSERT_FALSE(rpc_messenger_->IsRegisteredForTesting(handle));
+}
+
+TEST_F(RpcMessengerTest, ProcessMessageWithUnregisteredHandleDefaultCB) {
+  // Send message for RPC messenger to process.
+  RpcMessage sent_rpc;
+  RpcMessenger::Handle different_handle = fake_messenger_->handle() + 1;
+  sent_rpc.set_handle(different_handle);
+  sent_rpc.set_proc(RpcMessage::RPC_R_SETVOLUME);
+  sent_rpc.set_double_value(4.5);
+
+  rpc_messenger_->RegisterDefaultMessageReceiverCallback(
+      std::bind(&RpcMessengerTest::DefaultCallback, this));
+  EXPECT_CALL(DefaultCallback(_))
+      .WillOnce([sent_rpc](std::unique_ptr<RpcMessage> message) {
+        EXPECT_EQ(message->handle(), sent_rpc.handle());
+        EXPECT_EQ(message->proc(), sent_rpc.proc());
+        ASSERT_EQ(message->has_double_value(), sent_rpc.has_double_value());
+        EXPECT_EQ(message->double_value(), sent_rpc.double_value());
+      });
+  ProcessMessage(sent_rpc);
+
+  // We shouldn't have gotten the message since the handle is different.
+  ASSERT_EQ(0, fake_messenger_->received_count());
 }
 
 }  // namespace cast

@@ -43,8 +43,9 @@ constexpr RpcMessenger::Handle RpcMessenger::kAcquireDemuxerHandle;
 constexpr RpcMessenger::Handle RpcMessenger::kFirstHandle;
 
 RpcMessenger::RpcMessenger(SendMessageCallback send_message_cb)
-    : next_handle_(kFirstHandle),
-      send_message_cb_(std::move(send_message_cb)) {}
+    : next_handle_(kFirstHandle), send_message_cb_(std::move(send_message_cb)) {
+  ClearDefaultMessageReceiverCallback();
+}
 
 RpcMessenger::~RpcMessenger() {
   receive_callbacks_.clear();
@@ -62,8 +63,20 @@ void RpcMessenger::RegisterMessageReceiverCallback(
   receive_callbacks_.emplace_back(handle, std::move(callback));
 }
 
+void RegisterDefaultMessageReceiverCallback(ReceiveMessageCallback callback) {
+  default_callback_ = std::move(callback);
+}
+
 void RpcMessenger::UnregisterMessageReceiverCallback(RpcMessenger::Handle handle) {
   receive_callbacks_.erase_key(handle);
+}
+
+void ClearDefaultMessageReceiverCallback() {
+  RegisterDefaultMessageReceiverCallback(
+      [](std::unique_ptr<RpcMessage> message) {
+        OSP_VLOG << "Dropping message due to unregistered handle: "
+                 << message->handle();
+      })
 }
 
 void RpcMessenger::ProcessMessageFromRemote(const uint8_t* message,
@@ -80,8 +93,7 @@ void RpcMessenger::ProcessMessageFromRemote(const uint8_t* message,
 void RpcMessenger::ProcessMessageFromRemote(std::unique_ptr<RpcMessage> message) {
   const auto entry = receive_callbacks_.find(message->handle());
   if (entry == receive_callbacks_.end()) {
-    OSP_VLOG << "Dropping message due to unregistered handle: "
-             << message->handle();
+    default_callback_();
     return;
   }
   entry->second(std::move(message));
