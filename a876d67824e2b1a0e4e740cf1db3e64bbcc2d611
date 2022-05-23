@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "902153f1_c8bad345",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000805
+      },
+      "writtenOn": "2022-05-23T19:39:38Z",
+      "side": 0,
+      "message": "This is a user-declared (and deleted) copy constructor.  It\u0027s unnecessary since vector\u003cunique_ptr\u003e is a move-only type, so copying is deleted anyway.\n\nSince it\u0027s user-declared it also deletes the move constructor, which I suspect was an unintentional side effect that has no effect in the code anyway (i.e. I suspect we never attempt to move this).  Removing the user declaration also re-enables move construction, but that seems OK.\n\nThese declarations prevented aggregate init of this struct within this file (though I forget where without test-compiling the file again).",
+      "parentUuid": "c3da909c_355e5ff8",
+      "revId": "a876d67824e2b1a0e4e740cf1db3e64bbcc2d611",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1dd1ac71_feb3d791",
         "filename": "tools/cddl/parse.cc",
         "patchSetId": 1
