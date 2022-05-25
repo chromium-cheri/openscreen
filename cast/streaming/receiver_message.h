@@ -47,9 +47,8 @@ struct ReceiverError {
   Json::Value ToJson() const;
   static ErrorOr<ReceiverError> Parse(const Json::Value& value);
 
-  // Error code.
-  // TODO(issuetracker.google.com/184766188): Error codes should be well
-  // defined.
+  // Error code. The exact value of this code is implementation specific as
+  // it is not specified in the streaming session protocol.
   int32_t code = -1;
 
   // Error description.
