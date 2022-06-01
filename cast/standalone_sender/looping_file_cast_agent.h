@@ -16,6 +16,7 @@
 #include "cast/common/channel/connection_namespace_handler.h"
 #include "cast/common/channel/virtual_connection_router.h"
 #include "cast/common/public/cast_socket.h"
+#include "cast/common/public/trust_store.h"
 #include "cast/sender/public/sender_socket_factory.h"
 #include "cast/standalone_sender/connection_settings.h"
 #include "cast/standalone_sender/looping_file_sender.h"
@@ -75,8 +76,12 @@ class LoopingFileCastAgent final
 
   // |shutdown_callback| is invoked after normal shutdown, whether initiated
   // sender- or receiver-side; or, for any fatal error.
+  //
+  // NOTE: if either of the trust stores are passed as |nullptr|, a default
+  // generated one will be used instead.
   LoopingFileCastAgent(TaskRunner* task_runner,
-                       ShutdownCallback shutdown_callback);
+                       ShutdownCallback shutdown_callback,
+                       std::unique_ptr<TrustStore> cast_trust_store);
   ~LoopingFileCastAgent();
 
   // Connect to a Cast Receiver, and start the workflow to establish a
