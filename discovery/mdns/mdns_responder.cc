@@ -5,6 +5,7 @@
 #include "discovery/mdns/mdns_responder.h"
 
 #include <array>
+#include <ostream>
 #include <string>
 #include <utility>
 
@@ -520,9 +521,9 @@ void MdnsResponder::ProcessQueries(
     const std::vector<MdnsQuestion>& questions,
     const std::vector<MdnsRecord>& known_answers) {
   for (const auto& question : questions) {
-    OSP_DVLOG << "\tProcessing mDNS Query for domain: '"
-              << question.name().ToString() << "', type: '"
-              << question.dns_type() << "' from '" << src << "'";
+    OSP_DVLOG << "\tProcessing mDNS Query for domain: '" << question.name()
+              << "', type: '" << question.dns_type() << "' from '" << src
+              << "'";
 
     // NSEC records should not be queried for.
     if (question.dns_type() == DnsType::kNSEC) {
@@ -603,13 +604,13 @@ void MdnsResponder::SendResponse(
 
   // Send the response only if it contains answers to the query.
   OSP_DVLOG << "\tCompleted Processing mDNS Query for domain: '"
-            << question.name().ToString() << "', type: '" << question.dns_type()
+            << question.name() << "', type: '" << question.dns_type()
             << "', with " << message.answers().size() << " results:";
   for (const auto& record : message.answers()) {
-    OSP_DVLOG << "\t\tanswer (" << record.ToString() << ")";
+    OSP_DVLOG << "\t\tanswer (" << record << ")";
   }
   for (const auto& record : message.additional_records()) {
-    OSP_DVLOG << "\t\tadditional record ('" << record.ToString() << ")";
+    OSP_DVLOG << "\t\tadditional record ('" << record << ")";
   }
 
   if (!message.answers().empty()) {
