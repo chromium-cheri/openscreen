@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <cctype>
 #include <limits>
+#include <ostream>
 #include <sstream>
 #include <vector>
 
@@ -121,10 +122,6 @@ DomainName& DomainName::operator=(const DomainName& rhs) = default;
 
 DomainName& DomainName::operator=(DomainName&& rhs) = default;
 
-std::string DomainName::ToString() const {
-  return absl::StrJoin(labels_, ".");
-}
-
 bool DomainName::operator<(const DomainName& rhs) const {
   size_t i = 0;
   for (; i < labels_.size(); i++) {
@@ -172,6 +169,10 @@ bool DomainName::operator!=(const DomainName& rhs) const {
 
 size_t DomainName::MaxWireSize() const {
   return max_wire_size_;
+}
+
+std::ostream& operator<<(std::ostream& os, const DomainName& domain_name) {
+  return os << absl::StrJoin(domain_name.labels_, ".");
 }
 
 // static
@@ -664,32 +665,33 @@ size_t MdnsRecord::MaxWireSize() const {
   return name_.MaxWireSize() + absl::visit(wire_size_visitor, rdata_) + 8;
 }
 
-std::string MdnsRecord::ToString() const {
-  std::stringstream ss;
-  ss << "name: '" << name_.ToString() << "'";
-  ss << ", type: " << dns_type_;
+std::ostream& operator<<(std::ostream& os, const MdnsRecord& mdns_record) {
+  os << "name: " << mdns_record.name_ << "'";
+  os << ", type: " << mdns_record.dns_type_;
 
-  if (dns_type_ == DnsType::kPTR) {
-    const DomainName& target = absl::get<PtrRecordRdata>(rdata_).ptr_domain();
-    ss << ", target: '" << target.ToString() << "'";
-  } else if (dns_type_ == DnsType::kSRV) {
-    const DomainName& target = absl::get<SrvRecordRdata>(rdata_).target();
-    ss << ", target: '" << target.ToString() << "'";
-  } else if (dns_type_ == DnsType::kNSEC) {
-    const auto& nsec_rdata = absl::get<NsecRecordRdata>(rdata_);
+  if (mdns_record.dns_type_ == DnsType::kPTR) {
+    const DomainName& target =
+        absl::get<PtrRecordRdata>(mdns_record.rdata_).ptr_domain();
+    os << ", target: '" << target << "'";
+  } else if (mdns_record.dns_type_ == DnsType::kSRV) {
+    const DomainName& target =
+        absl::get<SrvRecordRdata>(mdns_record.rdata_).target();
+    os << ", target: '" << target << "'";
+  } else if (mdns_record.dns_type_ == DnsType::kNSEC) {
+    const auto& nsec_rdata = absl::get<NsecRecordRdata>(mdns_record.rdata_);
     std::vector<DnsType> types = nsec_rdata.types();
-    ss << ", representing [";
+    os << ", representing [";
     if (!types.empty()) {
       auto it = types.begin();
-      ss << *it++;
+      os << *it++;
       while (it != types.end()) {
-        ss << ", " << *it++;
+        os << ", " << *it++;
       }
-      ss << "]";
+      os << "]";
     }
   }
 
-  return ss.str();
+  return os;
 }
 
 MdnsRecord CreateAddressRecord(DomainName name, const IPAddress& address) {
