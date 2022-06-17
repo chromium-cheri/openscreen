@@ -33,6 +33,24 @@
       "message": "If this is used only for debug log statements, please guard the operator\u003c\u003c with #if defined(_DEBUG).",
       "revId": "b8c826a7fe19f1583460083c373afbad6b63afb3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96b7df7d_1ae0bc26",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1425339
+      },
+      "writtenOn": "2022-06-17T17:52:24Z",
+      "side": 1,
+      "message": "Added for MdnsRecord operator\u003c\u003c.\n\nThe DomainName operator\u003c\u003c is also only used in debug statements and 2 tests, in the mdns_reader_unittest and mdns_records_unittest files in this CL. Looks like these tests are using the operator to verify other behavior, as opposed to testing the behavior of the operator itself. Is it okay to guard these tests with the flag?",
+      "parentUuid": "4cfac5fb_5b90398f",
+      "revId": "b8c826a7fe19f1583460083c373afbad6b63afb3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
