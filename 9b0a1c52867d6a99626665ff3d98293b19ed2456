@@ -16,6 +16,24 @@
       "message": "Dry runs don\u0027t really matter for these changes since they don\u0027t get picked up--you have to do a lucicfg test run job.\n\nhttps://g3doc.corp.google.com/company/teams/chrome/ops/luci/how_to_led.md?cl\u003dhead#testing-out-a-new-recipe",
       "revId": "9b0a1c52867d6a99626665ff3d98293b19ed2456",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98eb013b_fb4f0019",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001939
+      },
+      "writtenOn": "2022-07-06T23:40:11Z",
+      "side": 1,
+      "message": "$ led get-build 8810812601223666257 | led edit-recipe-bundle \u003e job.json\n[I 2022-07-06 23:38:37] getting build definition\n[I 2022-07-06 23:38:37] getting build definition: done\n[I 2022-07-06 23:38:37] getting task definition: \"chromium-swarm.appspot.com\" \"5b9b49f0b5bb9b10\"\n[I 2022-07-06 23:38:38] getting task definition: done\n[E 2022-07-06 23:38:38] original error: no such file or directory\n\ngoroutine 1:\n#0 go.chromium.org/luci/led/ledcmd/edit_recipe_bundle.go:265 - ledcmd.findRecipesPy()\n  reason: reading recipes.cfg\n  \n??\n\nbtw, does it need to keep infra/config/global/cr-buildbucket.cfg?\nnot using infra/config/global/generated/cr-buildbucket.cfg?",
+      "parentUuid": "d6b329d5_14b64148",
+      "revId": "9b0a1c52867d6a99626665ff3d98293b19ed2456",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
