@@ -158,6 +158,11 @@ class Sender final : public SenderPacketRouter::Sender,
   // frame ID be used.
   FrameId GetNextFrameId() const;
 
+  // Get the current round trip time, measured from using the sender and
+  // receiver report round trip. Will be set to "zero" if no reports have been
+  // completed yet.
+  Clock::duration GetCurrentRoundTripTime() const;
+
   // Enqueues the given |frame| for sending as soon as possible. Returns OK if
   // the frame is accepted, and some time later Observer::OnFrameCanceled() will
   // be called once it is no longer in-flight.
