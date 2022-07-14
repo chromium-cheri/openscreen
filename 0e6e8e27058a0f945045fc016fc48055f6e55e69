@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "806fa1de_4ce95818",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-07-14T16:53:08Z",
+      "side": 1,
+      "message": "LGTM with some suggestions to improve documentation.",
+      "revId": "0e6e8e27058a0f945045fc016fc48055f6e55e69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08659641_acdd6820",
+        "filename": "cast/streaming/sender.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-07-14T16:53:08Z",
+      "side": 1,
+      "message": "Can you add some more specifics about how this value is updated?\nIt looks like it is updated with each receiver report, and is smoothed with previous computations.\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/openscreen/src/cast/streaming/sender.cc;drc\u003df71d249a402d2e1f5a6dfd9484263058303ee7df;l\u003d303",
+      "revId": "0e6e8e27058a0f945045fc016fc48055f6e55e69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad48106b_227e77f5",
+        "filename": "cast/streaming/sender.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-07-14T16:53:08Z",
+      "side": 1,
+      "message": "...set to Clock::duration::zero()...",
+      "revId": "0e6e8e27058a0f945045fc016fc48055f6e55e69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
