@@ -16,6 +16,24 @@
       "message": "Do we need the wildcard plus all of the explicit targets? Isn\u0027t adding this the cause of the new bug you added, 1348667?",
       "revId": "2ab73c3d42da8131aeaea1164036e0fe3cafe5de",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e56cc6f_6c23e5a3",
+        "filename": ".gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-08-02T21:18:37Z",
+      "side": 1,
+      "message": "\u003e Do we need the wildcard plus all of the explicit targets?\n\nIf you don\u0027t include the wildcard then GN check won\u0027t check the top-level targets defined in the root BUILD.gn.  I believe this was an inadvertent omission in http://crrev.com/c/3318533.\n\nWith this change we should check everything in our code and skip everything in third_party directories.\n\n\u003e Isn\u0027t adding this the cause of the new bug you added, 1348667?\n\nI tried reverting both this change and the change to PRESUBMIT.py and the presubmit still complains.\n\nAs far as I know, check_targets is only used by GN to determine which targets to run dependency checks on.  The license check is an entirely separate script in depot_tools with a bunch of hard coded paths and rules.  I didn\u0027t attempt to debug its internals.",
+      "parentUuid": "1b17c1d3_aa63f584",
+      "revId": "2ab73c3d42da8131aeaea1164036e0fe3cafe5de",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
