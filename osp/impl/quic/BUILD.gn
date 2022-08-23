@@ -3,15 +3,18 @@
 # found in the LICENSE file.
 
 source_set("quic") {
-  sources = [
-    "quic_client.cc",
+  visibility = [ "../../impl/*" ]
+  public = [
     "quic_client.h",
     "quic_connection.h",
     "quic_connection_factory.h",
-    "quic_server.cc",
     "quic_server.h",
-    "quic_service_common.cc",
     "quic_service_common.h",
+  ]
+  sources = [
+    "quic_client.cc",
+    "quic_server.cc",
+    "quic_service_common.cc",
   ]
 
   deps = [
@@ -23,6 +26,7 @@ source_set("quic") {
 }
 
 source_set("test_support") {
+  visibility = [ "../..:unittests" ]
   testonly = true
   sources = [
     "testing/fake_quic_connection.cc",
