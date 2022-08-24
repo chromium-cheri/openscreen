@@ -22,6 +22,30 @@
       },
       "revId": "3042d1b93e5793e2d8db167ae76e7ae6ec786725",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8987cb8e_7a481223",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-08-24T23:37:35Z",
+      "side": 0,
+      "message": "Ugh, codesearch didn\u0027t find any usages so I missed that.  I\u0027ll restore this code.\n\nAside: How often does it happen that AV settings change in the middle of a streaming session?  It could be simpler to just always restart negotiation from scratch if there are any constraints changes on the receiver side.  That would certainly be simpler for libcast; but for now I\u0027ll keep the status quo.",
+      "parentUuid": "64721324_11ab46aa",
+      "range": {
+        "startLine": 267,
+        "startChar": 9,
+        "endLine": 267,
+        "endChar": 21
+      },
+      "revId": "3042d1b93e5793e2d8db167ae76e7ae6ec786725",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
