@@ -11,6 +11,7 @@
 #include "cast/streaming/constants.h"
 #include "cast/streaming/environment.h"
 #include "cast/streaming/message_fields.h"
+#include "cast/streaming/receiver_preferences.h"
 #include "cast/streaming/receiver_session.h"
 #include "platform/api/task_runner.h"
 #include "util/osp_logging.h"
@@ -56,11 +57,10 @@ bool MirroringApplication::Launch(const std::string& app_id,
   controller_ =
       std::make_unique<StreamingPlaybackController>(task_runner_, this);
 
-  ReceiverSession::Preferences preferences;
+  ReceiverPreferences preferences;
   preferences.video_codecs.insert(preferences.video_codecs.begin(),
                                   {VideoCodec::kAv1, VideoCodec::kVp9});
-  preferences.remoting =
-      std::make_unique<ReceiverSession::RemotingPreferences>();
+  preferences.remoting = std::make_unique<RemotingPreferences>();
   current_session_ =
       std::make_unique<ReceiverSession>(controller_.get(), environment_.get(),
                                         message_port, std::move(preferences));
