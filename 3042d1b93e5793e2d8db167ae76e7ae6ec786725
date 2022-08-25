@@ -46,6 +46,30 @@
       },
       "revId": "3042d1b93e5793e2d8db167ae76e7ae6ec786725",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8d1fc00_1ef7f987",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2022-08-25T00:00:52Z",
+      "side": 0,
+      "message": "\u003e How often does it happen that AV settings change in the middle of a streaming session?\n\nI don\u0027t have context on this - I would assume it\u0027s embedder specific. Though vigini@ or shawnq@ may have more context about the current use cases\n\n\u003e restart negotiation from scratch if there are any constraints changes on the receiver side\n\nThat sounds like a good idea to me - though IIUC wouldn\u0027t it require a protocol change? If we\u0027ve already accepted the `OFFER` we would need to stop mid-session and reject it, which is very similar to what we are trying to support with Mirroring As A Fallback",
+      "parentUuid": "8987cb8e_7a481223",
+      "range": {
+        "startLine": 267,
+        "startChar": 9,
+        "endLine": 267,
+        "endChar": 21
+      },
+      "revId": "3042d1b93e5793e2d8db167ae76e7ae6ec786725",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
