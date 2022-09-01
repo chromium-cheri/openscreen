@@ -77,11 +77,11 @@ class SenderSession final {
         ConfiguredSenders senders,
         capture_recommendations::Recommendations capture_recommendations) = 0;
 
-    // Called when a new set of remoting senders has been negotiated. Since
-    // remoting is an optional feature, the default behavior here is to leave
-    // this method unhandled.
-    virtual void OnRemotingNegotiated(const SenderSession* session,
-                                      RemotingNegotiation negotiation) {}
+    // Called when the receiver's remoting-related capabilities have been
+    // determined. The embedder may then determine if they want to switch to
+    // remoting.
+    virtual void OnCapabilitiesDetermined(const SenderSession* session,
+                                          RemotingCapabilities capabilities) {}
 
     // Called whenever an error occurs. Ends the ongoing session, and the caller
     // must call Negotiate() again if they wish to re-establish streaming.
@@ -149,6 +149,9 @@ class SenderSession final {
   // |video_config| are ignored in favor of |kRemote|.
   Error NegotiateRemoting(AudioCaptureConfig audio_config,
                           VideoCaptureConfig video_config);
+
+  // Ask the session to get remoting capabilities from the receiver.
+  void RequestCapabilities();
 
   // Get the current network usage (in bits per second). This includes all
   // senders managed by this session, and is a best guess based on receiver
