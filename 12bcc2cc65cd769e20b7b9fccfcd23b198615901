@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1d9e5f7_c7f51ee6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-09-02T22:53:57Z",
+      "side": 1,
+      "message": "Thanks for simplifying things here.  A couple of minor comments!",
+      "revId": "12bcc2cc65cd769e20b7b9fccfcd23b198615901",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d07f521_5fc7ca0f",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-09-02T22:53:57Z",
+      "side": 1,
+      "message": "I think this is trying to assert that the receiver agent is not receiving messages intended for the sender.  In which case the following would be clearer:\n\nOSP_DCHECK(message.destination_id() !\u003d kPlatformSenderId)",
+      "revId": "12bcc2cc65cd769e20b7b9fccfcd23b198615901",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0cfe63b_ad185c1e",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-09-02T22:53:57Z",
+      "side": 1,
+      "message": "I think this can move to the top of this method, then the DCHECK can be removed entirely.",
+      "revId": "12bcc2cc65cd769e20b7b9fccfcd23b198615901",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbb9dcc0_6f1773e7",
+        "filename": "cast/streaming/session_messenger.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-09-02T22:53:57Z",
+      "side": 1,
+      "message": "Does this object need its own copy of source_id_ or can it return message_port_-\u003esource_id()?",
+      "revId": "12bcc2cc65cd769e20b7b9fccfcd23b198615901",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
