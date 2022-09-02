@@ -16,6 +16,24 @@
       "message": "After digging into it, it looks like the tests actually fail because we don\u0027t have a network context. We will have to indicate to the UDP socket components/openscreen_platform interface that it needs to use a test network context or use the other implementation.\n\nEither way it needs to be fixed.",
       "revId": "44eea3b53d6902d79eddb33d50ec3e729d0da9d4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffcc598c_24ccc901",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-09-02T20:18:49Z",
+      "side": 1,
+      "message": "I was discussing this with Ben, about landing the additional tests he\u0027s working on in Open Screen, but linking the tests in Chromium with additional code to set up and tear down the network service (probably by making them content browser tests) around the test suite.\n\nWe might be able to just link the tests into an existing components browser test suite...",
+      "parentUuid": "44c98504_d91bc241",
+      "revId": "44eea3b53d6902d79eddb33d50ec3e729d0da9d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
