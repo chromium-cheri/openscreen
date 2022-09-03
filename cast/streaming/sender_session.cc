@@ -264,6 +264,14 @@ Error SenderSession::NegotiateRemoting(AudioCaptureConfig audio_config,
   return StartNegotiation({audio_config}, {video_config}, std::move(offer));
 }
 
+Error SenderSession::RequestCapabilities() {
+  return messenger_.SendRequest(
+      SenderMessage{SenderMessage::Type::kGetCapabilities,
+                    ++current_sequence_number_, true},
+      ReceiverMessage::Type::kCapabilitiesResponse,
+      [this](ReceiverMessage msg) { OnCapabilitiesResponse(msg); });
+}
+
 int SenderSession::GetEstimatedNetworkBandwidth() const {
   return packet_router_.ComputeNetworkBandwidth();
 }
@@ -291,56 +299,52 @@ Error SenderSession::StartNegotiation(
 }
 
 void SenderSession::OnAnswer(ReceiverMessage message) {
-  if (!message.valid) {
-    HandleErrorMessage(message, "Invalid answer response message");
+  if (message.timed_out) {
+    config_.client->OnError(
+        this, Error(Error::Code::kAnswerTimeout,
+                    "Didn't receive an answer from the receiver."));
     return;
   }
 
-  // There isn't an obvious way to tell from the Answer whether it is mirroring
-  // or remoting specific--the only clues are in the original offer message.
-  const Answer& answer = absl::get<Answer>(message.body);
-  if (current_negotiation_->offer.cast_mode == CastMode::kMirroring) {
-    ConfiguredSenders senders = SpawnSenders(answer);
-    // If we didn't select any senders, the negotiation was unsuccessful.
-    if (senders.audio_sender == nullptr && senders.video_sender == nullptr) {
-      return;
-    }
+  if (!message.valid) {
+    config_.client->OnError(this, Error(Error::Code::kInvalidAnswer,
+                                        "Invalid answer response message"));
+    return;
+  }
 
+  const Answer& answer = absl::get<Answer>(message.body);
+  ConfiguredSenders senders = SpawnSenders(answer);
+  // If we didn't select any senders, the negotiation was unsuccessful.
+  if (senders.audio_sender == nullptr && senders.video_sender == nullptr) {
+    config_.client->OnError(this, Error(Error::Code::kNoStreamSelected,
+                                        "Invalid answer response message"));
+    return;
+  }
+
+  capture_recommendations::Recommendations recommendations{};
+  if (current_negotiation_->offer.cast_mode == CastMode::kMirroring) {
     state_ = State::kStreaming;
-    config_.client->OnNegotiated(
-        this, std::move(senders),
-        capture_recommendations::GetRecommendations(answer));
+    recommendations = capture_recommendations::GetRecommendations(answer);
   } else {
     state_ = State::kRemoting;
-
-    // We don't want to spawn senders yet, since we don't know what the
-    // receiver's capabilities are. So, we cache the Answer until the
-    // capabilites request is completed.
-    current_negotiation_->answer = answer;
-    const Error result = messenger_.SendRequest(
-        SenderMessage{SenderMessage::Type::kGetCapabilities,
-                      ++current_sequence_number_, true},
-        ReceiverMessage::Type::kCapabilitiesResponse,
-        [this](ReceiverMessage msg) { OnCapabilitiesResponse(msg); });
-    if (!result.ok()) {
-      config_.client->OnError(
-          this, Error(Error::Code::kNegotiationFailure,
-                      "Failed to set a GET_CAPABILITIES request"));
-    }
   }
+
+  config_.client->OnNegotiated(this, std::move(senders), recommendations);
 }
 
 void SenderSession::OnCapabilitiesResponse(ReceiverMessage message) {
-  if (!current_negotiation_ || !current_negotiation_->answer.IsValid()) {
-    OSP_LOG_INFO
-        << "Received a capabilities response, but not negotiating anything.";
+  if (message.timed_out) {
+    config_.client->OnError(
+        this, Error(Error::Code::kMessageTimeout,
+                    "Didn't receive capabilities from the receiver."));
     return;
   }
 
   if (!message.valid) {
-    HandleErrorMessage(
-        message,
-        "Bad CAPABILITIES_RESPONSE, assuming remoting is not supported");
+    config_.client->OnError(
+        this,
+        Error(Error::Code::kRemotingNotSupported,
+              "Bad CAPABILITIES_RESPONSE, assuming remoting is not supported"));
     return;
   }
 
@@ -360,17 +364,7 @@ void SenderSession::OnCapabilitiesResponse(ReceiverMessage message) {
     return;
   }
 
-  ConfiguredSenders senders = SpawnSenders(current_negotiation_->answer);
-  // If we didn't select any senders, the negotiation was unsuccessful.
-  if (senders.audio_sender == nullptr && senders.video_sender == nullptr) {
-    config_.client->OnError(this,
-                            Error(Error::Code::kNegotiationFailure,
-                                  "Failed to negotiate a remoting session."));
-    return;
-  }
-
-  config_.client->OnRemotingNegotiated(
-      this, RemotingNegotiation{std::move(senders), ToCapabilities(caps)});
+  config_.client->OnCapabilitiesDetermined(this, ToCapabilities(caps));
 }
 
 void SenderSession::OnRpcMessage(ReceiverMessage message) {
