@@ -28,7 +28,9 @@ void ReplyIfTimedOut(
       OSP_VLOG
           << "Replying with empty message due to timeout for sequence number: "
           << sequence_number;
-      it->second(ReceiverMessage{reply_type, sequence_number});
+      it->second(ReceiverMessage{.type = reply_type,
+                                 .sequence_number = sequence_number,
+                                 .timed_out = true});
       replies->erase(it);
       break;
     }
