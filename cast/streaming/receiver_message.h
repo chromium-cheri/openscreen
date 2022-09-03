@@ -107,6 +107,11 @@ struct ReceiverMessage {
                 ReceiverCapability,
                 ReceiverError>
       body;
+
+  // A special value set by the session messenger to indicate that this message
+  // is the result of a timeout. Note that if timed_out is true, valid must
+  // be false.
+  bool timed_out = false;
 };
 
 }  // namespace cast

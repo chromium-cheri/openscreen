@@ -97,7 +97,7 @@ constexpr char kErrorAnswerMessage[] = R"({
 })";
 
 constexpr char kCapabilitiesResponse[] = R"({
-  "seqNum": 2,
+  "seqNum": 1,
   "result": "ok",
   "type": "CAPABILITIES_RESPONSE",
   "capabilities": {
@@ -155,8 +155,8 @@ class FakeClient : public SenderSession::Client {
                capture_recommendations::Recommendations),
               (override));
   MOCK_METHOD(void,
-              OnRemotingNegotiated,
-              (const SenderSession*, SenderSession::RemotingNegotiation),
+              OnCapabilitiesDetermined,
+              (const SenderSession*, RemotingCapabilities),
               (override));
   MOCK_METHOD(void, OnError, (const SenderSession*, Error error), (override));
 };
@@ -528,35 +528,41 @@ TEST_F(SenderSessionTest, HandlesValidAnswerRemoting) {
   NegotiateRemotingWithValidConfigs();
   std::string answer = ConstructAnswerFromOffer(CastMode::kRemoting);
 
-  EXPECT_CALL(client_, OnRemotingNegotiated(session_.get(), _));
+  EXPECT_CALL(client_, OnNegotiated(session_.get(), _, _));
   message_port_->ReceiveMessage(answer);
-  message_port_->ReceiveMessage(kCapabilitiesResponse);
 }
 
 TEST_F(SenderSessionTest, SuccessfulRemotingNegotiationYieldsValidObject) {
   NegotiateRemotingWithValidConfigs();
   std::string answer = ConstructAnswerFromOffer(CastMode::kRemoting);
 
-  SenderSession::RemotingNegotiation negotiation;
-  EXPECT_CALL(client_, OnRemotingNegotiated(session_.get(), _))
-      .WillOnce(testing::SaveArg<1>(&negotiation));
+  SenderSession::ConfiguredSenders senders;
+  EXPECT_CALL(client_, OnNegotiated(session_.get(), _, _))
+      .WillOnce(testing::SaveArg<1>(&senders));
   message_port_->ReceiveMessage(answer);
-  message_port_->ReceiveMessage(kCapabilitiesResponse);
-
-  // The capabilities should match the values in |kCapabilitiesResponse|.
-  EXPECT_THAT(negotiation.capabilities.audio,
-              testing::ElementsAre(AudioCapability::kBaselineSet,
-                                   AudioCapability::kAac));
-
-  // The "video" capability is ignored since it means nothing.
-  EXPECT_THAT(negotiation.capabilities.video,
-              testing::ElementsAre(VideoCapability::kVp8));
 
   // The messenger is tested elsewhere, but we can sanity check that we got a
   // valid one here.
   const RpcMessenger::Handle handle =
       session_->rpc_messenger().GetUniqueHandle();
   EXPECT_NE(RpcMessenger::kInvalidHandle, handle);
+}
+
+TEST_F(SenderSessionTest, SuccessfulGetCapabilitiesRequest) {
+  session_->RequestCapabilities();
+
+  RemotingCapabilities capabilities;
+  EXPECT_CALL(client_, OnCapabilitiesDetermined(session_.get(), _))
+      .WillOnce(testing::SaveArg<1>(&capabilities));
+  message_port_->ReceiveMessage(kCapabilitiesResponse);
+
+  // The capabilities should match the values in |kCapabilitiesResponse|.
+  EXPECT_THAT(capabilities.audio,
+              testing::ElementsAre(AudioCapability::kBaselineSet,
+                                   AudioCapability::kAac));
+
+  // The "video" capability is ignored since it means nothing.
+  EXPECT_THAT(capabilities.video, testing::ElementsAre(VideoCapability::kVp8));
 }
 
 }  // namespace cast
