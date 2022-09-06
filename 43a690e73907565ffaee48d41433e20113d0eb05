@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cca790dd_5052fcf5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-09-06T05:22:15Z",
+      "side": 1,
+      "message": "This is a nice improvement to the API!  Minor comments only.\n\nOne feature we need for remoting in GMC is the ability to initiate a session directly in \"remoting\" mode.  Does this change enable that usage of the sender session?  fiorito@ is working on this from the Chrome side and it might be good to check with him on what he is thinking around that.\n",
+      "revId": "43a690e73907565ffaee48d41433e20113d0eb05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daa8a05a_5abcfe9d",
+        "filename": "cast/streaming/receiver_message.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-09-06T05:22:15Z",
+      "side": 1,
+      "message": "Is this a message sent by the receiver to the sender to indicate something timed out on the receiver side?\n\nIt would seem more consistent to make this a distinct value in the Type enum instead, like kTimeout, since it wouldn\u0027t seem possible for a message to be a kRpc and a kTimeout at the same time.\n\nAs an alternative, you could combine the \"valid\" and \"timeout\" bits into a new enum, like:\n\n```\nenum class Status {\n  kValid, kInvalid, kTimeout\n}\n```\n\nWDYT?",
+      "revId": "43a690e73907565ffaee48d41433e20113d0eb05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dffe2c9e_e1e66746",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-09-06T05:22:15Z",
+      "side": 1,
+      "message": "Consider adding test coverage for the error cases (kAnswerTimeout, kInvalidAnswer, no senders...)",
+      "revId": "43a690e73907565ffaee48d41433e20113d0eb05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12451527_df31535c",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-09-06T05:22:15Z",
+      "side": 1,
+      "message": "Do you need to check the message type before calling absl::get?",
+      "revId": "43a690e73907565ffaee48d41433e20113d0eb05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31955ca8_9e9a73f9",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-09-06T05:22:15Z",
+      "side": 1,
+      "message": "Hmmm, maybe this could be named SelectSenders instead?  Or update the comment to read \"If we didn\u0027t spawn any senders...\"",
+      "revId": "43a690e73907565ffaee48d41433e20113d0eb05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05d752a1_876a8a78",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-09-06T05:22:15Z",
+      "side": 1,
+      "message": "I think using ! here is OK.",
+      "revId": "43a690e73907565ffaee48d41433e20113d0eb05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d6439cb_8a4f8a19",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-09-06T05:22:15Z",
+      "side": 1,
+      "message": "Test coverage for error cases?  timed_out, remoting not supported...",
+      "revId": "43a690e73907565ffaee48d41433e20113d0eb05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42363de3_b256a3d8",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-09-06T05:22:15Z",
+      "side": 1,
+      "message": "Maybe s/embedder/sender/ here?  (Check terminology in other comments for consistency.)",
+      "revId": "43a690e73907565ffaee48d41433e20113d0eb05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cac5c5b0_bc882dbf",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-09-06T05:22:15Z",
+      "side": 1,
+      "message": "Nit: Add an empty comment line before \"Consumers\" and remove extra whitespace",
+      "revId": "43a690e73907565ffaee48d41433e20113d0eb05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
