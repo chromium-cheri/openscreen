@@ -35,6 +35,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f95dede_3176cb09",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-09-07T23:10:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e04859fc_e2d740f1",
+      "revId": "8a82e1d36a6ab65df40352e0b3ffaaed0760e3bf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "82309389_e2464fc7",
@@ -48,6 +66,24 @@
       "writtenOn": "2022-09-07T17:34:36Z",
       "side": 1,
       "message": "Technically we can\u0027t allocate Errors with static duration because std::string is not trivially destructible.  It looks like these could all be function statics instead.\n\nIt would also be nice if Error could have a constexpr constructor but it looks like the std::string constexpr constructors have to wait until C++20.",
+      "revId": "8a82e1d36a6ab65df40352e0b3ffaaed0760e3bf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1485ded_a66aecf4",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-09-07T23:10:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82309389_e2464fc7",
       "revId": "8a82e1d36a6ab65df40352e0b3ffaaed0760e3bf",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -69,6 +105,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c598c33f_147c668f",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-09-07T23:10:56Z",
+      "side": 1,
+      "message": "ToError() always does a best effort, but if we are talking to a non-libcast reciever it may give us an error code we don\u0027t understand. In that case, the default_error.code() is more descriptie.",
+      "parentUuid": "cf1461f9_ba17adec",
+      "revId": "8a82e1d36a6ab65df40352e0b3ffaaed0760e3bf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "490d24d2_e3fa9dc4",
@@ -86,6 +140,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93d97f0d_9a683449",
+        "filename": "cast/streaming/session_messenger.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-09-07T23:10:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "490d24d2_e3fa9dc4",
+      "revId": "8a82e1d36a6ab65df40352e0b3ffaaed0760e3bf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4ee37e8_cfaa2193",
@@ -99,6 +171,24 @@
       "writtenOn": "2022-09-07T17:34:36Z",
       "side": 1,
       "message": "Nit: typo in reply",
+      "revId": "8a82e1d36a6ab65df40352e0b3ffaaed0760e3bf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8f64a92_434dd1a3",
+        "filename": "cast/streaming/session_messenger.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-09-07T23:10:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4ee37e8_cfaa2193",
       "revId": "8a82e1d36a6ab65df40352e0b3ffaaed0760e3bf",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
