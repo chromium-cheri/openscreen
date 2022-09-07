@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ba89aee_5a007826",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-09-07T17:34:36Z",
+      "side": 1,
+      "message": "Looks good with a few minor suggestions.  The only one that is required to fix is the Error construction as that\u0027s a style guide thing.",
+      "revId": "8a82e1d36a6ab65df40352e0b3ffaaed0760e3bf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e04859fc_e2d740f1",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-09-07T17:34:36Z",
+      "side": 1,
+      "message": "Nit: Naming these \"kInvalidCapabilitiesResponseError\", \"kInvalidAnswerError\", etc. would be more self-describing",
+      "revId": "8a82e1d36a6ab65df40352e0b3ffaaed0760e3bf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82309389_e2464fc7",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-09-07T17:34:36Z",
+      "side": 1,
+      "message": "Technically we can\u0027t allocate Errors with static duration because std::string is not trivially destructible.  It looks like these could all be function statics instead.\n\nIt would also be nice if Error could have a constexpr constructor but it looks like the std::string constexpr constructors have to wait until C++20.",
+      "revId": "8a82e1d36a6ab65df40352e0b3ffaaed0760e3bf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf1461f9_ba17adec",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-09-07T17:34:36Z",
+      "side": 1,
+      "message": "I\u0027m a bit confused about this code.  IMO it would be simpler to fix ToError() to always return the best effort error value and return that.",
+      "revId": "8a82e1d36a6ab65df40352e0b3ffaaed0760e3bf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "490d24d2_e3fa9dc4",
+        "filename": "cast/streaming/session_messenger.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-09-07T17:34:36Z",
+      "side": 1,
+      "message": "Default timeout to receive a reply message in response to a request message sent by us.",
+      "revId": "8a82e1d36a6ab65df40352e0b3ffaaed0760e3bf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4ee37e8_cfaa2193",
+        "filename": "cast/streaming/session_messenger.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-09-07T17:34:36Z",
+      "side": 1,
+      "message": "Nit: typo in reply",
+      "revId": "8a82e1d36a6ab65df40352e0b3ffaaed0760e3bf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
