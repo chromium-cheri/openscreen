@@ -35,6 +35,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "856e12cc_a262899a",
+        "filename": "cast/streaming/receiver_message.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-09-07T07:18:26Z",
+      "side": 1,
+      "message": "Putting on my semantics hat, I think the timeout represents a case when we didn\u0027t receive the message we intended. \n\nTo that end, I think we should just have the ReplyCallback be an ErrorOr, and if it\u0027s an error it can be a Timeout or potentially something else in the future. No message was received at all, so there\u0027s nothing to look at.",
+      "parentUuid": "daa8a05a_5abcfe9d",
+      "revId": "43a690e73907565ffaee48d41433e20113d0eb05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dffe2c9e_e1e66746",
@@ -48,6 +66,24 @@
       "writtenOn": "2022-09-06T05:22:15Z",
       "side": 1,
       "message": "Consider adding test coverage for the error cases (kAnswerTimeout, kInvalidAnswer, no senders...)",
+      "revId": "43a690e73907565ffaee48d41433e20113d0eb05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07a341a6_e56e0135",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-09-07T07:18:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dffe2c9e_e1e66746",
       "revId": "43a690e73907565ffaee48d41433e20113d0eb05",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -69,6 +105,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ae281c6_774d88f9",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-09-07T07:18:26Z",
+      "side": 1,
+      "message": "I didn\u0027t think so. But yes actually--the session messenger doesn\u0027t keep track of what reply type is expected for the awaiting replies, and it shouldn\u0027t have to in my opinion.",
+      "parentUuid": "12451527_df31535c",
+      "revId": "43a690e73907565ffaee48d41433e20113d0eb05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "31955ca8_9e9a73f9",
@@ -82,6 +136,24 @@
       "writtenOn": "2022-09-06T05:22:15Z",
       "side": 1,
       "message": "Hmmm, maybe this could be named SelectSenders instead?  Or update the comment to read \"If we didn\u0027t spawn any senders...\"",
+      "revId": "43a690e73907565ffaee48d41433e20113d0eb05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfc574d2_ddbdad5c",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-09-07T07:18:26Z",
+      "side": 1,
+      "message": "Select sounds fine to me.",
+      "parentUuid": "31955ca8_9e9a73f9",
       "revId": "43a690e73907565ffaee48d41433e20113d0eb05",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -103,6 +175,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e822d393_530aaf39",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-09-07T07:18:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05d752a1_876a8a78",
+      "revId": "43a690e73907565ffaee48d41433e20113d0eb05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d6439cb_8a4f8a19",
@@ -116,6 +206,24 @@
       "writtenOn": "2022-09-06T05:22:15Z",
       "side": 1,
       "message": "Test coverage for error cases?  timed_out, remoting not supported...",
+      "revId": "43a690e73907565ffaee48d41433e20113d0eb05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccbe5421_7aba8fed",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-09-07T07:18:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d6439cb_8a4f8a19",
       "revId": "43a690e73907565ffaee48d41433e20113d0eb05",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -137,6 +245,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "619443ec_af07e586",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-09-07T07:18:26Z",
+      "side": 1,
+      "message": "Tought, since we also refer to Sender here. sender.h uses the term Client, but that\u0027s also confusing here since we have SenderSession::Client. I am leaning towards Consumer if that sounds good.",
+      "parentUuid": "42363de3_b256a3d8",
+      "revId": "43a690e73907565ffaee48d41433e20113d0eb05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cac5c5b0_bc882dbf",
@@ -150,6 +276,24 @@
       "writtenOn": "2022-09-06T05:22:15Z",
       "side": 1,
       "message": "Nit: Add an empty comment line before \"Consumers\" and remove extra whitespace",
+      "revId": "43a690e73907565ffaee48d41433e20113d0eb05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3f5645d_35ab4971",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-09-07T07:18:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cac5c5b0_bc882dbf",
       "revId": "43a690e73907565ffaee48d41433e20113d0eb05",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
