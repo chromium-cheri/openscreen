@@ -219,7 +219,6 @@ void SenderSessionMessenger::OnMessage(const std::string& source_id,
 
 void SenderSessionMessenger::OnError(Error error) {
   OSP_DLOG_WARN << "Received an error in the session messenger: " << error;
-  ReportError(error);
 }
 
 ReceiverSessionMessenger::ReceiverSessionMessenger(MessagePort* message_port,
@@ -301,7 +300,6 @@ void ReceiverSessionMessenger::OnMessage(const std::string& source_id,
 
 void ReceiverSessionMessenger::OnError(Error error) {
   OSP_DLOG_WARN << "Received an error in the session messenger: " << error;
-  ReportError(error);
 }
 
 }  // namespace cast

@@ -543,8 +543,7 @@ TEST_F(SenderSessionTest, HandlesMessagePortError) {
       std::vector<AudioCaptureConfig>{kAudioCaptureConfigValid},
       std::vector<VideoCaptureConfig>{kVideoCaptureConfigValid});
 
-  // We should report message port errors.
-  EXPECT_CALL(client_, OnError(session_.get(), _));
+  // We should not report message port errors.
   message_port_->ReceiveError(Error(Error::Code::kUnknownError));
 }
 
