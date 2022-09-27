@@ -16,6 +16,24 @@
       "message": "this means chrome would be the only consumer allowed for these APIs right? I am wondering if we can deny other open screen folders and allow anything else above the root open screen folder instead?",
       "revId": "4070a3759ed5df01d6b05065b5ac2e7ee521bea7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c996f1a_d251d935",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-09-27T18:15:57Z",
+      "side": 1,
+      "message": "I don\u0027t want to give this particular target global visibility.\n\nGoing back through bugs, the reason why it\u0027s linked from Chromium is because we are re-using its fuzz tests for the cast channel authentication exchange to test the standalone implementation of the cast channel that links with boringssl.\n\nhttps://issuetracker.google.com/185815206\n\nWe explicitly don\u0027t want Chrome code picking up boringssl in other places, since Chromium //net has its own certificate verification implementation for Cast we implemented as part of the libcast sender implementation.\n\nThis isn\u0027t ideal and there might be some clever way to move the fuzz tests to Open Screen and have them run on both implementations (boringssl + //net) but I am not quite sure of the path to get there.  I think the fuzz test infrastructure isn\u0027t really set up in Open Screen yet so there would be some preliminary work involved.\n\nCan chat more at the platform weekly if you want to dig more into the background here.",
+      "parentUuid": "e7d14b64_d4b78c6b",
+      "revId": "4070a3759ed5df01d6b05065b5ac2e7ee521bea7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
