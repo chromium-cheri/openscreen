@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab54134b_af5b6d06",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-09-28T16:57:30Z",
+      "side": 1,
+      "message": "Thanks for cleaning this up!  It looks like we already use these enums in Chromium so you\u0027ll have to submit a fix-up patch with the roll.",
+      "revId": "5938e0abb606929682afd7156e763fad4ee8b53a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "306af862_f6609be3",
+        "filename": "cast/streaming/encoded_frame.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-09-28T16:57:30Z",
+      "side": 1,
+      "message": "Aside: \n\nI wonder how this is used in practice since different codecs have different formulas/numbers of reference frames.  For example, the VP9 encoder maintains a pool of 8 candidate reference frames and picks up to 3 when coding an inter frame.\n\nhttps://forum.doom9.org/showthread.php?t\u003d168947\n\nAVC also can generate B-frames (two reference frames, one in the past and one in the future).\n\nAnyway in OSP we have each frame provide a list of reference frame IDs so the agent knows when it\u0027s safe to submit a frame to the decoder.",
+      "revId": "5938e0abb606929682afd7156e763fad4ee8b53a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
