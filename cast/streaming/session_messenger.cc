@@ -33,13 +33,17 @@ void ReplyIfTimedOut(
     if (it->first == sequence_number) {
       OSP_VLOG << "Reply was an error with due to timeout for sequence number: "
                << sequence_number;
-      it->second(
+
+      // We erase before handling the callback, since it may invalidate the
+      // replies vector.
+      SenderSessionMessenger::ReplyCallback callback = std::move(it->second);
+      replies->erase(it);
+      callback(
           Error(Error::Code::kMessageTimeout,
                 absl::StrCat("message timed out (max delay of",
                              std::chrono::milliseconds(kReplyTimeout).count(),
                              "ms).")));
-      replies->erase(it);
-      break;
+      return;
     }
   }
 }
