@@ -43,7 +43,7 @@ constexpr int kLowestEncodingSpeed = 0;
 
 StreamingAv1Encoder::StreamingAv1Encoder(const Parameters& params,
                                          TaskRunner* task_runner,
-                                         Sender* sender)
+                                         std::unique_ptr<Sender> sender)
     : StreamingVideoEncoder(params, task_runner, sender) {
   ideal_speed_setting_ = kHighestEncodingSpeed;
   encode_thread_ = std::thread([this] { ProcessWorkUnitsUntilTimeToQuit(); });
