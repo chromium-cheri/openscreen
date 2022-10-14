@@ -125,7 +125,7 @@ void FrameCollector::GetMissingPackets(std::vector<PacketNack>* nacks) const {
 const EncryptedFrame& FrameCollector::PeekAtAssembledFrame() {
   OSP_DCHECK_EQ(num_missing_packets_, 0);
 
-  if (!frame_.data.data()) {
+  if (frame_.data_len == 0) {
     // Allocate the frame's payload buffer once, right-sized to the sum of all
     // chunk sizes.
     frame_.owned_data_.reserve(
@@ -138,7 +138,8 @@ const EncryptedFrame& FrameCollector::PeekAtAssembledFrame() {
       frame_.owned_data_.insert(frame_.owned_data_.end(), chunk.payload.begin(),
                                 chunk.payload.end());
     }
-    frame_.data = absl::Span<uint8_t>(frame_.owned_data_);
+    frame_.data = frame_.owned_data_.data();
+    frame_.data_len = frame_.owned_data_.size();
   }
 
   return frame_;
@@ -149,7 +150,8 @@ void FrameCollector::Reset() {
   frame_.frame_id = FrameId();
   frame_.owned_data_.clear();
   frame_.owned_data_.shrink_to_fit();
-  frame_.data = absl::Span<uint8_t>();
+  frame_.data = {};
+  frame_.data_len = 0;
   chunks_.clear();
 }
 

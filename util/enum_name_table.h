@@ -40,6 +40,7 @@ template <typename Enum, size_t Size>
 ErrorOr<Enum> GetEnum(const EnumNameTable<Enum, Size>& map,
                       absl::string_view name) {
   for (auto pair : map) {
+    OSP_DCHECK(pair.first) << "map has an invalid entry; wrong length?";
     if (absl::EqualsIgnoreCase(pair.first, name)) {
       return pair.second;
     }

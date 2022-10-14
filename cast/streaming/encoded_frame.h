@@ -8,9 +8,9 @@
 #include <stdint.h>
 
 #include <chrono>
+#include <variant>
 #include <vector>
 
-#include "absl/types/span.h"
 #include "cast/streaming/frame_id.h"
 #include "cast/streaming/rtp_time.h"
 #include "platform/api/time.h"
@@ -44,7 +44,16 @@ struct EncodedFrame {
                RtpTimeTicks rtp_timestamp,
                Clock::time_point reference_time,
                std::chrono::milliseconds new_playout_delay,
-               absl::Span<uint8_t> data);
+               uint8_t* data,
+               size_t data_len);
+  EncodedFrame(Dependency dependency,
+               FrameId frame_id,
+               FrameId referenced_frame_id,
+               RtpTimeTicks rtp_timestamp,
+               Clock::time_point reference_time,
+               std::chrono::milliseconds new_playout_delay,
+               const uint8_t* data,
+               size_t data_len);
   EncodedFrame();
   ~EncodedFrame();
 
@@ -91,11 +100,28 @@ struct EncodedFrame {
   // Playout delay extension. Non-positive values means no change.
   std::chrono::milliseconds new_playout_delay{};
 
-  // Pointer to a buffer containing the encoded signal data for the frame. In
-  // the sender context, this points to the data to be sent, and nothing will be
-  // mutated. In the receiver context, this is set to the region of a
-  // client-provided buffer that was populated.
-  absl::Span<uint8_t> data;
+  // Pointer to a buffer containing the encoded signal data for the frame.
+  // In the sender context, data is a const pointer to the data to be sent, and
+  // nothing should or can be mutated. In the receiver context, this is set to
+  // the region of a client-provided mutable buffer that gets populated.
+  //
+  // NOTE: a std::variant is used here to avoid awkward and hacky const_cast
+  // issues. See https://crbug.com/1316810 for a motivating example of this
+  // issue in Chrome.
+  std::variant<std::monostate, uint8_t*, const uint8_t*> data;
+  size_t data_len = 0;
+
+  bool data_is_mutable() const {
+    return std::holds_alternative<uint8_t*>(data);
+  }
+  const uint8_t* const_data() const {
+    return data_is_mutable() ? std::get<uint8_t*>(data)
+                             : std::get<const uint8_t*>(data);
+  }
+  uint8_t* mutable_data() {
+    OSP_CHECK(data_is_mutable());
+    return std::get<uint8_t*>(data);
+  }
 
   OSP_DISALLOW_COPY_AND_ASSIGN(EncodedFrame);
 };

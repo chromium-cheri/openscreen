@@ -66,10 +66,10 @@ class FrameCrypto {
   // AES crypto inputs and outputs (for either encrypting or decrypting) are
   // always the same size in bytes. The following are just "documentative code."
   static int GetEncryptedSize(const EncodedFrame& encoded_frame) {
-    return encoded_frame.data.size();
+    return encoded_frame.data_len;
   }
   static int GetPlaintextSize(const EncryptedFrame& encrypted_frame) {
-    return encrypted_frame.data.size();
+    return encrypted_frame.data_len;
   }
 
  private:

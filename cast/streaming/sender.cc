@@ -108,7 +108,7 @@ Sender::EnqueueFrameResult Sender::EnqueueFrame(const EncodedFrame& frame) {
     OSP_DCHECK_GT(frame.rtp_timestamp, pending_sender_report_.rtp_timestamp);
     OSP_DCHECK_GT(frame.reference_time, pending_sender_report_.reference_time);
   }
-  OSP_DCHECK(frame.data.data());
+  OSP_DCHECK_GT(frame.data_len, 0);
 
   // Check whether enqueuing the frame would exceed the design limit for the
   // span of FrameIds. Even if |num_frames_in_flight_| is less than
@@ -532,7 +532,7 @@ void Sender::CancelPendingFrame(FrameId frame_id) {
   }
 
   packet_router_->OnPayloadReceived(
-      slot->frame->data.size(), rtcp_packet_arrival_time_, round_trip_time_);
+      slot->frame->data_len, rtcp_packet_arrival_time_, round_trip_time_);
 
   slot->frame.reset();
   OSP_DCHECK_GT(num_frames_in_flight_, 0);

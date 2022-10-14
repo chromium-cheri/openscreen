@@ -85,7 +85,7 @@ TEST(FrameCollectorTest, CollectsFrameWithOnlyOnePart) {
     EXPECT_EQ(kSomeFrameId, frame.referenced_frame_id);
     EXPECT_EQ(part.rtp_timestamp, frame.rtp_timestamp);
     for (int j = 0; j < 255; ++j) {
-      EXPECT_EQ(static_cast<uint8_t>(j), frame.data[j]);
+      EXPECT_EQ(static_cast<uint8_t>(j), frame.const_data()[j]);
     }
 
     collector.Reset();
@@ -154,7 +154,7 @@ TEST(FrameCollectorTest, CollectsFrameWithMultiplePartsArrivingOutOfOrder) {
   EXPECT_EQ(kSomeFrameId, frame.frame_id);
   EXPECT_EQ(kSomeFrameId, frame.referenced_frame_id);
   EXPECT_EQ(kSomeRtpTimestamp, frame.rtp_timestamp);
-  absl::Span<const uint8_t> remaining_data = frame.data;
+  absl::Span<const uint8_t> remaining_data(frame.const_data(), frame.data_len);
   for (int i = 0; i < 6; ++i) {
     ASSERT_LE(kPayloadSizes[i], static_cast<int>(remaining_data.size()));
     EXPECT_EQ(absl::Span<const uint8_t>(payloads[i]),

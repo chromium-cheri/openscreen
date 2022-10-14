@@ -54,7 +54,8 @@ class RtpPacketizerTest : public testing::Test {
     for (int i = 0; i < payload_size; ++i) {
       buffer[i] = static_cast<uint8_t>(i);
     }
-    frame.data = absl::Span<uint8_t>(buffer.get(), payload_size);
+    frame.data = buffer.get();
+    frame.data_len = payload_size;
 
     return crypto_.Encrypt(frame);
   }
@@ -66,7 +67,7 @@ class RtpPacketizerTest : public testing::Test {
                           FramePacketId packet_id) {
     SCOPED_TRACE(testing::Message() << "packet_id=" << packet_id);
 
-    const int frame_payload_size = frame.data.size();
+    const int frame_payload_size = frame.data_len;
     constexpr int kExpectedRtpHeaderSize = 23;
     const int packet_payload_size =
         kMaxRtpPacketSizeForIpv4UdpOnEthernet - kExpectedRtpHeaderSize;
@@ -118,7 +119,7 @@ class RtpPacketizerTest : public testing::Test {
                                           : packet_payload_size;
     EXPECT_EQ(expected_payload_size, static_cast<int>(result->payload.size()));
     const absl::Span<const uint8_t> expected_bytes(
-        frame.data.data() + (packet_id * packet_payload_size),
+        frame.const_data() + (packet_id * packet_payload_size),
         expected_payload_size);
     EXPECT_EQ(expected_bytes, result->payload);
   }

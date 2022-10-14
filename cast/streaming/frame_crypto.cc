@@ -18,7 +18,8 @@ namespace openscreen {
 namespace cast {
 
 EncryptedFrame::EncryptedFrame() {
-  data = absl::Span<uint8_t>(owned_data_);
+  data = owned_data_.data();
+  data_len = owned_data_.size();
 }
 
 EncryptedFrame::~EncryptedFrame() = default;
@@ -26,15 +27,19 @@ EncryptedFrame::~EncryptedFrame() = default;
 EncryptedFrame::EncryptedFrame(EncryptedFrame&& other) noexcept
     : EncodedFrame(static_cast<EncodedFrame&&>(other)),
       owned_data_(std::move(other.owned_data_)) {
-  data = absl::Span<uint8_t>(owned_data_);
-  other.data = absl::Span<uint8_t>{};
+  data = owned_data_.data();
+  data_len = owned_data_.size();
+  other.data = {};
+  other.data_len = 0;
 }
 
 EncryptedFrame& EncryptedFrame::operator=(EncryptedFrame&& other) {
   this->EncodedFrame::operator=(static_cast<EncodedFrame&&>(other));
   owned_data_ = std::move(other.owned_data_);
-  data = absl::Span<uint8_t>(owned_data_);
-  other.data = absl::Span<uint8_t>{};
+  data = owned_data_.data();
+  data_len = owned_data_.size();
+  other.data = {};
+  other.data_len = 0;
   return *this;
 }
 
@@ -62,9 +67,13 @@ FrameCrypto::~FrameCrypto() = default;
 EncryptedFrame FrameCrypto::Encrypt(const EncodedFrame& encoded_frame) const {
   EncryptedFrame result;
   encoded_frame.CopyMetadataTo(&result);
-  result.owned_data_.resize(encoded_frame.data.size());
-  result.data = absl::Span<uint8_t>(result.owned_data_);
-  EncryptCommon(encoded_frame.frame_id, encoded_frame.data, result.data);
+  result.owned_data_.resize(encoded_frame.data_len);
+  result.data = result.owned_data_.data();
+  result.data_len = encoded_frame.data_len;
+  EncryptCommon(encoded_frame.frame_id,
+                absl::Span<const uint8_t>(encoded_frame.const_data(),
+                                          encoded_frame.data_len),
+                absl::Span<uint8_t>(result.mutable_data(), result.data_len));
   return result;
 }
 
@@ -73,12 +82,14 @@ void FrameCrypto::Decrypt(const EncryptedFrame& encrypted_frame,
   encrypted_frame.CopyMetadataTo(encoded_frame);
   // AES-CTC is symmetric. Thus, decryption back to the plaintext is the same as
   // encrypting the ciphertext; and both are the same size.
-  if (encrypted_frame.data.size() < encoded_frame->data.size()) {
-    encoded_frame->data = absl::Span<uint8_t>(encoded_frame->data.data(),
-                                              encrypted_frame.data.size());
+  if (encrypted_frame.data_len < encoded_frame->data_len) {
+    encoded_frame->data_len = encrypted_frame.data_len;
   }
-  EncryptCommon(encrypted_frame.frame_id, encrypted_frame.data,
-                encoded_frame->data);
+  EncryptCommon(encrypted_frame.frame_id,
+                absl::Span<const uint8_t>(encrypted_frame.const_data(),
+                                          encrypted_frame.data_len),
+                absl::Span<uint8_t>(encoded_frame->mutable_data(),
+                                    encoded_frame->data_len));
 }
 
 void FrameCrypto::EncryptCommon(FrameId frame_id,
