@@ -33,6 +33,41 @@
       "message": "std::variant is banned in Chromium at least, with absl::variant being preferred: https://chromium.googlesource.com/chromium/src/+/main/styleguide/c++/c++-features.md#std_variant-banned\n\nDoes OpenScreen follow Chromium style guide or something else?",
       "revId": "fb0c816d24e9da5c5b9e7d61d0dcc26354e7105d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e34b66b_af3ba530",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1313149
+      },
+      "writtenOn": "2022-10-14T17:27:04Z",
+      "side": 1,
+      "message": "I think the first question is: do you want to have an immutable data type, or a type that is const-correct? What exactly is the problem in making the type mutable, but const-correct, and passing `std::unique_ptr\u003cconst EncodedFrame\u003e` / `const EncodedFrame\u0026` / `EncodedFrame const*` around for the cases where it shouldn\u0027t be mutated? This\u0027d require that we never expose a const method that mutates the buffer, which\u0027d be tricky to enforce, but maybe workable?\n\nIf there are 2 distinct contexts, one in which immutable type is always going to be the right way, and the other where we have mutable data, then having 2 separate types is imo OK. Alternatively, we could go SkBitmap route I think, they have the concept of `isImmutable()`/`setImmutable()` so that we can \"freeze\" the frame, then it\u0027d be a matter of enforcing it ourselves internally in the type I think.",
+      "parentUuid": "7a98a817_3c897e7f",
+      "revId": "fb0c816d24e9da5c5b9e7d61d0dcc26354e7105d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a899e12_c24414a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1313149
+      },
+      "writtenOn": "2022-10-14T17:27:04Z",
+      "side": 1,
+      "message": "Response in thread.",
+      "revId": "fb0c816d24e9da5c5b9e7d61d0dcc26354e7105d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
