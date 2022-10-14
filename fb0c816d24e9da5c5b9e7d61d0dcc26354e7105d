@@ -68,6 +68,24 @@
       "message": "Response in thread.",
       "revId": "fb0c816d24e9da5c5b9e7d61d0dcc26354e7105d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46b4a5c3_945915c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1328910
+      },
+      "writtenOn": "2022-10-14T17:27:38Z",
+      "side": 1,
+      "message": "Can you help explain the cases where we end up with const/non-const frames and what it is that we need to do with both? Is it something where if it\u0027s const there\u0027s specific methods that may need to interact with it in a non-const way?\n\nIf it\u0027s better to set up a time to chat, that works too. Per my other comment; I\u0027m not sure if openscreen has any separate style guide; but it\u0027s worth noting that std::variant is banned in chromium code in favor of absl::variant; but that would probably still give you what you want?\n\nMy first instinct is that I think MutableEncodedFrame and ReadOnlyEncodedFrame *could* work and you\u0027d just put most of the logic into the base class and leave only the accessors in the child classes. It\u0027s sort of similar to having an \"is_mutable\" bool, but with a little bit more obvious of a construction pattern; though depending on how it gets plumbed around, you may violate some of the style rules about RTTI; but maybe you could sidestep that by having a \"GetMutableFrame\" method that just returns nullptr if it\u0027s the ReadOnly version.\n\nI\u0027ll take a look over the rest of the code now and see if that answers any of my other/earlier questions.",
+      "parentUuid": "7a98a817_3c897e7f",
+      "revId": "fb0c816d24e9da5c5b9e7d61d0dcc26354e7105d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
