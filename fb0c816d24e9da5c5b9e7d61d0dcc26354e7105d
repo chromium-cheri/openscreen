@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a98a817_3c897e7f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-10-14T06:23:21Z",
+      "side": 1,
+      "message": "First off, I\u0027m not sure if we want to actually do this.\n\nSecond of all, I have been struggling with the const correctness issues inherent in EncodedFrame for quite some time, and wanted some additional opinions around how best to solve it.\n\nThe current way we handle the const correctness issue is we very softly pinky swear to never modify the buffer if it is const, but we don\u0027t keep track of that anywhere currently. I have a similar bug I want to resolve for media::VideoFrame in Chrome:\nhttps://bugs.chromium.org/p/chromium/issues/detail?id\u003d1316810\n\nThe approach in this patch is to have a std::variant\u003cuint8_t*, const uint8_t*\u003e, and keep track of if the variant is const and provide helper methods for getting the data as const or mutable.\n\nOther ideas I had:\n\n1. Template EncodedFrame to have using MutableEncodedFrame \u003d EncodedFrame\u003cuint8_t*\u003e; I don\u0027t like this because now the entire class has to be a template for one field. I am open to this approach if we like it better however.\n\n2. Deal with it and do nothing. Don\u0027t love this one either.\n\n3. Don\u0027t use std::variant, and don\u0027t use C++17, just store as const uint8_t* and then keep a bool for \"is_mutable\" and provide a mutable_data() method that does a const_cast after DCHECK(is_mutable). This is not the worst idea, but requires the client to set is_mutable \u003d true.\n\n4. Have two child classes, MutableEncodedFrame and ReadOnlyEncodedFrame, that have different data fields. This is somewhat undesirable for inheritance reasons, but EncryptedFrame could just inherit from MutableEncodedFrame. We don\u0027t currently have any child classes that need to support both ready only and mutable cases, so this approach isn\u0027t crazy.\n\nWDYT? I like this approach less now that I\u0027ve put it out in the wild, but would love to have a general solution for handling fields that need to be const or non-const in different contexts that\u0027s safer than just hoping for the best but also not obnoxious to work with.",
+      "revId": "fb0c816d24e9da5c5b9e7d61d0dcc26354e7105d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
