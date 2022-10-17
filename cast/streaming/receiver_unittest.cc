@@ -108,7 +108,8 @@ struct SimulatedFrame : public EncodedFrame {
     for (size_t i = 0; i < buffer_.size(); ++i) {
       buffer_[i] = static_cast<uint8_t>(which + static_cast<int>(i));
     }
-    data = absl::Span<uint8_t>(buffer_);
+    data = buffer_.data();
+    data_len = buffer_.size();
   }
 
   static RtpTimeTicks GetRtpStartTime() {
@@ -338,7 +339,10 @@ class ReceiverTest : public testing::Test {
                                                           FrameId::first()),
               received_frame.reference_time);
     EXPECT_EQ(sent_frame.new_playout_delay, received_frame.new_playout_delay);
-    EXPECT_EQ(sent_frame.data, received_frame.data);
+    ASSERT_EQ(sent_frame.data_len, received_frame.data_len);
+    for (size_t i = 0; i < sent_frame.data_len; ++i) {
+      EXPECT_EQ(sent_frame.data[i], received_frame.data[i]);
+    }
   }
 
   // Consume zero or more frames from the Receiver, verifying that they are the

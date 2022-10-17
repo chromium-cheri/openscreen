@@ -10,7 +10,6 @@
 #include <chrono>
 #include <vector>
 
-#include "absl/types/span.h"
 #include "cast/streaming/frame_id.h"
 #include "cast/streaming/rtp_time.h"
 #include "platform/api/time.h"
@@ -44,7 +43,8 @@ struct EncodedFrame {
                RtpTimeTicks rtp_timestamp,
                Clock::time_point reference_time,
                std::chrono::milliseconds new_playout_delay,
-               absl::Span<uint8_t> data);
+               uint8_t* data,
+               size_t data_len);
   EncodedFrame();
   ~EncodedFrame();
 
@@ -95,7 +95,8 @@ struct EncodedFrame {
   // the sender context, this points to the data to be sent, and nothing will be
   // mutated. In the receiver context, this is set to the region of a
   // client-provided buffer that was populated.
-  absl::Span<uint8_t> data;
+  uint8_t* data = nullptr;
+  size_t data_len = 0;
 
   OSP_DISALLOW_COPY_AND_ASSIGN(EncodedFrame);
 };

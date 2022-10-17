@@ -13,14 +13,16 @@ EncodedFrame::EncodedFrame(Dependency dependency,
                            RtpTimeTicks rtp_timestamp,
                            Clock::time_point reference_time,
                            std::chrono::milliseconds new_playout_delay,
-                           absl::Span<uint8_t> data)
+                           uint8_t* data,
+                           size_t data_len)
     : dependency(dependency),
       frame_id(frame_id),
       referenced_frame_id(referenced_frame_id),
       rtp_timestamp(rtp_timestamp),
       reference_time(reference_time),
       new_playout_delay(new_playout_delay),
-      data(data) {}
+      data(data),
+      data_len(data_len) {}
 
 EncodedFrame::EncodedFrame() = default;
 EncodedFrame::~EncodedFrame() = default;

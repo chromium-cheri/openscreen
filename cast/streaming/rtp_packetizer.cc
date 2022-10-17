@@ -74,7 +74,7 @@ absl::Span<uint8_t> RtpPacketizer::GeneratePacket(const EncryptedFrame& frame,
   int data_chunk_size = max_payload_size();
   const int data_chunk_start = data_chunk_size * int{packet_id};
   if (is_last_packet) {
-    data_chunk_size = static_cast<int>(frame.data.size()) - data_chunk_start;
+    data_chunk_size = static_cast<int>(frame.data_len) - data_chunk_start;
   }
   packet_size += data_chunk_size;
   OSP_DCHECK_LE(packet_size, max_packet_size_);
@@ -115,7 +115,7 @@ absl::Span<uint8_t> RtpPacketizer::GeneratePacket(const EncryptedFrame& frame,
   OSP_DCHECK_EQ(buffer.data() + data_chunk_size, packet.end());
 
   // Copy the encrypted payload data into the packet.
-  memcpy(buffer.data(), frame.data.data() + data_chunk_start, data_chunk_size);
+  memcpy(buffer.data(), frame.data + data_chunk_start, data_chunk_size);
 
   return packet;
 }
@@ -123,8 +123,8 @@ absl::Span<uint8_t> RtpPacketizer::GeneratePacket(const EncryptedFrame& frame,
 int RtpPacketizer::ComputeNumberOfPackets(const EncryptedFrame& frame) const {
   // The total number of packets is computed by assuming the payload will be
   // split-up across as few packets as possible.
-  int num_packets = DividePositivesRoundingUp(
-      static_cast<int>(frame.data.size()), max_payload_size());
+  int num_packets = DividePositivesRoundingUp(static_cast<int>(frame.data_len),
+                                              max_payload_size());
   // Edge case: There must always be at least one packet, even when there are no
   // payload bytes. Some audio codecs, for example, use zero bytes to represent
   // a period of silence.

@@ -117,7 +117,8 @@ void StreamingOpusEncoder::EncodeAndSend(const float* interleaved_samples,
     // Note: It's possible for Opus to encode a zero byte packet. Send a Cast
     // audio frame anyway, to represent the passage of silence and to send other
     // stream metadata.
-    frame_.data = absl::Span<uint8_t>(output_.get(), packet_size_or_error);
+    frame_.data = output_.get();
+    frame_.data_len = packet_size_or_error;
     last_sent_frame_reference_time_ = frame_.reference_time;
     switch (sender_->EnqueueFrame(frame_)) {
       case Sender::OK:

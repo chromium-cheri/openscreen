@@ -152,14 +152,15 @@ EncodedFrame Receiver::ConsumeNextFrame(absl::Span<uint8_t> buffer) {
   PendingFrame& entry = GetQueueEntry(frame_id);
   OSP_DCHECK(entry.collector.is_complete());
   EncodedFrame frame;
-  frame.data = buffer;
+  frame.data = buffer.data();
+  frame.data_len = buffer.size();
   crypto_.Decrypt(entry.collector.PeekAtAssembledFrame(), &frame);
   OSP_DCHECK(entry.estimated_capture_time);
   frame.reference_time =
       *entry.estimated_capture_time + ResolveTargetPlayoutDelay(frame_id);
 
   RECEIVER_VLOG << "ConsumeNextFrame → " << frame.frame_id << ": "
-                << frame.data.size() << " payload bytes, RTP Timestamp "
+                << frame.data_len << " payload bytes, RTP Timestamp "
                 << frame.rtp_timestamp
                        .ToTimeSinceOrigin<microseconds>(rtp_timebase_)
                        .count()

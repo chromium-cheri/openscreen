@@ -303,7 +303,8 @@ class MockReceiver : public Environment::PacketConsumer {
     // testing should exist elsewhere to confirm frame play-out times with real
     // Receivers.
     decrypted->buffer.resize(FrameCrypto::GetPlaintextSize(encrypted));
-    decrypted->data = absl::Span<uint8_t>(decrypted->buffer);
+    decrypted->data = decrypted->buffer.data();
+    decrypted->data_len = decrypted->buffer.size();
     crypto_.Decrypt(encrypted, decrypted);
     incomplete_frames_.erase(frame_id);
     OnFrameComplete(frame_id);
@@ -405,7 +406,8 @@ class SenderTest : public testing::Test {
                           (frame_id - FrameId::first()));
     frame->reference_time = reference_time;
     PopulateFramePayloadBuffer(seed, num_payload_bytes, &frame->buffer);
-    frame->data = absl::Span<uint8_t>(frame->buffer);
+    frame->data = frame->buffer.data();
+    frame->data_len = frame->buffer.size();
   }
 
   // Confirms that all |sent_frames| exist in |received_frames|, with identical
@@ -428,7 +430,10 @@ class SenderTest : public testing::Test {
       EXPECT_EQ(sent_frame.referenced_frame_id,
                 received_frame.referenced_frame_id);
       EXPECT_EQ(sent_frame.rtp_timestamp, received_frame.rtp_timestamp);
-      EXPECT_TRUE(sent_frame.data == received_frame.data);
+      ASSERT_EQ(sent_frame.data_len, received_frame.data_len);
+      for (size_t i = 0; i < sent_frame.data_len; ++i) {
+        EXPECT_EQ(sent_frame.data[i], received_frame.data[i]);
+      }
     }
   }
 

@@ -11,7 +11,6 @@
 #include <array>
 #include <vector>
 
-#include "absl/types/span.h"
 #include "cast/streaming/encoded_frame.h"
 #include "openssl/aes.h"
 #include "platform/base/macros.h"
@@ -66,10 +65,10 @@ class FrameCrypto {
   // AES crypto inputs and outputs (for either encrypting or decrypting) are
   // always the same size in bytes. The following are just "documentative code."
   static int GetEncryptedSize(const EncodedFrame& encoded_frame) {
-    return encoded_frame.data.size();
+    return encoded_frame.data_len;
   }
   static int GetPlaintextSize(const EncryptedFrame& encrypted_frame) {
-    return encrypted_frame.data.size();
+    return encrypted_frame.data_len;
   }
 
  private:
@@ -84,8 +83,9 @@ class FrameCrypto {
   // AES-CTR is symmetric. Thus, the "meat" of both Encrypt() and Decrypt() is
   // the same.
   void EncryptCommon(FrameId frame_id,
-                     absl::Span<const uint8_t> in,
-                     absl::Span<uint8_t> out) const;
+                     const uint8_t* in,
+                     uint8_t* out,
+                     size_t length) const;
 };
 
 }  // namespace cast
