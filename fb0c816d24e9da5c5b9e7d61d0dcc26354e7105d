@@ -103,6 +103,24 @@
       "message": "Thanks for the feedback. I think we can resolve the const-ness issues directly just by passing const where appropriate, and since std::variant is banned I need to give the backing bug some more thought.",
       "revId": "fb0c816d24e9da5c5b9e7d61d0dcc26354e7105d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "851df9c6_24743266",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1328910
+      },
+      "writtenOn": "2022-10-17T19:56:16Z",
+      "side": 1,
+      "message": "FWIW std::variant is banned in favor of absl::variant; is there a reason absl::variant can\u0027t be used? I think I saw one of you mention that openscreen wants to avoid absl:: return types, though I don\u0027t know if I saw the reasoning for doing so? It also seems like openscreen may not have to follow chromium style in such a case if you have a clear reason for differentiating.",
+      "parentUuid": "d0377fd9_a8367557",
+      "revId": "fb0c816d24e9da5c5b9e7d61d0dcc26354e7105d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ],
   "submitRequirementResults": [
