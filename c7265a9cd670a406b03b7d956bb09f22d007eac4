@@ -16,6 +16,23 @@
       "message": "we talked a while ago about keeping Abseil out of the public APIs. Figured I\u0027d get in one more breaking change before letting things be stable for a little bit 😊.",
       "revId": "c7265a9cd670a406b03b7d956bb09f22d007eac4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c1c2dc2_1adf8a94",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-10-18T01:30:05Z",
+      "side": 1,
+      "message": "Passing around data by pointer and length is generally discouraged; this may be in the style guide, but generally you can imagine there are more things that can go wrong versus using a more strongly typed object that can e.g. assert that accesses are in-bounds.\n\nSo definitely in favor of replacing absl::span here, but I don\u0027t think we can quite migrate to std::span as we are still setting a language level of C++14.\n\nI have a WIP patch for util::span, a drop-in std::span replacement that can be upgraded to std::span in the future but didn\u0027t quite finish wrapping it up. Do you mind taking a look and seeing if it would make sense to replace absl::span with util::span here?",
+      "revId": "c7265a9cd670a406b03b7d956bb09f22d007eac4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
