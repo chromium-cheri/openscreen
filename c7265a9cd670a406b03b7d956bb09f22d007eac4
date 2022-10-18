@@ -33,6 +33,24 @@
       "message": "Passing around data by pointer and length is generally discouraged; this may be in the style guide, but generally you can imagine there are more things that can go wrong versus using a more strongly typed object that can e.g. assert that accesses are in-bounds.\n\nSo definitely in favor of replacing absl::span here, but I don\u0027t think we can quite migrate to std::span as we are still setting a language level of C++14.\n\nI have a WIP patch for util::span, a drop-in std::span replacement that can be upgraded to std::span in the future but didn\u0027t quite finish wrapping it up. Do you mind taking a look and seeing if it would make sense to replace absl::span with util::span here?",
       "revId": "c7265a9cd670a406b03b7d956bb09f22d007eac4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a21d946_b2471314",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-10-18T01:37:16Z",
+      "side": 1,
+      "message": "I don\u0027t think util::span would be appropriate here since its a public API and we don\u0027t want embedders to include files from util. Embedders have to create an EncodedFrame to pass into the Sender class. Based on the visibility rules we have that would be a violation.\n\nI know you didn\u0027t want Abseil exposed in the public API so this is a solution for that. Since std::span is in C++20 I\u0027m sure it will be a while before we can use it, plus I\u0027m sure it will be banned in Chrome or something.\n\nIf you have a better suggestion I\u0027m all ears, I also don\u0027t really mind if embedders have to include Abseil since they depend on it implicitly anyway. LMK what you think.",
+      "parentUuid": "1c1c2dc2_1adf8a94",
+      "revId": "c7265a9cd670a406b03b7d956bb09f22d007eac4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
