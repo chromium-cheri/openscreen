@@ -51,6 +51,24 @@
       "parentUuid": "1c1c2dc2_1adf8a94",
       "revId": "c7265a9cd670a406b03b7d956bb09f22d007eac4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c76570a7_af7413f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-10-18T01:45:42Z",
+      "side": 1,
+      "message": "Yeah, good point.  I think it would have to go into platform/base.  I can\u0027t seem to find the WIP patch but let me look one more place.\n\n\u003e you didn\u0027t want Abseil exposed in the public API so this is a solution for that\n\nThis is to make life easier for existing and future Android consumption of our code, specifically AOSP.  Since absl doesn\u0027t guarantee ABI compatibility they end up having to distribute N copies of absl for N libraries that use it.\n\n\u003e C++20 I\u0027m sure it will be a while before we can use it, plus I\u0027m sure it will be banned in Chrome or something.\n\nI think the idea is to replace base::span in Chromium with std::span but I haven\u0027t checked the list archives to be sure.",
+      "parentUuid": "5a21d946_b2471314",
+      "revId": "c7265a9cd670a406b03b7d956bb09f22d007eac4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
