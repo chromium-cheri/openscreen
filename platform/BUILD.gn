@@ -9,6 +9,7 @@ source_set("base") {
   defines = []
   visibility = [ "*" ]
   public = [
+    "base/bytes_view.h",
     "base/error.h",
     "base/interface_info.h",
     "base/ip_address.h",
@@ -233,6 +234,7 @@ source_set("unittests") {
   sources = [
     "api/serial_delete_ptr_unittest.cc",
     "api/time_unittest.cc",
+    "base/bytes_view_unittest.cc",
     "base/error_unittest.cc",
     "base/ip_address_unittest.cc",
     "base/location_unittest.cc",
