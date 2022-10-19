@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3f4c3fb_bed53c8c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-10-19T18:29:56Z",
+      "side": 1,
+      "message": "I\u0027m assuming this is handling the cases where an error occurs, it propagates up to the client, and the client deletes the entire session, including the Sender|ReceiverSessionMessenger.",
+      "revId": "5e29758187632f78320a35ef3fd5a3d589936af5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc4cb154_81781a2e",
+        "filename": "cast/streaming/session_messenger.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-10-19T18:29:56Z",
+      "side": 1,
+      "message": "This falls through if receiver_message.is_error().  Since there will be no value, that looks like a bug.",
+      "revId": "5e29758187632f78320a35ef3fd5a3d589936af5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd8e2fd8_33e5eda7",
+        "filename": "cast/streaming/session_messenger.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-10-19T18:29:56Z",
+      "side": 1,
+      "message": "s/RTP/RPC/ ?",
+      "revId": "5e29758187632f78320a35ef3fd5a3d589936af5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf051959_56d5b2fd",
+        "filename": "cast/streaming/session_messenger.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-10-19T18:29:56Z",
+      "side": 1,
+      "message": "Aside: I would expect ReceiverMessage::Parse() to handle this and not parse message_body.value() twice here.  Maybe a future improvement.",
+      "revId": "5e29758187632f78320a35ef3fd5a3d589936af5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
