@@ -210,12 +210,9 @@ void SenderSessionMessenger::OnMessage(const std::string& source_id,
       return;
     }
 
-    it->second(std::move(receiver_message.value()));
-
-    // Calling the function callback may result in the checksum of the pointed
-    // to object to change, so calling erase() on the iterator after executing
-    // second() may result in a segfault.
-    awaiting_replies_.erase_key(sequence_number);
+    ReplyCallback callback = std::move(it->second);
+    awaiting_replies_.erase(it);
+    callback(std::move(receiver_message.value()));
   }
 }
 
@@ -296,9 +293,9 @@ void ReceiverSessionMessenger::OnMessage(const std::string& source_id,
   auto it = callbacks_.find(sender_message.value().type);
   if (it == callbacks_.end()) {
     OSP_DLOG_INFO << "Received message without a callback, dropping";
-  } else {
-    it->second(source_id, sender_message.value());
+    return;
   }
+  it->second(source_id, sender_message.value());
 }
 
 void ReceiverSessionMessenger::OnError(Error error) {
