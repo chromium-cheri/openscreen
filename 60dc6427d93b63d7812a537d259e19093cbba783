@@ -43,6 +43,48 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "90f5b6e1_30c621a1",
+        "filename": "platform/base/bytes_view.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1233199
+      },
+      "writtenOn": "2022-10-21T19:13:38Z",
+      "side": 1,
+      "message": "Although its method API is similar to std::span, it\u0027s not a template so it can\u0027t old arbitrary types like std::span.  I felt it would be less confusing to be explicit about what type it holds, similar to std::string_view.",
+      "parentUuid": "43911f65_9df60970",
+      "range": {
+        "startLine": 31,
+        "startChar": 6,
+        "endLine": 31,
+        "endChar": 16
+      },
+      "revId": "60dc6427d93b63d7812a537d259e19093cbba783",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31a6627c_f8e736bd",
+        "filename": "platform/base/bytes_view.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1233199
+      },
+      "writtenOn": "2022-10-21T19:13:38Z",
+      "side": 1,
+      "message": "Not yet, this this CL.",
+      "parentUuid": "fdcbe000_285426cc",
+      "revId": "60dc6427d93b63d7812a537d259e19093cbba783",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c12f3266_47c8a47e",
         "filename": "platform/base/bytes_view.h",
         "patchSetId": 3
@@ -100,6 +142,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "862c47ec_e9681d47",
+        "filename": "platform/base/bytes_view.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1233199
+      },
+      "writtenOn": "2022-10-21T19:13:38Z",
+      "side": 1,
+      "message": "Can you point me to the place where data mapped by the span is written?  I want to see if I can convert existing usages without templatizing this class.\n\nIf EncodedFrame has mixed mutability (i.e. other parts of it can be mutable but the data itself is sometimes readonly and sometimes mutable) then it gets tricky.",
+      "parentUuid": "a4a7d770_f6b8542e",
+      "revId": "60dc6427d93b63d7812a537d259e19093cbba783",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ec580611_9a4e7994",
         "filename": "platform/base/bytes_view.h",
         "patchSetId": 3
@@ -111,6 +171,24 @@
       "writtenOn": "2022-10-21T17:48:51Z",
       "side": 1,
       "message": "if this isn\u0027t a template class shouldn\u0027t these be in an implementation file?",
+      "revId": "60dc6427d93b63d7812a537d259e19093cbba783",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f605426f_3d48898b",
+        "filename": "platform/base/bytes_view.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1233199
+      },
+      "writtenOn": "2022-10-21T19:13:38Z",
+      "side": 1,
+      "message": "I think this is a case where we could want inlining for performance reasons.\n\nAlthough the presence of the std::assert call makes the reasoning a little more complicated.\n\nI\u0027ll do some more research and move it if there is no performance hit.",
+      "parentUuid": "ec580611_9a4e7994",
       "revId": "60dc6427d93b63d7812a537d259e19093cbba783",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
