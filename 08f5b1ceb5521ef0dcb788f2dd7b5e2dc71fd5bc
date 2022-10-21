@@ -16,6 +16,24 @@
       "message": "This cheats a bit by only allowing a span over read-only data, so we don\u0027t need to make a template.\n\nIf we need both read-only and read-write spans, I will need to update it to be a template.  Not a big deal, but makes it more verbose.  I took a look at the other patch, and it looks like we might need both for EncodedFrame.",
       "revId": "08f5b1ceb5521ef0dcb788f2dd7b5e2dc71fd5bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68fc1318_f903d651",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-10-21T17:43:03Z",
+      "side": 1,
+      "message": "I might also be able to make it work as a view over both const and mutable data  by adding const-overloads for all of the accessor methods.  If we can make the usages of EncodedFrame const-correct, that might be good enough to allow the compiler to enforce the distinction.",
+      "parentUuid": "3da7261d_447804c4",
+      "revId": "08f5b1ceb5521ef0dcb788f2dd7b5e2dc71fd5bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
