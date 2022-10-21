@@ -158,6 +158,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "efd48d97_a4d6933f",
+        "filename": "platform/base/bytes_view.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-10-21T20:17:16Z",
+      "side": 1,
+      "message": "Looks like we only mutate the buffers when they are absl::Spans and then set them on the EncodedFrame, e.g. during decryption:\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/openscreen/src/cast/streaming/frame_crypto.cc;drc\u003d95f3e04e349bf59cdf13c4f4d81748a2b392dcaf;l\u003d77\n\nI think it would be sufficient to have the buffer stored on EncodedFrame be a const view, and we can pass the buffer internally as an absl::Span before it gets set on an encoded frame.\n\nSo this is actually fine as is I think. If something comes up during adoption of this class we can fix it then, I would greatly prefer everything to be const correct.",
+      "parentUuid": "862c47ec_e9681d47",
+      "revId": "60dc6427d93b63d7812a537d259e19093cbba783",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec580611_9a4e7994",
