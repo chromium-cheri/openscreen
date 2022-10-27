@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc0fb09f_d9f100c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-10-27T23:02:54Z",
+      "side": 1,
+      "message": "LGTM % feedback. Thanks for putting this together.",
+      "revId": "9023832063c8748d95afd48cc357aab6c58c395d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4823bce_bc17afdd",
+        "filename": "cast/receiver/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-10-27T23:02:54Z",
+      "side": 1,
+      "message": "Bug number?",
+      "revId": "9023832063c8748d95afd48cc357aab6c58c395d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7513931d_3cb70782",
+        "filename": "cast/streaming/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-10-27T23:02:54Z",
+      "side": 1,
+      "message": "Yeah this means removing the RpcDispatcher API and exclusively using the RpcMessenger provided by SenderSession, right? I think this would be a good cleanup once the legacy session has been removed.",
+      "revId": "9023832063c8748d95afd48cc357aab6c58c395d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f7810cc_c3b23d99",
+        "filename": "cast/streaming/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-10-27T23:02:54Z",
+      "side": 1,
+      "message": "Maybe should be part of:\n\nhttps://bugs.chromium.org/p/chromium/issues/detail?id\u003d1363719\u0026sort\u003dpri\n\nMaking the Sender easier to initialize for testing purposes. We shouldn\u0027t need to know about the packet router in Chromium, but need it to instantiate test senders.",
+      "revId": "9023832063c8748d95afd48cc357aab6c58c395d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
