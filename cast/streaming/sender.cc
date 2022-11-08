@@ -9,6 +9,7 @@
 #include <ratio>
 
 #include "cast/streaming/session_config.h"
+#include "platform/base/trivial_clock_traits.h"
 #include "util/chrono_helpers.h"
 #include "util/osp_logging.h"
 #include "util/std_util.h"
@@ -316,7 +317,8 @@ void Sender::OnReceiverReport(const RtcpReportBlock& receiver_report) {
     round_trip_time_ =
         (kInertia * round_trip_time_ + measurement) / (kInertia + 1);
   }
-  TRACE_SCOPED(TraceCategory::kSender, "UpdatedRTT");
+  TRACE_SCOPED1(TraceCategory::kSender, "UpdatedRoundTripTime",
+                "round_trip_time", ToString(round_trip_time_));
 }
 
 void Sender::OnReceiverIndicatesPictureLoss() {
@@ -348,7 +350,8 @@ void Sender::OnReceiverIndicatesPictureLoss() {
 
 void Sender::OnReceiverCheckpoint(FrameId frame_id,
                                   milliseconds playout_delay) {
-  TRACE_DEFAULT_SCOPED(TraceCategory::kSender);
+  TRACE_SCOPED2(TraceCategory::kSender, "OnReceiverCheckpoint", "frame_id",
+                frame_id.ToString(), "playout_delay", ToString(playout_delay));
   if (frame_id > last_enqueued_frame_id_) {
     OSP_LOG_ERROR
         << "Ignoring checkpoint for " << latest_expected_frame_id_
