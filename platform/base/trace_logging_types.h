@@ -24,7 +24,7 @@ constexpr TraceId kEmptyTraceId = 0x0;
 // specified value is desired.
 constexpr TraceId kUnsetTraceId = std::numeric_limits<TraceId>::max();
 
-// A class to represent the current TraceId Hirearchy and for the user to
+// A class to represent the current TraceId Hierarchy and for the user to
 // pass around as needed.
 struct TraceIdHierarchy {
   TraceId current;
@@ -35,31 +35,20 @@ struct TraceIdHierarchy {
     return {kEmptyTraceId, kEmptyTraceId, kEmptyTraceId};
   }
 
-  bool HasCurrent() { return current != kUnsetTraceId; }
-  bool HasParent() { return parent != kUnsetTraceId; }
-  bool HasRoot() { return root != kUnsetTraceId; }
+  bool HasCurrent() const;
+  bool HasParent() const;
+  bool HasRoot() const;
 
-  std::string ToString() {
-    std::stringstream ss;
-    ss << "[" << std::hex << root << ":" << parent << ":" << current << "]";
-    return ss.str();
-  }
+  std::string ToString() const;
 };
 
-inline bool operator==(const TraceIdHierarchy& lhs,
-                       const TraceIdHierarchy& rhs) {
-  return lhs.current == rhs.current && lhs.parent == rhs.parent &&
-         lhs.root == rhs.root;
-}
+std::ostream& operator<<(std::ostream& out, const TraceIdHierarchy& ids);
 
-inline bool operator!=(const TraceIdHierarchy& lhs,
-                       const TraceIdHierarchy& rhs) {
-  return !(lhs == rhs);
-}
+bool operator==(const TraceIdHierarchy& lhs, const TraceIdHierarchy& rhs);
+
+bool operator!=(const TraceIdHierarchy& lhs, const TraceIdHierarchy& rhs);
 
 // BitFlags to represent the supported tracing categories.
-// NOTE: These are currently placeholder values and later changes should feel
-// free to edit them.
 struct TraceCategory {
   enum Value : uint64_t {
     kAny = std::numeric_limits<uint64_t>::max(),
@@ -74,6 +63,8 @@ struct TraceCategory {
     kSender = 0x01 << 8
   };
 };
+
+const char* ToString(TraceCategory::Value category);
 
 }  // namespace openscreen
 
