@@ -7,6 +7,7 @@
 
 #include <chrono>
 #include <ostream>
+#include <string>
 
 namespace openscreen {
 
@@ -56,16 +57,25 @@ using ClockNowFunctionPtr = TrivialClockTraits::time_point (*)();
 std::ostream& operator<<(std::ostream& os,
                          const TrivialClockTraits::duration& d);
 
+// Convenience for serializing to string, e.g. for tracing. Outputs a string of
+// the form "123µs".
+std::string ToString(const TrivialClockTraits::duration& d);
+
 // Logging convenience for time points. Outputs a string of the form
 // "123µs-ticks".
 std::ostream& operator<<(std::ostream& os,
                          const TrivialClockTraits::time_point& tp);
 
+// Convenience for serializing to string, e.g. for tracing. Outputs a string of
+// the form "123µs-ticks".
+std::string ToString(const TrivialClockTraits::time_point& tp);
+
 // Logging (and gtest pretty-printing) for several commonly-used chrono types.
-std::ostream& operator<<(std::ostream& out, const std::chrono::hours&);
-std::ostream& operator<<(std::ostream& out, const std::chrono::minutes&);
-std::ostream& operator<<(std::ostream& out, const std::chrono::seconds&);
-std::ostream& operator<<(std::ostream& out, const std::chrono::milliseconds&);
+std::ostream& operator<<(std::ostream& os, const std::chrono::hours&);
+std::ostream& operator<<(std::ostream& os, const std::chrono::minutes&);
+std::ostream& operator<<(std::ostream& os, const std::chrono::seconds&);
+std::ostream& operator<<(std::ostream& os, const std::chrono::milliseconds&);
+std::ostream& operator<<(std::ostream& os, const std::chrono::microseconds& d);
 // Note: The ostream output operator for std::chrono::microseconds is handled by
 // the one for TrivialClockTraits::duration above since they are the same type.
 
