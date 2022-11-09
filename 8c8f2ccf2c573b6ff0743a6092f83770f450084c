@@ -123,6 +123,52 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d624caa_b87348ca",
+        "filename": "platform/api/trace_event.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2022-11-09T21:42:47Z",
+      "side": 1,
+      "message": "This definitely feels cleaner than passing around a bunch of individual parameters",
+      "range": {
+        "startLine": 20,
+        "startChar": 7,
+        "endLine": 20,
+        "endChar": 17
+      },
+      "revId": "8c8f2ccf2c573b6ff0743a6092f83770f450084c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4a241c7_29734bba",
+        "filename": "platform/api/trace_event.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2022-11-09T21:42:47Z",
+      "side": 1,
+      "message": "Do we ever expect an empty TraceEvent to be constructed?",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 12
+      },
+      "revId": "8c8f2ccf2c573b6ff0743a6092f83770f450084c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "abfbd049_3cdfd4f9",
@@ -230,6 +276,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "27ab61ff_36e152a5",
+        "filename": "platform/base/trace_logging_types.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2022-11-09T21:42:47Z",
+      "side": 1,
+      "message": "These are flags not an enum class, so it\u0027s possible more than one is set\n\nYou\u0027d need to check for each flag individually instead of a switch statement",
+      "range": {
+        "startLine": 46,
+        "startChar": 10,
+        "endLine": 46,
+        "endChar": 18
+      },
+      "revId": "8c8f2ccf2c573b6ff0743a6092f83770f450084c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a4ba31fd_f535d6af",
         "filename": "platform/base/trace_logging_types.cc",
         "patchSetId": 5
@@ -259,6 +328,29 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "a4ba31fd_f535d6af",
+      "revId": "8c8f2ccf2c573b6ff0743a6092f83770f450084c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a71b74b8_f2493653",
+        "filename": "platform/base/trace_logging_types.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2022-11-09T21:42:47Z",
+      "side": 1,
+      "message": "Why move these to the `.cc`? They seem like the type of trivial function that would do well in the header",
+      "range": {
+        "startLine": 38,
+        "startChar": 7,
+        "endLine": 38,
+        "endChar": 17
+      },
       "revId": "8c8f2ccf2c573b6ff0743a6092f83770f450084c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
