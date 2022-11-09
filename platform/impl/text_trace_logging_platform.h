@@ -16,25 +16,11 @@ class TextTraceLoggingPlatform : public TraceLoggingPlatform {
 
   bool IsTraceLoggingEnabled(TraceCategory::Value category) override;
 
-  void LogTrace(const char* name,
-                const uint32_t line,
-                const char* file,
-                Clock::time_point start_time,
-                Clock::time_point end_time,
-                TraceIdHierarchy ids,
-                Error::Code error) override;
+  void LogTrace(TraceEvent event, Clock::time_point end_time) override;
 
-  void LogAsyncStart(const char* name,
-                     const uint32_t line,
-                     const char* file,
-                     Clock::time_point timestamp,
-                     TraceIdHierarchy ids) override;
+  void LogAsyncStart(TraceEvent event) override;
 
-  void LogAsyncEnd(const uint32_t line,
-                   const char* file,
-                   Clock::time_point timestamp,
-                   TraceId trace_id,
-                   Error::Code error) override;
+  void LogAsyncEnd(TraceEvent event) override;
 };
 
 }  // namespace openscreen

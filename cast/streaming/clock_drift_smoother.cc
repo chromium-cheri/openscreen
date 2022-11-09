@@ -68,8 +68,8 @@ void ClockDriftSmoother::Update(Clock::time_point now,
     }
 
     OSP_VLOG << "Local clock is ahead of the remote clock by: measured = "
-             << to_microseconds(measured_offset).count() << "μs, "
-             << "filtered = " << to_microseconds(Current()).count() << "μs.";
+             << measured_offset << ", "
+             << "filtered = " << Current() << ".";
   }
 }
 
