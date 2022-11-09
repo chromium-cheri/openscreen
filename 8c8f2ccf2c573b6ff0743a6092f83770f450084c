@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2baf0931_1e82ab5b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-11-09T01:46:34Z",
+      "side": 1,
+      "message": "Not sure we can fix the operator overloading, seems to be a language constraint.  Maybe a question for the cpp slack.",
+      "revId": "8c8f2ccf2c573b6ff0743a6092f83770f450084c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e28f1bd_96b5b298",
+        "filename": "cast/standalone_receiver/dummy_player.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-11-09T01:46:34Z",
+      "side": 1,
+      "message": "My reading of https://crbug.com/openscreen/123 and https://en.cppreference.com/w/cpp/language/dependent_name is that this is actually not possible, thus the bug was closed as WontFix.",
+      "revId": "8c8f2ccf2c573b6ff0743a6092f83770f450084c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d11b5fa0_04550fdf",
+        "filename": "cast/standalone_receiver/dummy_player.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-11-09T01:46:34Z",
+      "side": 1,
+      "message": "I don\u0027t like this because it\u0027s importing an overloaded name, you won\u0027t be getting just just the std::chrono::duration operators but any other operator declared in openscreen::\n\nCan you import just the operator overloads you are using? (Comment applies elsewhere)",
+      "revId": "8c8f2ccf2c573b6ff0743a6092f83770f450084c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99f1faf4_2e7b2e9a",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-11-09T01:46:34Z",
+      "side": 1,
+      "message": "Looks like this comment also applies to async tracing?",
+      "revId": "8c8f2ccf2c573b6ff0743a6092f83770f450084c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abfbd049_3cdfd4f9",
+        "filename": "platform/api/trace_event.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-11-09T01:46:34Z",
+      "side": 1,
+      "message": "I think we are preferring {} for value initialization these days, but check with surrounding code and be consistent with that.",
+      "revId": "8c8f2ccf2c573b6ff0743a6092f83770f450084c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "886ab248_537a165a",
+        "filename": "platform/api/trace_event.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-11-09T01:46:34Z",
+      "side": 1,
+      "message": "Can the first argument be a char* if dynamic argument names are not a requirement?\nThis would save space since the constant wouldn\u0027t be copied into a new std::string.",
+      "revId": "8c8f2ccf2c573b6ff0743a6092f83770f450084c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d641e20_9047f56b",
+        "filename": "platform/api/trace_event.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-11-09T01:46:34Z",
+      "side": 1,
+      "message": "It might be an idea to truncate argument strings to some reasonable length to prevent unforseen memory blowups when tracing is on.  This would require some additional length checks per event.... maybe it should be a debug-build-only thing for now.",
+      "revId": "8c8f2ccf2c573b6ff0743a6092f83770f450084c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4ba31fd_f535d6af",
+        "filename": "platform/base/trace_logging_types.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2022-11-09T01:46:34Z",
+      "side": 1,
+      "message": "Won\u0027t the compiler warn on a missing value?",
+      "revId": "8c8f2ccf2c573b6ff0743a6092f83770f450084c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
