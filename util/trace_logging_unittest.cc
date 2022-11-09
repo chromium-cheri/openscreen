@@ -29,6 +29,15 @@ using ::testing::AtLeast;
 using ::testing::DoAll;
 using ::testing::Invoke;
 
+MATCHER_P(EqAsyncEndEvent, expected, "") {
+  return arg.ids.current == expected.ids.current &&
+         arg.result == expected.result;
+}
+
+MATCHER_P(HasSameArguments, expected, "") {
+  return arg.arguments == expected.arguments;
+}
+
 // All the unit tests below should use TestTraceLoggingPlatform for the
 // library's tracing output mock. This is a StrictMock to ensure that, when not
 // compiling with ENABLE_TRACE_LOGGING, the mock receives no method calls.
@@ -39,7 +48,7 @@ TEST(TraceLoggingTest, MacroCallScopedDoesNotSegFault) {
 #if defined(ENABLE_TRACE_LOGGING)
   EXPECT_CALL(platform, IsTraceLoggingEnabled(TraceCategory::Value::kAny))
       .Times(AtLeast(1));
-  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, _)).Times(1);
+  EXPECT_CALL(platform, LogTrace(_, _));
 #endif
   { TRACE_SCOPED(TraceCategory::Value::kAny, "test"); }
 }
@@ -49,7 +58,7 @@ TEST(TraceLoggingTest, MacroCallDefaultScopedDoesNotSegFault) {
 #if defined(ENABLE_TRACE_LOGGING)
   EXPECT_CALL(platform, IsTraceLoggingEnabled(TraceCategory::Value::kAny))
       .Times(AtLeast(1));
-  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, _)).Times(1);
+  EXPECT_CALL(platform, LogTrace(_, _));
 #endif
   { TRACE_DEFAULT_SCOPED(TraceCategory::Value::kAny); }
 }
@@ -59,7 +68,7 @@ TEST(TraceLoggingTest, MacroCallUnscopedDoesNotSegFault) {
 #if defined(ENABLE_TRACE_LOGGING)
   EXPECT_CALL(platform, IsTraceLoggingEnabled(TraceCategory::Value::kAny))
       .Times(AtLeast(1));
-  EXPECT_CALL(platform, LogAsyncStart(_, _, _, _, _)).Times(1);
+  EXPECT_CALL(platform, LogAsyncStart(_));
 #endif
   { TRACE_ASYNC_START(TraceCategory::Value::kAny, "test"); }
 }
@@ -69,8 +78,8 @@ TEST(TraceLoggingTest, MacroVariablesUniquelyNames) {
 #if defined(ENABLE_TRACE_LOGGING)
   EXPECT_CALL(platform, IsTraceLoggingEnabled(TraceCategory::Value::kAny))
       .Times(AtLeast(1));
-  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, _)).Times(3);
-  EXPECT_CALL(platform, LogAsyncStart(_, _, _, _, _)).Times(2);
+  EXPECT_CALL(platform, LogTrace(_, _)).Times(3);
+  EXPECT_CALL(platform, LogAsyncStart(_)).Times(2);
 #endif
 
   {
@@ -88,7 +97,7 @@ TEST(TraceLoggingTest, ExpectTimestampsReflectDelay) {
 #if defined(ENABLE_TRACE_LOGGING)
   EXPECT_CALL(platform, IsTraceLoggingEnabled(TraceCategory::Value::kAny))
       .Times(AtLeast(1));
-  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, _))
+  EXPECT_CALL(platform, LogTrace(_, _))
       .WillOnce(DoAll(Invoke(ValidateTraceTimestampDiff<delay_in_ms>),
                       Invoke(ValidateTraceErrorCode<Error::Code::kNone>)));
 #endif
@@ -105,7 +114,7 @@ TEST(TraceLoggingTest, ExpectErrorsPassedToResult) {
 #if defined(ENABLE_TRACE_LOGGING)
   EXPECT_CALL(platform, IsTraceLoggingEnabled(TraceCategory::Value::kAny))
       .Times(AtLeast(1));
-  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, _))
+  EXPECT_CALL(platform, LogTrace(_, _))
       .WillOnce(Invoke(ValidateTraceErrorCode<result_code>));
 #endif
 
@@ -120,7 +129,7 @@ TEST(TraceLoggingTest, ExpectUnsetTraceIdNotSet) {
 #if defined(ENABLE_TRACE_LOGGING)
   EXPECT_CALL(platform, IsTraceLoggingEnabled(TraceCategory::Value::kAny))
       .Times(AtLeast(1));
-  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, _)).Times(1);
+  EXPECT_CALL(platform, LogTrace(_, _));
 #endif
 
   TraceIdHierarchy h = {kUnsetTraceId, kUnsetTraceId, kUnsetTraceId};
@@ -142,7 +151,7 @@ TEST(TraceLoggingTest, ExpectCreationWithIdsToWork) {
 #if defined(ENABLE_TRACE_LOGGING)
   EXPECT_CALL(platform, IsTraceLoggingEnabled(TraceCategory::Value::kAny))
       .Times(AtLeast(1));
-  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, _))
+  EXPECT_CALL(platform, LogTrace(_, _))
       .WillOnce(
           DoAll(Invoke(ValidateTraceErrorCode<Error::Code::kNone>),
                 Invoke(ValidateTraceIdHierarchyOnSyncTrace<current, parent,
@@ -165,7 +174,7 @@ TEST(TraceLoggingTest, ExpectCreationWithIdsToWork) {
   }
 }
 
-TEST(TraceLoggingTest, ExpectHirearchyToBeApplied) {
+TEST(TraceLoggingTest, ExpectHierarchyToBeApplied) {
   constexpr TraceId current = 0x32;
   constexpr TraceId parent = 0x47;
   constexpr TraceId root = 0x84;
@@ -173,7 +182,7 @@ TEST(TraceLoggingTest, ExpectHirearchyToBeApplied) {
 #if defined(ENABLE_TRACE_LOGGING)
   EXPECT_CALL(platform, IsTraceLoggingEnabled(TraceCategory::Value::kAny))
       .Times(AtLeast(1));
-  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, _))
+  EXPECT_CALL(platform, LogTrace(_, _))
       .WillOnce(DoAll(
           Invoke(ValidateTraceErrorCode<Error::Code::kNone>),
           Invoke(ValidateTraceIdHierarchyOnSyncTrace<kEmptyId, current, root,
@@ -204,7 +213,7 @@ TEST(TraceLoggingTest, ExpectHirearchyToBeApplied) {
   }
 }
 
-TEST(TraceLoggingTest, ExpectHirearchyToEndAfterScopeWhenSetWithSetter) {
+TEST(TraceLoggingTest, ExpectHierarchyToEndAfterScopeWhenSetWithSetter) {
   constexpr TraceId current = 0x32;
   constexpr TraceId parent = 0x47;
   constexpr TraceId root = 0x84;
@@ -212,7 +221,7 @@ TEST(TraceLoggingTest, ExpectHirearchyToEndAfterScopeWhenSetWithSetter) {
 #if defined(ENABLE_TRACE_LOGGING)
   EXPECT_CALL(platform, IsTraceLoggingEnabled(TraceCategory::Value::kAny))
       .Times(AtLeast(1));
-  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, _))
+  EXPECT_CALL(platform, LogTrace(_, _))
       .WillOnce(DoAll(
           Invoke(ValidateTraceErrorCode<Error::Code::kNone>),
           Invoke(ValidateTraceIdHierarchyOnSyncTrace<kEmptyId, current, root,
@@ -249,7 +258,7 @@ TEST(TraceLoggingTest, ExpectHierarchyToEndAfterScope) {
 #if defined(ENABLE_TRACE_LOGGING)
   EXPECT_CALL(platform, IsTraceLoggingEnabled(TraceCategory::Value::kAny))
       .Times(AtLeast(1));
-  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, _))
+  EXPECT_CALL(platform, LogTrace(_, _))
       .WillOnce(DoAll(
           Invoke(ValidateTraceErrorCode<Error::Code::kNone>),
           Invoke(ValidateTraceIdHierarchyOnSyncTrace<kEmptyId, current, root,
@@ -290,7 +299,7 @@ TEST(TraceLoggingTest, ExpectSetHierarchyToApply) {
 #if defined(ENABLE_TRACE_LOGGING)
   EXPECT_CALL(platform, IsTraceLoggingEnabled(TraceCategory::Value::kAny))
       .Times(AtLeast(1));
-  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, _))
+  EXPECT_CALL(platform, LogTrace(_, _))
       .WillOnce(DoAll(
           Invoke(ValidateTraceErrorCode<Error::Code::kNone>),
           Invoke(ValidateTraceIdHierarchyOnSyncTrace<kEmptyId, current, root,
@@ -317,15 +326,114 @@ TEST(TraceLoggingTest, ExpectSetHierarchyToApply) {
   }
 }
 
+TEST(TraceLoggingTest, CheckTraceSupportsArguments) {
+  StrictMockLoggingPlatform platform;
+#if defined(ENABLE_TRACE_LOGGING)
+  EXPECT_CALL(platform, IsTraceLoggingEnabled(TraceCategory::Value::kAny))
+      .Times(AtLeast(1));
+
+  TraceEvent expected;
+  expected.arguments.emplace_back("foo", "300");
+  EXPECT_CALL(platform, LogTrace(HasSameArguments(expected), _)).Times(2);
+  expected.arguments.emplace_back("bar", "baz");
+  EXPECT_CALL(platform, LogTrace(HasSameArguments(expected), _)).Times(2);
+#endif
+
+  {
+    TRACE_SCOPED1(TraceCategory::Value::kAny, "Name", "foo",
+                  std::to_string(300));
+    TRACE_DEFAULT_SCOPED1(TraceCategory::Value::kAny, "foo",
+                          std::to_string(300));
+  }
+  {
+    TRACE_SCOPED2(TraceCategory::Value::kAny, "Name", "foo",
+                  std::to_string(300), "bar", "baz");
+    TRACE_DEFAULT_SCOPED2(TraceCategory::Value::kAny, "foo",
+                          std::to_string(300), "bar", "baz");
+  }
+}
+
+TEST(TraceLoggingTest, CheckTraceCropsArgumentLengths) {
+  StrictMockLoggingPlatform platform;
+#if defined(ENABLE_TRACE_LOGGING)
+  EXPECT_CALL(platform, IsTraceLoggingEnabled(TraceCategory::Value::kAny))
+      .Times(AtLeast(1));
+
+  TraceEvent expected;
+  std::string really_long_argument(1337, 'F');
+  expected.arguments.emplace_back("foo", really_long_argument);
+
+  // First, TraceEvent allows us to crop the argument length directly.
+  expected.TruncateStrings();
+  EXPECT_EQ(expected.arguments[0].second.size(), 1024u);
+  EXPECT_TRUE(std::all_of(expected.arguments[0].second.begin(),
+                          expected.arguments[0].second.begin() + 1020,
+                          [](const char c) { return c == 'F'; }))
+      << expected.arguments[0].second;
+  EXPECT_TRUE(std::all_of(expected.arguments[0].second.begin() + 1021,
+                          expected.arguments[0].second.end(),
+                          [](const char c) { return c == '.'; }))
+      << expected.arguments[0].second;
+
+  EXPECT_CALL(platform, LogTrace(HasSameArguments(expected), _)).Times(2);
+  EXPECT_CALL(platform, LogAsyncStart(HasSameArguments(expected)));
+
+  expected.arguments.emplace_back("bar", really_long_argument);
+  expected.TruncateStrings();
+  EXPECT_CALL(platform, LogTrace(HasSameArguments(expected), _)).Times(2);
+  EXPECT_CALL(platform, LogAsyncStart(HasSameArguments(expected)));
+
+#endif
+
+  {
+    TRACE_SCOPED1(TraceCategory::Value::kAny, "Name", "foo",
+                  really_long_argument);
+    TRACE_DEFAULT_SCOPED1(TraceCategory::Value::kAny, "foo",
+                          really_long_argument);
+    TRACE_ASYNC_START1(TraceCategory::Value::kAny, "Name", "foo",
+                       really_long_argument);
+
+    TRACE_SCOPED2(TraceCategory::Value::kAny, "Name", "foo",
+                  really_long_argument, "bar", really_long_argument);
+    TRACE_DEFAULT_SCOPED2(TraceCategory::Value::kAny, "foo",
+                          really_long_argument, "bar", really_long_argument);
+    TRACE_ASYNC_START2(TraceCategory::Value::kAny, "Name", "foo",
+                       really_long_argument, "bar", really_long_argument);
+  }
+}
+
 TEST(TraceLoggingTest, CheckTraceAsyncStartLogsCorrectly) {
   StrictMockLoggingPlatform platform;
 #if defined(ENABLE_TRACE_LOGGING)
   EXPECT_CALL(platform, IsTraceLoggingEnabled(TraceCategory::Value::kAny))
       .Times(AtLeast(1));
-  EXPECT_CALL(platform, LogAsyncStart(_, _, _, _, _)).Times(1);
+  EXPECT_CALL(platform, LogAsyncStart(_));
 #endif
 
   { TRACE_ASYNC_START(TraceCategory::Value::kAny, "Name"); }
+}
+
+TEST(TraceLoggingTest, CheckTraceAsyncSupportsArguments) {
+  StrictMockLoggingPlatform platform;
+#if defined(ENABLE_TRACE_LOGGING)
+  EXPECT_CALL(platform, IsTraceLoggingEnabled(TraceCategory::Value::kAny))
+      .Times(AtLeast(1));
+
+  TraceEvent expected;
+  expected.arguments.emplace_back("foo", "300");
+  EXPECT_CALL(platform, LogAsyncStart(HasSameArguments(expected)));
+  expected.arguments.emplace_back("bar", "baz");
+  EXPECT_CALL(platform, LogAsyncStart(HasSameArguments(expected)));
+#endif
+
+  {
+    TRACE_ASYNC_START1(TraceCategory::Value::kAny, "Name", "foo",
+                       std::to_string(300));
+  }
+  {
+    TRACE_ASYNC_START2(TraceCategory::Value::kAny, "Name", "foo",
+                       std::to_string(300), "bar", "baz");
+  }
 }
 
 TEST(TraceLoggingTest, CheckTraceAsyncStartSetsHierarchy) {
@@ -336,7 +444,7 @@ TEST(TraceLoggingTest, CheckTraceAsyncStartSetsHierarchy) {
 #if defined(ENABLE_TRACE_LOGGING)
   EXPECT_CALL(platform, IsTraceLoggingEnabled(TraceCategory::Value::kAny))
       .Times(AtLeast(1));
-  EXPECT_CALL(platform, LogAsyncStart(_, _, _, _, _))
+  EXPECT_CALL(platform, LogAsyncStart(_))
       .WillOnce(
           Invoke(ValidateTraceIdHierarchyOnAsyncTrace<kEmptyId, current, root,
                                                       kParentAndRoot>));
@@ -369,9 +477,13 @@ TEST(TraceLoggingTest, CheckTraceAsyncEndLogsCorrectly) {
   constexpr Error::Code result = Error::Code::kAgain;
   StrictMockLoggingPlatform platform;
 #if defined(ENABLE_TRACE_LOGGING)
+  TraceEvent expected;
+  expected.ids.current = id;
+  expected.result = result;
+
   EXPECT_CALL(platform, IsTraceLoggingEnabled(TraceCategory::Value::kAny))
       .Times(AtLeast(1));
-  EXPECT_CALL(platform, LogAsyncEnd(_, _, _, id, result)).Times(1);
+  EXPECT_CALL(platform, LogAsyncEnd(EqAsyncEndEvent(expected)));
 #endif
 
   TRACE_ASYNC_END(TraceCategory::Value::kAny, id, result);

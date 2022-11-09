@@ -17,6 +17,8 @@
 namespace openscreen {
 namespace cast {
 
+using openscreen::operator<<;
+
 SenderPacketRouter::SenderPacketRouter(Environment* environment,
                                        int max_burst_bitrate)
     : SenderPacketRouter(
