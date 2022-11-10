@@ -106,6 +106,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe6a1628_6293ad8a",
+        "filename": "cast/standalone_receiver/dummy_player.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-11-10T23:12:34Z",
+      "side": 1,
+      "message": "Fixed up, had some remaining issues with the namespacing change. It breaks Google Test macros, such as EXPECT_EQ. Added some notes and am relatively happy with it now.",
+      "parentUuid": "06fe43eb_5aa733bd",
+      "revId": "8c8f2ccf2c573b6ff0743a6092f83770f450084c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99f1faf4_2e7b2e9a",
@@ -187,6 +205,30 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8038b232_7f3546e9",
+        "filename": "platform/api/trace_event.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-11-10T23:12:34Z",
+      "side": 1,
+      "message": "At least for unit testing, and the potential to be used for things like absl::optional and other cases that require a default constructor.",
+      "parentUuid": "d4a241c7_29734bba",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 12
+      },
+      "revId": "8c8f2ccf2c573b6ff0743a6092f83770f450084c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "abfbd049_3cdfd4f9",
@@ -236,6 +278,24 @@
       "side": 1,
       "message": "This is now list initialization.  I think you meant `name{nullptr}`?",
       "parentUuid": "c6bd1556_345f1cbd",
+      "revId": "8c8f2ccf2c573b6ff0743a6092f83770f450084c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b6ff53c_f46f0667",
+        "filename": "platform/api/trace_event.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-11-10T23:12:34Z",
+      "side": 1,
+      "message": "ahhh I misunderstood. Interesting.",
+      "parentUuid": "7c248046_3d957b7a",
       "revId": "8c8f2ccf2c573b6ff0743a6092f83770f450084c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -333,6 +393,30 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b6ccb0f_a8fbc03a",
+        "filename": "platform/base/trace_logging_types.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-11-10T23:12:34Z",
+      "side": 1,
+      "message": "Oh fun. Thanks for the heads up, I\u0027ll update this.",
+      "parentUuid": "27ab61ff_36e152a5",
+      "range": {
+        "startLine": 46,
+        "startChar": 10,
+        "endLine": 46,
+        "endChar": 18
+      },
+      "revId": "8c8f2ccf2c573b6ff0743a6092f83770f450084c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4ba31fd_f535d6af",
@@ -381,6 +465,30 @@
       "writtenOn": "2022-11-09T21:42:47Z",
       "side": 1,
       "message": "Why move these to the `.cc`? They seem like the type of trivial function that would do well in the header",
+      "range": {
+        "startLine": 38,
+        "startChar": 7,
+        "endLine": 38,
+        "endChar": 17
+      },
+      "revId": "8c8f2ccf2c573b6ff0743a6092f83770f450084c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e97d23c_ac71ba29",
+        "filename": "platform/base/trace_logging_types.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-11-10T23:12:34Z",
+      "side": 1,
+      "message": "Fair enough. I just did it because I added a cc.",
+      "parentUuid": "a71b74b8_f2493653",
       "range": {
         "startLine": 38,
         "startChar": 7,
