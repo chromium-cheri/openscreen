@@ -452,6 +452,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45b4196d_d9ddcc47",
+        "filename": "platform/base/trace_logging_types.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-11-10T23:25:42Z",
+      "side": 1,
+      "message": "As I suspected, GCC gets cranky because technically any value of int is valid for an enum class : int, e.g. this is valid code:\n\n    const auto foo \u003d static_cast\u003cTraceCategory\u003e(123333);\n    ToString(foo);",
+      "parentUuid": "d7bc8cd3_28576135",
+      "revId": "8c8f2ccf2c573b6ff0743a6092f83770f450084c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a71b74b8_f2493653",
