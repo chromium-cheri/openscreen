@@ -16,6 +16,24 @@
       "message": "Please green up bots and then add me back to the attention set.",
       "revId": "5d1e26b573d0367117f88325686a47c96825eed1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a02c5351_aa72c5a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1366072
+      },
+      "writtenOn": "2022-11-14T04:17:35Z",
+      "side": 1,
+      "message": "They fail to compile. \nhttps://ci.chromium.org/ui/p/openscreen/builders/try/chromium_linux64_debug/b8797555460922668081/overview\n\n\u003e [24524/59493] CXX obj/components/openscreen_platform/openscreen_platform_without_sockets/trace_logging_platform.o\nFAILED: obj/components/openscreen_platform/openscreen_platform_without_sockets/trace_logging_platform.o\n/b/s/w/ir/cache/goma/client/gomacc ../../third_party/llvm-build/Release+Asserts/bin/clang++ -MMD -MF...(too long)\n../../components/openscreen_platform/trace_logging_platform.cc:9:43: error: no type named \u0027Value\u0027 in \u0027openscreen::TraceCategory\u0027\nbool IsTraceLoggingEnabled(TraceCategory::Value category) {\n~~~~~~~~~~~~~~~^\n1 error generated.\n\nLooking at the try job history, the CQ jobs seems already broken.\nchromium_mac_debug: http://screen/5F5YXYWyFavioMB\nchromium_linux64_debug: http://screen/47VdNQripSe93a2\n\n\nCan you confirm the try jobs?",
+      "parentUuid": "2f12abaf_b1e517c7",
+      "revId": "5d1e26b573d0367117f88325686a47c96825eed1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
