@@ -28,12 +28,12 @@ std::string Encode(absl::string_view input) {
 
   const size_t output_size =
       modp_b64_encode(data(out), input.data(), input.size());
-  if (output_size == MODP_B64_ERROR) {
-    return {};
+  // TODO(csharrison): Remove this when openscreen rolls crrev.com/c/4027430
+  // For now this is necessary to strip the null terminator added by modp_b64
+  // prior to that patch.
+  if (output_size < out.size()) {
+    out.resize(output_size);
   }
-
-  // The encode_len is generally larger than needed.
-  out.resize(output_size);
   return out;
 }
 
