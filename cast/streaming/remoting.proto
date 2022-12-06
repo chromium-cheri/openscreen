@@ -316,6 +316,17 @@ message RendererClientOnVideoConfigChange {
   optional VideoDecoderConfig video_decoder_config = 1;
 }
 
+message RemotingError {
+  enum ErrorType {
+    FATAL = 1;
+    RECOVERABLE = 2;
+    BAD_STATE = 3;
+  }
+
+  optional ErrorType error_type = 1;
+  optional string description = 2;
+}
+
 message DemuxerStreamReadUntil {
   optional int32 callback_handle = 1;
   optional uint32 count = 2;
@@ -378,6 +389,9 @@ message RpcMessage {
 
     // Value is populated in integer_value().
     RPC_ACQUIRE_RENDERER_DONE = 2;
+
+    // Value is populated in remoting_error_rpc().
+    RPC_ONREMOTINGERROR = 6;
 
     // *******************
     // Renderer Control
@@ -520,6 +534,9 @@ message RpcMessage {
     // string only:
     // RPC_CDMC_ONSESSIONCLOSED
     string string_value = 7;
+
+    // RPC_ONREMOTINGERROR
+    RemotingError remoting_error_rpc = 99;
 
     // RPC_R_INITIALIZE
     RendererInitialize renderer_initialize_rpc = 100;
