@@ -316,6 +316,38 @@ message RendererClientOnVideoConfigChange {
   optional VideoDecoderConfig video_decoder_config = 1;
 }
 
+message RemotingError {
+  enum PipelineStatus {
+    PIPELINE_OK = 0,
+    // Deprecated: PIPELINE_ERROR_URL_NOT_FOUND = 1,
+        PIPELINE_ERROR_NETWORK = 2, PIPELINE_ERROR_DECODE = 3,
+    // Deprecated: PIPELINE_ERROR_DECRYPT = 4,
+        PIPELINE_ERROR_ABORT = 5, PIPELINE_ERROR_INITIALIZATION_FAILED = 6,
+    PIPELINE_ERROR_COULD_NOT_RENDER = 8, PIPELINE_ERROR_READ = 9,
+    // Deprecated: PIPELINE_ERROR_OPERATION_PENDING = 10,
+        PIPELINE_ERROR_INVALID_STATE = 11,
+
+    // Demuxer related errors.
+        DEMUXER_ERROR_COULD_NOT_OPEN = 12, DEMUXER_ERROR_COULD_NOT_PARSE = 13,
+    DEMUXER_ERROR_NO_SUPPORTED_STREAMS = 14,
+
+    // Decoder related errors.
+        DECODER_ERROR_NOT_SUPPORTED = 15,
+
+    // ChunkDemuxer related errors.
+        CHUNK_DEMUXER_ERROR_APPEND_FAILED = 16,
+    CHUNK_DEMUXER_ERROR_EOS_STATUS_DECODE_ERROR = 17,
+    CHUNK_DEMUXER_ERROR_EOS_STATUS_NETWORK_ERROR = 18,
+
+    AUDIO_RENDERER_ERROR = 19, PIPELINE_ERROR_EXTERNAL_RENDERER_FAILED = 21,
+    DEMUXER_ERROR_DETECTED_HLS = 22, PIPELINE_ERROR_HARDWARE_CONTEXT_RESET = 23,
+    PIPELINE_ERROR_DISCONNECTED = 24,
+  }
+
+  optional PipelineStatus pipeline_status = 1;
+  optional string description = 2;
+}
+
 message DemuxerStreamReadUntil {
   optional int32 callback_handle = 1;
   optional uint32 count = 2;
@@ -378,6 +410,9 @@ message RpcMessage {
 
     // Value is populated in integer_value().
     RPC_ACQUIRE_RENDERER_DONE = 2;
+
+    // Value is populated in remoting_error_rpc().
+    RPC_ONREMOTINGERROR = 6;
 
     // *******************
     // Renderer Control
@@ -520,6 +555,9 @@ message RpcMessage {
     // string only:
     // RPC_CDMC_ONSESSIONCLOSED
     string string_value = 7;
+
+    // RPC_ONREMOTINGERROR
+    RemotingError remoting_error_rpc = 99;
 
     // RPC_R_INITIALIZE
     RendererInitialize renderer_initialize_rpc = 100;
