@@ -16,6 +16,24 @@
       "message": "Hey Ryan, it looks like git cl format really didn\u0027t like the commented lines. However, I left them in because I figured it was important to keep the enum values matching, but maybe just using reserved would be more appropriate? \n\nLmk your thoughts!",
       "revId": "6abd6e92d0df11537788ec3befa4fad8277ea5b7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2923ce1_4e65f682",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2022-12-09T18:21:43Z",
+      "side": 1,
+      "message": "It should be fine to remove the deprecated values\n\nThere\u0027s no reason the enums have to match exactly. It would likely be unsafe to convert between the Chromium enum and the proto enum with a `static_cast`, so if we already have to use a switch statement, we could just check that the result is not one of the deprecated values there\n\nThis is especially true because we will eventually add new enum values that aren\u0027t from the Renderer, like errors configuring the remoting session before rendering starts, so we know that in the long term they won\u0027t be the same values",
+      "parentUuid": "619fb20a_3909590d",
+      "revId": "6abd6e92d0df11537788ec3befa4fad8277ea5b7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
