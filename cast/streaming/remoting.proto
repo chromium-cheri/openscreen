@@ -316,6 +316,40 @@ message RendererClientOnVideoConfigChange {
   optional VideoDecoderConfig video_decoder_config = 1;
 }
 
+message RemotingError {
+  enum PipelineStatus {
+    kPipelineNetwork = 1;
+    kPipelineDecode = 2;
+    kPipelineAbort = 3;
+    kPipelineInitializationFailed = 4;
+    kPipelineCouldNotRender = 5;
+    kPipelineRead = 6;
+    kPipelineInvalidState = 7;
+    kPipelineExternalRendererFailed = 8;
+    kPipelineHardwareContextReset = 9;
+    kPipelineDisconnected = 10;
+
+    // Demuxer related errors.
+    kDemuxerCouldNotOpen = 11;
+    kDemuxerCouldNotParse = 12;
+    kDemuxerNoSupportedStream = 13;
+    kDemuxerDetectedHls = 14;
+
+    // Decoder related errors.
+    kDecoderNotSupported = 15;
+
+    // ChunkDemuxer related errors.
+    kChunkDemuxerAppendFailed = 16;
+    kChunkDemuxerEosStatusDecode = 17;
+    kChunkDemuxerEosStatusNetwork = 18;
+
+    kAudioRenderer = 19;
+  }
+
+  optional PipelineStatus pipeline_status = 1;
+  optional string description = 2;
+}
+
 message DemuxerStreamReadUntil {
   optional int32 callback_handle = 1;
   optional uint32 count = 2;
@@ -378,6 +412,14 @@ message RpcMessage {
 
     // Value is populated in integer_value().
     RPC_ACQUIRE_RENDERER_DONE = 2;
+
+    // *******************
+    // Remoting Error Reporting
+    //
+    // Sent from the SINK to the SOURCE.
+
+    // Value is populated in remoting_error_rpc().
+    RPC_ONREMOTINGERROR = 6;
 
     // *******************
     // Renderer Control
@@ -520,6 +562,9 @@ message RpcMessage {
     // string only:
     // RPC_CDMC_ONSESSIONCLOSED
     string string_value = 7;
+
+    // RPC_ONREMOTINGERROR
+    RemotingError remoting_error_rpc = 99;
 
     // RPC_R_INITIALIZE
     RendererInitialize renderer_initialize_rpc = 100;
