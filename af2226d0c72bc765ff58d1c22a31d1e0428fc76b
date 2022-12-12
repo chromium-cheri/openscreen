@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "031a1ae3_b2c07148",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2022-12-12T23:02:19Z",
+      "side": 1,
+      "message": "Just a few minor comments",
+      "revId": "af2226d0c72bc765ff58d1c22a31d1e0428fc76b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e919797_22e87e19",
+        "filename": "cast/streaming/remoting.proto",
+        "patchSetId": 7
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2022-12-12T23:02:19Z",
+      "side": 1,
+      "message": "So with all of these fields, it\u0027s not immediately clear that they are related to the media pipeline - as opposed to the Remoting pipeline that gets data into the renderer\n\nI think it would be clearer if each of these was prefaced with `MediaPipeline` (e.g. `kPipelineNetwork` would become `kMediaPipelineNetwork` or `kDemuxerCouldNotOpen` would become `kMediaPipelineDemuxerCouldNotOpen`). That would differentiate it from the not-media-pipeline type errors like currently reported with the `RPC_DS_ONERROR` failure code",
+      "range": {
+        "startLine": 321,
+        "startChar": 4,
+        "endLine": 321,
+        "endChar": 20
+      },
+      "revId": "af2226d0c72bc765ff58d1c22a31d1e0428fc76b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97c36013_beb624b2",
+        "filename": "cast/streaming/remoting.proto",
+        "patchSetId": 7
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2022-12-12T23:02:19Z",
+      "side": 1,
+      "message": "I think it would be clearer to remove this comment and just add one comment at the top of the current status codes saying that these correspond to the error codes in `//media/base/pipeline_status.h`\n\nWe have different \"Demuxer Errors\" that are unrelated to the media pipeline, so it would get confusing trying to differentiate the two IMO",
+      "range": {
+        "startLine": 332,
+        "startChar": 7,
+        "endLine": 332,
+        "endChar": 30
+      },
+      "revId": "af2226d0c72bc765ff58d1c22a31d1e0428fc76b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
