@@ -4,13 +4,13 @@
 
 #include "util/base64.h"
 
+#include <modp_b64/modp_b64.h>
 #include <stddef.h>
 
 #include <string>
 #include <utility>
 #include <vector>
 
-#include "third_party/modp_b64/modp_b64.h"
 #include "util/osp_logging.h"
 #include "util/std_util.h"
 
