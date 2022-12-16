@@ -11,9 +11,9 @@
 #include <array>
 #include <vector>
 
-#include "absl/types/span.h"
 #include "cast/streaming/encoded_frame.h"
 #include "openssl/aes.h"
+#include "platform/base/byte_view.h"
 #include "platform/base/macros.h"
 
 namespace openscreen {
@@ -83,9 +83,7 @@ class FrameCrypto {
 
   // AES-CTR is symmetric. Thus, the "meat" of both Encrypt() and Decrypt() is
   // the same.
-  void EncryptCommon(FrameId frame_id,
-                     absl::Span<const uint8_t> in,
-                     absl::Span<uint8_t> out) const;
+  void EncryptCommon(FrameId frame_id, ByteView in, ByteView out) const;
 };
 
 }  // namespace cast

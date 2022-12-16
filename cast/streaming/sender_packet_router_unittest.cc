@@ -72,7 +72,7 @@ const uint8_t kValidAudioRtpPacket[] = {
 // Returns a copy of an |original| RTCP packet, but with its send-to SSRC
 // modified to the given |alternate_ssrc|.
 std::vector<uint8_t> MakeRtcpPacketWithAlternateReceiverSsrc(
-    absl::Span<const uint8_t> original,
+    ByteView original,
     Ssrc alternate_ssrc) {
   constexpr int kOffsetToSsrcField = 4;
   std::vector<uint8_t> out(original.begin(), original.end());
@@ -84,9 +84,9 @@ std::vector<uint8_t> MakeRtcpPacketWithAlternateReceiverSsrc(
 // Serializes the |flag| and |send_time| into the front of |buffer| so the tests
 // can make unique packets and confirm their identities after passing through
 // various components.
-absl::Span<uint8_t> MakeFakePacketWithFlag(char flag,
-                                           Clock::time_point send_time,
-                                           absl::Span<uint8_t> buffer) {
+ByteView MakeFakePacketWithFlag(char flag,
+                                Clock::time_point send_time,
+                                ByteView buffer) {
   const Clock::duration::rep ticks = send_time.time_since_epoch().count();
   const auto packet_size = sizeof(ticks) + sizeof(flag);
   buffer = buffer.subspan(0, packet_size);
@@ -97,14 +97,13 @@ absl::Span<uint8_t> MakeFakePacketWithFlag(char flag,
 }
 
 // Same as MakeFakePacketWithFlag(), but for tests that don't use the flag.
-absl::Span<uint8_t> MakeFakePacket(Clock::time_point send_time,
-                                   absl::Span<uint8_t> buffer) {
+ByteView MakeFakePacket(Clock::time_point send_time, ByteView buffer) {
   return MakeFakePacketWithFlag('?', send_time, buffer);
 }
 
 // Returns the flag that was placed in the given |fake_packet|, or '?' if
 // unknown.
-char ParseFlag(absl::Span<const uint8_t> fake_packet) {
+char ParseFlag(ByteView fake_packet) {
   constexpr auto kFlagOffset = sizeof(Clock::duration::rep);
   if (fake_packet.size() == (kFlagOffset + sizeof(char))) {
     return static_cast<char>(fake_packet[kFlagOffset]);
@@ -114,7 +113,7 @@ char ParseFlag(absl::Span<const uint8_t> fake_packet) {
 
 // Deserializes and returns the timestamp that was placed in the given |packet|
 // by MakeFakePacketWithFlag().
-Clock::time_point ParseTimestamp(absl::Span<const uint8_t> fake_packet) {
+Clock::time_point ParseTimestamp(ByteView fake_packet) {
   Clock::duration::rep ticks = 0;
   if (fake_packet.size() >= sizeof(ticks)) {
     ticks = ReadBigEndian<Clock::duration::rep>(fake_packet.data());
@@ -123,8 +122,7 @@ Clock::time_point ParseTimestamp(absl::Span<const uint8_t> fake_packet) {
 }
 
 // Returns an empty version of |buffer|.
-absl::Span<uint8_t> ToEmptyPacketBuffer(Clock::time_point send_time,
-                                        absl::Span<uint8_t> buffer) {
+ByteView ToEmptyPacketBuffer(Clock::time_point send_time, ByteView buffer) {
   return buffer.subspan(0, 0);
 }
 
@@ -135,16 +133,15 @@ class MockSender : public SenderPacketRouter::Sender {
 
   MOCK_METHOD(void,
               OnReceivedRtcpPacket,
-              (Clock::time_point arrival_time,
-               absl::Span<const uint8_t> packet),
+              (Clock::time_point arrival_time, ByteView packet),
               (override));
-  MOCK_METHOD(absl::Span<uint8_t>,
+  MOCK_METHOD(ByteView,
               GetRtcpPacketForImmediateSend,
-              (Clock::time_point send_time, absl::Span<uint8_t> buffer),
+              (Clock::time_point send_time, ByteView buffer),
               (override));
-  MOCK_METHOD(absl::Span<uint8_t>,
+  MOCK_METHOD(ByteView,
               GetRtpPacketForImmediateSend,
-              (Clock::time_point send_time, absl::Span<uint8_t> buffer),
+              (Clock::time_point send_time, ByteView buffer),
               (override));
   MOCK_METHOD(Clock::time_point, GetRtpResumeTime, (), (override));
 };
@@ -166,8 +163,7 @@ class SenderPacketRouterTest : public testing::Test {
   MockSender* audio_sender() { return &audio_sender_; }
   MockSender* video_sender() { return &video_sender_; }
 
-  void SimulatePacketArrivedNow(const IPEndpoint& source,
-                                absl::Span<const uint8_t> packet) {
+  void SimulatePacketArrivedNow(const IPEndpoint& source, ByteView packet) {
     static_cast<Environment::PacketConsumer*>(&router_)->OnReceivedPacket(
         source, env_.now(), std::vector<uint8_t>(packet.begin(), packet.end()));
   }
@@ -209,7 +205,7 @@ TEST_F(SenderPacketRouterTest, IgnoresPacketsFromUnexpectedSources) {
   router()->OnSenderCreated(kAudioReceiverSsrc, audio_sender());
   EXPECT_CALL(*audio_sender(), OnReceivedRtcpPacket(_, _)).Times(0);
   SimulatePacketArrivedNow(kUnexpectedEndpoint,
-                           absl::Span<const uint8_t>(kValidAudioRtcpPacket));
+                           ByteView(kValidAudioRtcpPacket));
   router()->OnSenderDestroyed(kAudioReceiverSsrc);
 }
 
@@ -217,10 +213,8 @@ TEST_F(SenderPacketRouterTest, IgnoresInboundPacketsContainingGarbage) {
   env()->set_remote_endpoint(kRemoteEndpoint);
   router()->OnSenderCreated(kAudioReceiverSsrc, audio_sender());
   EXPECT_CALL(*audio_sender(), OnReceivedRtcpPacket(_, _)).Times(0);
-  SimulatePacketArrivedNow(kUnexpectedEndpoint,
-                           absl::Span<const uint8_t>(kGarbagePacket));
-  SimulatePacketArrivedNow(kRemoteEndpoint,
-                           absl::Span<const uint8_t>(kGarbagePacket));
+  SimulatePacketArrivedNow(kUnexpectedEndpoint, ByteView(kGarbagePacket));
+  SimulatePacketArrivedNow(kRemoteEndpoint, ByteView(kGarbagePacket));
   router()->OnSenderDestroyed(kAudioReceiverSsrc);
 }
 
@@ -230,10 +224,8 @@ TEST_F(SenderPacketRouterTest, IgnoresInboundRtpPackets) {
   env()->set_remote_endpoint(kRemoteEndpoint);
   router()->OnSenderCreated(kAudioReceiverSsrc, audio_sender());
   EXPECT_CALL(*audio_sender(), OnReceivedRtcpPacket(_, _)).Times(0);
-  SimulatePacketArrivedNow(kUnexpectedEndpoint,
-                           absl::Span<const uint8_t>(kValidAudioRtpPacket));
-  SimulatePacketArrivedNow(kRemoteEndpoint,
-                           absl::Span<const uint8_t>(kValidAudioRtpPacket));
+  SimulatePacketArrivedNow(kUnexpectedEndpoint, ByteView(kValidAudioRtpPacket));
+  SimulatePacketArrivedNow(kRemoteEndpoint, ByteView(kValidAudioRtpPacket));
   router()->OnSenderDestroyed(kAudioReceiverSsrc);
 }
 
@@ -245,9 +237,8 @@ TEST_F(SenderPacketRouterTest, IgnoresInboundRtcpPacketsFromUnknownReceivers) {
                                               kAudioReceiverSsrc + 1);
   EXPECT_CALL(*audio_sender(), OnReceivedRtcpPacket(_, _)).Times(0);
   SimulatePacketArrivedNow(kUnexpectedEndpoint,
-                           absl::Span<const uint8_t>(rtcp_packet_not_for_me));
-  SimulatePacketArrivedNow(kRemoteEndpoint,
-                           absl::Span<const uint8_t>(rtcp_packet_not_for_me));
+                           ByteView(rtcp_packet_not_for_me));
+  SimulatePacketArrivedNow(kRemoteEndpoint, ByteView(rtcp_packet_not_for_me));
   router()->OnSenderDestroyed(kAudioReceiverSsrc);
 }
 
@@ -256,7 +247,7 @@ TEST_F(SenderPacketRouterTest, IgnoresInboundRtcpPacketsFromUnknownReceivers) {
 TEST_F(SenderPacketRouterTest, RoutesRTCPPacketsFromReceivers) {
   EXPECT_CALL(*env(), SendPacket(_)).Times(0);
 
-  const absl::Span<const uint8_t> audio_rtcp_packet(kValidAudioRtcpPacket);
+  const ByteView audio_rtcp_packet(kValidAudioRtcpPacket);
   std::vector<uint8_t> video_rtcp_packet =
       MakeRtcpPacketWithAlternateReceiverSsrc(audio_rtcp_packet,
                                               kVideoReceiverSsrc);
@@ -271,11 +262,10 @@ TEST_F(SenderPacketRouterTest, RoutesRTCPPacketsFromReceivers) {
     Clock::time_point arrival_time{};
     std::vector<uint8_t> received_packet;
     EXPECT_CALL(*audio_sender(), OnReceivedRtcpPacket(_, _))
-        .WillOnce(Invoke(
-            [&](Clock::time_point when, absl::Span<const uint8_t> packet) {
-              arrival_time = when;
-              received_packet.assign(packet.begin(), packet.end());
-            }));
+        .WillOnce(Invoke([&](Clock::time_point when, ByteView packet) {
+          arrival_time = when;
+          received_packet.assign(packet.begin(), packet.end());
+        }));
     EXPECT_CALL(*video_sender(), OnReceivedRtcpPacket(_, _)).Times(0);
 
     const Clock::time_point expected_arrival_time = env()->now();
@@ -298,17 +288,15 @@ TEST_F(SenderPacketRouterTest, RoutesRTCPPacketsFromReceivers) {
     Clock::time_point audio_arrival_time{}, video_arrival_time{};
     std::vector<uint8_t> received_audio_packet, received_video_packet;
     EXPECT_CALL(*audio_sender(), OnReceivedRtcpPacket(_, _))
-        .WillOnce(Invoke(
-            [&](Clock::time_point when, absl::Span<const uint8_t> packet) {
-              audio_arrival_time = when;
-              received_audio_packet.assign(packet.begin(), packet.end());
-            }));
+        .WillOnce(Invoke([&](Clock::time_point when, ByteView packet) {
+          audio_arrival_time = when;
+          received_audio_packet.assign(packet.begin(), packet.end());
+        }));
     EXPECT_CALL(*video_sender(), OnReceivedRtcpPacket(_, _))
-        .WillOnce(Invoke(
-            [&](Clock::time_point when, absl::Span<const uint8_t> packet) {
-              video_arrival_time = when;
-              received_video_packet.assign(packet.begin(), packet.end());
-            }));
+        .WillOnce(Invoke([&](Clock::time_point when, ByteView packet) {
+          video_arrival_time = when;
+          received_video_packet.assign(packet.begin(), packet.end());
+        }));
 
     const Clock::time_point expected_audio_arrival_time = env()->now();
     SimulatePacketArrivedNow(kRemoteEndpoint, audio_rtcp_packet);
@@ -350,7 +338,7 @@ TEST_F(SenderPacketRouterTest, SchedulesPeriodicTransmissionOfRTCPPackets) {
   // Capture every packet sent for analysis at the end of this test.
   std::vector<std::vector<uint8_t>> packets_sent;
   EXPECT_CALL(*env(), SendPacket(_))
-      .WillRepeatedly(Invoke([&](absl::Span<const uint8_t> packet) {
+      .WillRepeatedly(Invoke([&](ByteView packet) {
         packets_sent.emplace_back(packet.begin(), packet.end());
       }));
 
@@ -382,7 +370,7 @@ TEST_F(SenderPacketRouterTest, SchedulesAndTransmitsRTPBursts) {
   // Capture every packet sent for analysis at the end of this test.
   std::vector<std::vector<uint8_t>> packets_sent;
   EXPECT_CALL(*env(), SendPacket(_))
-      .WillRepeatedly(Invoke([&](absl::Span<const uint8_t> packet) {
+      .WillRepeatedly(Invoke([&](ByteView packet) {
         packets_sent.emplace_back(packet.begin(), packet.end());
       }));
 
@@ -406,20 +394,19 @@ TEST_F(SenderPacketRouterTest, SchedulesAndTransmitsRTPBursts) {
   int num_get_rtp_calls = 0;
   EXPECT_CALL(*video_sender(), GetRtpPacketForImmediateSend(_, _))
       .Times(14 + 2)
-      .WillRepeatedly(
-          Invoke([&](Clock::time_point send_time, absl::Span<uint8_t> buffer) {
-            ++num_get_rtp_calls;
+      .WillRepeatedly(Invoke([&](Clock::time_point send_time, ByteView buffer) {
+        ++num_get_rtp_calls;
 
-            // 14 packets are sent: The first through fourth bursts send three
-            // packets each, and the fifth burst sends two.
-            if (num_get_rtp_calls <= 14) {
-              return MakeFakePacket(send_time, buffer);
-            }
+        // 14 packets are sent: The first through fourth bursts send three
+        // packets each, and the fifth burst sends two.
+        if (num_get_rtp_calls <= 14) {
+          return MakeFakePacket(send_time, buffer);
+        }
 
-            // 2 "done signals" are then sent: One is at the end of the fifth
-            // burst, one is for a "nothing to send" sixth burst.
-            return ToEmptyPacketBuffer(send_time, buffer);
-          }));
+        // 2 "done signals" are then sent: One is at the end of the fifth
+        // burst, one is for a "nothing to send" sixth burst.
+        return ToEmptyPacketBuffer(send_time, buffer);
+      }));
   const Clock::time_point kickstart_time =
       start_time + 4 * kBurstInterval + milliseconds(25);
   int num_get_resume_calls = 0;
@@ -508,7 +495,7 @@ TEST_F(SenderPacketRouterTest, SchedulesAndTransmitsAccountingForPriority) {
   // Capture every packet sent for analysis at the end of this test.
   std::vector<std::vector<uint8_t>> packets_sent;
   EXPECT_CALL(*env(), SendPacket(_))
-      .WillRepeatedly(Invoke([&](absl::Span<const uint8_t> packet) {
+      .WillRepeatedly(Invoke([&](ByteView packet) {
         packets_sent.emplace_back(packet.begin(), packet.end());
       }));
 
@@ -519,39 +506,35 @@ TEST_F(SenderPacketRouterTest, SchedulesAndTransmitsAccountingForPriority) {
   // Note: The priority flags used in this test ('0'..'3') indicate
   // lowest-to-highest priority.
   EXPECT_CALL(*audio_sender(), GetRtcpPacketForImmediateSend(_, _))
-      .WillRepeatedly(
-          Invoke([](Clock::time_point send_time, absl::Span<uint8_t> buffer) {
-            return MakeFakePacketWithFlag('3', send_time, buffer);
-          }));
+      .WillRepeatedly(Invoke([](Clock::time_point send_time, ByteView buffer) {
+        return MakeFakePacketWithFlag('3', send_time, buffer);
+      }));
   int num_audio_get_rtp_calls = 0;
   EXPECT_CALL(*audio_sender(), GetRtpPacketForImmediateSend(_, _))
-      .WillRepeatedly(
-          Invoke([&](Clock::time_point send_time, absl::Span<uint8_t> buffer) {
-            // Alternate between returning a single packet and a "done for now"
-            // signal.
-            ++num_audio_get_rtp_calls;
-            if (num_audio_get_rtp_calls % 2) {
-              return MakeFakePacketWithFlag('1', send_time, buffer);
-            }
-            return buffer.subspan(0, 0);
-          }));
+      .WillRepeatedly(Invoke([&](Clock::time_point send_time, ByteView buffer) {
+        // Alternate between returning a single packet and a "done for now"
+        // signal.
+        ++num_audio_get_rtp_calls;
+        if (num_audio_get_rtp_calls % 2) {
+          return MakeFakePacketWithFlag('1', send_time, buffer);
+        }
+        return buffer.subspan(0, 0);
+      }));
   EXPECT_CALL(*video_sender(), GetRtcpPacketForImmediateSend(_, _))
-      .WillRepeatedly(
-          Invoke([](Clock::time_point send_time, absl::Span<uint8_t> buffer) {
-            return MakeFakePacketWithFlag('2', send_time, buffer);
-          }));
+      .WillRepeatedly(Invoke([](Clock::time_point send_time, ByteView buffer) {
+        return MakeFakePacketWithFlag('2', send_time, buffer);
+      }));
   int num_video_get_rtp_calls = 0;
   EXPECT_CALL(*video_sender(), GetRtpPacketForImmediateSend(_, _))
-      .WillRepeatedly(
-          Invoke([&](Clock::time_point send_time, absl::Span<uint8_t> buffer) {
-            // Alternate between returning a single packet and a "done for now"
-            // signal.
-            ++num_video_get_rtp_calls;
-            if (num_video_get_rtp_calls % 2) {
-              return MakeFakePacketWithFlag('0', send_time, buffer);
-            }
-            return buffer.subspan(0, 0);
-          }));
+      .WillRepeatedly(Invoke([&](Clock::time_point send_time, ByteView buffer) {
+        // Alternate between returning a single packet and a "done for now"
+        // signal.
+        ++num_video_get_rtp_calls;
+        if (num_video_get_rtp_calls % 2) {
+          return MakeFakePacketWithFlag('0', send_time, buffer);
+        }
+        return buffer.subspan(0, 0);
+      }));
   EXPECT_CALL(*audio_sender(), GetRtpResumeTime()).WillRepeatedly(Invoke([&] {
     return env()->now() + kAudioRtpInterval;
   }));

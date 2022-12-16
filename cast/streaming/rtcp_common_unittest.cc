@@ -7,9 +7,9 @@
 #include <chrono>
 #include <limits>
 
-#include "absl/types/span.h"
 #include "gtest/gtest.h"
 #include "platform/api/time.h"
+#include "platform/base/byte_view.h"
 #include "util/chrono_helpers.h"
 
 namespace openscreen {
@@ -20,7 +20,7 @@ template <typename T>
 void SerializeAndExpectPointerAdvanced(const T& source,
                                        int num_bytes,
                                        uint8_t* buffer) {
-  absl::Span<uint8_t> buffer_span(buffer, num_bytes);
+  ByteView buffer_span(buffer, num_bytes);
   source.AppendFields(&buffer_span);
   EXPECT_EQ(buffer + num_bytes, buffer_span.data());
 }
@@ -64,9 +64,7 @@ TEST(RtcpCommonTest, SerializesAndParsesHeaderForCastFeedback) {
 // Tests that a RTCP Common Header will not be parsed from an empty buffer.
 TEST(RtcpCommonTest, WillNotParseHeaderFromEmptyBuffer) {
   const uint8_t kEmptyPacket[] = {};
-  EXPECT_FALSE(
-      RtcpCommonHeader::Parse(absl::Span<const uint8_t>(kEmptyPacket, 0))
-          .has_value());
+  EXPECT_FALSE(RtcpCommonHeader::Parse(ByteView(kEmptyPacket, 0)).has_value());
 }
 
 // Tests that a RTCP Common Header will not be parsed from a buffer containing
@@ -167,7 +165,7 @@ TEST(RtcpCommonTest, ParsesOneReportBlockFromMultipleBlocks) {
 
   // Generate multiple report blocks with different recipient SSRCs.
   uint8_t buffer[kRtcpReportBlockSize * kNumBlocks];
-  absl::Span<uint8_t> buffer_span(buffer, kRtcpReportBlockSize * kNumBlocks);
+  ByteView buffer_span(buffer, kRtcpReportBlockSize * kNumBlocks);
   for (int i = 0; i < kNumBlocks; ++i) {
     RtcpReportBlock another;
     another.ssrc = expected.ssrc + i - 2;

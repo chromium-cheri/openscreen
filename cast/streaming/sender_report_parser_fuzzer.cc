@@ -28,7 +28,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
   static SenderReportParser parser(&session);
 #pragma clang diagnostic pop
 
-  parser.Parse(absl::Span<const uint8_t>(data, size));
+  parser.Parse(ByteView(data, size));
 
   return 0;
 }

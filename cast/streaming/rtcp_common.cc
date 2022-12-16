@@ -16,7 +16,7 @@ namespace cast {
 RtcpCommonHeader::RtcpCommonHeader() = default;
 RtcpCommonHeader::~RtcpCommonHeader() = default;
 
-void RtcpCommonHeader::AppendFields(absl::Span<uint8_t>* buffer) const {
+void RtcpCommonHeader::AppendFields(ByteView* buffer) const {
   OSP_CHECK_GE(buffer->size(), kRtcpCommonHeaderSize);
 
   uint8_t byte0 = kRtcpRequiredVersionAndPaddingBits
@@ -60,8 +60,7 @@ void RtcpCommonHeader::AppendFields(absl::Span<uint8_t>* buffer) const {
 }
 
 // static
-absl::optional<RtcpCommonHeader> RtcpCommonHeader::Parse(
-    absl::Span<const uint8_t> buffer) {
+absl::optional<RtcpCommonHeader> RtcpCommonHeader::Parse(ByteView buffer) {
   if (buffer.size() < kRtcpCommonHeaderSize) {
     return absl::nullopt;
   }
@@ -116,7 +115,7 @@ absl::optional<RtcpCommonHeader> RtcpCommonHeader::Parse(
 RtcpReportBlock::RtcpReportBlock() = default;
 RtcpReportBlock::~RtcpReportBlock() = default;
 
-void RtcpReportBlock::AppendFields(absl::Span<uint8_t>* buffer) const {
+void RtcpReportBlock::AppendFields(ByteView* buffer) const {
   OSP_CHECK_GE(buffer->size(), kRtcpReportBlockSize);
 
   AppendField<uint32_t>(ssrc, buffer);
@@ -203,10 +202,9 @@ void RtcpReportBlock::SetDelaySinceLastReport(
 }
 
 // static
-absl::optional<RtcpReportBlock> RtcpReportBlock::ParseOne(
-    absl::Span<const uint8_t> buffer,
-    int report_count,
-    Ssrc ssrc) {
+absl::optional<RtcpReportBlock> RtcpReportBlock::ParseOne(ByteView buffer,
+                                                          int report_count,
+                                                          Ssrc ssrc) {
   if (static_cast<int>(buffer.size()) < (kRtcpReportBlockSize * report_count)) {
     return absl::nullopt;
   }

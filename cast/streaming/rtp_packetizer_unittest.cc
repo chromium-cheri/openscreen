@@ -23,8 +23,7 @@ namespace {
 constexpr RtpPayloadType kPayloadType = RtpPayloadType::kAudioOpus;
 
 // Returns true if |needle| is fully within |haystack|.
-bool IsSubspan(absl::Span<const uint8_t> needle,
-               absl::Span<const uint8_t> haystack) {
+bool IsSubspan(ByteView needle, ByteView haystack) {
   return (needle.data() >= haystack.data()) &&
          ((needle.data() + needle.size()) <=
           (haystack.data() + haystack.size()));
@@ -54,7 +53,7 @@ class RtpPacketizerTest : public testing::Test {
     for (int i = 0; i < payload_size; ++i) {
       buffer[i] = static_cast<uint8_t>(i);
     }
-    frame.data = absl::Span<uint8_t>(buffer.get(), payload_size);
+    frame.data = ByteView(buffer.get(), payload_size);
 
     return crypto_.Encrypt(frame);
   }
@@ -117,7 +116,7 @@ class RtpPacketizerTest : public testing::Test {
                                           ? final_packet_payload_size
                                           : packet_payload_size;
     EXPECT_EQ(expected_payload_size, static_cast<int>(result->payload.size()));
-    const absl::Span<const uint8_t> expected_bytes(
+    const ByteView expected_bytes(
         frame.data.data() + (packet_id * packet_payload_size),
         expected_payload_size);
     EXPECT_EQ(expected_bytes, result->payload);
