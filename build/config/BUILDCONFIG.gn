@@ -99,6 +99,8 @@ if (host_toolchain == "") {
     }
   } else if (current_os == "mac") {
     host_toolchain = "//build/toolchain/mac:clang"
+  } else if (current_os == "fuchsia") {
+    host_toolchain = "//build/toolchain/fuchsia:clang"  
   } else {
     # TODO(miu): Windows, and others.
     assert(false, "Toolchain for current_os is not defined.")
@@ -115,6 +117,8 @@ if (target_os == "chromeos" || target_os == "linux") {
 } else if (target_os == "mac") {
   assert(host_os == "mac", "Cross-compiling on Mac is not supported.")
   _default_toolchain = "//build/toolchain/mac:clang"
+} else if (current_os == "fuchsia") {
+  _default_toolchain = "//build/toolchain/fuchsia:clang"  
 } else {
   assert(false, "Toolchain for target_os is not defined.")
 }
@@ -135,6 +139,8 @@ if (current_os == "chromeos" || current_os == "linux") {
   is_linux = false
   is_mac = true
   is_posix = true
+} else if (current_os == "fuchsia") {
+  is_fuchsia = true
 } else {
   # TODO(miu): Windows, and others.
   assert(false, "is_FOO booleans not defined for current_os.")
