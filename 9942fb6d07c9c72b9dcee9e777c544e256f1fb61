@@ -22,6 +22,30 @@
       },
       "revId": "9942fb6d07c9c72b9dcee9e777c544e256f1fb61",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e95ca4e_6bbbc035",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2022-12-16T01:06:21Z",
+      "side": 0,
+      "message": "Yes. We want to cancel up to last_enqueued_frame_id_, including that id, but the previous code was erroneously also cancelling an unqueued frame. Example:\n\ncheckpoint_frame_id_ \u003d 156\nlast_enqueued_frame_id_ \u003d 156\n\ncheckpoint_frame_id_ \u003d\u003d last_enqueued_frame_id_ IS TRUE\n++checkpoint_frame_id IS 157\nCancelPendingFrame(157).",
+      "parentUuid": "bac269c6_55b0917d",
+      "range": {
+        "startLine": 180,
+        "startChar": 30,
+        "endLine": 180,
+        "endChar": 32
+      },
+      "revId": "9942fb6d07c9c72b9dcee9e777c544e256f1fb61",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
