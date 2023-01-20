@@ -55,11 +55,12 @@ source_set("common") {
     "environment.h",
     "frame_id.h",
     "offer_messages.h",
+    "receiver_message.h",
     "rpc_messenger.h",
     "rtp_time.h",
-    "sender_message.h",  # FIXME: Remove Chromium #include and make private
+    "sender_message.h",
     "session_messenger.h",
-    "ssrc.h",  # FIXME: Remove Chromium #include and make private
+    "ssrc.h",
   ]
   sources = [
     "answer_messages.cc",
@@ -78,7 +79,6 @@ source_set("common") {
     "packet_util.cc",
     "packet_util.h",
     "receiver_message.cc",
-    "receiver_message.h",
     "rpc_messenger.cc",
     "rtcp_common.cc",
     "rtcp_common.h",
