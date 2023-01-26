@@ -19,7 +19,7 @@ RtpPacketParser::RtpPacketParser(Ssrc sender_ssrc)
 RtpPacketParser::~RtpPacketParser() = default;
 
 absl::optional<RtpPacketParser::ParseResult> RtpPacketParser::Parse(
-    absl::Span<const uint8_t> buffer) {
+    ByteView buffer) {
   if (buffer.size() < kRtpPacketMinValidSize ||
       ConsumeField<uint8_t>(&buffer) != kRtpRequiredFirstByte) {
     return absl::nullopt;

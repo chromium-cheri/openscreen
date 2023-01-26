@@ -36,7 +36,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
 #pragma clang diagnostic pop
 
   const auto max_feedback_frame_id = FrameId::first() + 100;
-  parser.Parse(absl::Span<const uint8_t>(data, size), max_feedback_frame_id);
+  parser.Parse(ByteView(data, size), max_feedback_frame_id);
 
   return 0;
 }

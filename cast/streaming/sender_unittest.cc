@@ -16,7 +16,6 @@
 #include <vector>
 
 #include "absl/types/optional.h"
-#include "absl/types/span.h"
 #include "cast/streaming/compound_rtcp_builder.h"
 #include "cast/streaming/constants.h"
 #include "cast/streaming/encoded_frame.h"
@@ -35,6 +34,7 @@
 #include "cast/streaming/testing/simple_socket_subscriber.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
+#include "platform/base/byte_view.h"
 #include "platform/test/fake_clock.h"
 #include "platform/test/fake_task_runner.h"
 #include "util/alarm.h"
@@ -219,8 +219,7 @@ class MockReceiver : public Environment::PacketConsumer {
   // Receiver Report, NACKs, ACKs.
   void TransmitRtcpFeedbackPacket() {
     uint8_t buffer[kMaxRtpPacketSizeForIpv6UdpOnEthernet];
-    const absl::Span<uint8_t> packet =
-        rtcp_builder_.BuildPacket(FakeClock::now(), buffer);
+    const ByteView packet = rtcp_builder_.BuildPacket(FakeClock::now(), buffer);
     pipe_to_sender_->StartPacketTransmission(
         std::vector<uint8_t>(packet.begin(), packet.end()));
   }
@@ -303,7 +302,7 @@ class MockReceiver : public Environment::PacketConsumer {
     // testing should exist elsewhere to confirm frame play-out times with real
     // Receivers.
     decrypted->buffer.resize(FrameCrypto::GetPlaintextSize(encrypted));
-    decrypted->data = absl::Span<uint8_t>(decrypted->buffer);
+    decrypted->data = ByteView(decrypted->buffer);
     crypto_.Decrypt(encrypted, decrypted);
     incomplete_frames_.erase(frame_id);
     OnFrameComplete(frame_id);
@@ -354,7 +353,7 @@ class SenderTest : public testing::Test {
     sender_environment_.set_remote_endpoint(
         receiver_to_sender_pipe_.local_endpoint());
     ON_CALL(sender_environment_, SendPacket(_))
-        .WillByDefault(Invoke([this](absl::Span<const uint8_t> packet) {
+        .WillByDefault(Invoke([this](ByteView packet) {
           sender_to_receiver_pipe_.StartPacketTransmission(
               std::vector<uint8_t>(packet.begin(), packet.end()));
         }));
@@ -405,13 +404,13 @@ class SenderTest : public testing::Test {
                           (frame_id - FrameId::first()));
     frame->reference_time = reference_time;
     PopulateFramePayloadBuffer(seed, num_payload_bytes, &frame->buffer);
-    frame->data = absl::Span<uint8_t>(frame->buffer);
+    frame->data = ByteView(frame->buffer);
   }
 
   // Confirms that all |sent_frames| exist in |received_frames|, with identical
   // data and metadata.
   static void ExpectFramesReceivedCorrectly(
-      absl::Span<EncodedFrameWithBuffer> sent_frames,
+      ByteView sent_frames,
       const std::map<FrameId, EncodedFrameWithBuffer> received_frames) {
     ASSERT_EQ(sent_frames.size(), received_frames.size());
 

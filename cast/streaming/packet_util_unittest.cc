@@ -4,8 +4,8 @@
 
 #include "cast/streaming/packet_util.h"
 
-#include "absl/types/span.h"
 #include "gtest/gtest.h"
+#include "platform/base/byte_view.h"
 
 namespace openscreen {
 namespace cast {
@@ -71,7 +71,7 @@ TEST(PacketUtilTest, InspectsRtcpPacketFromReceiver) {
     EXPECT_EQ(kReceiverSsrc, result.second);
   }
 
-  const absl::Span<const uint8_t> kCompoundCombinations[2][2] = {
+  const ByteView kCompoundCombinations[2][2] = {
       {kReceiverReportPacket, kCastFeedbackPacket},
       {kCastFeedbackPacket, kReceiverReportPacket},
   };
@@ -160,8 +160,7 @@ TEST(PacketUtilTest, InspectsMalformedRtpPacket) {
 TEST(PacketUtilTest, InspectsEmptyPacket) {
   const uint8_t kInput[] = {};
 
-  const auto result =
-      InspectPacketForRouting(absl::Span<const uint8_t>(kInput, 0));
+  const auto result = InspectPacketForRouting(ByteView(kInput, 0));
   EXPECT_EQ(ApparentPacketType::UNKNOWN, result.first);
 }
 

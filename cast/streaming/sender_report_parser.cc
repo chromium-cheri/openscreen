@@ -21,7 +21,7 @@ SenderReportParser::SenderReportParser(RtcpSession* session)
 SenderReportParser::~SenderReportParser() = default;
 
 absl::optional<SenderReportParser::SenderReportWithId>
-SenderReportParser::Parse(absl::Span<const uint8_t> buffer) {
+SenderReportParser::Parse(ByteView buffer) {
   absl::optional<SenderReportWithId> sender_report;
 
   // The data contained in |buffer| can be a "compound packet," which means that

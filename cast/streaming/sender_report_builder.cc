@@ -17,9 +17,9 @@ SenderReportBuilder::SenderReportBuilder(RtcpSession* session)
 
 SenderReportBuilder::~SenderReportBuilder() = default;
 
-std::pair<absl::Span<uint8_t>, StatusReportId> SenderReportBuilder::BuildPacket(
+std::pair<ByteView, StatusReportId> SenderReportBuilder::BuildPacket(
     const RtcpSenderReport& sender_report,
-    absl::Span<uint8_t> buffer) const {
+    ByteView buffer) const {
   OSP_CHECK_GE(buffer.size(), kRequiredBufferSize);
 
   uint8_t* const packet_begin = buffer.data();
@@ -47,9 +47,8 @@ std::pair<absl::Span<uint8_t>, StatusReportId> SenderReportBuilder::BuildPacket(
   }
 
   uint8_t* const packet_end = buffer.data();
-  return std::make_pair(
-      absl::Span<uint8_t>(packet_begin, packet_end - packet_begin),
-      ToStatusReportId(ntp_timestamp));
+  return std::make_pair(ByteView(packet_begin, packet_end - packet_begin),
+                        ToStatusReportId(ntp_timestamp));
 }
 
 Clock::time_point SenderReportBuilder::GetRecentReportTime(
