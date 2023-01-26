@@ -57,11 +57,10 @@ class FrameCrypto {
 
   EncryptedFrame Encrypt(const EncodedFrame& encoded_frame) const;
 
-  // Decrypt the given |encrypted_frame| into the output |encoded_frame|. The
-  // caller must provide a sufficiently-sized data buffer (see
-  // GetPlaintextSize()).
+  // Decrypts `encrypted_frame` into `output`. The caller must provide a
+  // sufficiently-sized data buffer (see GetPlaintextSize()).
   void Decrypt(const EncryptedFrame& encrypted_frame,
-               EncodedFrame* encoded_frame) const;
+               std::vector<uint8_t>& output) const;
 
   // AES crypto inputs and outputs (for either encrypting or decrypting) are
   // always the same size in bytes. The following are just "documentative code."
