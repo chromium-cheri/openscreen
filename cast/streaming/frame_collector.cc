@@ -138,7 +138,7 @@ const EncryptedFrame& FrameCollector::PeekAtAssembledFrame() {
       frame_.owned_data_.insert(frame_.owned_data_.end(), chunk.payload.begin(),
                                 chunk.payload.end());
     }
-    frame_.data = absl::Span<uint8_t>(frame_.owned_data_);
+    frame_.data = ByteView(frame_.owned_data_);
   }
 
   return frame_;
@@ -149,7 +149,7 @@ void FrameCollector::Reset() {
   frame_.frame_id = FrameId();
   frame_.owned_data_.clear();
   frame_.owned_data_.shrink_to_fit();
-  frame_.data = absl::Span<uint8_t>();
+  frame_.data = ByteView();
   chunks_.clear();
 }
 
