@@ -11,7 +11,6 @@
 #include <utility>
 #include <vector>
 
-#include "absl/types/span.h"
 #include "cast/streaming/compound_rtcp_parser.h"
 #include "cast/streaming/constants.h"
 #include "cast/streaming/encoded_frame.h"
@@ -31,6 +30,7 @@
 #include "gtest/gtest.h"
 #include "platform/api/time.h"
 #include "platform/api/udp_socket.h"
+#include "platform/base/byte_view.h"
 #include "platform/base/error.h"
 #include "platform/base/ip_address.h"
 #include "platform/base/udp_packet.h"
@@ -108,7 +108,7 @@ struct SimulatedFrame : public EncodedFrame {
     for (size_t i = 0; i < buffer_.size(); ++i) {
       buffer_[i] = static_cast<uint8_t>(which + static_cast<int>(i));
     }
-    data = absl::Span<uint8_t>(buffer_);
+    data = ByteView(buffer_);
   }
 
   static RtpTimeTicks GetRtpStartTime() {
@@ -225,7 +225,7 @@ class MockSender : public CompoundRtcpParser::Client {
   }
 
   // Called to process a packet from the Receiver.
-  void OnPacketFromReceiver(absl::Span<const uint8_t> packet) {
+  void OnPacketFromReceiver(ByteView packet) {
     EXPECT_TRUE(rtcp_parser_.Parse(packet, max_feedback_frame_id_));
   }
 
@@ -280,7 +280,7 @@ class ReceiverTest : public testing::Test {
         sender_(&task_runner_, &env_) {
     env_.SetSocketSubscriber(&socket_subscriber_);
     ON_CALL(env_, SendPacket(_))
-        .WillByDefault(Invoke([this](absl::Span<const uint8_t> packet) {
+        .WillByDefault(Invoke([this](ByteView packet) {
           task_runner_.PostTaskWithDelay(
               [sender = &sender_, copy_of_packet = std::vector<uint8_t>(
                                       packet.begin(), packet.end())]() mutable {
@@ -326,7 +326,7 @@ class ReceiverTest : public testing::Test {
     ASSERT_NE(Receiver::kNoFramesReady, payload_size);
     std::vector<uint8_t> buffer(payload_size);
     EncodedFrame received_frame =
-        receiver()->ConsumeNextFrame(absl::Span<uint8_t>(buffer));
+        receiver()->ConsumeNextFrame(ByteView(buffer));
 
     EXPECT_EQ(sent_frame.dependency, received_frame.dependency);
     EXPECT_EQ(sent_frame.frame_id, received_frame.frame_id);

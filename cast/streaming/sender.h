@@ -23,6 +23,7 @@
 #include "cast/streaming/sender_report_builder.h"
 #include "cast/streaming/session_config.h"
 #include "platform/api/time.h"
+#include "platform/base/byte_view.h"
 #include "util/yet_another_bit_vector.h"
 
 namespace openscreen {

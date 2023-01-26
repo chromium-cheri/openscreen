@@ -7,7 +7,6 @@
 #include <algorithm>
 #include <utility>
 
-#include "absl/types/span.h"
 #include "cast/streaming/constants.h"
 #include "cast/streaming/receiver_packet_router.h"
 #include "cast/streaming/session_config.h"
@@ -144,7 +143,7 @@ int Receiver::AdvanceToNextFrame() {
   return kNoFramesReady;
 }
 
-EncodedFrame Receiver::ConsumeNextFrame(absl::Span<uint8_t> buffer) {
+EncodedFrame Receiver::ConsumeNextFrame(ByteView buffer) {
   TRACE_DEFAULT_SCOPED(TraceCategory::kReceiver);
   // Assumption: The required call to AdvanceToNextFrame() ensures that
   // |last_frame_consumed_| is set to one before the frame to be consumed here.
