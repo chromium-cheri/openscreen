@@ -6,7 +6,6 @@
 
 #include <chrono>
 
-#include "absl/types/span.h"
 #include "cast/streaming/encoded_frame.h"
 #include "platform/base/trivial_clock_traits.h"
 #include "util/chrono_helpers.h"
@@ -29,8 +28,7 @@ DummyPlayer::~DummyPlayer() {
 void DummyPlayer::OnFramesReady(int buffer_size) {
   // Consume the next frame.
   buffer_.resize(buffer_size);
-  const EncodedFrame frame =
-      receiver_->ConsumeNextFrame(absl::Span<uint8_t>(buffer_));
+  const EncodedFrame frame = receiver_->ConsumeNextFrame(buffer_);
 
   // Convert the RTP timestamp to a human-readable timestamp (in µs) and log
   // some short information about the frame.
