@@ -143,14 +143,25 @@ bssl::UniquePtr<ASN1_BIT_STRING> GetKeyUsage(X509* cert) {
       X509_get_ext_d2i(cert, NID_key_usage, nullptr, nullptr))};
 }
 
-Error::Code VerifyCertificateChain(const std::vector<CertPathStep>& path,
-                                   uint32_t step_index,
-                                   const DateTime& time) {
+std::string GetSubjectNameString(X509* cert) {
+  X509_NAME* subject_name = X509_get_subject_name(cert);
+  if (subject_name) {
+    char subject_name_data[1025];
+    X509_NAME_oneline(subject_name, subject_name_data,
+                      sizeof(subject_name_data) - 1);
+    subject_name_data[1024] = '\0';
+    return std::string(subject_name_data);
+  }
+  return std::string();
+}
+
+Error VerifyCertificateChain(const std::vector<CertPathStep>& path,
+                             uint32_t step_index,
+                             const DateTime& time) {
   // Default max path length is the number of intermediate certificates.
   int max_pathlen = path.size() - 2;
 
   std::vector<NameConstraintsPtr> path_name_constraints;
-  Error::Code error = Error::Code::kNone;
   uint32_t i = step_index;
   for (; i < path.size() - 1; ++i) {
     X509* subject = path[i + 1].cert;
@@ -158,13 +169,17 @@ Error::Code VerifyCertificateChain(const std::vector<CertPathStep>& path,
     bool is_root = (i == step_index);
     bool issuer_is_self_issued = false;
     if (!is_root) {
-      if ((error = VerifyCertTime(issuer, time)) != Error::Code::kNone) {
-        return error;
+      Error::Code error_code = Error::Code::kNone;
+      if ((error_code = VerifyCertTime(issuer, time)) != Error::Code::kNone) {
+        return error_code;
       }
       if (X509_NAME_cmp(X509_get_subject_name(issuer),
                         X509_get_issuer_name(issuer)) != 0) {
         if (max_pathlen == 0) {
-          return Error::Code::kErrCertsPathlen;
+          return Error(
+              Error::Code::kErrCertsPathlen,
+              absl::StrCat("Invalid max_pathlen (was ", max_pathlen,
+                           ") for subject: ", GetSubjectNameString(issuer)));
         }
         --max_pathlen;
       } else {
@@ -179,7 +194,10 @@ Error::Code VerifyCertificateChain(const std::vector<CertPathStep>& path,
       const int bit =
           ASN1_BIT_STRING_get_bit(key_usage.get(), KeyUsageBits::kKeyCertSign);
       if (bit == 0) {
-        return Error::Code::kErrCertsVerifyGeneric;
+        return Error(
+            Error::Code::kErrCertsVerifyGeneric,
+            absl::StrCat("Unable to get KeyUsageBits for cert, subject: ",
+                         GetSubjectNameString(issuer)));
       }
     }
 
@@ -189,32 +207,38 @@ Error::Code VerifyCertificateChain(const std::vector<CertPathStep>& path,
     bssl::UniquePtr<BASIC_CONSTRAINTS> basic_constraints =
         GetConstraints(issuer);
     if (!basic_constraints || !basic_constraints->ca) {
-      return Error::Code::kErrCertsVerifyGeneric;
+      return Error(
+          Error::Code::kErrCertsVerifyGeneric,
+          absl::StrCat("Unable to get BASIC_CONSTRAINTS for cert, subject: ",
+                       GetSubjectNameString(issuer)));
     }
 
     if (basic_constraints->pathlen) {
-      if (basic_constraints->pathlen->length != 1) {
-        return Error::Code::kErrCertsVerifyGeneric;
-      } else {
-        const int pathlen = *basic_constraints->pathlen->data;
-        if (pathlen < 0) {
-          return Error::Code::kErrCertsVerifyGeneric;
-        }
-        if (pathlen < max_pathlen) {
-          max_pathlen = pathlen;
-        }
+      const int pathlen = *basic_constraints->pathlen->data;
+      if (pathlen < 0) {
+        return Error(
+            Error::Code::kErrCertsVerifyGeneric,
+            absl::StrCat("Invalid pathlen in BASIC_CONSTRAINTS, subject: ",
+                         GetSubjectNameString(issuer)));
+      }
+      if (pathlen < max_pathlen) {
+        max_pathlen = pathlen;
       }
     }
 
     const X509_ALGOR* issuer_sig_alg;
     X509_get0_signature(nullptr, &issuer_sig_alg, issuer);
     if (X509_ALGOR_cmp(issuer_sig_alg, X509_get0_tbs_sigalg(issuer)) != 0) {
-      return Error::Code::kErrCertsVerifyGeneric;
+      return Error(Error::Code::kErrCertsVerifyGeneric,
+                   absl::StrCat("Invalid signature algorithm, subject: ",
+                                GetSubjectNameString(issuer)));
     }
 
     bssl::UniquePtr<EVP_PKEY> public_key{X509_get_pubkey(issuer)};
     if (!VerifyPublicKeyLength(public_key.get())) {
-      return Error::Code::kErrCertsVerifyGeneric;
+      return Error(Error::Code::kErrCertsVerifyGeneric,
+                   absl::StrCat("Invalid public key length, subject: ",
+                                GetSubjectNameString(issuer)));
     }
 
     // NOTE: (!self-issued || target) -> verify name constraints.  Target case
@@ -223,7 +247,8 @@ Error::Code VerifyCertificateChain(const std::vector<CertPathStep>& path,
       for (const auto& name_constraints : path_name_constraints) {
         if (NAME_CONSTRAINTS_check(subject, name_constraints.get()) !=
             X509_V_OK) {
-          return Error::Code::kErrCertsVerifyGeneric;
+          return Error(Error::Code::kErrCertsVerifyGeneric,
+                       "Invalid name constraints");
         }
       }
     }
@@ -235,7 +260,10 @@ Error::Code VerifyCertificateChain(const std::vector<CertPathStep>& path,
       // X509_get_ext_d2i's error handling is a little confusing. See
       // https://boringssl.googlesource.com/boringssl/+/215f4a0287/include/openssl/x509.h#1384
       // https://boringssl.googlesource.com/boringssl/+/215f4a0287/include/openssl/x509v3.h#651
-      return Error::Code::kErrCertsVerifyGeneric;
+      return Error(
+          Error::Code::kErrCertsVerifyGeneric,
+          absl::StrCat("Invalid name constraints (no critical flag), subject: ",
+                       GetSubjectNameString(issuer)));
     }
     if (nc) {
       path_name_constraints.push_back(std::move(nc));
@@ -250,18 +278,22 @@ Error::Code VerifyCertificateChain(const std::vector<CertPathStep>& path,
     auto* policy_mappings = reinterpret_cast<POLICY_MAPPINGS*>(
         X509_get_ext_d2i(issuer, NID_policy_mappings, nullptr, nullptr));
     if (policy_mappings) {
+      Error error;
       const ASN1_OBJECT* any_policy = OBJ_nid2obj(NID_any_policy);
       for (const POLICY_MAPPING* policy_mapping : policy_mappings) {
         const bool either_matches =
             ((OBJ_cmp(policy_mapping->issuerDomainPolicy, any_policy) == 0) ||
              (OBJ_cmp(policy_mapping->subjectDomainPolicy, any_policy) == 0));
         if (either_matches) {
-          error = Error::Code::kErrCertsVerifyGeneric;
+          error = Error(
+              Error::Code::kErrCertsVerifyGeneric,
+              absl::StrCat("anyPolicy found in POLICY_MAPPINGS, subject: ",
+                           GetSubjectNameString(issuer)));
           break;
         }
       }
       sk_POLICY_MAPPING_free(policy_mappings);
-      if (error != Error::Code::kNone) {
+      if (!error.ok()) {
         return error;
       }
     }
@@ -274,7 +306,9 @@ Error::Code VerifyCertificateChain(const std::vector<CertPathStep>& path,
         const int nid = OBJ_obj2nid(X509_EXTENSION_get_object(extension));
         if (nid != NID_name_constraints && nid != NID_basic_constraints &&
             nid != NID_key_usage) {
-          return Error::Code::kErrCertsVerifyGeneric;
+          return Error(Error::Code::kErrCertsVerifyGeneric,
+                       absl::StrCat("Unhandled critical extensions, subject: ",
+                                    GetSubjectNameString(issuer)));
         }
       }
     }
@@ -295,12 +329,17 @@ Error::Code VerifyCertificateChain(const std::vector<CertPathStep>& path,
         digest = EVP_sha512();
         break;
       default:
-        return Error::Code::kErrCertsVerifyGeneric;
+        return Error(
+            Error::Code::kErrCertsVerifyGeneric,
+            absl::StrCat("Unknown digest algorithm ", nid,
+                         ", subject: ", GetSubjectNameString(subject)));
     }
     uint8_t* tbs = nullptr;
     int tbs_len = i2d_X509_tbs(subject, &tbs);
     if (tbs_len < 0) {
-      return Error::Code::kErrCertsVerifyGeneric;
+      return Error(Error::Code::kErrCertsVerifyGeneric,
+                   absl::StrCat("Unable to encode certificate, subject: ",
+                                GetSubjectNameString(subject)));
     }
     bssl::UniquePtr<uint8_t> free_tbs{tbs};
     const ASN1_BIT_STRING* signature;
@@ -309,17 +348,22 @@ Error::Code VerifyCertificateChain(const std::vector<CertPathStep>& path,
             digest, public_key.get(), {tbs, static_cast<uint32_t>(tbs_len)},
             {ASN1_STRING_get0_data(signature),
              static_cast<uint32_t>(ASN1_STRING_length(signature))})) {
-      return Error::Code::kErrCertsVerifyGeneric;
+      return Error(
+          Error::Code::kErrCertsVerifyGeneric,
+          absl::StrCat("Failure to verify signature over cert with subject: ",
+                       GetSubjectNameString(subject), ", public key from cert ",
+                       "with subject: ", GetSubjectNameString(issuer)));
     }
   }
   // NOTE: Other half of ((!self-issued || target) -> check name constraints).
   for (const auto& name_constraints : path_name_constraints) {
     if (NAME_CONSTRAINTS_check(path.back().cert, name_constraints.get()) !=
         X509_V_OK) {
-      return Error::Code::kErrCertsVerifyGeneric;
+      return Error(Error::Code::kErrCertsVerifyGeneric,
+                   "Failure to verify path_name_constraints");
     }
   }
-  return error;
+  return Error::None();
 }
 
 X509* ParseX509Der(const std::string& der) {
@@ -410,29 +454,41 @@ BoringSSLTrustStore::FindCertificatePath(
   // Basic checks on the target certificate.
   Error::Code valid_time = VerifyCertTime(target_cert.get(), time);
   if (valid_time != Error::Code::kNone) {
-    return Error(valid_time,
-                 "FindCertificatePath: Failed to verify certificate time");
+    return Error(
+        valid_time,
+        absl::StrCat("FindCertificatePath: Failed to verify certificate time, "
+                     "subject:",
+                     GetSubjectNameString(target_cert.get())));
   }
   bssl::UniquePtr<EVP_PKEY> public_key{X509_get_pubkey(target_cert.get())};
   if (!VerifyPublicKeyLength(public_key.get())) {
     return Error(Error::Code::kErrCertsVerifyGeneric,
-                 "FindCertificatePath: Failed with invalid public key length");
+                 absl::StrCat("FindCertificatePath: Failed with invalid public "
+                              "key length, subject:",
+                              GetSubjectNameString(target_cert.get())));
   }
   const X509_ALGOR* sig_alg;
   X509_get0_signature(nullptr, &sig_alg, target_cert.get());
   if (X509_ALGOR_cmp(sig_alg, X509_get0_tbs_sigalg(target_cert.get())) != 0) {
-    return Error::Code::kErrCertsVerifyGeneric;
+    return Error(Error::Code::kErrCertsVerifyGeneric,
+                 absl::StrCat("Unknown signature algorithm, subject: ",
+                              GetSubjectNameString(target_cert.get())));
   }
   bssl::UniquePtr<ASN1_BIT_STRING> key_usage = GetKeyUsage(target_cert.get());
   if (!key_usage) {
-    return Error(Error::Code::kErrCertsRestrictions,
-                 "FindCertificatePath: Failed with no key usage");
+    return Error(
+        Error::Code::kErrCertsRestrictions,
+        absl::StrCat("FindCertificatePath: Failed with no key usage, subject: ",
+                     GetSubjectNameString(target_cert.get())));
   }
   int bit =
       ASN1_BIT_STRING_get_bit(key_usage.get(), KeyUsageBits::kDigitalSignature);
   if (bit == 0) {
-    return Error(Error::Code::kErrCertsRestrictions,
-                 "FindCertificatePath: Failed to get digital signature");
+    return Error(
+        Error::Code::kErrCertsRestrictions,
+        absl::StrCat(
+            "FindCertificatePath: Failed to get digital signature, subject: ",
+            GetSubjectNameString(target_cert.get())));
   }
 
   X509* path_head = target_cert.get();
@@ -462,11 +518,11 @@ BoringSSLTrustStore::FindCertificatePath(
   // returned is whatever the last error was from the last path tried.
   uint32_t trust_store_index = 0;
   uint32_t intermediate_cert_index = 0;
-  Error::Code last_error = Error::Code::kNone;
+  Error last_error = Error::None();
   for (;;) {
     X509_NAME* target_issuer_name = X509_get_issuer_name(path_head);
     OSP_VLOG << "FindCertificatePath: Target certificate issuer name: "
-             << X509_NAME_oneline(target_issuer_name, 0, 0);
+             << GetSubjectNameString(path_head);
 
     // The next issuer certificate to add to the current path.
     X509* next_issuer = nullptr;
@@ -476,7 +532,7 @@ BoringSSLTrustStore::FindCertificatePath(
       X509_NAME* trust_store_cert_name =
           X509_get_subject_name(trust_store_cert);
       OSP_VLOG << "FindCertificatePath: Trust store certificate issuer name: "
-               << X509_NAME_oneline(trust_store_cert_name, 0, 0);
+               << GetSubjectNameString(trust_store_cert);
       if (X509_NAME_cmp(trust_store_cert_name, target_issuer_name) == 0) {
         CertPathStep& next_step = path[--path_index];
         next_step.cert = trust_store_cert;
@@ -510,7 +566,7 @@ BoringSSLTrustStore::FindCertificatePath(
     if (!next_issuer) {
       if (path_index == first_index) {
         // There are no more paths to try.  Ensure an error is returned.
-        if (last_error == Error::Code::kNone) {
+        if (last_error.ok()) {
           return Error(Error::Code::kErrCertsVerifyUntrustedCert,
                        "FindCertificatePath: Failed after trying all "
                        "certificate paths, no matches");
@@ -526,7 +582,7 @@ BoringSSLTrustStore::FindCertificatePath(
 
     if (path_cert_in_trust_store) {
       last_error = VerifyCertificateChain(path, path_index, time);
-      if (last_error != Error::Code::kNone) {
+      if (!last_error.ok()) {
         CertPathStep& last_step = path[path_index++];
         trust_store_index = last_step.trust_store_index;
         intermediate_cert_index = last_step.intermediate_cert_index;

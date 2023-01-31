@@ -8,13 +8,13 @@
 #define OPENSSL_NO_ASM
 #endif
 
-#if !defined(OPENSSL_NO_ASM)
-#if defined(__arm__)
+#if !defined(OPENSSL_NO_ASM) && defined(__ARMEL__) && defined(__ELF__)
 #if defined(BORINGSSL_PREFIX)
 #include <boringssl_prefix_symbols_asm.h>
 #endif
 #include <openssl/arm_arch.h>
 
+#if __ARM_MAX_ARCH__>=7
 .text
 .fpu	neon
 .code	32
@@ -67,8 +67,7 @@ gcm_init_v8:
 	vext.8	q9,q14,q14,#8		@ Karatsuba pre-processing
 	veor	q9,q9,q14
 	vext.8	q13,q8,q9,#8		@ pack Karatsuba pre-processed
-	vst1.64	{q13,q14},[r0]		@ store Htable[1..2]
-
+	vst1.64	{q13,q14},[r0]!	@ store Htable[1..2]
 	bx	lr
 .size	gcm_init_v8,.-gcm_init_v8
 .globl	gcm_gmult_v8
@@ -252,5 +251,8 @@ gcm_ghash_v8:
 .align	2
 .align	2
 #endif
-#endif  // !OPENSSL_NO_ASM
-.section	.note.GNU-stack,"",%progbits
+#endif  // !OPENSSL_NO_ASM && defined(__ARMEL__) && defined(__ELF__)
+#if defined(__ELF__)
+// See https://www.airs.com/blog/archives/518.
+.section .note.GNU-stack,"",%progbits
+#endif

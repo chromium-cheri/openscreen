@@ -8,8 +8,7 @@
 #define OPENSSL_NO_ASM
 #endif
 
-#if !defined(OPENSSL_NO_ASM)
-#if defined(__aarch64__)
+#if !defined(OPENSSL_NO_ASM) && defined(__AARCH64EL__) && defined(_WIN32)
 #if defined(BORINGSSL_PREFIX)
 #include <boringssl_prefix_symbols_asm.h>
 #endif
@@ -647,7 +646,7 @@ aes_hw_ctr32_encrypt_blocks:
 	//
 	// [0] ARM-EPM-049219 v23 Cortex-A57 MPCore Software Developers Errata Notice
 	// [1] ARM-EPM-012079 v11.0 Cortex-A72 MPCore Software Developers Errata Notice
-#ifndef __ARMEB__
+#ifndef __AARCH64EB__
 	rev	w8, w8
 #endif
 	add	w10, w8, #1
@@ -809,5 +808,8 @@ Lctr32_done:
 	ret
 
 #endif
+#endif  // !OPENSSL_NO_ASM && defined(__AARCH64EL__) && defined(_WIN32)
+#if defined(__ELF__)
+// See https://www.airs.com/blog/archives/518.
+.section .note.GNU-stack,"",%progbits
 #endif
-#endif  // !OPENSSL_NO_ASM
