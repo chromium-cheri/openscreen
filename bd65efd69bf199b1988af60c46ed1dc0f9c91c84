@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "130aad43_e0783af7",
+        "filename": "cast/streaming/receiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-01-31T01:18:46Z",
+      "side": 1,
+      "message": "1. When landing template functions, it is good practice to document the type requirements for T.  I think this works because absl::Span\u0027s implicit ctor can match with base::span because the latter implements data() and size().\n\n2. This should be going away soon by landing a mutable byte span as a followup to the ByteView CL.  So probably not worth revisiting just for documentation purposes.",
+      "revId": "bd65efd69bf199b1988af60c46ed1dc0f9c91c84",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
