@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d166bf03_83f90671",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-02-01T17:56:39Z",
+      "side": 1,
+      "message": "So it appears that our arm64 toolchain is unhappy with this roll.  It\u0027s not clear what changed in the toolchain that would have caused this breakage, although the thread below has some clues.  Upgrading our arm64 sysroot from stretch to e.g. bullseye could fix this issue as the thread suggests that the linking issues are resolved in a more modern toolchain.\n\nhttps://lore.kernel.org/linux-arm-kernel/CAKXUXMyvUXfOrqV_MZpmz+5R07q_WZ7yVN1CnaAx13CcuN73yg@mail.gmail.com/T/\n\nGoing to put this on the backburner as rolling boringssl is not a high priority (it\u0027s only used in standalone builds of the library) and I don\u0027t have bandwidth to figure out how to upgrade syroots and deal with various breakages.",
+      "revId": "a7c5ee38a8c82050913333245b717ffa777c7234",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
