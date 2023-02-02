@@ -16,7 +16,6 @@
 #include <vector>
 
 #include "absl/types/optional.h"
-#include "absl/types/span.h"
 #include "cast/streaming/compound_rtcp_builder.h"
 #include "cast/streaming/constants.h"
 #include "cast/streaming/encoded_frame.h"
@@ -35,6 +34,7 @@
 #include "cast/streaming/testing/simple_socket_subscriber.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
+#include "platform/base/byte_buffer.h"
 #include "platform/base/byte_view.h"
 #include "platform/test/byte_view_test_util.h"
 #include "platform/test/fake_clock.h"
@@ -305,7 +305,7 @@ class MockReceiver : public Environment::PacketConsumer {
     // testing should exist elsewhere to confirm frame play-out times with real
     // Receivers.
     decrypted->buffer.resize(FrameCrypto::GetPlaintextSize(encrypted));
-    crypto_.Decrypt(encrypted, absl::MakeSpan(decrypted->buffer));
+    crypto_.Decrypt(encrypted, ByteBuffer(decrypted->buffer));
     encrypted.CopyMetadataTo(decrypted);
     decrypted->data = ByteView(decrypted->buffer);
     incomplete_frames_.erase(frame_id);

@@ -12,7 +12,7 @@
 #include <cstdint>
 #include <vector>
 
-#include "platform/base/macros.h"
+#include "platform/base/byte_buffer.h"
 
 namespace openscreen {
 
@@ -43,6 +43,8 @@ class ByteView {
       : data_(data), count_(count) {}
   explicit ByteView(const std::vector<uint8_t>& v)
       : data_(v.data()), count_(v.size()) {}
+  ByteView(const ByteBuffer& buffer)  // NOLINT
+      : data_(buffer.data()), count_(buffer.size()) {}
 
   constexpr ByteView(const ByteView&) noexcept = default;
   constexpr ByteView& operator=(const ByteView&) noexcept = default;
