@@ -11,9 +11,10 @@
 #include <array>
 #include <vector>
 
-#include "absl/types/span.h"
 #include "cast/streaming/encoded_frame.h"
 #include "openssl/aes.h"
+#include "platform/base/byte_buffer.h"
+#include "platform/base/byte_view.h"
 #include "platform/base/macros.h"
 
 namespace openscreen {
@@ -59,8 +60,7 @@ class FrameCrypto {
 
   // Decrypts `encrypted_frame` into `out`. `out` must have a sufficiently-sized
   // data buffer (see GetPlaintextSize()).
-  void Decrypt(const EncryptedFrame& encrypted_frame,
-               absl::Span<uint8_t> out) const;
+  void Decrypt(const EncryptedFrame& encrypted_frame, ByteBuffer out) const;
 
   // AES crypto inputs and outputs (for either encrypting or decrypting) are
   // always the same size in bytes. The following are just "documentative code."
@@ -82,9 +82,7 @@ class FrameCrypto {
 
   // AES-CTR is symmetric. Thus, the "meat" of both Encrypt() and Decrypt() is
   // the same.
-  void EncryptCommon(FrameId frame_id,
-                     absl::Span<const uint8_t> in,
-                     absl::Span<uint8_t> out) const;
+  void EncryptCommon(FrameId frame_id, ByteView in, ByteBuffer out) const;
 };
 
 }  // namespace cast

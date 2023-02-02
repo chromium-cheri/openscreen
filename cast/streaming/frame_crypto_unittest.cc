@@ -9,6 +9,7 @@
 #include <vector>
 
 #include "gtest/gtest.h"
+#include "platform/base/byte_buffer.h"
 #include "platform/base/byte_view.h"
 #include "platform/test/byte_view_test_util.h"
 #include "util/crypto/random_bytes.h"
@@ -55,7 +56,7 @@ TEST(FrameCryptoTest, EncryptsAndDecryptsFrames) {
   // plaintext is retrieved.
   std::vector<uint8_t> decrypted_frame0_buffer(
       FrameCrypto::GetPlaintextSize(encrypted_frame0));
-  crypto.Decrypt(encrypted_frame0, absl::MakeSpan(decrypted_frame0_buffer));
+  crypto.Decrypt(encrypted_frame0, ByteBuffer(decrypted_frame0_buffer));
   EncodedFrame decrypted_frame0;
   encrypted_frame0.CopyMetadataTo(&decrypted_frame0);
   decrypted_frame0.data = ByteView(decrypted_frame0_buffer);
@@ -64,7 +65,7 @@ TEST(FrameCryptoTest, EncryptsAndDecryptsFrames) {
 
   std::vector<uint8_t> decrypted_frame1_buffer(
       FrameCrypto::GetPlaintextSize(encrypted_frame1));
-  crypto.Decrypt(encrypted_frame1, absl::MakeSpan(decrypted_frame1_buffer));
+  crypto.Decrypt(encrypted_frame1, ByteBuffer(decrypted_frame1_buffer));
   EncodedFrame decrypted_frame1;
   encrypted_frame1.CopyMetadataTo(&decrypted_frame1);
   decrypted_frame1.data = ByteView(decrypted_frame1_buffer);
