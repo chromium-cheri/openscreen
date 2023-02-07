@@ -14,7 +14,7 @@
 #include "cast/streaming/encoded_frame.h"
 #include "cast/streaming/environment.h"
 #include "cast/streaming/sender.h"
-#include "platform/base/byte_view.h"
+#include "platform/base/span.h"
 #include "util/chrono_helpers.h"
 #include "util/osp_logging.h"
 #include "util/saturate_cast.h"

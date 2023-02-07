@@ -31,9 +31,9 @@
 #include "gtest/gtest.h"
 #include "platform/api/time.h"
 #include "platform/api/udp_socket.h"
-#include "platform/base/byte_view.h"
 #include "platform/base/error.h"
 #include "platform/base/ip_address.h"
+#include "platform/base/span.h"
 #include "platform/base/udp_packet.h"
 #include "platform/test/byte_view_test_util.h"
 #include "platform/test/fake_clock.h"
@@ -328,7 +328,7 @@ class ReceiverTest : public testing::Test {
     ASSERT_NE(Receiver::kNoFramesReady, payload_size);
     std::vector<uint8_t> buffer(payload_size);
     EncodedFrame received_frame =
-        receiver()->ConsumeNextFrame(absl::Span<uint8_t>(buffer));
+        receiver()->ConsumeNextFrame(ByteBuffer(buffer));
 
     EXPECT_EQ(sent_frame.dependency, received_frame.dependency);
     EXPECT_EQ(sent_frame.frame_id, received_frame.frame_id);

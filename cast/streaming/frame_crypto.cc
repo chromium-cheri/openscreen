@@ -10,7 +10,7 @@
 #include "openssl/crypto.h"
 #include "openssl/err.h"
 #include "openssl/rand.h"
-#include "platform/base/byte_view.h"
+#include "platform/base/span.h"
 #include "util/big_endian.h"
 #include "util/crypto/openssl_util.h"
 #include "util/crypto/random_bytes.h"
@@ -67,12 +67,12 @@ EncryptedFrame FrameCrypto::Encrypt(const EncodedFrame& encoded_frame) const {
   result.owned_data_.resize(encoded_frame.data.size());
   result.data = ByteView(result.owned_data_);
   EncryptCommon(encoded_frame.frame_id, encoded_frame.data,
-                absl::MakeSpan(result.owned_data_));
+                ByteBuffer(result.owned_data_));
   return result;
 }
 
 void FrameCrypto::Decrypt(const EncryptedFrame& encrypted_frame,
-                          absl::Span<uint8_t> out) const {
+                          ByteBuffer out) const {
   // AES-CTC is symmetric. Thus, decryption back to the plaintext is the same as
   // encrypting the ciphertext; and both are the same size.
   OSP_DCHECK_EQ(encrypted_frame.data.size(), out.size());
@@ -80,8 +80,8 @@ void FrameCrypto::Decrypt(const EncryptedFrame& encrypted_frame,
 }
 
 void FrameCrypto::EncryptCommon(FrameId frame_id,
-                                absl::Span<const uint8_t> in,
-                                absl::Span<uint8_t> out) const {
+                                ByteView in,
+                                ByteBuffer out) const {
   OSP_DCHECK(!frame_id.is_null());
   OSP_DCHECK_EQ(in.size(), out.size());
 

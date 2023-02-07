@@ -10,7 +10,7 @@
 
 #include "cast/streaming/frame_id.h"
 #include "cast/streaming/rtp_defines.h"
-#include "platform/base/byte_view.h"
+#include "platform/base/span.h"
 #include "util/osp_logging.h"
 
 namespace openscreen {
