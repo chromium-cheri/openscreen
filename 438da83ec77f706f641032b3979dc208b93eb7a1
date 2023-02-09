@@ -86,6 +86,24 @@
       "parentUuid": "bd6e1eb6_16aa843f",
       "revId": "438da83ec77f706f641032b3979dc208b93eb7a1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ced10599_ecf8b372",
+        "filename": "cast/standalone_sender/streaming_av1_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-02-09T23:59:51Z",
+      "side": 1,
+      "message": "Fair enough, here\u0027s why I asked:\n\nbase::span and std::span both have ctors to allow implicit conversion from a container type, and openscreen::Span follows that pattern.\n\nSo elsewhere in the code, I removed explicit constructors where they were not needed.",
+      "parentUuid": "7d00931a_45c42e09",
+      "revId": "438da83ec77f706f641032b3979dc208b93eb7a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ],
   "submitRequirementResults": [
