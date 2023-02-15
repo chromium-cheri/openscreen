@@ -15,12 +15,12 @@ declare_args() {
   # supported on Linux.
   use_sysroot = is_linux && (current_cpu == "arm" || current_cpu == "arm64")
 
-  # TODO(https://issuetracker.google.com/224594403): switch to stable branch.
-  sysroot_platform = "sid"
+  # NOTE: to add new platforms, start with the documentation at //docs/cross_compilation.md.
+  sysroot_platform = "bullseye"
 }
 
 if (use_sysroot) {
-  assert(sysroot_platform == "sid" || sysroot_platform == "stretch")
+  assert(sysroot_platform == "stretch" || sysroot_platform == "bullseye")
   assert(is_linux && (current_cpu == "arm" || current_cpu == "arm64"))
 
   # By default build against a sysroot image downloaded from Cloud Storage
