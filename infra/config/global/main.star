@@ -143,7 +143,7 @@ def get_properties(
     if use_coverage:
         properties["use_coverage"] = True
     if use_sysroot:
-        properties["sysroot_platform"] = "stretch"
+        properties["sysroot_platform"] = "bullseye"
     if cast_standalone:
         properties["have_ffmpeg"] = True
         properties["have_libsdl2"] = True
@@ -222,7 +222,7 @@ def builder(builder_type, name, properties, os, cpu):
     if builder_type == "try":
         # We mark some bots as experimental to not block the build.
         experiment_percentage = None
-        if name in ["linux64_cast_e2e", "linux64_coverage_debug"]:
+        if name in ["linux_arm64_cast_debug", "linux64_coverage_debug"]:
             experiment_percentage = 100
 
         luci.cq_tryjob_verifier(
@@ -278,7 +278,7 @@ try_builder(
     "openscreen_presubmit",
     get_properties(is_presubmit = True, is_release = True, use_goma = False),
 )
-try_and_ci_builders("linux64_cast_e2e", get_properties(cast_standalone = True))
+try_and_ci_builders("linux_arm64_cast_debug", get_properties(target_cpu = "arm64", use_sysroot = True, cast_standalone = True))
 try_and_ci_builders("linux64_coverage_debug", get_properties(use_coverage = True))
 try_and_ci_builders("linux64_debug", get_properties(is_asan = True))
 try_and_ci_builders(
