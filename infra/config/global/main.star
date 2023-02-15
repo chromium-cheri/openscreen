@@ -143,7 +143,7 @@ def get_properties(
     if use_coverage:
         properties["use_coverage"] = True
     if use_sysroot:
-        properties["sysroot_platform"] = "stretch"
+        properties["sysroot_platform"] = "bullseye"
     if cast_standalone:
         properties["have_ffmpeg"] = True
         properties["have_libsdl2"] = True
