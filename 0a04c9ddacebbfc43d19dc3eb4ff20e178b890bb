@@ -16,6 +16,74 @@
       "message": "See internal critique review: https://critique.corp.google.com/cl/509936777",
       "revId": "0a04c9ddacebbfc43d19dc3eb4ff20e178b890bb",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee574659_623bc9b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-02-16T22:14:18Z",
+      "side": 1,
+      "message": "LGTM with a couple of formatting nits",
+      "revId": "0a04c9ddacebbfc43d19dc3eb4ff20e178b890bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5055da43_851e7dc9",
+        "filename": "build/config/sysroot.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-02-16T22:14:18Z",
+      "side": 1,
+      "message": "Nit: Can you keep wrapping at 80 columns?",
+      "revId": "0a04c9ddacebbfc43d19dc3eb4ff20e178b890bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b41c5291_8f7c4ca2",
+        "filename": "build/config/sysroot.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-02-16T22:14:18Z",
+      "side": 1,
+      "message": "I think the comment before the arg is printed out when you say \"gn help args.\"  It would be helpful to list the valid values here:\n\n```\n# Currently supported sysroots are \"bullseye\" and \"stretch\", based on the Debian\n# releases of the same names.\n```",
+      "revId": "0a04c9ddacebbfc43d19dc3eb4ff20e178b890bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f63967e7_e217457c",
+        "filename": "build/config/sysroot.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-02-16T22:14:18Z",
+      "side": 1,
+      "message": "Curious, are we keeping stretch for backwards compatibility reasons?",
+      "revId": "0a04c9ddacebbfc43d19dc3eb4ff20e178b890bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
