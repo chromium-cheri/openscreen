@@ -12,15 +12,19 @@ declare_args() {
   target_sysroot_dir = "../"
 
   # Sysroots should only be used for cross compilation, which are currently only
-  # supported on Linux.
-  use_sysroot = is_linux && (current_cpu == "arm" || current_cpu == "arm64")
-
-  # TODO(https://issuetracker.google.com/224594403): switch to stable branch.
-  sysroot_platform = "sid"
+  # supported on Linux. Currently supported sysroots are "bullseye" and
+  # "stretch", based on the Debian releases of the same name.
+  #
+  # NOTE: to add new platforms, start with the documentation located
+  # at //docs/cross_compilation.md.
+  sysroot_platform = ""
+  if (is_linux && (current_cpu == "arm" || current_cpu == "arm64")) {
+    sysroot_platform = "bullseye"
+  }
 }
 
-if (use_sysroot) {
-  assert(sysroot_platform == "sid" || sysroot_platform == "stretch")
+if (sysroot_platform != "") {
+  assert(sysroot_platform == "stretch" || sysroot_platform == "bullseye")
   assert(is_linux && (current_cpu == "arm" || current_cpu == "arm64"))
 
   # By default build against a sysroot image downloaded from Cloud Storage
