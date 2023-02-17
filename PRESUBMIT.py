@@ -206,9 +206,8 @@ def _CommonChecks(input_api, output_api):
     # Run tools/licenses on code change.
     # TODO(https://crbug.com/1215335): licenses check is confused by our
     # buildtools checkout that doesn't actually check out the libraries.
-    licenses.PRUNE_PATHS.add(os.path.join('buildtools', 'third_party'));
-    # TODO(https://crbug.com/1348667): Licenses check is currently broken
-    # results.extend(_CheckLicenses(input_api, output_api))
+    licenses.PRUNE_PATHS.add(os.path.join('buildtools', 'third_party'))
+    results.extend(_CheckLicenses(input_api, output_api))
 
     return results
 
