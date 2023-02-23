@@ -21,29 +21,20 @@ from checkdeps import DepsChecker
 # https://issuetracker.google.com/173766869.
 USE_PYTHON3 = True
 
-# Rather than pass this to all of the checks, we override the global excluded
-# list with this one.
-_EXCLUDED_PATHS = (
-  # Exclude all of third_party/ except for BUILD.gns that we maintain.
-  r'third_party[\\\/].*(?<!BUILD.gn)$',
-
-  # Output directories (just in case)
-  r'.*\bDebug[\\\/].*',
-  r'.*\bRelease[\\\/].*',
-  r'.*\bxcodebuild[\\\/].*',
-  r'.*\bout[\\\/].*',
-
-  # There is no point in processing a patch file.
-  r'.+\.diff$',
-  r'.+\.patch$',
-)
-
-
 def _CheckLicenses(input_api, output_api):
     """Checks third party licenses and returns a list of violations."""
-    return [
-        output_api.PresubmitError(v) for v in licenses.ScanThirdPartyDirs()
-    ]
+    # NOTE: the licenses check is confused by the fact that we don't actually
+    # check ou the libraries in buildtools/third_party, so explicitly exclude
+    # that folder. See https://crbug.com/1215335 for more info.
+    licenses.PRUNE_PATHS.add(os.path.join('buildtools', 'third_party'))
+
+    if any(s.LocalPath().startswith('third_party')
+           for s in input_api.change.AffectedFiles()):
+        return [
+            output_api.PresubmitError(v)
+            for v in licenses.ScanThirdPartyDirs()
+        ]
+    return []
 
 
 def _CheckDeps(input_api, output_api):
@@ -164,11 +155,11 @@ def _CommonChecks(input_api, output_api):
     #   CheckLongLines (@ 80 cols)
     #   CheckChangeHasNoTabs
     #   CheckChangeHasNoStrayWhitespace
-    #   CheckLicense
     #   CheckChangeWasUploaded (if committing)
     #   CheckChangeHasDescription
     #   CheckDoNotSubmitInDescription
     #   CheckDoNotSubmitInFiles
+    #   CheckLicenses
     results = input_api.canned_checks.PanProjectChecks(input_api,
                                                        output_api,
                                                        owners_check=False)
@@ -204,17 +195,12 @@ def _CommonChecks(input_api, output_api):
     results.extend(_CheckDeps(input_api, output_api))
 
     # Run tools/licenses on code change.
-    # TODO(https://crbug.com/1215335): licenses check is confused by our
-    # buildtools checkout that doesn't actually check out the libraries.
-    licenses.PRUNE_PATHS.add(os.path.join('buildtools', 'third_party'));
-    # TODO(https://crbug.com/1348667): Licenses check is currently broken
-    # results.extend(_CheckLicenses(input_api, output_api))
+    results.extend(_CheckLicenses(input_api, output_api))
 
     return results
 
 
 def CheckChangeOnUpload(input_api, output_api):
-    input_api.DEFAULT_FILES_TO_SKIP = _EXCLUDED_PATHS
     # We always run the OnCommit checks, as well as some additional checks.
     results = CheckChangeOnCommit(input_api, output_api)
     results.extend(
@@ -223,5 +209,4 @@ def CheckChangeOnUpload(input_api, output_api):
 
 
 def CheckChangeOnCommit(input_api, output_api):
-    input_api.DEFAULT_FILES_TO_SKIP = _EXCLUDED_PATHS
     return _CommonChecks(input_api, output_api)
