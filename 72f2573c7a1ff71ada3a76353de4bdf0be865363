@@ -69,6 +69,24 @@
       "parentUuid": "cba5fd93_346a3f5a",
       "revId": "72f2573c7a1ff71ada3a76353de4bdf0be865363",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2686edf_a3196d8c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-02-24T21:53:09Z",
+      "side": 1,
+      "message": "The correct value should come from opening and inspecting the stream, e.g. avformat_find_stream_info, which should be done in the Demuxer:\n\nhttps://osscs.corp.google.com/chromium/chromium/src/+/main:media/filters/ffmpeg_demuxer.cc;l\u003d1264\n\nI don\u0027t think any Open Screen changes are actually necessary for this fix. I\u0027ll abandon this patch. It was low effort thankfully so no big deal to just cut it.",
+      "parentUuid": "03895edc_52e6b53a",
+      "revId": "72f2573c7a1ff71ada3a76353de4bdf0be865363",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
