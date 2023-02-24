@@ -386,6 +386,11 @@ ReceiverSession::ConfiguredReceivers ReceiverSession::SpawnReceivers(
                            properties.selected_audio->stream.rtp_timebase,
                            properties.selected_audio->stream.target_delay,
                            properties.selected_audio->stream.codec_parameter};
+    const std::vector<uint8_t>& extra_data =
+        properties.selected_audio->stream.codec_extra_data;
+    if (!extra_data.empty()) {
+      audio_config.codec_extra_data = extra_data;
+    }
   }
 
   VideoCaptureConfig video_config;
@@ -399,6 +404,11 @@ ReceiverSession::ConfiguredReceivers ReceiverSession::SpawnReceivers(
                            properties.selected_video->resolutions,
                            properties.selected_video->stream.target_delay,
                            properties.selected_video->stream.codec_parameter};
+    const std::vector<uint8_t>& extra_data =
+        properties.selected_video->stream.codec_extra_data;
+    if (!extra_data.empty()) {
+      video_config.codec_extra_data = extra_data;
+    }
   }
 
   return ConfiguredReceivers{current_audio_receiver_.get(),

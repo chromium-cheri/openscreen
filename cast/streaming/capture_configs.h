@@ -40,6 +40,11 @@ struct AudioCaptureConfig {
   // in RFC 6381: https://datatracker.ietf.org/doc/html/rfc6381
   // NOTE: the "profiles" parameter is not supported in our implementation.
   std::string codec_parameter;
+
+  // The "extradata" field is a codec-specific bit array that contains extra
+  // information about the codec configuration. For example, libavcodec:
+  // https://source.chromium.org/chromium/chromium/src/+/main:third_party/ffmpeg/libavcodec/aacdec.c;drc=469cd8d7fa55ebd07be31e4c5bd0ed4b45c551dc;l=504
+  std::vector<uint8_t> codec_extra_data;
 };
 
 // A configuration set that can be used by the sender to capture video, as
@@ -75,6 +80,11 @@ struct VideoCaptureConfig {
   // https://www.webmproject.org/vp9/mp4/#codecs-parameter-string
   // NOTE: the "profiles" parameter is not supported in our implementation.
   std::string codec_parameter;
+
+  // The "extradata" field is a codec-specific bit array that contains extra
+  // information about the codec configuration. For example, libavcodec:
+  // https://source.chromium.org/chromium/chromium/src/+/main:third_party/ffmpeg/libavcodec/aacdec.c;drc=469cd8d7fa55ebd07be31e4c5bd0ed4b45c551dc;l=504
+  std::vector<uint8_t> codec_extra_data;
 };
 
 }  // namespace cast
