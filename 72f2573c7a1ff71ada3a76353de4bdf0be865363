@@ -51,6 +51,24 @@
       "parentUuid": "61e06c18_0f3e1cb7",
       "revId": "72f2573c7a1ff71ada3a76353de4bdf0be865363",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03895edc_52e6b53a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2023-02-24T21:47:40Z",
+      "side": 1,
+      "message": "The Extra Data field is already a (poorly named) field in the existing Audio and Video configs used by Chromium:\n\n- https://source.chromium.org/chromium/chromium/src/+/main:media/base/audio_decoder_config.h;l\u003d80\n- https://source.chromium.org/chromium/chromium/src/+/main:media/base/video_decoder_config.h;l\u003d129\n\nThough it looks like aac has a second extra data field too\n- https://source.chromium.org/chromium/chromium/src/+/main:media/base/audio_decoder_config.h;l\u003d129\n\nThe problem here is twofold:\n- In mirroring, we should somehow set this value with what is \"correct\". For Fuchsia, it looks like only the `aac_extra_data` field is needed, but others may need different fields too\n- In remoting, we should persist what Chromium already gives us. Right now, we are just dropping these values",
+      "parentUuid": "cba5fd93_346a3f5a",
+      "revId": "72f2573c7a1ff71ada3a76353de4bdf0be865363",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
