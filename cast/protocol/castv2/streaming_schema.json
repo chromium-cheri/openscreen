@@ -10,7 +10,7 @@
     },
     "frame_rate": {
       "type": "string",
-      "pattern": "[0-9]+(/[0-9]+)?",
+      "pattern": "^[0-9]+(/[0-9]+)?$",
       "examples": ["30", "30000/1001"]
     },
     "dimensions": {
@@ -29,18 +29,19 @@
         "type": {"type": "string", "enum": ["audio_source", "video_source"]},
         "codecName": {"type": "string", "enum": ["aac", "opus", "h264", "vp8", "hevc", "vp9", "av1"]},
         "codecParameter": {"type": "string"},
+        "codecExtraData": {"type": "string", "pattern": "^[0-9a-fA-F]*$"},
         "rtpProfile": {"type": "string", "enum": ["cast"]},
         "rtpPayloadType": {"type": "integer", "minimum": 96, "maximum": 127},
         "ssrc": {"$ref": "#/definitions/ssrc"},
         "targetDelay": {"$ref": "#/definitions/delay"},
-        "aesKey": {"type": "string", "pattern": "[0-9a-fA-F]{32}"},
-        "aesIvMask": {"type": "string", "pattern": "[0-9a-fA-F]{32}"},
+        "aesKey": {"type": "string", "pattern": "^[0-9a-fA-F]{32}$"},
+        "aesIvMask": {"type": "string", "pattern": "^[0-9a-fA-F]{32}$"},
         "receiverRtcpEventLog": {"type": "boolean"},
         "receiverRtcpDscp": {"type": "integer", "minimum": 0, "default": 46},
         "rtpExtensions": {"$ref": "#/definitions/rtp_extensions"},
         "timeBase": {
           "type": "string",
-          "pattern": "1/[0-9]+",
+          "pattern": "^1/[0-9]+$",
           "default": "1/90000"
         }
       },
@@ -135,7 +136,7 @@
       "$id": "#display",
       "properties": {
         "dimensions": {"$ref": "#/definitions/dimensions"},
-        "aspectRatio": {"type": "string", "pattern": "[0-9]+:[0-9]+"},
+        "aspectRatio": {"type": "string", "pattern": "^[0-9]+:[0-9]+$"},
         "scaling": {"type": "string", "enum": ["sender", "receiver"]}
       },
       "required": []

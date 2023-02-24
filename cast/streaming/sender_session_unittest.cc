@@ -126,7 +126,8 @@ const AudioCaptureConfig kAudioCaptureConfigValid{
     32000 /* bit_rate */,
     44000 /* sample_rate */,
     std::chrono::milliseconds(300),
-    "mp4a.40.5"};
+    "mp4a.40.5",
+    {144, 200, 223, 188}};
 
 const VideoCaptureConfig kVideoCaptureConfigMissingResolutions{
     VideoCodec::kHevc,
@@ -148,7 +149,8 @@ const VideoCaptureConfig kVideoCaptureConfigValid{
     300000 /* max_bit_rate */,
     std::vector<Resolution>{Resolution{1280, 720}, Resolution{1920, 1080}},
     std::chrono::milliseconds(250),
-    "hev1.1.6.L150.B0"};
+    "hev1.1.6.L150.B0",
+    {12, 13, 14, 15, 16, 17, 18, 19}};
 
 const VideoCaptureConfig kVideoCaptureConfigValidSimplest{
     VideoCodec::kHevc,
@@ -387,6 +389,7 @@ TEST_F(SenderSessionTest, SendsOfferMessage) {
   EXPECT_LT(0u, audio_stream["ssrc"].asUInt());
   EXPECT_EQ(127, audio_stream["rtpPayloadType"].asInt());
   EXPECT_EQ("mp4a.40.5", audio_stream["codecParameter"].asString());
+  EXPECT_EQ("90c8dfbc", audio_stream["codecExtraData"].asString());
 
   const Json::Value& video_stream = streams[1];
   EXPECT_EQ("hevc", video_stream["codecName"].asString());
@@ -397,6 +400,7 @@ TEST_F(SenderSessionTest, SendsOfferMessage) {
   EXPECT_LT(0u, video_stream["ssrc"].asUInt());
   EXPECT_EQ(96, video_stream["rtpPayloadType"].asInt());
   EXPECT_EQ("hev1.1.6.L150.B0", video_stream["codecParameter"].asString());
+  EXPECT_EQ("0c0d0e0f10111213", video_stream["codecExtraData"].asString());
 }
 
 TEST_F(SenderSessionTest, HandlesValidAnswer) {

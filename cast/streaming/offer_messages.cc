@@ -107,6 +107,25 @@ bool TryParseRtpTimebase(const Json::Value& value, int* out) {
   return true;
 }
 
+bool TryParseHex(const Json::Value& value, std::vector<uint8_t>* out) {
+  std::string hex_string;
+  if (!json::TryParseString(value, &hex_string)) {
+    return false;
+  }
+
+  if (hex_string.size() % 2 != 0) {
+    return false;
+  }
+
+  for (unsigned int i = 0; i < hex_string.length(); i += 2) {
+    const std::string byte_string = hex_string.substr(i, 2);
+    const auto byte =
+        static_cast<char>(strtol(byte_string.c_str(), nullptr, 16));
+    out->push_back(byte);
+  }
+  return true;
+}
+
 // For a hex byte, the conversion is 4 bits to 1 character, e.g.
 // 0b11110001 becomes F1, so 1 byte is two characters.
 constexpr int kHexDigitsPerByte = 2;
@@ -218,6 +237,7 @@ Error Stream::TryParse(const Json::Value& value,
                      &out->receiver_rtcp_event_log);
   json::TryParseString(value["receiverRtcpDscp"], &out->receiver_rtcp_dscp);
   json::TryParseString(value["codecParameter"], &out->codec_parameter);
+  TryParseHex(value["codecExtraData"], &out->codec_extra_data);
 
   return Error::None();
 }
@@ -243,6 +263,8 @@ Json::Value Stream::ToJson() const {
   root["receiverRtcpDscp"] = receiver_rtcp_dscp;
   root["timeBase"] = "1/" + std::to_string(rtp_timebase);
   root["codecParameter"] = codec_parameter;
+  root["codecExtraData"] =
+      HexEncode(codec_extra_data.data(), codec_extra_data.size());
   return root;
 }
 

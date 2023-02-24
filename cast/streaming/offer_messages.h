@@ -72,6 +72,11 @@ struct Stream {
   // The codec parameter field honors the format laid out in RFC 6381:
   // https://datatracker.ietf.org/doc/html/rfc6381.
   std::string codec_parameter;
+
+  // The "extradata" field is a codec-specific bit array that contains extra
+  // information about the codec configuration. For example, libavcodec:
+  // https://source.chromium.org/chromium/chromium/src/+/main:third_party/ffmpeg/libavcodec/aacdec.c;drc=469cd8d7fa55ebd07be31e4c5bd0ed4b45c551dc;l=504
+  std::vector<uint8_t> codec_extra_data;
 };
 
 struct AudioStream {

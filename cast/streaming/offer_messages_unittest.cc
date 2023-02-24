@@ -86,6 +86,7 @@ constexpr char kValidOffer[] = R"({
       "index": 3,
       "type": "video_source",
       "codecName": "av1",
+      "codecExtraData": "H12B",
       "rtpProfile": "cast",
       "rtpPayloadType": 104,
       "ssrc": 19088744,
