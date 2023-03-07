@@ -18,6 +18,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbf77ec2_7caa1161",
+        "filename": "cast/streaming/external_libraries.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-03-07T00:37:24Z",
+      "side": 1,
+      "message": "The version I got on my local Linux install was pretty old and was missing a #define required by our code, so compatibility also seems to be an issue.",
+      "parentUuid": "edb2c81c_6b124e59",
+      "revId": "8c3a5bab352f16ef9ecb6cf68101a9887154a29a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d69ab52b_3c2ecfd4",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-03-07T00:32:10Z",
       "side": 1,
       "message": "The variable shadowing in other files makes sense, but how is this a build issue and not a naming nit?",
+      "revId": "8c3a5bab352f16ef9ecb6cf68101a9887154a29a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40fb4227_b5b8f30a",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-03-07T00:37:24Z",
+      "side": 1,
+      "message": "`der` below was also triggering a shadowing error and this fixes it.",
+      "parentUuid": "d69ab52b_3c2ecfd4",
       "revId": "8c3a5bab352f16ef9ecb6cf68101a9887154a29a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
