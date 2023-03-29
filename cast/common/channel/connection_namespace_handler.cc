@@ -123,7 +123,12 @@ void ConnectionNamespaceHandler::OnMessage(VirtualConnectionRouter* router,
     return;
   }
 
-  ErrorOr<Json::Value> result = json::Parse(message.payload_utf8());
+  // Receiver messages will report if they are string or binary, but that
+  // doesn't mean the corresponding payload_* field is set properly.
+  const std::string& raw_payload = !message.payload_utf8().empty()
+                                       ? message.payload_utf8()
+                                       : message.payload_binary();
+  ErrorOr<Json::Value> result = json::Parse(raw_payload);
   if (result.is_error()) {
     return;
   }
