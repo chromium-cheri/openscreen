@@ -156,6 +156,7 @@ Error VirtualConnectionRouter::Send(VirtualConnection virtual_conn,
   }
   message.set_source_id(std::move(virtual_conn.local_id));
   message.set_destination_id(std::move(virtual_conn.peer_id));
+
   return it->second.socket->Send(message);
 }
 

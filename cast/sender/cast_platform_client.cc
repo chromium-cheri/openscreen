@@ -127,7 +127,10 @@ void CastPlatformClient::OnMessage(VirtualConnectionRouter* router,
       message.source_id() != kPlatformReceiverId) {
     return;
   }
-  ErrorOr<Json::Value> dict_or_error = json::Parse(message.payload_utf8());
+  const std::string& raw_payload = !message.payload_utf8().empty()
+                                       ? message.payload_utf8()
+                                       : message.payload_binary();
+  ErrorOr<Json::Value> dict_or_error = json::Parse(raw_payload);
   if (dict_or_error.is_error()) {
     return;
   }

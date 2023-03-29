@@ -97,8 +97,17 @@ void CastSocketMessagePort::OnMessage(VirtualConnectionRouter* router,
     return;
   }
 
-  client_->OnMessage(message.source_id(), message.namespace_(),
-                     message.payload_utf8());
+  if (message.payload_type() != ::cast::channel::CastMessage::STRING) {
+    OSP_DLOG_WARN << __func__ << ": received an unsupported binary message.";
+    return;
+  }
+
+  // Receiver messages will report if they are string or binary, but that
+  // doesn't mean the corresponding payload_* field is set properly.
+  const std::string& raw_payload = !message.payload_utf8().empty()
+                                       ? message.payload_utf8()
+                                       : message.payload_binary();
+  client_->OnMessage(message.source_id(), message.namespace_(), raw_payload);
 }
 
 }  // namespace cast
