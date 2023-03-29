@@ -30,6 +30,12 @@ CastSocket::~CastSocket() {
 }
 
 Error CastSocket::Send(const CastMessage& message) {
+  OSP_DVLOG << __func__ << ": sending a message. source=" << message.source_id()
+            << ", dest=" << message.destination_id()
+            << ", namespace=" << message.namespace_()
+            << ", payload_utf8=" << message.payload_utf8()
+            << ", payload_binary=" << message.payload_binary()
+            << ", remaining length=" << message.remaining_length();
   if (state_ == State::kError) {
     return Error::Code::kSocketClosedFailure;
   }
@@ -81,8 +87,18 @@ void CastSocket::OnRead(TlsConnection* connection, std::vector<uint8_t> block) {
         message_serialization::TryDeserialize(
             absl::Span<uint8_t>(&read_buffer_[0], read_buffer_.size()));
     if (!message_or_error) {
+      OSP_DLOG_ERROR << __func__ << ": failed to deserialize a message. "
+                     << message_or_error.error().ToString();
       return;
     }
+    const auto& message = message_or_error.value().message;
+    OSP_DVLOG << __func__ << ": read a message. source=" << message.source_id()
+              << ", dest=" << message.destination_id()
+              << ", namespace=" << message.namespace_()
+              << ", payload_utf8=" << message.payload_utf8()
+              << ", payload_binary=" << message.payload_binary()
+              << ", remaining length=" << message.remaining_length();
+
     read_buffer_.erase(read_buffer_.begin(),
                        read_buffer_.begin() + message_or_error.value().length);
     client_->OnMessage(this, std::move(message_or_error.value().message));
