@@ -35,6 +35,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50fa6589_93c3c5ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-03-30T23:29:01Z",
+      "side": 1,
+      "message": "Yeah the standalone sender should never have worked with retail devices, but happy it does now.\n\nI don\u0027t see the same workaround in Chrome, I am wondering if there is some kind of sender side bug. Filed an issue to look at it later.\n\nhttps://bugs.chromium.org/p/chromium/issues/detail?id\u003d1429410",
+      "parentUuid": "b46f267f_446722a4",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9385bbc2_e4cd7e44",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-03-30T19:13:20Z",
       "side": 1,
       "message": "Will this trigger on a debug build by default?  If so it could be a little noisy, would it be possible to move it to a lower log level or remove it for now?",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efff293e_1428ac89",
+        "filename": "cast/common/channel/cast_socket.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-03-30T23:29:01Z",
+      "side": 1,
+      "message": "It\u0027s a verbose log so you would have to pass the `--verbose` flag.",
+      "parentUuid": "9385bbc2_e4cd7e44",
       "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -69,6 +105,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4438ab53_0c727003",
+        "filename": "cast/common/channel/cast_socket.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-03-30T23:29:01Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "86ddf628_39ae5627",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8365ef49_36200ac3",
@@ -82,6 +136,24 @@
       "writtenOn": "2023-03-30T19:13:20Z",
       "side": 1,
       "message": "Binary messages *are* part of the protocol so is this a temporary workaround to fix this issue, or is there a design issue with libcast that makes them impossible to support at this time?",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "320e8f0e_4a41e2c3",
+        "filename": "cast/common/channel/cast_socket_message_port.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-03-30T23:29:01Z",
+      "side": 1,
+      "message": "We do handle actual binary messages, but not on this message port so I didn\u0027t see any reason to add additional logic for binary that is not supported here.",
+      "parentUuid": "8365ef49_36200ac3",
       "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -103,6 +175,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a712c720_10944db5",
+        "filename": "cast/common/channel/cast_socket_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-03-30T23:29:01Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b2c2da35_07d783b0",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ce6e952_515762c7",
@@ -116,6 +206,24 @@
       "writtenOn": "2023-03-30T19:13:20Z",
       "side": 1,
       "message": "Populating the binary payload with string type messages is unexpected.  Can you let me know offline what device(s) are doing this so we can follow up?",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0c11c69_3c481626",
+        "filename": "cast/common/channel/message_util.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-03-30T23:29:01Z",
+      "side": 1,
+      "message": "https://bugs.chromium.org/p/chromium/issues/detail?id\u003d1429410\n\nAll of the ones I tested have this issue, it might be somewhere in libcast but nothing obvious stands out in the parsing code and considering this \"works\" I\u0027m happy with it for now.",
+      "parentUuid": "9ce6e952_515762c7",
       "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -137,6 +245,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c027bd43_878c247d",
+        "filename": "cast/common/channel/message_util.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-03-30T23:29:01Z",
+      "side": 1,
+      "message": "It\u0027s a DCHECK because this message should not be called if you have a BINARY payload. We do an if check in the calling functions, here is just to ensure the caller is doing this work for us.",
+      "parentUuid": "9515213d_4505ed24",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6810c8db_bb8febe5",
@@ -150,6 +276,24 @@
       "writtenOn": "2023-03-30T19:13:20Z",
       "side": 1,
       "message": "Slightly concerned here that the binary payload may not be valid UTF-8...\n\nIt looks like it will always be passed to the JSON parser, does jsoncpp check for valid UTF-8 before parsing?\n\nAlso note, digging into the protobuf code, it looks like strings parsed from proto messages aren\u0027t validated for UTF-8 so there may be no difference from status quo.",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1098edb6_d7de6f52",
+        "filename": "cast/common/channel/message_util.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-03-30T23:29:01Z",
+      "side": 1,
+      "message": "JsonCpp is relatively strict about parsing and should throw an error if invalid UTF-8 is found.",
+      "parentUuid": "6810c8db_bb8febe5",
       "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -171,6 +315,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92864b0e_5e8f7c41",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-03-30T23:29:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cc42a92_0f54e1e3",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91c3faf6_b29cefe5",
@@ -184,6 +346,24 @@
       "writtenOn": "2023-03-30T19:13:20Z",
       "side": 1,
       "message": "Check the value of success?",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c630ad69_4eee085f",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-03-30T23:29:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91c3faf6_b29cefe5",
       "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -205,6 +385,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65af2010_da8d72ef",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-03-30T23:29:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45fc3a17_e05c665f",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f020a1d2_b775b677",
@@ -222,6 +420,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6f98ba0_c3c51e3f",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-03-30T23:29:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f020a1d2_b775b677",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "71ec69ca_91744905",
@@ -235,6 +451,24 @@
       "writtenOn": "2023-03-30T19:13:20Z",
       "side": 1,
       "message": "The actual limit is 64KB.",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb141aff_444dbe7e",
+        "filename": "platform/impl/tls_connection_posix.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-03-30T23:29:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71ec69ca_91744905",
       "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
