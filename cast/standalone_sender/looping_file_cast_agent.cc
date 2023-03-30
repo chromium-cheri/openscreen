@@ -79,14 +79,15 @@ void LoopingFileCastAgent::OnConnected(SenderSocketFactory* factory,
   router_.TakeSocket(this, std::move(socket));
 
   OSP_LOG_INFO << "Launching Mirroring App on the Cast Receiver...";
-  static constexpr char kLaunchMessageTemplate[] =
-      R"({"type":"LAUNCH", "requestId":%d, "appId":"%s"})";
-  router_.Send(VirtualConnection{kPlatformSenderId, kPlatformReceiverId,
-                                 message_port_.GetSocketId()},
-               MakeSimpleUTF8Message(
-                   kReceiverNamespace,
-                   StringPrintf(kLaunchMessageTemplate, next_request_id_++,
-                                GetStreamingAppId())));
+  // First, CONNECT to the platform receiver.
+  remote_connection_generic_.emplace(VirtualConnection{
+      kPlatformSenderId, kPlatformReceiverId, message_port_.GetSocketId()});
+  OSP_LOG_INFO << "Starting-up message routing to the Cast Receiver "
+                  "Platform (sessionId="
+               << app_session_id_ << ")...";
+  connection_handler_.OpenRemoteConnection(
+      *remote_connection_generic_,
+      [this](bool success) { OnPlatformRemoteMessagingOpened(success); });
 }
 
 void LoopingFileCastAgent::OnError(SenderSocketFactory* factory,
@@ -129,7 +130,11 @@ void LoopingFileCastAgent::OnMessage(VirtualConnectionRouter* router,
 
   if (message.namespace_() == kReceiverNamespace &&
       message_port_.GetSocketId() == ToCastSocketId(socket)) {
-    const ErrorOr<Json::Value> payload = json::Parse(message.payload_utf8());
+    if (message.payload_type() != ::cast::channel::CastMessage::STRING) {
+      OSP_DLOG_ERROR << ": received message I'm not sure how to decode...";
+    }
+
+    const ErrorOr<Json::Value> payload = json::Parse(GetPayload(message));
     if (payload.is_error()) {
       OSP_LOG_ERROR << "Failed to parse message: " << payload.error();
     }
@@ -172,12 +177,18 @@ void LoopingFileCastAgent::HandleReceiverStatus(const Json::Value& status) {
   std::string running_app_id;
   if (!json::TryParseString(details[kMessageKeyAppId], &running_app_id) ||
       running_app_id != GetStreamingAppId()) {
-    // The mirroring app is not running. If it was just stopped, Shutdown() will
-    // tear everything down. If it has been stopped already, Shutdown() is a
-    // no-op.
-    Shutdown();
+    if (has_launched_) {
+      // The mirroring app is not running and should have already been launched.
+      // If it was just stopped, Shutdown() will tear everything down. If it has
+      // been stopped already, Shutdown() is a no-op.
+      Shutdown();
+    }
     return;
   }
+
+  // If the mirroring app is the current streaming application, we can now
+  // safely say we have been launched.
+  has_launched_ = true;
 
   std::string session_id;
   if (!json::TryParseString(details[kMessageKeySessionId], &session_id) ||
@@ -242,6 +253,23 @@ void LoopingFileCastAgent::OnRemoteMessagingOpened(bool success) {
                     "Mirroring App. Perhaps another Cast Sender is using it?";
     Shutdown();
   }
+}
+
+void LoopingFileCastAgent::OnPlatformRemoteMessagingOpened(bool success) {
+  // We established a platform connection and now need to launch.
+  OSP_DCHECK(!remote_connection_);
+  static constexpr char kLaunchMessageTemplate[] =
+      R"({"type":"LAUNCH", "requestId":%d, "appId":"%s", "language": "en-US",
+       "supportedAppTypes":["WEB"]})";
+
+  router_.Send(VirtualConnection{kPlatformSenderId, kPlatformReceiverId,
+                                 message_port_.GetSocketId()},
+               MakeSimpleUTF8Message(
+                   kReceiverNamespace,
+                   StringPrintf(kLaunchMessageTemplate,  // kGetStatusTemplate,
+                                next_request_id_++, GetStreamingAppId()
+
+                                    )));
 }
 
 void LoopingFileCastAgent::CreateAndStartSession() {
@@ -345,6 +373,14 @@ void LoopingFileCastAgent::Shutdown() {
   }
   OSP_DCHECK(message_port_.source_id().empty());
   environment_.reset();
+
+  if (remote_connection_generic_) {
+    const VirtualConnection connection = *remote_connection_generic_;
+    // Reset |remote_connection_generic_| because ConnectionNamespaceHandler may
+    // call-back into OnPlatformRemoteMessagingOpened().
+    remote_connection_generic_.reset();
+    connection_handler_.CloseRemoteConnection(connection);
+  }
 
   if (remote_connection_) {
     const VirtualConnection connection = *remote_connection_;
