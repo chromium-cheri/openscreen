@@ -63,7 +63,9 @@ TlsConnectionPosix::~TlsConnectionPosix() {
 
 void TlsConnectionPosix::TryReceiveMessage() {
   OSP_DCHECK(ssl_);
-  constexpr int kMaxApplicationDataBytes = 4096;
+  // Most messages should be under 4096 bytes long, however some messages can be
+  // longer and should still be accepted.
+  constexpr int kMaxApplicationDataBytes = 8192;
   std::vector<uint8_t> block(kMaxApplicationDataBytes);
   ClearOpenSSLERRStack(CURRENT_LOCATION);
   const int bytes_read =
