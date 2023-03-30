@@ -16,6 +16,227 @@
       "message": "Had some extra time to do a self review pass.\n\nPTAL, done for now.",
       "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b46f267f_446722a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-03-30T19:13:20Z",
+      "side": 1,
+      "message": "Nice fix!\n\n1. It\u0027s very weird that devices are populating the binary payload with strings.  That is unexpected.  Does Chrome have the same workaround?\n\n2. The standalone sender was never going to work against real devices without establishing virtual connections... I guess the standalone receiver never cared about such things as it was only designed to handle one incoming connection at a time.",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9385bbc2_e4cd7e44",
+        "filename": "cast/common/channel/cast_socket.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-03-30T19:13:20Z",
+      "side": 1,
+      "message": "Will this trigger on a debug build by default?  If so it could be a little noisy, would it be possible to move it to a lower log level or remove it for now?",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86ddf628_39ae5627",
+        "filename": "cast/common/channel/cast_socket.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-03-30T19:13:20Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8365ef49_36200ac3",
+        "filename": "cast/common/channel/cast_socket_message_port.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-03-30T19:13:20Z",
+      "side": 1,
+      "message": "Binary messages *are* part of the protocol so is this a temporary workaround to fix this issue, or is there a design issue with libcast that makes them impossible to support at this time?",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2c2da35_07d783b0",
+        "filename": "cast/common/channel/cast_socket_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-03-30T19:13:20Z",
+      "side": 1,
+      "message": "This might answer my question...",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ce6e952_515762c7",
+        "filename": "cast/common/channel/message_util.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-03-30T19:13:20Z",
+      "side": 1,
+      "message": "Populating the binary payload with string type messages is unexpected.  Can you let me know offline what device(s) are doing this so we can follow up?",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9515213d_4505ed24",
+        "filename": "cast/common/channel/message_util.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-03-30T19:13:20Z",
+      "side": 1,
+      "message": "I don\u0027t think this should be a DCHECK as messages with a BINARY payload are technically valid messages",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6810c8db_bb8febe5",
+        "filename": "cast/common/channel/message_util.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-03-30T19:13:20Z",
+      "side": 1,
+      "message": "Slightly concerned here that the binary payload may not be valid UTF-8...\n\nIt looks like it will always be passed to the JSON parser, does jsoncpp check for valid UTF-8 before parsing?\n\nAlso note, digging into the protobuf code, it looks like strings parsed from proto messages aren\u0027t validated for UTF-8 so there may be no difference from status quo.",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cc42a92_0f54e1e3",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-03-30T19:13:20Z",
+      "side": 1,
+      "message": "...received BINARY type message...",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91c3faf6_b29cefe5",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-03-30T19:13:20Z",
+      "side": 1,
+      "message": "Check the value of success?",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45fc3a17_e05c665f",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-03-30T19:13:20Z",
+      "side": 1,
+      "message": "Use platform_remote_connection_ here?",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f020a1d2_b775b677",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-03-30T19:13:20Z",
+      "side": 1,
+      "message": "Bikeshed: Slightly prefer this as OnReceiverMessagingOpened since we are establishing a connection to the Cast receiver on the receiver namespace, and it avoids any ambiguity with the OSL platform API.",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71ec69ca_91744905",
+        "filename": "platform/impl/tls_connection_posix.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-03-30T19:13:20Z",
+      "side": 1,
+      "message": "The actual limit is 64KB.",
+      "revId": "aebe07e23e5812ad0e4b62cafeb786f66b326411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
