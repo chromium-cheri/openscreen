@@ -26,9 +26,9 @@ enum CrlVersion {
   kCrlVersion0 = 0,
 };
 
-ConstDataSpan ConstDataSpanFromString(const std::string& s) {
-  return ConstDataSpan{reinterpret_cast<const uint8_t*>(s.data()),
-                       static_cast<uint32_t>(s.size())};
+ByteView ByteViewFromString(const std::string& s) {
+  return ByteView{reinterpret_cast<const uint8_t*>(s.data()),
+                  static_cast<uint32_t>(s.size())};
 }
 
 // Verifies the CRL is signed by a trusted CRL authority at the time the CRL
@@ -50,9 +50,9 @@ bool VerifyCRL(const Crl& crl,
   auto& result_path = maybe_result_path.value();
   ParsedCertificate* target_cert = result_path[0].get();
 
-  if (!target_cert->VerifySignedData(
-          DigestAlgorithm::kSha256, ConstDataSpanFromString(crl.tbs_crl()),
-          ConstDataSpanFromString(crl.signature()))) {
+  if (!target_cert->VerifySignedData(DigestAlgorithm::kSha256,
+                                     ByteViewFromString(crl.tbs_crl()),
+                                     ByteViewFromString(crl.signature()))) {
     return false;
   }
 
