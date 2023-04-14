@@ -35,6 +35,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40cdd73e_4c05c513",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-04-14T22:05:45Z",
+      "side": 1,
+      "message": "Not yet, I will submit them with the roll.",
+      "parentUuid": "a2a5daaa_8cae4eec",
+      "revId": "51cf0e845405d2fca6647a12552f35b2805bb0ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "471f4d86_15c7803b",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-04-10T15:49:20Z",
       "side": 1,
       "message": "Why not include in platform/base/span.h? Is it because it\u0027s intended to be a drop in replacement for std::span? If so, consider putting these trivial helpers in std_util.h.\n\nhttps://osscs.corp.google.com/chromium/chromium/src/+/main:third_party/openscreen/src/util/std_util.h?q\u003dstd_util.h\u0026ss\u003dchromium",
+      "revId": "51cf0e845405d2fca6647a12552f35b2805bb0ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fac43b44_248e02e1",
+        "filename": "util/span_util.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-04-14T22:05:45Z",
+      "side": 1,
+      "message": "1. They are not in span.h because I don\u0027t want them to be considered part of the public API (i.e. attract usages from Chromium or other downstreams).\n\n2. It would be a little confusing for std_util.h to mix functions on std:: and openscreen:: types.  Once we get to Cxx20 and can replace our home-grown span, then I would be all for moving these to std_util.h. \n\nI\u0027ll add a note reflecting that desire.",
+      "parentUuid": "471f4d86_15c7803b",
       "revId": "51cf0e845405d2fca6647a12552f35b2805bb0ba",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
