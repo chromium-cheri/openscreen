@@ -193,16 +193,12 @@ Error::Code VerifyCertificateChain(const std::vector<CertPathStep>& path,
     }
 
     if (basic_constraints->pathlen) {
-      if (basic_constraints->pathlen->length != 1) {
+      const int pathlen = *basic_constraints->pathlen->data;
+      if (pathlen < 0) {
         return Error::Code::kErrCertsVerifyGeneric;
-      } else {
-        const int pathlen = *basic_constraints->pathlen->data;
-        if (pathlen < 0) {
-          return Error::Code::kErrCertsVerifyGeneric;
-        }
-        if (pathlen < max_pathlen) {
-          max_pathlen = pathlen;
-        }
+      }
+      if (pathlen < max_pathlen) {
+        max_pathlen = pathlen;
       }
     }
 
