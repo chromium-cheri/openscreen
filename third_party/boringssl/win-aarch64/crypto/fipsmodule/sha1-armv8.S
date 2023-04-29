@@ -8,8 +8,7 @@
 #define OPENSSL_NO_ASM
 #endif
 
-#if !defined(OPENSSL_NO_ASM)
-#if defined(__aarch64__)
+#if !defined(OPENSSL_NO_ASM) && defined(__AARCH64EL__) && defined(_WIN32)
 #if defined(BORINGSSL_PREFIX)
 #include <boringssl_prefix_symbols_asm.h>
 #endif
@@ -54,7 +53,7 @@ Loop:
 	movz	w28,#0x7999
 	sub	x2,x2,#1
 	movk	w28,#0x5a82,lsl#16
-#ifdef	__ARMEB__
+#ifdef	__AARCH64EB__
 	ror	x3,x3,#32
 #else
 	rev32	x3,x3
@@ -72,7 +71,7 @@ Loop:
 	ror	w21,w21,#2
 	add	w23,w23,w4	// future e+=X[i]
 	add	w24,w24,w25		// e+=F(b,c,d)
-#ifdef	__ARMEB__
+#ifdef	__AARCH64EB__
 	ror	x5,x5,#32
 #else
 	rev32	x5,x5
@@ -97,7 +96,7 @@ Loop:
 	ror	w24,w24,#2
 	add	w21,w21,w6	// future e+=X[i]
 	add	w22,w22,w25		// e+=F(b,c,d)
-#ifdef	__ARMEB__
+#ifdef	__AARCH64EB__
 	ror	x7,x7,#32
 #else
 	rev32	x7,x7
@@ -122,7 +121,7 @@ Loop:
 	ror	w22,w22,#2
 	add	w24,w24,w8	// future e+=X[i]
 	add	w20,w20,w25		// e+=F(b,c,d)
-#ifdef	__ARMEB__
+#ifdef	__AARCH64EB__
 	ror	x9,x9,#32
 #else
 	rev32	x9,x9
@@ -147,7 +146,7 @@ Loop:
 	ror	w20,w20,#2
 	add	w22,w22,w10	// future e+=X[i]
 	add	w23,w23,w25		// e+=F(b,c,d)
-#ifdef	__ARMEB__
+#ifdef	__AARCH64EB__
 	ror	x11,x11,#32
 #else
 	rev32	x11,x11
@@ -172,7 +171,7 @@ Loop:
 	ror	w23,w23,#2
 	add	w20,w20,w12	// future e+=X[i]
 	add	w21,w21,w25		// e+=F(b,c,d)
-#ifdef	__ARMEB__
+#ifdef	__AARCH64EB__
 	ror	x13,x13,#32
 #else
 	rev32	x13,x13
@@ -197,7 +196,7 @@ Loop:
 	ror	w21,w21,#2
 	add	w23,w23,w14	// future e+=X[i]
 	add	w24,w24,w25		// e+=F(b,c,d)
-#ifdef	__ARMEB__
+#ifdef	__AARCH64EB__
 	ror	x15,x15,#32
 #else
 	rev32	x15,x15
@@ -222,7 +221,7 @@ Loop:
 	ror	w24,w24,#2
 	add	w21,w21,w16	// future e+=X[i]
 	add	w22,w22,w25		// e+=F(b,c,d)
-#ifdef	__ARMEB__
+#ifdef	__AARCH64EB__
 	ror	x17,x17,#32
 #else
 	rev32	x17,x17
@@ -1237,5 +1236,8 @@ Lconst:
 .byte	83,72,65,49,32,98,108,111,99,107,32,116,114,97,110,115,102,111,114,109,32,102,111,114,32,65,82,77,118,56,44,32,67,82,89,80,84,79,71,65,77,83,32,98,121,32,60,97,112,112,114,111,64,111,112,101,110,115,115,108,46,111,114,103,62,0
 .align	2
 .align	2
+#endif  // !OPENSSL_NO_ASM && defined(__AARCH64EL__) && defined(_WIN32)
+#if defined(__ELF__)
+// See https://www.airs.com/blog/archives/518.
+.section .note.GNU-stack,"",%progbits
 #endif
-#endif  // !OPENSSL_NO_ASM
