@@ -237,7 +237,7 @@ MessageDemuxer::HandleStreamBufferResult MessageDemuxer::HandleStreamBufferLoop(
   return result;
 }
 
-// TODO(rwkeane) Use absl::Span for the buffer
+// TODO(crbug.com/1444220) Use absl::Span for the |buffer|.
 MessageDemuxer::HandleStreamBufferResult MessageDemuxer::HandleStreamBuffer(
     uint64_t endpoint_id,
     uint64_t connection_id,
