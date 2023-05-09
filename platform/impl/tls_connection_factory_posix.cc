@@ -69,8 +69,8 @@ TlsConnectionFactoryPosix::~TlsConnectionFactoryPosix() {
   }
 }
 
-// TODO(rwkeane): Add support for resuming sessions.
-// TODO(rwkeane): Integrate with Auth.
+// TODO(crbug.com/1444219): Add support for resuming sessions.
+// TODO(crbug.com/1444219): Integrate with Auth.
 void TlsConnectionFactoryPosix::Connect(const IPEndpoint& remote_address,
                                         const TlsConnectOptions& options) {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
