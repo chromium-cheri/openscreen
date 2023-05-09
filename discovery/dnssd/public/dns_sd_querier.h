@@ -12,8 +12,8 @@ namespace discovery {
 
 class DnsSdQuerier {
  public:
-  // TODO(rwkeane): Add support for expiring records in addition to deleting
-  // them.
+  // TODO(crbug.com/1444214): Add support for expiring records in addition to
+  // deleting them.
   class Callback {
    public:
     virtual ~Callback() = default;
