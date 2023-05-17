@@ -9,7 +9,6 @@
 #include "absl/strings/str_join.h"
 #include "absl/strings/str_split.h"
 #include "absl/types/optional.h"
-#include "absl/types/span.h"
 #include "discovery/dnssd/impl/constants.h"
 #include "discovery/dnssd/impl/instance_key.h"
 #include "discovery/dnssd/impl/service_key.h"
@@ -109,15 +108,15 @@ MdnsRecord CreateTxtRecord(const DnsSdInstance& endpoint,
 
 ErrorOr<DnsSdTxtRecord> CreateFromDnsTxt(const TxtRecordRdata& txt_data) {
   DnsSdTxtRecord txt;
-  if (txt_data.texts().size() == 1 && txt_data.texts()[0] == "") {
+  if (txt_data.texts().size() == 1 && txt_data.texts()[0].empty()) {
     return txt;
   }
 
   // Iterate backwards so that the first key of each type is the one that is
-  // present at the end, as pet spec.
+  // present at the end, as required by spec.
   for (auto it = txt_data.texts().rbegin(); it != txt_data.texts().rend();
        it++) {
-    const std::string& text = *it;
+    std::string text(reinterpret_cast<const char*>(it->data()), it->size());
     size_t index_of_eq = text.find_first_of('=');
     if (index_of_eq != std::string::npos) {
       if (index_of_eq == 0) {
@@ -125,10 +124,7 @@ ErrorOr<DnsSdTxtRecord> CreateFromDnsTxt(const TxtRecordRdata& txt_data) {
       }
       std::string key = text.substr(0, index_of_eq);
       std::string value = text.substr(index_of_eq + 1);
-      absl::Span<const uint8_t> data(
-          reinterpret_cast<const uint8_t*>(value.data()), value.size());
-      const auto set_result =
-          txt.SetValue(key, std::vector<uint8_t>(data.begin(), data.end()));
+      const auto set_result = txt.SetValue(key, value);
       if (!set_result.ok()) {
         return set_result;
       }
