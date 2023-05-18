@@ -13,6 +13,7 @@
 #include "absl/strings/str_replace.h"
 #include "discovery/mdns/public/mdns_constants.h"
 #include "util/osp_logging.h"
+#include "util/span_util.h"
 
 namespace openscreen {
 namespace cast {
@@ -58,13 +59,8 @@ std::string CalculateInstanceId(const ReceiverInfo& info) {
 // otherwise, returns an empty string.
 std::string GetStringFromRecord(const discovery::DnsSdTxtRecord& txt,
                                 const std::string& key) {
-  std::string result;
-  const ErrorOr<discovery::DnsSdTxtRecord::ValueRef> value = txt.GetValue(key);
-  if (value.is_value()) {
-    const std::vector<uint8_t>& txt_value = value.value().get();
-    result.assign(txt_value.begin(), txt_value.end());
-  }
-  return result;
+  const ErrorOr<ByteView> value = txt.GetValue(key);
+  return value.is_value() ? ByteViewToString(value.value()) : std::string();
 }
 
 }  // namespace
