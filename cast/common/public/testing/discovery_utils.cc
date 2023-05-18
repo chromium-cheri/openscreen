@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 
+#include "util/span_util.h"
 #include "util/stringprintf.h"
 
 namespace openscreen {
@@ -32,24 +33,21 @@ discovery::DnsSdTxtRecord CreateValidTxt() {
 void CompareTxtString(const discovery::DnsSdTxtRecord& txt,
                       const std::string& key,
                       const std::string& expected) {
-  ErrorOr<discovery::DnsSdTxtRecord::ValueRef> value = txt.GetValue(key);
+  ErrorOr<ByteView> value = txt.GetValue(key);
   ASSERT_FALSE(value.is_error())
       << "expected value: '" << expected << "' for key: '" << key
       << "'; got error: " << value.error();
-  const std::vector<uint8_t>& data = value.value().get();
-  std::string parsed_value = std::string(data.begin(), data.end());
-  EXPECT_EQ(parsed_value, expected) << "expected value '"
-                                    << "' for key: '" << key << "'";
+  EXPECT_EQ(ByteViewToString(value.value()), expected)
+      << "expected value '" << expected << "' for key: '" << key << "'";
 }
 
 void CompareTxtInt(const discovery::DnsSdTxtRecord& txt,
                    const std::string& key,
                    int expected) {
-  ErrorOr<discovery::DnsSdTxtRecord::ValueRef> value = txt.GetValue(key);
+  ErrorOr<ByteView> value = txt.GetValue(key);
   ASSERT_FALSE(value.is_error())
       << "key: '" << key << "'' expected: '" << expected << "'";
-  const std::vector<uint8_t>& data = value.value().get();
-  EXPECT_EQ(std::string(data.begin(), data.end()), std::to_string(expected))
+  EXPECT_EQ(ByteViewToString(value.value()), std::to_string(expected))
       << "for key: '" << key << "'";
 }
 
