@@ -48,6 +48,7 @@ void ServicePublisherImpl::Delegate::SetPublisherImpl(
 ServicePublisherImpl::ServicePublisherImpl(Observer* observer,
                                            std::unique_ptr<Delegate> delegate)
     : ServicePublisher(observer), delegate_(std::move(delegate)) {
+  OSP_DCHECK(observer_);
   delegate_->SetPublisherImpl(this);
 }
 
@@ -90,6 +91,14 @@ bool ServicePublisherImpl::Resume() {
   return true;
 }
 
+void ServicePublisherImpl::OnFatalError(Error error) {
+  observer_->OnError(error);
+}
+
+void ServicePublisherImpl::OnRecoverableError(Error error) {
+  observer_->OnError(error);
+}
+
 void ServicePublisherImpl::SetState(State state) {
   OSP_DCHECK(IsTransitionValid(state_, state));
   state_ = state;
@@ -98,7 +107,6 @@ void ServicePublisherImpl::SetState(State state) {
 }
 
 void ServicePublisherImpl::MaybeNotifyObserver() {
-  OSP_DCHECK(observer_);
   switch (state_) {
     case State::kRunning:
       observer_->OnStarted();
