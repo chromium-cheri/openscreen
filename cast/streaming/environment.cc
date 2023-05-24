@@ -65,6 +65,10 @@ void Environment::SetSocketSubscriber(SocketSubscriber* subscriber) {
   socket_subscriber_ = subscriber;
 }
 
+void Environment::SetStatisticsCollector(StatisticsCollector* collector) {
+  statistics_collector_ = collector;
+}
+
 void Environment::ConsumeIncomingPackets(PacketConsumer* packet_consumer) {
   OSP_DCHECK(packet_consumer);
   OSP_DCHECK(!packet_consumer_);
