@@ -5,6 +5,7 @@
 #include "osp/impl/service_listener_impl.h"
 
 #include <algorithm>
+#include <utility>
 
 #include "platform/base/error.h"
 #include "util/osp_logging.h"
@@ -55,8 +56,8 @@ void ServiceListenerImpl::Delegate::SetListenerImpl(
   listener_ = listener;
 }
 
-ServiceListenerImpl::ServiceListenerImpl(Delegate* delegate)
-    : delegate_(delegate) {
+ServiceListenerImpl::ServiceListenerImpl(std::unique_ptr<Delegate> delegate)
+    : delegate_(std::move(delegate)) {
   delegate_->SetListenerImpl(this);
 }
 
@@ -107,7 +108,7 @@ bool ServiceListenerImpl::Start() {
   if (state_ != State::kStopped)
     return false;
   state_ = State::kStarting;
-  delegate_->StartListener();
+  delegate_->StartListener(config_);
   return true;
 }
 
@@ -115,7 +116,7 @@ bool ServiceListenerImpl::StartAndSuspend() {
   if (state_ != State::kStopped)
     return false;
   state_ = State::kStarting;
-  delegate_->StartAndSuspendListener();
+  delegate_->StartAndSuspendListener(config_);
   return true;
 }
 
@@ -167,6 +168,14 @@ void ServiceListenerImpl::RemoveObserver(Observer* observer) {
 
 const std::vector<ServiceInfo>& ServiceListenerImpl::GetReceivers() const {
   return receiver_list_.receivers();
+}
+
+void ServiceListenerImpl::OnFatalError(Error error) {
+  OnError(error);
+}
+
+void ServiceListenerImpl::OnRecoverableError(Error error) {
+  OnError(error);
 }
 
 void ServiceListenerImpl::SetState(State state) {

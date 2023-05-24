@@ -36,15 +36,20 @@ class DnsSdServiceWatcher : public DnsSdQuerier::Callback {
  public:
   using ConstRefT = std::reference_wrapper<const T>;
 
+  enum class ServiceChanged {
+    kCreated = 0,
+    kUpdated,
+    kDeleted,
+    KCleared,
+  };
+
   // The method which will be called when any new service instance is
   // discovered, a service instance changes its data (such as TXT or A data), or
-  // a previously discovered service instance ceases to be available. The vector
-  // is the set of all currently active service instances which have been
-  // discovered so far.
+  // a previously discovered service instance ceases to be available.
   // NOTE: This callback may not modify the DnsSdServiceWatcher instance from
   // which it is called.
-  using ServicesUpdatedCallback =
-      std::function<void(std::vector<ConstRefT> services)>;
+  using ServiceUpdatedCallback =
+      std::function<void(const T& service, ServiceChanged reason)>;
 
   // This function type is responsible for converting from a DNS service
   // instance (received from another mDNS endpoint) to a T type to be returned
@@ -55,7 +60,7 @@ class DnsSdServiceWatcher : public DnsSdQuerier::Callback {
   DnsSdServiceWatcher(DnsSdService* service,
                       std::string service_name,
                       ServiceConverter conversion,
-                      ServicesUpdatedCallback callback)
+                      ServiceUpdatedCallback callback)
       : conversion_(conversion),
         service_name_(std::move(service_name)),
         callback_(std::move(callback)),
@@ -141,9 +146,9 @@ class DnsSdServiceWatcher : public DnsSdQuerier::Callback {
                    << record.error();
       return;
     }
-    records_[GetKey(new_endpoint)] =
-        std::make_unique<T>(std::move(record.value()));
-    callback_(GetServices());
+    const auto key = GetKey(new_endpoint);
+    records_[key] = std::make_unique<T>(std::move(record.value()));
+    callback_(*records_[key], ServiceChanged::kCreated);
   }
 
   void OnEndpointUpdated(
@@ -159,7 +164,7 @@ class DnsSdServiceWatcher : public DnsSdQuerier::Callback {
       auto ptr = std::make_unique<T>(std::move(record.value()));
       it->second.swap(ptr);
 
-      callback_(GetServices());
+      callback_(*it->second, ServiceChanged::kUpdated);
     } else {
       OSP_LOG_INFO
           << "Received modified record for non-existent DNS-SD Instance "
@@ -168,8 +173,19 @@ class DnsSdServiceWatcher : public DnsSdQuerier::Callback {
   }
 
   void OnEndpointDeleted(const DnsSdInstanceEndpoint& old_endpoint) override {
+    ErrorOr<T> record = conversion_(old_endpoint);
+    if (record.is_error()) {
+      OSP_LOG_INFO << "Conversion of received record failed with error: "
+                   << record.error();
+      return;
+    }
+
     if (records_.erase(GetKey(old_endpoint))) {
-      callback_(GetServices());
+      if (records_.empty()) {
+        callback_(record.value(), ServiceChanged::KCleared);
+      } else {
+        callback_(record.value(), ServiceChanged::kDeleted);
+      }
     } else {
       OSP_LOG_INFO
           << "Received deletion of record for non-existent DNS-SD Instance "
@@ -196,10 +212,9 @@ class DnsSdServiceWatcher : public DnsSdQuerier::Callback {
   }
 
   // Set of all instance ids found so far, mapped to the T type that it
-  // represents. unique_ptr<T> entities are used so that the const refs returned
-  // from GetServices() and the ServicesUpdatedCallback can persist even once
-  // this map is resized.
-  // NOTE: Unordered map is used because this set is in  many cases expected to
+  // represents. unique_ptr<T> entities are used so that the const refs used
+  // in the ServiceUpdatedCallback can persist even once this map is resized.
+  // NOTE: Unordered map is used because this set is in many cases expected to
   // be large.
   std::unordered_map<EndpointKey, std::unique_ptr<T>, PairHash> records_;
 
@@ -211,7 +226,7 @@ class DnsSdServiceWatcher : public DnsSdQuerier::Callback {
   ServiceConverter conversion_;
 
   std::string service_name_;
-  ServicesUpdatedCallback callback_;
+  ServiceUpdatedCallback callback_;
   DnsSdQuerier* const querier_;
 };
 

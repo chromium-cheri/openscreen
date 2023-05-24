@@ -89,9 +89,11 @@ class TestServiceWatcher : public DnsSdServiceWatcher<std::string> {
             service,
             kCastServiceId,
             [this](const DnsSdInstance& instance) { return Convert(instance); },
-            [this](std::vector<ConstRefT> ref) { Callback(std::move(ref)); }) {}
+            [this](const std::string& ref, ServiceChanged reason) {
+              Callback(ref, reason);
+            }) {}
 
-  MOCK_METHOD1(Callback, void(std::vector<ConstRefT>));
+  MOCK_METHOD2(Callback, void(const std::string&, ServiceChanged));
 
   using DnsSdServiceWatcher<std::string>::OnEndpointCreated;
   using DnsSdServiceWatcher<std::string>::OnEndpointUpdated;
@@ -119,11 +121,11 @@ class DnsSdServiceWatcherTests : public testing::Test {
         ConvertRefs(watcher_.GetServices());
     const size_t count = services_before.size();
 
-    std::vector<std::string> callbacked_services;
-    EXPECT_CALL(watcher_, Callback(_))
-        .WillOnce([services = &callbacked_services](
-                      std::vector<TestServiceWatcher::ConstRefT> value) {
-          *services = ConvertRefs(value);
+    EXPECT_CALL(watcher_, Callback(_, _))
+        .WillOnce([](const std::string& value,
+                     TestServiceWatcher::ServiceChanged reason) {
+          EXPECT_FALSE(value.empty());
+          EXPECT_EQ(reason, TestServiceWatcher::ServiceChanged::kCreated);
         });
     watcher_.OnEndpointCreated(record);
     testing::Mock::VerifyAndClearExpectations(&watcher_);
@@ -132,7 +134,6 @@ class DnsSdServiceWatcherTests : public testing::Test {
         ConvertRefs(watcher_.GetServices());
     EXPECT_EQ(fetched_services.size(), count + 1);
 
-    EXPECT_THAT(fetched_services, ContainerEq(callbacked_services));
     EXPECT_THAT(fetched_services, IsSupersetOf(services_before));
   }
 
@@ -141,11 +142,11 @@ class DnsSdServiceWatcherTests : public testing::Test {
         ConvertRefs(watcher_.GetServices());
     const size_t count = services_before.size();
 
-    std::vector<std::string> callbacked_services;
-    EXPECT_CALL(watcher_, Callback(_))
-        .WillOnce([services = &callbacked_services](
-                      std::vector<TestServiceWatcher::ConstRefT> value) {
-          *services = ConvertRefs(value);
+    EXPECT_CALL(watcher_, Callback(_, _))
+        .WillOnce([](const std::string& value,
+                     TestServiceWatcher::ServiceChanged reason) {
+          EXPECT_FALSE(value.empty());
+          EXPECT_EQ(reason, TestServiceWatcher::ServiceChanged::kCreated);
         });
     watcher_.OnEndpointCreated(record);
     testing::Mock::VerifyAndClearExpectations(&watcher_);
@@ -154,7 +155,6 @@ class DnsSdServiceWatcherTests : public testing::Test {
         ConvertRefs(watcher_.GetServices());
     EXPECT_EQ(fetched_services.size(), count);
 
-    EXPECT_THAT(fetched_services, ContainerEq(callbacked_services));
     EXPECT_THAT(fetched_services, ContainerEq(services_before));
   }
 
@@ -163,11 +163,11 @@ class DnsSdServiceWatcherTests : public testing::Test {
         ConvertRefs(watcher_.GetServices());
     const size_t count = services_before.size();
 
-    std::vector<std::string> callbacked_services;
-    EXPECT_CALL(watcher_, Callback(_))
-        .WillOnce([services = &callbacked_services](
-                      std::vector<TestServiceWatcher::ConstRefT> value) {
-          *services = ConvertRefs(value);
+    EXPECT_CALL(watcher_, Callback(_, _))
+        .WillOnce([](const std::string& value,
+                     TestServiceWatcher::ServiceChanged reason) {
+          EXPECT_FALSE(value.empty());
+          EXPECT_EQ(reason, TestServiceWatcher::ServiceChanged::kUpdated);
         });
     watcher_.OnEndpointUpdated(record);
     testing::Mock::VerifyAndClearExpectations(&watcher_);
@@ -176,7 +176,6 @@ class DnsSdServiceWatcherTests : public testing::Test {
         ConvertRefs(watcher_.GetServices());
     EXPECT_EQ(fetched_services.size(), count);
 
-    EXPECT_THAT(fetched_services, ContainerEq(callbacked_services));
     EXPECT_THAT(fetched_services, ContainerEq(services_before));
   }
 
@@ -185,11 +184,15 @@ class DnsSdServiceWatcherTests : public testing::Test {
         ConvertRefs(watcher_.GetServices());
     const size_t count = services_before.size();
 
-    std::vector<std::string> callbacked_services;
-    EXPECT_CALL(watcher_, Callback(_))
-        .WillOnce([services = &callbacked_services](
-                      std::vector<TestServiceWatcher::ConstRefT> value) {
-          *services = ConvertRefs(value);
+    EXPECT_CALL(watcher_, Callback(_, _))
+        .WillOnce([&](const std::string& value,
+                      TestServiceWatcher::ServiceChanged reason) {
+          EXPECT_FALSE(value.empty());
+          if (count == 1u) {
+            EXPECT_EQ(reason, TestServiceWatcher::ServiceChanged::KCleared);
+          } else {
+            EXPECT_EQ(reason, TestServiceWatcher::ServiceChanged::kDeleted);
+          }
         });
     watcher_.OnEndpointDeleted(record);
     testing::Mock::VerifyAndClearExpectations(&watcher_);
@@ -204,7 +207,7 @@ class DnsSdServiceWatcherTests : public testing::Test {
         ConvertRefs(watcher_.GetServices());
     const size_t count = services_before.size();
 
-    EXPECT_CALL(watcher_, Callback(_)).Times(0);
+    EXPECT_CALL(watcher_, Callback(_, _)).Times(0);
     watcher_.OnEndpointUpdated(record);
     testing::Mock::VerifyAndClearExpectations(&watcher_);
 
@@ -220,7 +223,7 @@ class DnsSdServiceWatcherTests : public testing::Test {
         ConvertRefs(watcher_.GetServices());
     const size_t count = services_before.size();
 
-    EXPECT_CALL(watcher_, Callback(_)).Times(0);
+    EXPECT_CALL(watcher_, Callback(_, _)).Times(0);
     watcher_.OnEndpointDeleted(record);
     testing::Mock::VerifyAndClearExpectations(&watcher_);
 
