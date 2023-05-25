@@ -52,6 +52,11 @@ SPECIAL_CASES = {
         "License": "BSD",
         "License File": "NOT_SHIPPED",
     },
+    os.path.join({'third_party', 'clang_format', 'script'): {
+        "Name": "clang format",
+        "URL": "https://chromium.googlesource.com/external/github.com/llvm/llvm-project/clang/tools/clang-format",
+        "License": "Apache 2.0",
+        },
 }
 
 # Special value for 'License File' field used to indicate that the license file
