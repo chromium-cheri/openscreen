@@ -16,6 +16,142 @@
       "message": "PTAL, thanks.",
       "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64a2990a_3e9282ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-05-31T23:37:41Z",
+      "side": 1,
+      "message": "Overall this looks great!  A couple of minor things to take a look at.  Some of the things I noted are just cobwebs and cleanups that I haven\u0027t gotten around to and aren\u0027t necessary to fix in this patch.",
+      "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d8c4217_9b85a848",
+        "filename": "osp/impl/dns_sd_service_listener_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-05-31T23:37:41Z",
+      "side": 1,
+      "message": "Can this be passed by reference as it should never be nullptr?",
+      "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a02520f2_62ae6f54",
+        "filename": "osp/impl/dns_sd_watcher_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-05-31T23:37:41Z",
+      "side": 1,
+      "message": "I believe it is possible for an endpoint to have both V4 and V6 addresses.",
+      "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41af0724_5748e5ce",
+        "filename": "osp/impl/dns_sd_watcher_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-05-31T23:37:41Z",
+      "side": 1,
+      "message": "I think it would be cleaner for this API to use move semantics instead of passing references.  I can clean this up later.",
+      "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34423d4e_b1af4f8c",
+        "filename": "osp/impl/dns_sd_watcher_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-05-31T23:37:41Z",
+      "side": 1,
+      "message": "I\u0027ve been meaning to get rid of this and replace it with something simpler.",
+      "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e74f0bdc_6a975c74",
+        "filename": "osp/impl/dns_sd_watcher_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-05-31T23:37:41Z",
+      "side": 1,
+      "message": "Yeah, this is the long term goal, however, needs to wrap the returned service object and keep track of who is still using it.",
+      "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c3ae8e8_32eeec09",
+        "filename": "osp/impl/dns_sd_watcher_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-05-31T23:37:41Z",
+      "side": 1,
+      "message": "pass by reference",
+      "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e55c504_b55d3eb8",
+        "filename": "osp/public/service_listener.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-05-31T23:37:41Z",
+      "side": 1,
+      "message": "I think the main design question for this was whether we could have the publisher and listener require the same configuration object, so that if an agent wanted to play both roles it could use the same socket / DNS-SD implementation underneath.  But I think this design can be improved later if we want.",
+      "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
