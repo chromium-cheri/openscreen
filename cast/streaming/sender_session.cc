@@ -63,20 +63,24 @@ const Error& InvalidRpcError() {
 AudioStream CreateStream(int index,
                          const AudioCaptureConfig& config,
                          bool use_android_rtp_hack) {
-  return AudioStream{Stream{index,
-                            Stream::Type::kAudioSource,
-                            config.channels,
-                            GetPayloadType(config.codec, use_android_rtp_hack),
-                            GenerateSsrc(true /*high_priority*/),
-                            config.target_playout_delay,
-                            GenerateRandomBytes16(),
-                            GenerateRandomBytes16(),
-                            false /* receiver_rtcp_event_log */,
-                            {} /* receiver_rtcp_dscp */,
-                            config.sample_rate,
-                            config.codec_parameter},
-                     config.codec,
-                     std::max(config.bit_rate, kDefaultAudioMinBitRate)};
+  return AudioStream{
+      Stream{index,
+             Stream::Type::kAudioSource,
+             config.channels,
+             GetPayloadType(config.codec, use_android_rtp_hack),
+             GenerateSsrc(true /*high_priority*/),
+             config.target_playout_delay,
+             GenerateRandomBytes16(),
+             GenerateRandomBytes16(),
+             false /* receiver_rtcp_event_log */,
+             {} /* receiver_rtcp_dscp */,
+             config.sample_rate,
+             config.codec_parameter},
+      config.codec,
+      // A "zero" bitrate means that it is not fixed. If greater
+      // than zero must at least be our minimum value.
+      (config.bit_rate > 0 ? std::max(config.bit_rate, kDefaultAudioMinBitRate)
+                           : 0)};
 }
 
 VideoStream CreateStream(int index,
