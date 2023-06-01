@@ -24,7 +24,8 @@ struct SessionConfig final {
                 std::chrono::milliseconds target_playout_delay,
                 std::array<uint8_t, 16> aes_secret_key,
                 std::array<uint8_t, 16> aes_iv_mask,
-                bool is_pli_enabled);
+                bool is_pli_enabled = false,
+                bool is_audio = false);
   SessionConfig(const SessionConfig& other);
   SessionConfig(SessionConfig&& other) noexcept;
   SessionConfig& operator=(const SessionConfig& other);
@@ -55,6 +56,9 @@ struct SessionConfig final {
 
   // Whether picture loss indication (PLI) should be used for this session.
   bool is_pli_enabled = false;
+
+  // Whether the config is for an audio stream (false for a video stream).
+  bool is_audio = false;
 };
 
 }  // namespace cast

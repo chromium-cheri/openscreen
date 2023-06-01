@@ -65,6 +65,10 @@ void Environment::SetSocketSubscriber(SocketSubscriber* subscriber) {
   socket_subscriber_ = subscriber;
 }
 
+void Environment::SetStatisticsCollector(StatisticsCollector* collector) {
+  statistics_collector_ = collector;
+}
+
 void Environment::ConsumeIncomingPackets(PacketConsumer* packet_consumer) {
   OSP_DCHECK(packet_consumer);
   OSP_DCHECK(!packet_consumer_);
@@ -95,6 +99,9 @@ void Environment::SendPacket(ByteView packet) {
   OSP_DCHECK_NE(remote_endpoint_.port, 0);
   if (socket_) {
     socket_->SendMessage(packet.data(), packet.size(), remote_endpoint_);
+  }
+  if (statistics_collector_) {
+    statistics_collector_->CollectPacketSentEvent(packet);
   }
 }
 
