@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c150e6f3_2cd003ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-06-01T00:55:49Z",
+      "side": 1,
+      "message": "Agreed. the other changes are not needed or are fixed elsewhere:\n\n1. audio bitrate needs to be fixed in Chrome.\n2. the rtpExtensions is a lie since we don\u0027t support adaptive playout delay currently.\n3. renderMode is a legacy field that doesn\u0027t exist anymore to my understanding.\n4. sampleRate has been removed from the spec as well--it\u0027s just the timeBase without the preceding \"1/\". We should consider this field probably.\n5. not sure why the codecName is not capitalized in the legacy sender or if it is even needed for remoting. I\u0027m guessing not? we don\u0027t have the remote codecs in the spec.\n6. The legacy impl lazily takes the frame rate and puts it *1000/1000, which I think is pointless?\n\nWe could be more conservative and put these changes back to matching the legacy but I\u0027m not sure it\u0027s needed.",
+      "parentUuid": "d4dc148f_c9fad6f7",
+      "revId": "51226b54ad0daf5171f6c8e791dbeba1a0bb95d0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "57d293ee_3b5698be",
         "filename": "cast/streaming/rtp_defines.cc",
         "patchSetId": 2
