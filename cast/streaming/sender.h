@@ -266,6 +266,7 @@ class Sender final : public SenderPacketRouter::Sender,
                             pending_frames_.size()];
   }
 
+  Environment* const environment_;
   const SessionConfig config_;
   SenderPacketRouter* const packet_router_;
   RtcpSession rtcp_session_;

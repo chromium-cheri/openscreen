@@ -104,6 +104,10 @@ enum class RtpPayloadType : uint8_t {
   kVideoHackForAndroidTV = 96,
 };
 
+// Returns true if the RTP payload type represents an audio stream, and
+// false if it represents a video stream.
+bool IsAudioPayloadType(RtpPayloadType type);
+
 // Setting |use_android_rtp_hack| to true means that we match the legacy Chrome
 // sender's behavior of always sending the audio and video hacks for AndroidTV,
 // as some legacy android receivers require these.

@@ -21,6 +21,7 @@
 #include "cast/streaming/sender_packet_router.h"
 #include "cast/streaming/session_config.h"
 #include "cast/streaming/session_messenger.h"
+#include "cast/streaming/statistics.h"
 #include "json/value.h"
 #include "util/json/json_serialization.h"
 
@@ -95,6 +96,17 @@ class SenderSession final {
     virtual ~Client();
   };
 
+  // The consumer may provide a statistics client if they are interested in
+  // getting statistics about the ongoing session.
+  class StatisticsClient {
+    // Gets called regularly with updated mirroring statistics, assuming the
+    // session is in mirroring mode.
+    void OnStatisticsUpdated(const Statistics& new_stats);
+
+   protected:
+    virtual ~StatisticsClient();
+  };
+
   // The configuration information required to set up the session.
   struct Configuration {
     // The remote address of the receiver to connect to. NOTE: we do eventually
@@ -122,6 +134,10 @@ class SenderSession final {
     // Whether or not the android RTP value hack should be used (for legacy
     // android devices). For more information, see https://crbug.com/631828.
     bool use_android_rtp_hack = true;
+
+    // The client for handling statistics events. Optional, statistics will not
+    // be recorded if this field is not set.
+    StatisticsClient* const statistics_client;
   };
 
   // The SenderSession assumes that the passed in client, environment, and
