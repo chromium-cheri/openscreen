@@ -1,0 +1,191 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92992b64_8a12cd46",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-06-02T19:22:41Z",
+      "side": 1,
+      "message": "Maybe this can go in statistics.h to keep this class smaller.",
+      "revId": "d6f723beb80be1ca20cec7be84d7a46ee0101f7f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7e4e344_9fec1a67",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-06-02T19:22:41Z",
+      "side": 1,
+      "message": "I would prefer a setter on the session itself:\n\nSetStatisticsClient(StatisticsClient* client)\n\nWith a check that we are not setting two different clients on the same session.",
+      "revId": "d6f723beb80be1ca20cec7be84d7a46ee0101f7f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da600aaa_148a019c",
+        "filename": "cast/streaming/statistics.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-06-02T19:22:41Z",
+      "side": 1,
+      "message": "I believe int is already the default storage for enums?",
+      "revId": "d6f723beb80be1ca20cec7be84d7a46ee0101f7f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa078e43_8a5441c4",
+        "filename": "cast/streaming/statistics.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-06-02T19:22:41Z",
+      "side": 1,
+      "message": "There is a FRAME_DECODED event type in the RTCP reports, but it looks like the legacy stats code doesn\u0027t handle it.",
+      "revId": "d6f723beb80be1ca20cec7be84d7a46ee0101f7f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44597747_77c77d84",
+        "filename": "cast/streaming/statistics.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-06-02T19:22:41Z",
+      "side": 1,
+      "message": "The raw events are created from the media::VideoFrame on the way into the sender.  See: https://source.chromium.org/chromium/chromium/src/+/refs/heads/main:media/cast/sender/video_sender.cc;drc\u003db8a0323a84f483b25e94b3a24d80fda16c5dd1ae;l\u003d72",
+      "revId": "d6f723beb80be1ca20cec7be84d7a46ee0101f7f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc7865d3_cb8ee216",
+        "filename": "cast/streaming/statistics.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-06-02T19:22:41Z",
+      "side": 1,
+      "message": "It looks like the openscreen sender already generates the raw events to compute this:\n\nhttps://source.chromium.org/chromium/chromium/src/+/refs/heads/main:media/cast/sender/openscreen_frame_sender.cc;drc\u003db8a0323a84f483b25e94b3a24d80fda16c5dd1ae;l\u003d235",
+      "revId": "d6f723beb80be1ca20cec7be84d7a46ee0101f7f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b00c63c5_bd57f22d",
+        "filename": "cast/streaming/statistics.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-06-02T19:22:41Z",
+      "side": 1,
+      "message": "This is derived from the frame size / encode time for each frame, this could be misleading but is probably good enough for our purposes.\n\nhttps://source.chromium.org/chromium/chromium/src/+/refs/heads/main:media/cast/logging/stats_event_subscriber.cc;drc\u003d0ce6af60daa74a14cab3ebe34bc3bff880122467;l\u003d686",
+      "revId": "d6f723beb80be1ca20cec7be84d7a46ee0101f7f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a373177_2f6c2db4",
+        "filename": "cast/streaming/statistics.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-06-02T19:22:41Z",
+      "side": 1,
+      "message": "Should be a class as it has private members; TBH since there are simple getters for everything would it hurt to make them public and keep this a struct?",
+      "revId": "d6f723beb80be1ca20cec7be84d7a46ee0101f7f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e60929a5_8c45d0b8",
+        "filename": "cast/streaming/statistics.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-06-02T19:22:41Z",
+      "side": 1,
+      "message": "Bikeshed: SenderStats, as this is the view of stats available from the sender session and not the receiver session.  (Maybe they will share some of these stats but I\u0027m not certain.)",
+      "revId": "d6f723beb80be1ca20cec7be84d7a46ee0101f7f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c986cf9a_1db959c2",
+        "filename": "cast/streaming/statistics.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-06-02T19:22:41Z",
+      "side": 1,
+      "message": "It seems like the common case will populate most, if not all of the stats.\nWhat about adding a MaxType value and making this a std::array\u003cdouble, StatisticType::MaxType\u003e?",
+      "revId": "d6f723beb80be1ca20cec7be84d7a46ee0101f7f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dda2a1e_bfac5c0b",
+        "filename": "cast/streaming/statistics.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-06-02T19:22:41Z",
+      "side": 1,
+      "message": "Similar comment here.",
+      "revId": "d6f723beb80be1ca20cec7be84d7a46ee0101f7f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
