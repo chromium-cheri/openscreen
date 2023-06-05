@@ -52,6 +52,23 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "010d58ab_96364741",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-06-05T21:32:50Z",
+      "side": 1,
+      "message": "Thanks, one comment to address before landing.",
+      "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d8c4217_9b85a848",
@@ -87,6 +104,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c915ddac_8af2ff38",
+        "filename": "osp/impl/dns_sd_service_listener_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-06-05T21:32:50Z",
+      "side": 1,
+      "message": "Agreed, better to do a pass through the code and change multiple places at once.  I added a note to https://issuetracker.google.com/281739775 which collects other TODO()\u0027s in the code.",
+      "parentUuid": "7e7144c0_664ed1cb",
+      "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a02520f2_62ae6f54",
@@ -118,6 +153,24 @@
       "side": 1,
       "message": "Thanks, I made this accoding to ReceiverInfo in Cast: https://source.chromium.org/chromium/chromium/src/+/refs/heads/main:third_party/openscreen/src/cast/common/public/receiver_info.cc;l\u003d117\n\nIs there any difference between these two?",
       "parentUuid": "a02520f2_62ae6f54",
+      "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "877ee076_47b92a10",
+        "filename": "osp/impl/dns_sd_watcher_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-06-05T21:32:50Z",
+      "side": 1,
+      "message": "The Cast receiver info is for discovery of Chromecast devices, right now V4 endpoints are preferred if they are available.\n\nAccording to the spec, it\u0027s only required to know the V4 or V6 address of an endpoint (not both).  But knowing both would allow the endpoint more flexibility to choose how to connect.\n\nSo I would lean towards populating both the V4 and V6 addresses for OSP.",
+      "parentUuid": "32fa6c94_810f81f6",
       "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -240,6 +293,24 @@
       "writtenOn": "2023-05-31T23:37:41Z",
       "side": 1,
       "message": "pass by reference",
+      "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74c97c6e_e2711fbe",
+        "filename": "osp/impl/dns_sd_watcher_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-06-05T21:32:50Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8c3ae8e8_32eeec09",
       "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
