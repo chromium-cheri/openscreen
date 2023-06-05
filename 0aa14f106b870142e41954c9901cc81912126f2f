@@ -35,6 +35,23 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4026de9d_a684f99c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2023-06-05T05:10:28Z",
+      "side": 1,
+      "message": "Thanks for the review comments. PTAL.",
+      "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d8c4217_9b85a848",
@@ -54,6 +71,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7e7144c0_664ed1cb",
+        "filename": "osp/impl/dns_sd_service_listener_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2023-06-05T05:10:28Z",
+      "side": 1,
+      "message": "Thanks, I think this can be passed by reference. The question is that pointer is used in all places (DnsSdPublisherClient, ServiceInstance, QuerierImpl, PublisherImpl, etc.). Do we need to change all of them? If so, I think chage this in another CL is better. What do you think?",
+      "parentUuid": "1d8c4217_9b85a848",
+      "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a02520f2_62ae6f54",
         "filename": "osp/impl/dns_sd_watcher_client.cc",
         "patchSetId": 2
@@ -65,6 +100,24 @@
       "writtenOn": "2023-05-31T23:37:41Z",
       "side": 1,
       "message": "I believe it is possible for an endpoint to have both V4 and V6 addresses.",
+      "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32fa6c94_810f81f6",
+        "filename": "osp/impl/dns_sd_watcher_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2023-06-05T05:10:28Z",
+      "side": 1,
+      "message": "Thanks, I made this accoding to ReceiverInfo in Cast: https://source.chromium.org/chromium/chromium/src/+/refs/heads/main:third_party/openscreen/src/cast/common/public/receiver_info.cc;l\u003d117\n\nIs there any difference between these two?",
+      "parentUuid": "a02520f2_62ae6f54",
       "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -88,6 +141,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "038234dc_ec43fe17",
+        "filename": "osp/impl/dns_sd_watcher_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2023-06-05T05:10:28Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "41af0724_5748e5ce",
+      "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "34423d4e_b1af4f8c",
         "filename": "osp/impl/dns_sd_watcher_client.cc",
         "patchSetId": 2
@@ -105,6 +176,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "3f0ff6fe_d68a1c52",
+        "filename": "osp/impl/dns_sd_watcher_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2023-06-05T05:10:28Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "34423d4e_b1af4f8c",
+      "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e74f0bdc_6a975c74",
         "filename": "osp/impl/dns_sd_watcher_client.cc",
         "patchSetId": 2
@@ -116,6 +205,24 @@
       "writtenOn": "2023-05-31T23:37:41Z",
       "side": 1,
       "message": "Yeah, this is the long term goal, however, needs to wrap the returned service object and keep track of who is still using it.",
+      "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15c1c8a1_13486a20",
+        "filename": "osp/impl/dns_sd_watcher_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2023-06-05T05:10:28Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "e74f0bdc_6a975c74",
       "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -150,6 +257,24 @@
       "writtenOn": "2023-05-31T23:37:41Z",
       "side": 1,
       "message": "I think the main design question for this was whether we could have the publisher and listener require the same configuration object, so that if an agent wanted to play both roles it could use the same socket / DNS-SD implementation underneath.  But I think this design can be improved later if we want.",
+      "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "144e4e58_bd304474",
+        "filename": "osp/public/service_listener.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2023-06-05T05:10:28Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "0e55c504_b55d3eb8",
       "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
