@@ -158,6 +158,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05ca5c85_3833e89a",
+        "filename": "osp/impl/dns_sd_service_listener_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-06-07T19:19:57Z",
+      "side": 1,
+      "message": "You are welcome to try to do that but it would be a lot of work and a big patch 😊\n\nDoing a bulk find-and-replace of TaskRunner* with TaskRunner\u0026 in osp/ would be a good start (and fixing up calls to e.g. PostTask).\n\nChanging the signatures in the platform API would be more involved since that has multiple implementations - both here and in Chromium.",
+      "parentUuid": "8499d07b_e9a30f5c",
+      "revId": "0aa14f106b870142e41954c9901cc81912126f2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a02520f2_62ae6f54",
