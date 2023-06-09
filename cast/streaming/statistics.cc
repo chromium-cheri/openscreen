@@ -36,7 +36,9 @@ void SimpleHistogram::Reset() {
   buckets.assign(buckets.size(), 0);
 }
 
-SenderStatsClient::~SenderStatsClient() = default;
+// NOTE: we explicitly don't use `= default` here to fix the gcc compiler
+// complaining about not being able to find a vtable for SenderStatsClient.
+SenderStatsClient::~SenderStatsClient() {}
 
 }  // namespace cast
 }  // namespace openscreen
