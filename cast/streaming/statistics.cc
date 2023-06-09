@@ -9,6 +9,7 @@
 namespace openscreen {
 namespace cast {
 
+SimpleHistogram::SimpleHistogram() : SimpleHistogram(1, 2, 1) {}
 SimpleHistogram::SimpleHistogram(int64_t min, int64_t max, int64_t width)
 
     : min(min), max(max), width(width), buckets((max - min) / width + 2) {
