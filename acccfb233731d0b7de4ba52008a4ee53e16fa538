@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "625052e3_68b7bad5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-06-09T21:44:48Z",
+      "side": 1,
+      "message": "Nit: don\u0027t need trailing period.",
+      "revId": "acccfb233731d0b7de4ba52008a4ee53e16fa538",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3635565_5ce65869",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-06-09T21:44:48Z",
+      "side": 1,
+      "message": "This might be nice for production code as well. Might be more accurate to say:\n\n\"This patch adds a default constructor for SimpleHistogram, to allow default initialization as part of the std::array-based HistogramsList.\"",
+      "revId": "acccfb233731d0b7de4ba52008a4ee53e16fa538",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb07bcd8_e1521ce5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-06-09T21:44:48Z",
+      "side": 1,
+      "message": "LGTM once feedback addressed.",
+      "revId": "acccfb233731d0b7de4ba52008a4ee53e16fa538",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f332a71_ceea3ee5",
+        "filename": "cast/streaming/statistics.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-06-09T21:44:48Z",
+      "side": 1,
+      "message": "Then this can become just \n\n    SimpleHistogram::SimpleHistogram() \u003d default;",
+      "revId": "acccfb233731d0b7de4ba52008a4ee53e16fa538",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9aa946b6_a33b50a4",
+        "filename": "cast/streaming/statistics.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-06-09T21:44:48Z",
+      "side": 1,
+      "message": "With the default constructor, I\u0027d suggest setting all of these to zero here:\n\n    int64_t min \u003d 0;\n    int64_t max \u003d 0;\n    int64_t width \u003d 0;",
+      "revId": "acccfb233731d0b7de4ba52008a4ee53e16fa538",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
