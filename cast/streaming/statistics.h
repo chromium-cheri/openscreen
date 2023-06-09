@@ -120,6 +120,9 @@ struct SimpleHistogram {
   // Overflow bucket: >= max
   // |min| must be less than |max|.
   // |width| must divide |max - min| evenly.
+
+  // This default constructor should be used for testing.
+  SimpleHistogram();
   SimpleHistogram(int64_t min, int64_t max, int64_t width);
   SimpleHistogram(const SimpleHistogram&) = delete;
   SimpleHistogram(SimpleHistogram&&) noexcept;
