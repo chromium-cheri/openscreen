@@ -19,4 +19,11 @@ specific_include_rules = {
     '+util',
     '+third_party',
   ],
+
+  # Normally this is a big issue because we don't want library clients to
+  # depend on util/.  However, this header is only used by internal targets and
+  # will be moved to util/ in the near future.
+  "scoped_wake_lock.h": [
+    '+util/serial_delete_ptr.h',
+  ]
 }

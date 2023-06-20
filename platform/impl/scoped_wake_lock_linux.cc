@@ -14,7 +14,7 @@ int ScopedWakeLockLinux::reference_count_ = 0;
 
 SerialDeletePtr<ScopedWakeLock> ScopedWakeLock::Create(
     TaskRunner& task_runner) {
-  return SerialDeletePtr<ScopedWakeLock>(&task_runner,
+  return SerialDeletePtr<ScopedWakeLock>(task_runner,
                                          new ScopedWakeLockLinux());
 }
 
