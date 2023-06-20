@@ -26,6 +26,7 @@
 #include "testing/util/task_util.h"
 #include "util/chrono_helpers.h"
 #include "util/osp_logging.h"
+#include "util/serial_delete_ptr.h"
 #include "util/std_util.h"
 
 namespace openscreen {

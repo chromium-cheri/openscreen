@@ -10,7 +10,7 @@
 #include "discovery/dnssd/public/dns_sd_service.h"
 #include "discovery/public/dns_sd_service_publisher.h"
 #include "osp/impl/service_publisher_impl.h"
-#include "platform/api/serial_delete_ptr.h"
+#include "util/serial_delete_ptr.h"
 
 namespace openscreen {
 

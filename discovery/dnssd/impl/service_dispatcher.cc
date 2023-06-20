@@ -10,8 +10,8 @@
 #include "discovery/dnssd/impl/service_instance.h"
 #include "discovery/dnssd/public/dns_sd_instance.h"
 #include "discovery/mdns/public/mdns_service.h"
-#include "platform/api/serial_delete_ptr.h"
 #include "platform/api/task_runner.h"
+#include "util/serial_delete_ptr.h"
 #include "util/trace_logging.h"
 
 namespace openscreen {
@@ -51,13 +51,13 @@ Error ForAllPublishers(
 }  // namespace
 
 // static
-SerialDeletePtr<DnsSdService> CreateDnsSdService(
-    TaskRunner* task_runner,
-    ReportingClient* reporting_client,
-    const Config& config) {
-  return SerialDeletePtr<DnsSdService>(
-      task_runner,
-      new ServiceDispatcher(task_runner, reporting_client, config));
+std::unique_ptr<DnsSdService, std::default_delete<DnsSdService>>
+CreateDnsSdService(TaskRunner* task_runner,
+                   ReportingClient* reporting_client,
+                   const Config& config) {
+  return std::unique_ptr<DnsSdService>(
+      new ServiceDispatcher(task_runner, reporting_client, config),
+      SerialDelete<DnsSdService>(task_runner));
 }
 
 ServiceDispatcher::ServiceDispatcher(TaskRunner* task_runner,

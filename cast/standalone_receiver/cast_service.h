@@ -16,9 +16,9 @@
 #include "discovery/common/reporting_client.h"
 #include "discovery/public/dns_sd_service_factory.h"
 #include "discovery/public/dns_sd_service_publisher.h"
-#include "platform/api/serial_delete_ptr.h"
 #include "platform/base/error.h"
 #include "platform/base/ip_address.h"
+#include "util/serial_delete_ptr.h"
 
 namespace openscreen {
 
