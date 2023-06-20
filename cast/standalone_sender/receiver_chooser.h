@@ -14,11 +14,11 @@
 #include "discovery/public/dns_sd_service_factory.h"
 #include "discovery/public/dns_sd_service_watcher.h"
 #include "platform/api/network_interface.h"
-#include "platform/api/serial_delete_ptr.h"
 #include "platform/api/task_runner.h"
 #include "platform/base/ip_address.h"
 #include "util/alarm.h"
 #include "util/chrono_helpers.h"
+#include "util/serial_delete_ptr.h"
 
 namespace openscreen {
 namespace cast {

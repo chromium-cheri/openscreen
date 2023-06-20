@@ -58,8 +58,8 @@ source_set("api") {
     "api/export.h",
     "api/network_interface.h",
     "api/scoped_wake_lock.h",
-    "api/serial_delete_ptr.h",
     "api/task_runner.h",
+    "api/task_runner_deleter.h",
     "api/time.h",
     "api/tls_connection.h",
     "api/tls_connection_factory.h",
@@ -69,6 +69,7 @@ source_set("api") {
   ]
   sources = [
     "api/scoped_wake_lock.cc",
+    "api/task_runner_deleter.cc",
     "api/tls_connection.cc",
     "api/tls_connection_factory.cc",
     "api/trace_event.cc",
@@ -236,7 +237,6 @@ source_set("unittests") {
   visibility += [ "..:openscreen_unittests_all" ]
   public = []
   sources = [
-    "api/serial_delete_ptr_unittest.cc",
     "api/time_unittest.cc",
     "base/error_unittest.cc",
     "base/ip_address_unittest.cc",
