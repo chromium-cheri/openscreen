@@ -5,3 +5,14 @@
 include_rules = [
     '+platform/api',
 ]
+
+# Portable implementations in util/ are preferred.  When that is impossible,
+# exceptions can be made here to access platform-specific functionality.
+specific_include_rules = {
+  'scoped_wake_lock_mac.cc': [
+    '+platform/impl/platform_client_posix.h',
+  ],
+}
+
+
+

@@ -1,24 +1,17 @@
-// Copyright 2019 The Chromium Authors. All rights reserved.
+// Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "platform/impl/scoped_wake_lock_mac.h"
+#include "util/scoped_wake_lock_mac.h"
 
 #include <CoreFoundation/CoreFoundation.h>
+#include <IOKit/pwr_mgt/IOPMLib.h>
 
 #include "platform/api/task_runner.h"
 #include "platform/impl/platform_client_posix.h"
 #include "util/osp_logging.h"
 
 namespace openscreen {
-
-ScopedWakeLockMac::LockState ScopedWakeLockMac::lock_state_{};
-
-SerialDeletePtr<ScopedWakeLock> ScopedWakeLock::Create(
-    TaskRunner& task_runner) {
-  return SerialDeletePtr<ScopedWakeLock>(&task_runner, new ScopedWakeLockMac());
-}
-
 namespace {
 
 TaskRunner& GetTaskRunner() {
@@ -29,6 +22,28 @@ TaskRunner& GetTaskRunner() {
 }
 
 }  // namespace
+
+class ScopedWakeLockMac : public ScopedWakeLock {
+ public:
+  ScopedWakeLockMac();
+  ~ScopedWakeLockMac() override;
+
+ private:
+  struct LockState {
+    int reference_count = 0;
+    IOPMAssertionID assertion_id = kIOPMNullAssertionID;
+  };
+
+  static void AcquireWakeLock();
+  static void ReleaseWakeLock();
+
+  static LockState lock_state_;
+};
+
+SerialDeletePtr<ScopedWakeLock> ScopedWakeLock::Create(
+    TaskRunner& task_runner) {
+  return SerialDeletePtr<ScopedWakeLock>(&task_runner, new ScopedWakeLockMac());
+}
 
 ScopedWakeLockMac::ScopedWakeLockMac() : ScopedWakeLock() {
   GetTaskRunner().PostTask([] {
@@ -69,5 +84,7 @@ void ScopedWakeLockMac::ReleaseWakeLock() {
   const IOReturn result = IOPMAssertionRelease(lock_state_.assertion_id);
   OSP_DCHECK_EQ(result, kIOReturnSuccess);
 }
+
+ScopedWakeLockMac::LockState ScopedWakeLockMac::lock_state_{};
 
 }  // namespace openscreen
