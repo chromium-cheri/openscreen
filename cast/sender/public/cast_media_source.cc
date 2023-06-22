@@ -25,13 +25,14 @@ CastMediaSource::CastMediaSource(std::string source,
     : source_id_(std::move(source)), app_ids_(std::move(app_ids)) {}
 
 CastMediaSource::CastMediaSource(const CastMediaSource& other) = default;
-CastMediaSource::CastMediaSource(CastMediaSource&& other) = default;
+CastMediaSource::CastMediaSource(CastMediaSource&& other) noexcept = default;
 
 CastMediaSource::~CastMediaSource() = default;
 
 CastMediaSource& CastMediaSource::operator=(const CastMediaSource& other) =
     default;
-CastMediaSource& CastMediaSource::operator=(CastMediaSource&& other) = default;
+CastMediaSource& CastMediaSource::operator=(CastMediaSource&& other) noexcept =
+    default;
 
 bool CastMediaSource::ContainsAppId(const std::string& app_id) const {
   return Contains(app_ids_, app_id);
