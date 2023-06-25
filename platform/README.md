@@ -18,7 +18,7 @@ platform features.
    defined in api/ can only depend on third_party or platform/base files.
 
  - base/ contains declarations/definitions of API constructs. Classes homed here
-   shall only depend on platform/api or this folder.
+   shall only depend on platform/api, util/ or this folder.
 
  - impl/ contains the implementation of the standalone use case, namely a
    self-contained binary using the default implementation of the platform API.

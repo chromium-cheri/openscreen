@@ -7,6 +7,8 @@
 #include <cassert>
 #include <sstream>
 
+#include "util/stringprintf.h"
+
 namespace openscreen {
 
 // static
@@ -31,16 +33,7 @@ UdpPacket::~UdpPacket() = default;
 UdpPacket& UdpPacket::operator=(UdpPacket&& other) = default;
 
 std::string UdpPacket::ToString() const {
-  // TODO(issuetracker.google.com/158660166): Change to use shared hex-to-string
-  // method.
-  static constexpr char hex[] = "0123456789ABCDEF";
-  std::stringstream ss;
-  ss << "[";
-  for (auto it = begin(); it != end(); it++) {
-    ss << hex[*it / 16] << hex[*it % 16] << " ";
-  }
-  ss << "]";
-  return ss.str();
+  return empty() ? "[]" : "[" + HexEncode(&*begin(), size()) + "]";
 }
 
 }  // namespace openscreen

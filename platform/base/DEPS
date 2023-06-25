@@ -8,14 +8,12 @@ include_rules = [
     '-absl',
     '-platform',
     '+platform/base',
-    '-util',
     '-third_party',
 ]
 
 specific_include_rules = {
   ".*_unittest\.cc": [
     '+platform/test',
-    '+util',
     '+third_party',
   ],
 }
