@@ -13,6 +13,7 @@
 #include "discovery/dnssd/impl/service_instance.h"
 #include "discovery/dnssd/public/dns_sd_querier.h"
 #include "discovery/dnssd/public/dns_sd_service.h"
+#include "discovery/public/dns_sd_service_factory.h"
 
 namespace openscreen {
 
