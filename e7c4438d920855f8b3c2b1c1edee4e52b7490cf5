@@ -16,6 +16,23 @@
       "message": "When we initially added this I was wondering if it should be a part of the SenderSession and ReceiverSession objects. Since we do only use it in standalone (and I think it\u0027s fine to stay that way) util makes sense to me.",
       "revId": "e7c4438d920855f8b3c2b1c1edee4e52b7490cf5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fd60614_ee2973c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-06-28T19:44:43Z",
+      "side": 1,
+      "message": "Thanks!\n\nI could have mentioned in the commit message this is part of a larger set of changes to remove SerialDeletePtr from the platform API in place of just using std::unique_ptr with a custom deleter where we need to pass objects out with async deletion.\n\nThis was one of the couple of places where we hand out a SerialDeletePtr so instead of changing it, just moving it to util/ makes more sense.",
+      "revId": "e7c4438d920855f8b3c2b1c1edee4e52b7490cf5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
