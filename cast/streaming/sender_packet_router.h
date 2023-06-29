@@ -66,6 +66,14 @@ class SenderPacketRouter : public BandwidthEstimator,
     // immediate resume is desired.
     virtual Clock::time_point GetRtpResumeTime() = 0;
 
+    // Returns the last logged RTP timestamp, for use in expanding truncated
+    // packet RTP timestamps for metrics purposes.
+    virtual RtpTimeTicks GetLastRtpTimestamp() const = 0;
+
+    // Returns whether this sender is audio (or video if false) for use in
+    // recording metrics.
+    virtual bool IsAudio() const = 0;
+
    protected:
     virtual ~Sender();
   };
