@@ -16,6 +16,40 @@
       "message": "Hi davidben@,\n\nI don\u0027t work on the openscreen repo. I think jophba@ has more knowledge here and have added them to this CL.",
       "revId": "7d7b8f9d57ecf1f01f63019352ba2f13533054f3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d372ed33_78d78ed3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-07-13T18:51:34Z",
+      "side": 1,
+      "message": "Looks less painful that I thought.\n\nLGTM % feedback.",
+      "revId": "7d7b8f9d57ecf1f01f63019352ba2f13533054f3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03340d74_a40adefa",
+        "filename": "cast/common/certificate/boringssl_trust_store.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-07-13T18:51:34Z",
+      "side": 1,
+      "message": "This works assuming everything is well inside the length of int and we aren\u0027t worried about overflows.\n\nIf that\u0027s true though why bother using get_uint64? Might as well call the signed version right?\n\nASN1_INTEGER_get_int64\n\nIf that\u0027s not true then you probably should add something from base/numerics/safe_conversions.h here.",
+      "revId": "7d7b8f9d57ecf1f01f63019352ba2f13533054f3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
