@@ -35,6 +35,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59639b30_817d395f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-13T19:28:32Z",
+      "side": 1,
+      "message": "Yeah, most of it is auto-generated. In the future we\u0027ll move those generated files into the BoringSSL tree so we won\u0027t have that diff noise, but not quite there yet. :-(",
+      "parentUuid": "d372ed33_78d78ed3",
+      "revId": "7d7b8f9d57ecf1f01f63019352ba2f13533054f3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03340d74_a40adefa",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-07-13T18:51:34Z",
       "side": 1,
       "message": "This works assuming everything is well inside the length of int and we aren\u0027t worried about overflows.\n\nIf that\u0027s true though why bother using get_uint64? Might as well call the signed version right?\n\nASN1_INTEGER_get_int64\n\nIf that\u0027s not true then you probably should add something from base/numerics/safe_conversions.h here.",
+      "revId": "7d7b8f9d57ecf1f01f63019352ba2f13533054f3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d5c5b91_648438aa",
+        "filename": "cast/common/certificate/boringssl_trust_store.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-07-13T19:28:32Z",
+      "side": 1,
+      "message": "Overflows are handled by the `pathlen \u003e 0xff` check above. I made it a fatal error just to preserve the existing behavior, where `length !\u003d 1` was an error.\n\n`ASN1_INTEGER_get_int64` would allow negative values and we specifically want to reject those. Negative `pathlen` values are a syntax error:\n\n```\n   BasicConstraints ::\u003d SEQUENCE {\n        cA                      BOOLEAN DEFAULT FALSE,\n        pathLenConstraint       INTEGER (0..MAX) OPTIONAL }\n```\nhttps://www.rfc-editor.org/rfc/rfc5280\n\nIt also wouldn\u0027t have done anything about overflow since `int64_t` may not fit in `int`.\n\n(BoringSSL\u0027s parser should just reject that, but we\u0027re not there yet for... reasons.)\n\n\u003e If that\u0027s not true then you probably should add something from base/numerics/safe_conversions.h here.\n\nDoes safe_conversions.h exist in openscreen? I wasn\u0027t able to find it.",
+      "parentUuid": "03340d74_a40adefa",
       "revId": "7d7b8f9d57ecf1f01f63019352ba2f13533054f3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
