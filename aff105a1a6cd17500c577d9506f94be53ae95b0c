@@ -50,6 +50,24 @@
       "message": "Can this be a \n\n    template \u003ctypename T\u003e\n    using SerialDeletePtr \u003d std::unique_ptr\u003cT, TaskRunnerDeleter\u003e;\n    \ninstead of a full blown class?",
       "revId": "aff105a1a6cd17500c577d9506f94be53ae95b0c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0eb1651e_cd6aea63",
+        "filename": "util/serial_delete_ptr.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-07-20T15:32:10Z",
+      "side": 1,
+      "message": "Nope, because of the custom constructors defined here.  It will require rewriting the callers of those constructors to remove SerialDeletePtr.",
+      "parentUuid": "14887e78_4dab3b5d",
+      "revId": "aff105a1a6cd17500c577d9506f94be53ae95b0c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
