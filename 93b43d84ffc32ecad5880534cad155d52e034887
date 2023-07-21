@@ -26,6 +26,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bc7a0791_c07d0acb",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-07-21T18:29:16Z",
+      "side": 1,
+      "message": "Pass by reference as it must never be nullptr.",
+      "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3f718ac6_6e4f299f",
         "filename": "cast/streaming/sender.cc",
         "patchSetId": 10
@@ -43,6 +60,57 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "32924579_511a4fe6",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-07-21T18:29:16Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d051376_c9636fbc",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-07-21T18:29:16Z",
+      "side": 1,
+      "message": "I agree; we should be logging an event in the same place as the logic that generates the event.",
+      "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a1bc734_69313bfe",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-07-21T18:29:16Z",
+      "side": 1,
+      "message": "Is SessionConfig intended for parameters that are independent of the stream type?  Or is it a mix of general parameters and audio/video specific parameters?",
+      "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f4a60492_c2793a36",
         "filename": "cast/streaming/session_config.h",
         "patchSetId": 10
@@ -54,6 +122,24 @@
       "writtenOn": "2023-07-20T23:11:36Z",
       "side": 1,
       "message": "Optional nit: Have we considered using an enum instead? May or may not be worth the hassle to be explicit about being a video vs an audio stream",
+      "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1929663_b8c1e7d9",
+        "filename": "cast/streaming/session_config.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-07-21T18:29:16Z",
+      "side": 1,
+      "message": "+1 for readability here.  Maybe there is already an enum we can use?",
+      "parentUuid": "f4a60492_c2793a36",
       "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -111,6 +197,57 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "903714d9_25a6ec30",
+        "filename": "cast/streaming/statistics_collector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-07-21T18:29:16Z",
+      "side": 1,
+      "message": "I started to write a checked_cast utility:\n\nhttps://chromium-review.googlesource.com/c/openscreen/+/3576782\n\nMaybe add a TODO() here to update this code whenever that\u0027s able to land.",
+      "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9aabadcd_b23e8f49",
+        "filename": "cast/streaming/statistics_collector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-07-21T18:29:16Z",
+      "side": 1,
+      "message": "Shorter as: .emplace(event) here and below",
+      "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e259c9bc_9de751c6",
+        "filename": "cast/streaming/statistics_collector.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-07-21T18:29:16Z",
+      "side": 1,
+      "message": "Can you add some comments to the declarations in this file?\n- What belongs in PacketMetadata?\n- What are the contracts for the Collect* and Take* APIs?",
+      "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "28d656d0_35003074",
         "filename": "cast/streaming/statistics_defines.h",
         "patchSetId": 10
@@ -122,6 +259,23 @@
       "writtenOn": "2023-07-20T23:11:36Z",
       "side": 1,
       "message": "Did you mean to keep these TODOs in the CL? If so it might be good to elaborate - it could just be because I\u0027m unfamiliar with the code, but it\u0027s hard for me to tell what the comment means.",
+      "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10b9f73d_8327c802",
+        "filename": "cast/streaming/statistics_defines.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-07-21T18:29:16Z",
+      "side": 1,
+      "message": "The capture and encode metrics have to be collected in Chrome.",
       "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
