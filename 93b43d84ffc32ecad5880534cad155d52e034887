@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f473570d_995b3034",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-07-27T00:52:23Z",
+      "side": 1,
+      "message": "First round of feedback, have some additional comments I will address tomorrow.",
+      "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6e58173_69997dd1",
@@ -14,6 +31,30 @@
       "writtenOn": "2023-07-20T23:11:36Z",
       "side": 1,
       "message": "Nit: an",
+      "range": {
+        "startLine": 108,
+        "startChar": 39,
+        "endLine": 108,
+        "endChar": 40
+      },
+      "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e2f428b_dba347a0",
+        "filename": "cast/streaming/environment.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-07-27T00:52:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6e58173_69997dd1",
       "range": {
         "startLine": 108,
         "startChar": 39,
@@ -41,6 +82,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "339f53b6_47957355",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-07-27T00:52:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc7a0791_c07d0acb",
+      "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f718ac6_6e4f299f",
@@ -58,6 +117,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65b44e79_79078d52",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-07-27T00:52:23Z",
+      "side": 1,
+      "message": "Yes, currently not providing them.",
+      "parentUuid": "3f718ac6_6e4f299f",
+      "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32924579_511a4fe6",
@@ -71,6 +148,24 @@
       "writtenOn": "2023-07-21T18:29:16Z",
       "side": 1,
       "message": "Ditto.",
+      "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99ac2542_33dcaa14",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-07-27T00:52:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32924579_511a4fe6",
       "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -105,6 +200,24 @@
       "writtenOn": "2023-07-21T18:29:16Z",
       "side": 1,
       "message": "Is SessionConfig intended for parameters that are independent of the stream type?  Or is it a mix of general parameters and audio/video specific parameters?",
+      "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f1ae2ef_535992b8",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-07-27T00:52:23Z",
+      "side": 1,
+      "message": "Great question. It\u0027s meant to be independent of the stream type--but already existing fields like channels are stream type dependent so I think adding an enum for is audio or video is reasonable here. LMK if you disagree.",
+      "parentUuid": "5a1bc734_69313bfe",
       "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -144,6 +257,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "520234a7_7dc92be6",
+        "filename": "cast/streaming/session_config.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-07-27T00:52:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1929663_b8c1e7d9",
+      "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb9927f2_5b5b52e7",
@@ -178,6 +309,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1be76e02_9c575ff7",
+        "filename": "cast/streaming/statistics_collector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-07-27T00:52:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a7288a8_9ec52cfc",
+      "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87b455b1_c245fb9a",
@@ -191,6 +340,24 @@
       "writtenOn": "2023-07-20T23:11:36Z",
       "side": 1,
       "message": "Nit: We don\u0027t seem to be using ssrc, should we Skip() instead?",
+      "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e01a071e_69fec3b7",
+        "filename": "cast/streaming/statistics_collector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-07-27T00:52:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87b455b1_c245fb9a",
       "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -212,6 +379,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a04b9c4e_4a8be3a7",
+        "filename": "cast/streaming/statistics_collector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-07-27T00:52:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "903714d9_25a6ec30",
+      "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9aabadcd_b23e8f49",
@@ -225,6 +410,24 @@
       "writtenOn": "2023-07-21T18:29:16Z",
       "side": 1,
       "message": "Shorter as: .emplace(event) here and below",
+      "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d64c98f1_b64728f7",
+        "filename": "cast/streaming/statistics_collector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-07-27T00:52:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9aabadcd_b23e8f49",
       "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -263,6 +466,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d17d354e_3db99147",
+        "filename": "cast/streaming/statistics_defines.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-07-27T00:52:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28d656d0_35003074",
+      "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10b9f73d_8327c802",
@@ -280,6 +501,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ef8d882_93921f79",
+        "filename": "cast/streaming/statistics_defines.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-07-27T00:52:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10b9f73d_8327c802",
+      "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a49fde84_e373630c",
@@ -293,6 +532,24 @@
       "writtenOn": "2023-07-20T23:11:36Z",
       "side": 1,
       "message": "Nit: Does the formatter not want this to go at the end of line 82?",
+      "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74ba5cdb_94bcfb82",
+        "filename": "cast/streaming/statistics_defines.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-07-27T00:52:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a49fde84_e373630c",
       "revId": "93b43d84ffc32ecad5880534cad155d52e034887",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
