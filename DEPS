@@ -168,7 +168,13 @@ deps = {
   'third_party/valijson/src': {
     'url': Var('github') + '/tristanpenman/valijson.git' +
       '@' + '78ac8a737df56b5334354efe104ea8f99e2a2f00', # Version 1.0
-    'condition': 'not build_with_chromium'
+    'condition': 'not build_with_chromium',
+  },
+
+  'third_party/googleurl/src': {
+    'url': Var('quiche_git') + '/googleurl.git' +
+      '@' + '5573f9aa120f3fbd378ca1b2565bbf7d223cd542',    #2023-07-06
+    'condition': 'not build_with_chromium',
   }
 }
 
