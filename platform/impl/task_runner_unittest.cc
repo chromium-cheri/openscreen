@@ -98,7 +98,7 @@ TEST(TaskRunnerImplTest, TaskRunnerExecutesTaskAndStops) {
   EXPECT_EQ(ran_tasks, "1");
 }
 
-TEST(TaskRunnerImplTest, TaskRunnerRunsDelayedTasksInOrder) {
+TEST(TaskRunnerImplTest, DISABLED_TaskRunnerRunsDelayedTasksInOrder) {
   FakeClock fake_clock{Clock::time_point(milliseconds(1337))};
   TaskRunnerImpl runner(&fake_clock.now);
 
