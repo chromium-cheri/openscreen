@@ -16,6 +16,23 @@
       "message": "Hi, Mark. PTAL.\n\n\"linux64_gcc_debug\" fails because we uses GCC7 now, however, \"__builtin_is_constant_evaluated\" is introdeced in GCC9. So can we bump the GCC version?",
       "revId": "d57c3e7e5896cd9ee600a99e180a933a61210b15",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22d077a9_3bf3309b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-04T23:12:23Z",
+      "side": 1,
+      "message": "It looks like this library is using a builtin that is only supported on gcc 9.   Let\u0027s try to land the C++ uprev to C++17 first, then bring the builders up to gcc 9 to see if we can land this.",
+      "revId": "d57c3e7e5896cd9ee600a99e180a933a61210b15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
