@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e29d930b_98e80ae1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-08-07T23:54:02Z",
+      "side": 1,
+      "message": "LGTM % feedback. Yay for c++17! hyped to use some of the new features.",
+      "revId": "9ce2a5e18e46217ab83844fbd450b33c8a7e7a77",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db3a2573_a92fd9b8",
+        "filename": "platform/impl/task_runner_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-08-07T23:54:02Z",
+      "side": 1,
+      "message": "Nit: consider writing out in binary representation, would be more obvious I think what is going on here.\n\n      std::atomic\u003cint\u003e ran_tasks{0b1111};\n      \n      // If task_two runs before task_one, the final value of ran_tasks will be 0b0011.\n      ...\n      const auto task_one \u003d [\u0026ran_tasks] { ran_tasks \u0026\u003d 0b0011; };\n      ...\n      const auto task_two \u003d [\u0026ran_tasks] { ran_tasks |\u003d 0b1010; };\n      ...",
+      "revId": "9ce2a5e18e46217ab83844fbd450b33c8a7e7a77",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
