@@ -68,6 +68,24 @@
       "parentUuid": "8dfbbf3a_39579782",
       "revId": "d57c3e7e5896cd9ee600a99e180a933a61210b15",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9921a2a8_bc62149e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-07T23:58:44Z",
+      "side": 1,
+      "message": "I see that two APIs in the QUICHE platform require URL operations, that are implemented by Chromium\u0027s URL library or googleurl.\n\nnet/third_party/quiche/src/quiche/common/platform/api/quiche_hostname_utils.h\n\nnet/third_party/quiche/src/quiche/common/platform/api/quiche_url_utils.h\n\nLet me check whether we want to use googleurl as the official URL library for openscreen.  Or port the Chromium code to our own library.",
+      "parentUuid": "508303d2_62b6b1bb",
+      "revId": "d57c3e7e5896cd9ee600a99e180a933a61210b15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
