@@ -50,6 +50,24 @@
       "message": "For what it is worth I didn\u0027t see any references to googleurl in the open source QUICHE code.  I would wait on this until we are sure it\u0027s needed (or, feel free to point out some code where it\u0027s used).\n\nhttps://source.chromium.org/search?q\u003dthird_party%2Fgoogleurl%2Fsrc\u0026sq\u003d\u0026ss\u003dchromium%2Fchromium%2Fsrc:net%2Fthird_party%2Fquiche%2Fsrc%2F\n\n\nChromium projects tend to use Mozilla\u0027s URL code instead for parsing URLs.  We have a copy here: third_party/openscreen/src/util/url.h",
       "revId": "d57c3e7e5896cd9ee600a99e180a933a61210b15",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "508303d2_62b6b1bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2023-08-07T00:55:27Z",
+      "side": 1,
+      "message": "Actually, when built with chromium, QUICHE uses url/(see here: https://source.chromium.org/chromium/chromium/src/+/main:net/third_party/quiche/BUILD.gn;l\u003d734) directly. But, when built without chromium, QUICHE uses googleurl(see here: https://source.chromium.org/chromium/chromium/src/+/main:net/third_party/quiche/src/WORKSPACE.bazel;l\u003d48). googleurl is a fork of url/. So we need this when building OpenScreen without chromium.",
+      "parentUuid": "8dfbbf3a_39579782",
+      "revId": "d57c3e7e5896cd9ee600a99e180a933a61210b15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
