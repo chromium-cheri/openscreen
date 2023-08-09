@@ -47,7 +47,7 @@ deps = {
   # https://chromium.googlesource.com/chromium/src/buildtools/+/refs/heads/main
   'buildtools': {
     'url': Var('chromium_git') + '/chromium/src/buildtools' +
-      '@' + '3c7e3f1b8b1e4c0b6ec693430379cea682de78d6',
+      '@' + 'a9a6f0c49d0e8fa0cda37337430b4736ab3dc944',
     'condition': 'not build_with_chromium',
   },
   'third_party/clang-format/script': {
