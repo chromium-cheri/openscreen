@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33e6bb15_973cb4df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-10T20:48:43Z",
+      "side": 1,
+      "message": "After chatting with jophba@ it looks like we can use googleurl to replace our copy of url parsing code, so this is good to land once we address a few issues.\n\n- There was a recent change to add .gitmodules for third party code in addition to DEPS entries.  I think you will just need to add a .gitmodules entry to this CL:\n\nhttps://docs.google.com/document/d/1N_fseFNOj10ETZG3pZ-I30R__w96rYNtvx5y_jFGJWw/edit?usp\u003dsharing\n\n- The gcc failure needs to be resolved, I found the following issue which might be relevant?  https://crbug.com/866538",
+      "revId": "111b15678187f39b52e70a6da0f47b19a0359b38",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "687c979b_080d1f6e",
+        "filename": "third_party/googleurl/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-10T20:48:43Z",
+      "side": 1,
+      "message": "We don\u0027t want to have dependencies from open screen code on Chromium code.  Instead assert that this is version of googleurl not going to be included from Chromium, e.g. assert(!build_with_chromium)",
+      "revId": "111b15678187f39b52e70a6da0f47b19a0359b38",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d2de820_a30cbc9c",
+        "filename": "third_party/googleurl/README.chromium",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-10T20:48:43Z",
+      "side": 1,
+      "message": "I would drop \"adapted to work with Bazel\" since Open Screen does not yet use Bazel.",
+      "revId": "111b15678187f39b52e70a6da0f47b19a0359b38",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eab40b0f_7a9fc321",
+        "filename": "third_party/googleurl/README.chromium",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-10T20:48:43Z",
+      "side": 1,
+      "message": "Drop \"that use Bazel\"",
+      "revId": "111b15678187f39b52e70a6da0f47b19a0359b38",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
