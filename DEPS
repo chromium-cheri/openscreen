@@ -132,7 +132,7 @@ deps = {
   # To roll forward, use quiche_revision from chromium/src/DEPS.
   'third_party/quiche/src': {
     'url': Var('quiche_git') + '/quiche.git' +
-      '@' + '7b58beaec1f65b8e074ddb81796e34f3d6d83cf3',
+      '@' + '37e40568cb4e303d963faf105927ffac6ff85792',  # 2023-08-02
     'condition': 'not build_with_chromium',
   },
 
@@ -171,7 +171,7 @@ deps = {
 
   'third_party/googleurl/src': {
     'url': Var('quiche_git') + '/googleurl.git' +
-      '@' + 'dfe8ef6164f8b4e3e9a9cbe8521bb81359918393',    #2023-08-01
+      '@' + 'dfe8ef6164f8b4e3e9a9cbe8521bb81359918393',  #2023-08-01
     'condition': 'not build_with_chromium',
   }
 }
