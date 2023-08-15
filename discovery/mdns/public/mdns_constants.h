@@ -312,7 +312,7 @@ enum class DnsType : uint16_t {
   kANY = 255,  // Only allowed for QTYPE
 };
 
-inline std::ostream& operator<<(std::ostream& output, DnsType type) {
+std::ostream& operator<<(std::ostream& output, DnsType type) {
   switch (type) {
     case DnsType::kA:
       return output << "A";
@@ -330,9 +330,9 @@ inline std::ostream& operator<<(std::ostream& output, DnsType type) {
       return output << "NSEC";
     case DnsType::kANY:
       return output << "ANY";
+    default:
+      return output << "OTHER";
   }
-
-  OSP_NOTREACHED();
 }
 
 constexpr std::array<DnsType, 7> kSupportedDnsTypes = {
