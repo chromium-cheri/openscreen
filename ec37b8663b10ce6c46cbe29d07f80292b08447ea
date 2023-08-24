@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b08856a3_0d11ba34",
+        "filename": "third_party/quiche/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2023-08-24T03:57:01Z",
+      "side": 1,
+      "message": "Hi, mark. I think the reason is that Chromium BUILD.gn is not exactly the same with source_list.gni. For example, quic_trace_visitor.h is included in quiche_core_hdrs in source_list.gni, but it is not included in component(\"quiche\") in Chromium BUILD.gn. But quic_trace_visitor.h deps on quic_trace(https://source.chromium.org/chromium/chromium/src/+/main:third_party/quic_trace/src/), if we uses source_list.gn directly, we also need to add quic_trace as a third_party dependency.",
+      "parentUuid": "176df4fd_9aee0ff2",
+      "revId": "ec37b8663b10ce6c46cbe29d07f80292b08447ea",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aef691b7_34b44dab",
         "filename": "third_party/quiche/BUILD.gn",
         "patchSetId": 5
@@ -65,6 +83,24 @@
       "writtenOn": "2023-08-23T17:54:42Z",
       "side": 1,
       "message": "I\u0027m not sure all of these need to be public_deps; it depends on whether the header files include other header files from these targets.  \n\nIt\u0027s OK to leave as-is for consistency with the Chromium BUILD.gn, however, it would be more correct to move the private dependencies to deps\u003d.",
+      "revId": "ec37b8663b10ce6c46cbe29d07f80292b08447ea",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e351060_88329b4d",
+        "filename": "third_party/quiche/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2023-08-24T03:57:01Z",
+      "side": 1,
+      "message": "Got it, thanks.",
+      "parentUuid": "aef691b7_34b44dab",
       "revId": "ec37b8663b10ce6c46cbe29d07f80292b08447ea",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -86,6 +122,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6f1c8ed_dd0b71a9",
+        "filename": "third_party/quiche/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2023-08-24T03:57:01Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "266ed9c7_7c4a5a88",
+      "revId": "ec37b8663b10ce6c46cbe29d07f80292b08447ea",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e38aa97b_32d0178e",
@@ -99,6 +153,24 @@
       "writtenOn": "2023-08-23T17:54:42Z",
       "side": 1,
       "message": "This #define shouldn\u0027t affect the generation of C++ code from the protocol message definitions.  Can it be removed?",
+      "revId": "ec37b8663b10ce6c46cbe29d07f80292b08447ea",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88cd5581_f69f1edc",
+        "filename": "third_party/quiche/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2023-08-24T03:57:01Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "e38aa97b_32d0178e",
       "revId": "ec37b8663b10ce6c46cbe29d07f80292b08447ea",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
