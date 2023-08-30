@@ -1,0 +1,378 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbb78503_f0adaa0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-30T22:07:10Z",
+      "side": 1,
+      "message": "Overall looks really good and most of my comments are minor style things.  Please try to land with some unit tests (or follow up with them soon) 😊",
+      "revId": "180d7b7682aa543d3701b5e0fc04e0df276c5789",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63d2a2ed_5711a6b2",
+        "filename": "cast/standalone_sender/connection_settings.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-30T22:07:10Z",
+      "side": 1,
+      "message": "For the purposes of the standalone binaries, I would be OK assuming we should always collect statistics, as part of their job is to validate that all parts of the implementation are functional and demonstrate how to use the APIs.",
+      "revId": "180d7b7682aa543d3701b5e0fc04e0df276c5789",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8af79ee1_d4e80c3e",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-30T22:07:10Z",
+      "side": 1,
+      "message": "One idea would be to make this OSP_VLOG so the periodic output is controlled by the -v flag, and you always log the final statistics at the end of the session at INFO in Shutdown().",
+      "revId": "180d7b7682aa543d3701b5e0fc04e0df276c5789",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ace352c3_ff0d3810",
+        "filename": "cast/streaming/compound_rtcp_parser.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-30T22:07:10Z",
+      "side": 1,
+      "message": "Add an issue number?",
+      "revId": "180d7b7682aa543d3701b5e0fc04e0df276c5789",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80085a8b_8ac0b888",
+        "filename": "cast/streaming/compound_rtcp_parser.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-30T22:07:10Z",
+      "side": 1,
+      "message": "My instinct is to declare a uint8_t enum class for the wire values (1, 5, 11, etc.), but I am not sure that helps readability since really this is parsing code and the specific values are not that meaningful.  WDYT?",
+      "revId": "180d7b7682aa543d3701b5e0fc04e0df276c5789",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbb7825a_4e806693",
+        "filename": "cast/streaming/compound_rtcp_parser.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-30T22:07:10Z",
+      "side": 1,
+      "message": "Can you add a comment why it\u0027s okay to return true here?",
+      "revId": "180d7b7682aa543d3701b5e0fc04e0df276c5789",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b8fdb1e_7e8caa62",
+        "filename": "cast/streaming/compound_rtcp_parser.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-30T22:07:10Z",
+      "side": 1,
+      "message": "return ParseFrameLogMessages(...)",
+      "revId": "180d7b7682aa543d3701b5e0fc04e0df276c5789",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cc1cae2_e29007c3",
+        "filename": "cast/streaming/compound_rtcp_parser.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-30T22:07:10Z",
+      "side": 1,
+      "message": "I\u0027m not sure this is needed.  If you want to return an empty list on error, then you could clear messages before the one place that false is returned.",
+      "revId": "180d7b7682aa543d3701b5e0fc04e0df276c5789",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e724cc8_670de383",
+        "filename": "cast/streaming/compound_rtcp_parser.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-30T22:07:10Z",
+      "side": 1,
+      "message": "Why are you adding 1?  Is this a hack to support between 1 and 256 events?",
+      "revId": "180d7b7682aa543d3701b5e0fc04e0df276c5789",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41456df6_48f1e87b",
+        "filename": "cast/streaming/compound_rtcp_parser.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-30T22:07:10Z",
+      "side": 1,
+      "message": "This feels like an error in the packet construction... but defer to how the legacy parsing code would handle this...",
+      "revId": "180d7b7682aa543d3701b5e0fc04e0df276c5789",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29b13ae3_030a739b",
+        "filename": "cast/streaming/compound_rtcp_parser.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-30T22:07:10Z",
+      "side": 1,
+      "message": "What if .type is kUnknown?  Should you generate a LogMessage here, or will the stats code downstream just skip it?",
+      "revId": "180d7b7682aa543d3701b5e0fc04e0df276c5789",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c63b4bdc_4bfbe4f7",
+        "filename": "cast/streaming/compound_rtcp_parser.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-30T22:07:10Z",
+      "side": 1,
+      "message": "Is it possible to use openscreen::ByteView instead of absl::Span in new code?  If you need compatibility with existing APIs, then fine to use absl::Span here and do cleanup in a separate CL.",
+      "revId": "180d7b7682aa543d3701b5e0fc04e0df276c5789",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "327102bd_ff67cd89",
+        "filename": "cast/streaming/compound_rtcp_parser.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-30T22:07:10Z",
+      "side": 1,
+      "message": "Pass non-null output argument by reference.",
+      "revId": "180d7b7682aa543d3701b5e0fc04e0df276c5789",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4521ac4_ba6a2e8c",
+        "filename": "cast/streaming/compound_rtcp_parser.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-30T22:07:10Z",
+      "side": 1,
+      "message": "Same comments here",
+      "revId": "180d7b7682aa543d3701b5e0fc04e0df276c5789",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40fca73a_b4e60f74",
+        "filename": "cast/streaming/compound_rtcp_parser_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-30T22:07:10Z",
+      "side": 1,
+      "message": "File a TODO with an issue number here",
+      "revId": "180d7b7682aa543d3701b5e0fc04e0df276c5789",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad0db5d8_9d46c796",
+        "filename": "cast/streaming/rtcp_common.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-30T22:07:10Z",
+      "side": 1,
+      "message": "Can you elaborate a bit - what is the baseline needed to interpret the delta value?",
+      "revId": "180d7b7682aa543d3701b5e0fc04e0df276c5789",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79e0578a_0cb17736",
+        "filename": "cast/streaming/rtp_defines.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-30T22:07:10Z",
+      "side": 1,
+      "message": "Appreciation for quality ASCII art 😊",
+      "revId": "180d7b7682aa543d3701b5e0fc04e0df276c5789",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9a1dfe2_4bc7acef",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-30T22:07:10Z",
+      "side": 1,
+      "message": "I would be interested in thoughts about moving this code out of session.cc and into a different file, maybe statistics_helpers.cc or some such, in a different CL.  In the interest of keeping this file smaller.",
+      "revId": "180d7b7682aa543d3701b5e0fc04e0df276c5789",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c72bc490_aad3cb2d",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-30T22:07:10Z",
+      "side": 1,
+      "message": "File a TODO /issue to add a test case that exercises this code?",
+      "revId": "180d7b7682aa543d3701b5e0fc04e0df276c5789",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16431cb0_23da1f61",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-30T22:07:10Z",
+      "side": 1,
+      "message": "Is this value used?",
+      "revId": "180d7b7682aa543d3701b5e0fc04e0df276c5789",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7e24978_652c4175",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-30T22:07:10Z",
+      "side": 1,
+      "message": "Printing the enum name is nice but seems like a lot of work ... maybe just print the numeric value like this:\n\n\"expect, StatisticsEventType \u003d \" \u003c\u003c event_message.type",
+      "revId": "180d7b7682aa543d3701b5e0fc04e0df276c5789",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "132d2b64_8bfb3a6d",
+        "filename": "cast/streaming/sender.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-30T22:07:10Z",
+      "side": 1,
+      "message": "Do you need IWYU for RtcpReceiverFrameLogMessage?",
+      "revId": "180d7b7682aa543d3701b5e0fc04e0df276c5789",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
