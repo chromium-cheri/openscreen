@@ -44,6 +44,9 @@ struct ConnectionSettings {
 
   // The codec to use for encoding negotiated video streams.
   VideoCodec codec;
+
+  // Whether we should report and log session statistics.
+  bool should_report_statistics = false;
 };
 
 }  // namespace cast

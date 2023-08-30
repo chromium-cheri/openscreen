@@ -290,6 +290,9 @@ void LoopingFileCastAgent::CreateAndStartSession() {
       remote_connection_->peer_id,
       connection_settings_->use_android_rtp_hack};
   current_session_ = std::make_unique<SenderSession>(std::move(config));
+  if (connection_settings_->should_report_statistics) {
+    current_session_->SetStatsClient(this);
+  }
   OSP_DCHECK(!message_port_.source_id().empty());
 
   AudioCaptureConfig audio_config;
@@ -342,6 +345,15 @@ void LoopingFileCastAgent::OnNegotiated(
 void LoopingFileCastAgent::OnError(const SenderSession* session, Error error) {
   OSP_LOG_ERROR << "SenderSession fatal error: " << error;
   Shutdown();
+}
+
+void LoopingFileCastAgent::OnStatisticsUpdated(
+    const SenderStats& updated_stats) {
+  // Only log every 10 times, or every 5 seconds.
+  constexpr int kLoggingInterval = 10;
+  if ((num_times_on_statistics_updated_called_++ % kLoggingInterval) == 0) {
+    OSP_LOG_INFO << __func__ << ": updated_stats=" << updated_stats.ToString();
+  }
 }
 
 void LoopingFileCastAgent::OnReady() {
