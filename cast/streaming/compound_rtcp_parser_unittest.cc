@@ -147,6 +147,8 @@ TEST_F(CompoundRtcpParserTest, ParsesPictureLossIndicatorMessage) {
   Mock::VerifyAndClearExpectations(client());
 }
 
+TEST_F(CompoundRtcpParserTest, OnCastReceiverFrameLogMessages) {}
+
 // Tests that RTCP packets containing chronologically-old data are ignored. This
 // test's methodology simulates a real-world possibility: A receiver sends a
 // "Picture Loss Indicator" in one RTCP packet, and then it sends another packet
