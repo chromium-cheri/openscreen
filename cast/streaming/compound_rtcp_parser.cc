@@ -21,6 +21,8 @@ namespace {
 // time) to represent unset time_point values.
 constexpr auto kNullTimePoint = Clock::time_point::min();
 
+constexpr uint32_t kCastName = ('C' << 24) + ('A' << 16) + ('S' << 8) + 'T';
+
 // Canonicalizes the just-parsed list of packet-specific NACKs so that the
 // CompoundRtcpParser::Client can make several simplifying assumptions when
 // processing the results.
@@ -74,6 +76,41 @@ void CanonicalizePacketNackVector(std::vector<PacketNack>* packets) {
   }
 }
 
+// TODO(issuetracker.google.com): implement the serialization of
+// StatisticsEventType to wire type as part of implementing receiver side event
+// generation.
+// NOTE: the legacy mappings, like AudioAckSent below, are still in use for
+// some receivers even though they were deprecated on the sender side in 2013.
+// TODO: true??
+StatisticsEventType ToEventTypeFromWire(uint8_t wire_event) {
+  switch (wire_event) {
+    case 1:   // AudioAckSent
+    case 5:   // VideoAckSent
+    case 11:  // Unified
+      return StatisticsEventType::kFrameAckSent;
+
+    case 2:   // AudioPlayoutDelay
+    case 7:   // VideoRenderDelay
+    case 12:  // Unified
+      return StatisticsEventType::kFramePlayedOut;
+
+    case 3:   // AudioFrameDecoded
+    case 6:   // VideoFrameDecoded
+    case 13:  // Unified
+      return StatisticsEventType::kFrameDecoded;
+
+    case 4:   // AudioPacketReceived
+    case 8:   // VideoPacketReceived
+    case 14:  // Unified
+      return StatisticsEventType::kPacketReceived;
+
+    default:
+      OSP_VLOG << "Unexpected RTCP log message received: "
+               << static_cast<int>(wire_event);
+      return StatisticsEventType::kUnknown;
+  }
+}
+
 }  // namespace
 
 CompoundRtcpParser::CompoundRtcpParser(RtcpSession* session,
@@ -94,6 +131,7 @@ bool CompoundRtcpParser::Parse(absl::Span<const uint8_t> buffer,
   // succeeds.
   Clock::time_point receiver_reference_time = kNullTimePoint;
   absl::optional<RtcpReportBlock> receiver_report;
+  std::vector<RtcpReceiverFrameLogMessage> log_messages;
   FrameId checkpoint_frame_id;
   std::chrono::milliseconds target_playout_delay{};
   std::vector<FrameId> received_frames;
@@ -120,6 +158,13 @@ bool CompoundRtcpParser::Parse(absl::Span<const uint8_t> buffer,
       case RtcpPacketType::kReceiverReport:
         if (!ParseReceiverReport(payload, header->with.report_count,
                                  &receiver_report)) {
+          return false;
+        }
+        break;
+
+      case RtcpPacketType::kApplicationDefined:
+        if (!ParseApplicationDefined(header->with.subtype, payload,
+                                     &log_messages)) {
           return false;
         }
         break;
@@ -180,6 +225,9 @@ bool CompoundRtcpParser::Parse(absl::Span<const uint8_t> buffer,
   if (receiver_report) {
     client_->OnReceiverReport(*receiver_report);
   }
+  if (!log_messages.empty()) {
+    client_->OnCastReceiverFrameLogMessages(std::move(log_messages));
+  }
   if (!checkpoint_frame_id.is_null()) {
     client_->OnReceiverCheckpoint(checkpoint_frame_id, target_playout_delay);
   }
@@ -209,6 +257,108 @@ bool CompoundRtcpParser::ParseReceiverReport(
     *receiver_report = RtcpReportBlock::ParseOne(in, num_report_blocks,
                                                  session_->sender_ssrc());
   }
+  return true;
+}
+
+bool CompoundRtcpParser::ParseApplicationDefined(
+    RtcpSubtype subtype,
+    absl::Span<const uint8_t> in,
+    std::vector<RtcpReceiverFrameLogMessage>* message) {
+  const uint32_t sender_ssrc = ConsumeField<uint32_t>(&in);
+  const uint32_t name = ConsumeField<uint32_t>(&in);
+  // TODO: right??
+  if (sender_ssrc != session_->receiver_ssrc()) {
+    OSP_LOG_ERROR << __func__ << ": ignoring a report.";
+    return true;
+  }
+  if (name != kCastName) {
+    OSP_LOG_ERROR << __func__ << ": incorrect name="
+                  << static_cast<char>((name >> 24) & 0xFF)
+                  << static_cast<char>((name >> 16) & 0xFF)
+                  << static_cast<char>((name >> 8) & 0xFF)
+                  << static_cast<char>((name >> 0) & 0xFF);
+    return false;
+  }
+  if (subtype == RtcpSubtype::kReceiverLog) {
+    if (!ParseFrameLogMessages(in, message)) {
+      OSP_LOG_ERROR << __func__ << ": failed to parse frame log.";
+      return false;
+    }
+    OSP_LOG_ERROR << __func__ << ": successfully parsed frame log.";
+  } else {
+    OSP_LOG_ERROR << __func__ << ": unknown subtype.";
+  }
+  return true;
+}
+
+bool CompoundRtcpParser::ParseFrameLogMessages(
+    absl::Span<const uint8_t> in,
+    std::vector<RtcpReceiverFrameLogMessage>* messages) {
+  std::vector<RtcpReceiverFrameLogMessage> message_list;
+
+  // TODO: while loop necessary? Or only once?
+  while (!in.empty()) {
+    OSP_LOG_ERROR << __func__ << ": doing a loop!";
+    if (in.size() < kRtcpReceiverFrameLogMessageHeaderSize) {
+      OSP_LOG_ERROR << __func__ << ": invalid sized report. size=" << in.size();
+      return false;
+    }
+
+    // TODO: minimum size here??
+    const uint32_t truncated_rtp_timestamp = ConsumeField<uint32_t>(&in);
+    const uint32_t data = ConsumeField<uint32_t>(&in);
+
+    // TODO: accurate construction?
+    // The 24 least significant bits contain the event timestamp.
+    const uint32_t raw_timestamp = data & 0xFFFFFF;
+    const Clock::time_point event_timestamp_base =
+        Clock::time_point{} + std::chrono::milliseconds(raw_timestamp);
+
+    // The 8 most significant bits contain the number of events.
+    const size_t num_events = 1u + static_cast<uint8_t>(data >> 24);
+
+    const RtpTimeTicks frame_log_rtp_timestamp =
+        latest_frame_log_rtp_timestamp_.Expand(truncated_rtp_timestamp);
+    RtcpReceiverFrameLogMessage frame_log{.rtp_timestamp =
+                                              frame_log_rtp_timestamp};
+
+    // if (in.size() < num_events * kRtcpReceiverFrameLogMessageBlockSize) {
+    //   OSP_LOG_ERROR << __func__ << ": invalid sized report. size=" <<
+    //   in.size(); return false;
+    // }
+    RtcpReceiverFrameLogMessage message;
+    for (size_t event = 0; event < num_events; ++event) {
+      if (in.size() < kRtcpReceiverFrameLogMessageBlockSize) {
+        OSP_LOG_ERROR << __func__ << ": skipping event " << event << " of "
+                      << num_events << ". ran out of parsing material.";
+        break;
+      }
+      const uint16_t delay_delta_or_packet_id = ConsumeField<uint16_t>(&in);
+      const uint16_t event_type_and_timestamp_delta =
+          ConsumeField<uint16_t>(&in);
+
+      RtcpReceiverEventLogMessage event_log{
+          .type = ToEventTypeFromWire(
+              static_cast<uint8_t>(event_type_and_timestamp_delta >> 12)),
+          .timestamp = event_timestamp_base +
+                       std::chrono::milliseconds(
+                           event_type_and_timestamp_delta & 0xFFF)};
+      if (event_log.type == StatisticsEventType::kPacketReceived) {
+        event_log.packet_id = delay_delta_or_packet_id;
+      } else {
+        event_log.delay = std::chrono::milliseconds(
+            static_cast<int16_t>(delay_delta_or_packet_id));
+      }
+      message.messages.emplace_back(std::move(event_log));
+    }
+    latest_frame_log_rtp_timestamp_ = frame_log_rtp_timestamp;
+    message_list.emplace_back(std::move(message));
+  }
+
+  // TODO: need to dedupe?? Where??
+  OSP_LOG_ERROR << __func__ << ": parsed a total of " << message_list.size()
+                << " messages.";
+  (*messages).swap(message_list);
   return true;
 }
 
@@ -367,6 +517,8 @@ void CompoundRtcpParser::Client::OnReceiverReferenceTimeAdvanced(
     Clock::time_point reference_time) {}
 void CompoundRtcpParser::Client::OnReceiverReport(
     const RtcpReportBlock& receiver_report) {}
+void CompoundRtcpParser::Client::OnCastReceiverFrameLogMessages(
+    std::vector<RtcpReceiverFrameLogMessage> messages) {}
 void CompoundRtcpParser::Client::OnReceiverIndicatesPictureLoss() {}
 void CompoundRtcpParser::Client::OnReceiverCheckpoint(
     FrameId frame_id,

@@ -64,6 +64,55 @@ void DispatchAckEvent(StreamType stream_type,
   environment.statistics_collector()->CollectFrameEvent(std::move(ack_event));
 }
 
+void DispatchFrameLogMessages(
+    StreamType stream_type,
+    const std::vector<RtcpReceiverFrameLogMessage>& messages,
+    Environment& environment) {
+  const StatisticsEventMediaType media_type = ToMediaType(stream_type);
+  for (const RtcpReceiverFrameLogMessage& log_message : messages) {
+    for (const RtcpReceiverEventLogMessage& event_message :
+         log_message.messages) {
+      switch (event_message.type) {
+        case StatisticsEventType::kPacketReceived: {
+          PacketEvent event;
+          event.timestamp = event_message.timestamp;
+          event.type = event_message.type;
+          event.media_type = media_type;
+          event.rtp_timestamp = log_message.rtp_timestamp;
+          event.packet_id = event_message.packet_id;
+          environment.statistics_collector()->CollectPacketEvent(
+              std::move(event));
+        } break;
+
+        case StatisticsEventType::kFrameAckSent:
+        case StatisticsEventType::kFrameDecoded:
+        case StatisticsEventType::kFramePlayedOut: {
+          FrameEvent event;
+          event.timestamp = event_message.timestamp;
+          event.type = event_message.type;
+          event.media_type = media_type;
+          event.rtp_timestamp = log_message.rtp_timestamp;
+          if (event.type == StatisticsEventType::kFramePlayedOut) {
+            event.delay_delta = event_message.delay;
+          }
+          environment.statistics_collector()->CollectFrameEvent(
+              std::move(event));
+        } break;
+
+        default:
+          ErrorOr<const char*> enum_name =
+              GetEnumName(kStatisticEventTypeNames, event_message.type);
+          OSP_VLOG << "Received log message via RTCP that we did not expect: "
+                   << (enum_name ? enum_name.value()
+                                 : std::to_string(
+                                       static_cast<int>(event_message.type))
+                                       .c_str());
+          break;
+      }
+    }
+  }
+}
+
 }  // namespace
 
 Sender::Sender(Environment* environment,
@@ -379,6 +428,11 @@ void Sender::OnReceiverReport(const RtcpReportBlock& receiver_report) {
   }
   TRACE_SCOPED1(TraceCategory::kSender, "UpdatedRoundTripTime",
                 "round_trip_time", ToString(round_trip_time_));
+}
+
+void Sender::OnCastReceiverFrameLogMessages(
+    std::vector<RtcpReceiverFrameLogMessage> messages) {
+  DispatchFrameLogMessages(config_.stream_type, messages, *environment_);
 }
 
 void Sender::OnReceiverIndicatesPictureLoss() {

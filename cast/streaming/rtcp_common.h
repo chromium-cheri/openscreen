@@ -17,6 +17,7 @@
 #include "cast/streaming/rtp_defines.h"
 #include "cast/streaming/rtp_time.h"
 #include "cast/streaming/ssrc.h"
+#include "cast/streaming/statistics_defines.h"
 
 namespace openscreen {
 namespace cast {
@@ -171,6 +172,21 @@ struct PacketNack {
     return (frame_id < other.frame_id) ||
            (frame_id == other.frame_id && packet_id < other.packet_id);
   }
+};
+
+// Log messages from the receiver to the sender, sent over RTCP.
+struct RtcpReceiverEventLogMessage {
+  StatisticsEventType type;
+  Clock::time_point timestamp;
+  Clock::duration delay;
+  FramePacketId packet_id;
+};
+
+// Each RTCP message from the receiver may contain zero or one frame log
+// message.
+struct RtcpReceiverFrameLogMessage {
+  RtpTimeTicks rtp_timestamp;
+  std::vector<RtcpReceiverEventLogMessage> messages;
 };
 
 }  // namespace cast
