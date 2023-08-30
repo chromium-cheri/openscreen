@@ -71,7 +71,7 @@ AudioStream CreateStream(int index,
                             config.target_playout_delay,
                             GenerateRandomBytes16(),
                             GenerateRandomBytes16(),
-                            false /* receiver_rtcp_event_log */,
+                            true /* receiver_rtcp_event_log */,
                             {} /* receiver_rtcp_dscp */,
                             config.sample_rate,
                             config.codec_parameter},
@@ -92,7 +92,7 @@ VideoStream CreateStream(int index,
              config.target_playout_delay,
              GenerateRandomBytes16(),
              GenerateRandomBytes16(),
-             false /* receiver_rtcp_event_log */,
+             true /* receiver_rtcp_event_log */,
              {} /* receiver_rtcp_dscp */,
              kRtpVideoTimebase,
              config.codec_parameter},
@@ -260,7 +260,9 @@ SenderSession::SenderSession(Configuration config)
                         });
 }
 
-SenderSession::~SenderSession() = default;
+SenderSession::~SenderSession() {
+  stats_analyzer_.reset();
+}
 
 Error SenderSession::Negotiate(std::vector<AudioCaptureConfig> audio_configs,
                                std::vector<VideoCaptureConfig> video_configs) {
@@ -310,6 +312,19 @@ int SenderSession::GetEstimatedNetworkBandwidth() const {
 void SenderSession::SetStatsClient(SenderStatsClient* client) {
   OSP_CHECK(!stats_client_) << "Client should only be set once.";
   stats_client_ = client;
+  // Create a StatisticsAnalyzer which can call the given stats_client_.
+  stats_analyzer_ = std::make_unique<StatisticsAnalyzer>(
+      stats_client_, config_.environment->now_function(),
+      config_.environment->task_runner());
+  // Instantiating StatisticsAnalyzer will create a StatisticsCollector, which
+  // should be set as the StatsCollector for the environment.
+  config_.environment->SetStatisticsCollector(
+      stats_analyzer_->statistics_collector());
+  // ScheduleAnalysis will create a repeating openscreen Alarm. This will be a
+  // repeating task which `Take`s the two types of StatisticsCollector events,
+  // and then analyzes them, and then calls the stats_client_'s
+  // OnStatisticsUpdated method.
+  stats_analyzer_->ScheduleAnalysis();
 }
 
 void SenderSession::ResetState() {

@@ -22,6 +22,7 @@
 #include "cast/streaming/session_config.h"
 #include "cast/streaming/session_messenger.h"
 #include "cast/streaming/statistics.h"
+#include "cast/streaming/statistics_analyzer.h"
 #include "json/value.h"
 #include "util/json/json_serialization.h"
 
@@ -282,6 +283,10 @@ class SenderSession final {
   // The statistics client for this session. Must be set in order for statistics
   // to be calculated.
   SenderStatsClient* stats_client_ = nullptr;
+
+  // Owns a StatisticsCollector, and sends analyzed stats to `stats_client_`.
+  // Created when `stats_client_` is set.
+  std::unique_ptr<StatisticsAnalyzer> stats_analyzer_;
 };  // namespace cast
 
 }  // namespace cast
