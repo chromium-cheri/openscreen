@@ -234,6 +234,8 @@ class Sender final : public SenderPacketRouter::Sender,
   // CompoundRtcpParser::Client implementation.
   void OnReceiverReferenceTimeAdvanced(Clock::time_point reference_time) final;
   void OnReceiverReport(const RtcpReportBlock& receiver_report) final;
+  void OnCastReceiverFrameLogMessages(
+      std::vector<RtcpReceiverFrameLogMessage> messages) final;
   void OnReceiverIndicatesPictureLoss() final;
   void OnReceiverCheckpoint(FrameId frame_id,
                             std::chrono::milliseconds playout_delay) final;

@@ -123,6 +123,7 @@ int StandaloneSenderMain(int argc, char* argv[]) {
 #endif
     {"android-hack", no_argument, nullptr, 'a'},
     {"remoting", no_argument, nullptr, 'r'},
+    {"statistics", no_argument, nullptr, 's'},
     {"tracing", no_argument, nullptr, 't'},
     {"verbose", no_argument, nullptr, 'v'},
     {"help", no_argument, nullptr, 'h'},
@@ -135,11 +136,12 @@ int StandaloneSenderMain(int argc, char* argv[]) {
   std::string developer_certificate_path;
   bool use_android_rtp_hack = false;
   bool use_remoting = false;
+  bool should_report_statistics = false;
   bool is_verbose = false;
   VideoCodec codec = VideoCodec::kVp8;
   std::unique_ptr<TextTraceLoggingPlatform> trace_logger;
   int ch = -1;
-  while ((ch = getopt_long(argc, argv, "m:nd:artvhc:", kArgumentOptions,
+  while ((ch = getopt_long(argc, argv, "m:nd:arstvhc:", kArgumentOptions,
                            nullptr)) != -1) {
     switch (ch) {
       case 'm':
@@ -164,6 +166,9 @@ int StandaloneSenderMain(int argc, char* argv[]) {
         break;
       case 'r':
         use_remoting = true;
+        break;
+      case 's':
+        should_report_statistics = true;
         break;
       case 't':
         trace_logger = std::make_unique<TextTraceLoggingPlatform>();
@@ -257,7 +262,8 @@ int StandaloneSenderMain(int argc, char* argv[]) {
                          .use_android_rtp_hack = use_android_rtp_hack,
                          .use_remoting = use_remoting,
                          .should_loop_video = should_loop_video,
-                         .codec = codec});
+                         .codec = codec,
+                         .should_report_statistics = should_report_statistics});
   });
 
   // Run the event loop until SIGINT (e.g., CTRL-C at the console) or
