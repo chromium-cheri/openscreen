@@ -6,11 +6,15 @@
 
 #include <algorithm>
 
+#include "platform/base/trivial_clock_traits.h"
 #include "util/chrono_helpers.h"
 #include "util/osp_logging.h"
 
 namespace openscreen {
 namespace cast {
+
+using clock_operators::operator<<;
+
 namespace {
 
 constexpr Clock::duration kStatisticsAnalysisInverval =
@@ -98,6 +102,8 @@ void StatisticsAnalyzer::SendStatistics() {
 void StatisticsAnalyzer::ProcessFrameEvents(
     const std::vector<FrameEvent> frame_events) {
   for (FrameEvent frame_event : frame_events) {
+    offset_estimator_.OnFrameEvent(frame_event);
+
     FrameStatsMap* frame_stats_map =
         GetFrameStatsMapForMediaType(frame_event.media_type);
     if (frame_stats_map) {
@@ -125,6 +131,8 @@ void StatisticsAnalyzer::ProcessFrameEvents(
 void StatisticsAnalyzer::ProcessPacketEvents(
     const std::vector<PacketEvent> packet_events) {
   for (PacketEvent packet_event : packet_events) {
+    offset_estimator_.OnPacketEvent(packet_event);
+
     PacketStatsMap* packet_stats_map =
         GetPacketStatsMapForMediaType(packet_event.media_type);
     if (packet_stats_map) {
@@ -174,13 +182,27 @@ void StatisticsAnalyzer::RecordFrameLatencies(const FrameEvent frame_event) {
     // Frame latency is the time from when the frame is encoded until the
     // receiver ack for the frame is sent.
     if (frame_event.type == StatisticsEventType::kFrameAckSent) {
-      // TODO(bzielinski): account for receiver offset
+      const absl::optional<Clock::duration> receiver_offset =
+          offset_estimator_.GetEstimatedOffset();
+      if (!receiver_offset) {
+        return;
+      }
+
+      const Clock::time_point playout_time =
+          frame_event.timestamp - *receiver_offset;
       const Clock::duration frame_latency =
-          frame_event.timestamp - it->second.encode_end_time;
+          playout_time - it->second.encode_end_time;
+
+      OSP_LOG_ERROR << __func__ << ": ack sent. latency=" << frame_latency
+                    << ", timestamp=" << frame_event.timestamp
+                    << ",  encode_end_time=" << it->second.encode_end_time;
       AddToLatencyAggregrate(StatisticType::kAvgFrameLatencyMs, frame_latency,
                              frame_event.media_type);
+
     } else if (frame_event.type == StatisticsEventType::kFramePlayedOut) {
       // Positive delay means the frame is late.
+      OSP_LOG_ERROR << __func__
+                    << ": played out. delay delta=" << frame_event.delay_delta;
       if (frame_event.delay_delta > Clock::duration::zero()) {
         SessionStats* session_stats =
             GetSessionStatsForMediaType(frame_event.media_type);
@@ -250,8 +272,12 @@ void StatisticsAnalyzer::RecordPacketLatencies(const PacketEvent packet_event) {
 
     packet_infos->erase(it);
 
-    // TODO(bzielinski):Subtract by offset.
-    // packet_received_time -= receiver_offset;
+    const absl::optional<Clock::duration> receiver_offset =
+        offset_estimator_.GetEstimatedOffset();
+    if (!receiver_offset) {
+      return;
+    }
+    packet_received_time -= *receiver_offset;
 
     // Network latency is the time between when a packet is sent and when it
     // is received.
@@ -285,16 +311,22 @@ void StatisticsAnalyzer::RecordEventTimes(
     return;
   }
 
+  const absl::optional<Clock::duration> receiver_offset =
+      offset_estimator_.GetEstimatedOffset();
+  if (!receiver_offset) {
+    return;
+  }
+  const Clock::time_point sender_timestamp = timestamp - *receiver_offset;
+
   if (is_receiver_event) {
-    // TODO(bzielinski): consider offset.
     session_stats->last_response_received_time =
-        std::max(session_stats->last_response_received_time, timestamp);
+        std::max(session_stats->last_response_received_time, sender_timestamp);
   }
 
   session_stats->first_event_time =
-      std::min(session_stats->first_event_time, timestamp);
+      std::min(session_stats->first_event_time, sender_timestamp);
   session_stats->last_event_time =
-      std::max(session_stats->last_event_time, timestamp);
+      std::max(session_stats->last_event_time, sender_timestamp);
 }
 
 void StatisticsAnalyzer::ErasePacketInfo(const PacketEvent packet_event) {
@@ -457,6 +489,7 @@ SenderStats::StatisticsList StatisticsAnalyzer::ConstructStatisticsList(
   stats_list = PopulateAvgLatencyStat(StatisticType::kAvgFrameLatencyMs,
                                       stats_list, media_type);
 
+  // END TO ENDDDD
   // kEncodeRateKbps
   stats_list = PopulateFrameBitrateStat(StatisticsEventType::kFrameEncoded,
                                         StatisticType::kEncodeRateKbps,
