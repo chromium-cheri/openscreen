@@ -55,8 +55,8 @@ class TestCredentialsProvider final
         dir + "/device_chain.pem", dir + "/device_tls.pem");
   }
 
-  absl::Span<const uint8_t> GetCurrentTlsCertAsDer() final {
-    return absl::Span<uint8_t>(creds_.tls_cert_der);
+  ByteView GetCurrentTlsCertAsDer() final {
+    return ByteBuffer(creds_.tls_cert_der);
   }
   const DeviceCredentials& GetCurrentDeviceCredentials() final {
     return creds_.device_creds;

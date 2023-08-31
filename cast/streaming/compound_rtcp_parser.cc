@@ -128,8 +128,7 @@ CompoundRtcpParser::CompoundRtcpParser(RtcpSession* session,
 
 CompoundRtcpParser::~CompoundRtcpParser() = default;
 
-bool CompoundRtcpParser::Parse(absl::Span<const uint8_t> buffer,
-                               FrameId max_feedback_frame_id) {
+bool CompoundRtcpParser::Parse(ByteView buffer, FrameId max_feedback_frame_id) {
   // These will contain the results from the various ParseXYZ() methods. None of
   // the results will be dispatched to the Client until the entire parse
   // succeeds.
@@ -154,8 +153,7 @@ bool CompoundRtcpParser::Parse(absl::Span<const uint8_t> buffer,
     if (static_cast<int>(buffer.size()) < header->payload_size) {
       return false;
     }
-    const absl::Span<const uint8_t> payload =
-        buffer.subspan(0, header->payload_size);
+    ByteView payload = buffer.subspan(0, header->payload_size);
     buffer.remove_prefix(header->payload_size);
 
     switch (header->packet_type) {
@@ -251,7 +249,7 @@ bool CompoundRtcpParser::Parse(absl::Span<const uint8_t> buffer,
 }
 
 bool CompoundRtcpParser::ParseReceiverReport(
-    absl::Span<const uint8_t> in,
+    ByteView in,
     int num_report_blocks,
     absl::optional<RtcpReportBlock>& receiver_report) {
   if (in.size() < kRtcpReceiverReportSize) {
@@ -266,7 +264,7 @@ bool CompoundRtcpParser::ParseReceiverReport(
 
 bool CompoundRtcpParser::ParseApplicationDefined(
     RtcpSubtype subtype,
-    absl::Span<const uint8_t> in,
+    ByteView in,
     std::vector<RtcpReceiverFrameLogMessage>& messages) {
   const uint32_t sender_ssrc = ConsumeField<uint32_t>(&in);
   const uint32_t name = ConsumeField<uint32_t>(&in);
@@ -286,7 +284,7 @@ bool CompoundRtcpParser::ParseApplicationDefined(
 }
 
 bool CompoundRtcpParser::ParseFrameLogMessages(
-    absl::Span<const uint8_t> in,
+    ByteView in,
     std::vector<RtcpReceiverFrameLogMessage>& messages) {
   while (!in.empty()) {
     if (in.size() < kRtcpReceiverFrameLogMessageHeaderSize) {
@@ -347,7 +345,7 @@ bool CompoundRtcpParser::ParseFrameLogMessages(
   return true;
 }
 
-bool CompoundRtcpParser::ParseFeedback(absl::Span<const uint8_t> in,
+bool CompoundRtcpParser::ParseFeedback(ByteView in,
                                        FrameId max_feedback_frame_id,
                                        FrameId* checkpoint_frame_id,
                                        milliseconds* target_playout_delay,
@@ -444,7 +442,7 @@ bool CompoundRtcpParser::ParseFeedback(absl::Span<const uint8_t> in,
 }
 
 bool CompoundRtcpParser::ParseExtendedReports(
-    absl::Span<const uint8_t> in,
+    ByteView in,
     Clock::time_point& receiver_reference_time) {
   if (static_cast<int>(in.size()) < kRtcpExtendedReportHeaderSize) {
     return false;
@@ -481,7 +479,7 @@ bool CompoundRtcpParser::ParseExtendedReports(
 }
 
 bool CompoundRtcpParser::ParsePictureLossIndicator(
-    absl::Span<const uint8_t> in,
+    ByteView in,
     bool& picture_loss_indicator) {
   if (static_cast<int>(in.size()) < kRtcpPictureLossIndicatorHeaderSize) {
     return false;
