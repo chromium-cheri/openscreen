@@ -14,7 +14,6 @@
 #include <vector>
 
 #include "absl/types/optional.h"
-#include "absl/types/span.h"
 #include "cast/streaming/clock_drift_smoother.h"
 #include "cast/streaming/compound_rtcp_builder.h"
 #include "cast/streaming/environment.h"

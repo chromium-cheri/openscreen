@@ -83,7 +83,7 @@ void CastSocket::OnRead(TlsConnection* connection, std::vector<uint8_t> block) {
   do {
     ErrorOr<DeserializeResult> message_or_error =
         message_serialization::TryDeserialize(
-            absl::Span<uint8_t>(&read_buffer_[0], read_buffer_.size()));
+            ByteBuffer(&read_buffer_[0], read_buffer_.size()));
     if (!message_or_error) {
       OSP_DLOG_ERROR << __func__ << ": failed to deserialize a message. "
                      << message_or_error.error().ToString();

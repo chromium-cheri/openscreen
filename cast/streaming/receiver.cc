@@ -7,10 +7,10 @@
 #include <algorithm>
 #include <utility>
 
-#include "absl/types/span.h"
 #include "cast/streaming/constants.h"
 #include "cast/streaming/receiver_packet_router.h"
 #include "cast/streaming/session_config.h"
+#include "platform/base/span.h"
 #include "platform/base/trivial_clock_traits.h"
 #include "util/chrono_helpers.h"
 #include "util/osp_logging.h"
@@ -350,7 +350,7 @@ void Receiver::SendRtcp() {
   last_rtcp_send_time_ = now_();
   packet_router_->SendRtcpPacket(rtcp_builder_.BuildPacket(
       last_rtcp_send_time_,
-      absl::Span<uint8_t>(rtcp_buffer_.get(), rtcp_buffer_capacity_)));
+      ByteBuffer(rtcp_buffer_.get(), rtcp_buffer_capacity_)));
 
   // Schedule the automatic sending of another RTCP packet, if this method is
   // not called within some bounded amount of time. While incomplete frames
