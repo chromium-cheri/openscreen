@@ -1,0 +1,276 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abf1429d_6e36b994",
+        "filename": "cast/streaming/clock_offset_estimator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T23:13:12Z",
+      "side": 1,
+      "message": "Can the code that needs a ClockOffsetEstimator just construct the impl directly?\n\nOr is this something that the libcast client needs to construct and pass in, so we need to hide the concrete type?",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0fcba27_2c5e6da9",
+        "filename": "cast/streaming/clock_offset_estimator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T23:13:12Z",
+      "side": 1,
+      "message": "Nit: can you mention the specific header file in Chromium to help us find it later?",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a16569e_1d426fce",
+        "filename": "cast/streaming/clock_offset_estimator_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T23:13:12Z",
+      "side": 1,
+      "message": "This seems complicated.  Since the RTP timestamp is the upper 32 bits of the map key, can you just iterate over the first kMaxEventTimesMapSize / 4 entries in order and delete them?  Or is there something I\u0027m missing about how the keys work?",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d74fe709_9ed79cc3",
+        "filename": "cast/streaming/clock_offset_estimator_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T23:13:12Z",
+      "side": 1,
+      "message": "Can you add ASCII art for the key format?",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "324b3d51_a60b2506",
+        "filename": "cast/streaming/clock_offset_estimator_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T23:13:12Z",
+      "side": 1,
+      "message": "I guess we are not concerned with wraparound in rtp?",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15bb9b17_26a7a7d4",
+        "filename": "cast/streaming/clock_offset_estimator_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T23:13:12Z",
+      "side": 1,
+      "message": "Can you use static_cast\u003c\u003e for the constants here for consistency?",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53a07f4f_5bbab525",
+        "filename": "cast/streaming/clock_offset_estimator_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T23:13:12Z",
+      "side": 1,
+      "message": "Nit: Please order definitions in declaration order",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9845da8_128b1c45",
+        "filename": "cast/streaming/clock_offset_estimator_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T23:13:12Z",
+      "side": 1,
+      "message": "I didn\u0027t see this used here; move to .cc?",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de624ba7_a2b46023",
+        "filename": "cast/streaming/clock_offset_estimator_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T23:13:12Z",
+      "side": 1,
+      "message": "Nit: extra comma",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fbc071f_bff1a3a1",
+        "filename": "cast/streaming/clock_offset_estimator_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T23:13:12Z",
+      "side": 1,
+      "message": "What are the units for this value?",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a259afd_a9f259b0",
+        "filename": "cast/streaming/clock_offset_estimator_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T23:13:12Z",
+      "side": 1,
+      "message": "I didn\u0027t see this used here; move to .cc?",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b364ced_64d7c2a0",
+        "filename": "cast/streaming/clock_offset_estimator_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T23:13:12Z",
+      "side": 1,
+      "message": "Nit: pairs",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ec69388_a1295a0c",
+        "filename": "cast/streaming/clock_offset_estimator_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T23:13:12Z",
+      "side": 1,
+      "message": "The estimated bounds will be directly influenced by the round trip time of the network, right?  I don\u0027t see a correction for the RTT unless I\u0027m missing something.\n\nSay that the actual difference is 50 ms and the RTT is 10ms.  The estimated bound will be something like 60 ms because it takes 10 ms for the receiver event to make it to the sender (or vice versa).\n\nIf there was a correction for the RTT, we could make it more accurate.  However maybe the RTT is usually low enough that it\u0027s not going to make a big difference.  What sort of bounds are you seeing in practice?\n\nFWIW, I don\u0027t think this concern is blocking, just trying to understand the algorithm.",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24792c64_06ead59b",
+        "filename": "cast/streaming/compound_rtcp_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T23:13:12Z",
+      "side": 1,
+      "message": "It looks like the previous computation was just wrong? 😊",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e781f570_8be40e8e",
+        "filename": "cast/streaming/statistics_analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T23:13:12Z",
+      "side": 1,
+      "message": "Maybe add a comment like // Drop events until we have a clock offset estimate.",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ef8790a_02dfc74b",
+        "filename": "cast/streaming/statistics_analyzer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T23:13:12Z",
+      "side": 1,
+      "message": "You could declare the base class movable and pass by rvalue reference; I don\u0027t feel strongly about this though.",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
