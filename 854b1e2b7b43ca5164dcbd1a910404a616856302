@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2aff326_02845c1c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T19:04:56Z",
+      "side": 1,
+      "message": "Thank you!  This is a great cleanup to land.",
+      "revId": "854b1e2b7b43ca5164dcbd1a910404a616856302",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2981938e_c5c754db",
+        "filename": "cast/common/channel/cast_socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T19:04:56Z",
+      "side": 1,
+      "message": "IWYU?",
+      "revId": "854b1e2b7b43ca5164dcbd1a910404a616856302",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb9524fb_105322ed",
+        "filename": "cast/receiver/application_agent_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T19:04:56Z",
+      "side": 1,
+      "message": "Can you construct a ByteView directly?",
+      "revId": "854b1e2b7b43ca5164dcbd1a910404a616856302",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5086f707_f78f5727",
+        "filename": "cast/streaming/compound_rtcp_builder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T19:04:56Z",
+      "side": 1,
+      "message": "Optional: Convert to pass-by-reference.",
+      "revId": "854b1e2b7b43ca5164dcbd1a910404a616856302",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e79f0bbc_aab6c196",
+        "filename": "cast/streaming/frame_collector.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T19:04:56Z",
+      "side": 1,
+      "message": "I wonder if this could be payload.empty(), but it\u0027s possible to have an empty span with a non-null data().",
+      "revId": "854b1e2b7b43ca5164dcbd1a910404a616856302",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db68d43d_977ad9d7",
+        "filename": "cast/streaming/packet_util.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T19:04:56Z",
+      "side": 1,
+      "message": "Optional: Convert these functions to pass-by-reference",
+      "revId": "854b1e2b7b43ca5164dcbd1a910404a616856302",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6ac99a1_5fab97f8",
+        "filename": "cast/streaming/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T19:04:56Z",
+      "side": 1,
+      "message": "Optional: Can rtcp_buffer_ just be a std::vector\u003cuint8_t\u003e or std::array\u003cuint8_t\u003e? Then you should be able to pass it directly to the ByteBuffer ctor.",
+      "revId": "854b1e2b7b43ca5164dcbd1a910404a616856302",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39b303b9_515d2e40",
+        "filename": "cast/streaming/receiver_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T19:04:56Z",
+      "side": 1,
+      "message": "Use array constructor?",
+      "revId": "854b1e2b7b43ca5164dcbd1a910404a616856302",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14757df1_06a19a53",
+        "filename": "cast/streaming/rtcp_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T19:04:56Z",
+      "side": 1,
+      "message": "Optional: convert to pass-by-reference",
+      "revId": "854b1e2b7b43ca5164dcbd1a910404a616856302",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58142a84_732f57f4",
+        "filename": "cast/streaming/sender_packet_router.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T19:04:56Z",
+      "side": 1,
+      "message": "The way this is written this sounds like it should be returning a ByteView over the underlying buffer, but changing it could affect a lot of downstream code...",
+      "revId": "854b1e2b7b43ca5164dcbd1a910404a616856302",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a65d9ca_ce2f2050",
+        "filename": "cast/streaming/sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T19:04:56Z",
+      "side": 1,
+      "message": "Use array constructor?",
+      "revId": "854b1e2b7b43ca5164dcbd1a910404a616856302",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0b99928_4ba1e412",
+        "filename": "platform/base/span.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T19:04:56Z",
+      "side": 1,
+      "message": "Thanks for adding these :)",
+      "revId": "854b1e2b7b43ca5164dcbd1a910404a616856302",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eee16db2_7a146bf3",
+        "filename": "platform/base/span_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-08-31T19:04:56Z",
+      "side": 1,
+      "message": "Can you add tests for the array constructors you added?",
+      "revId": "854b1e2b7b43ca5164dcbd1a910404a616856302",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
