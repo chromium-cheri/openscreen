@@ -49,9 +49,9 @@ RtpPacketizer::RtpPacketizer(RtpPayloadType payload_type,
 
 RtpPacketizer::~RtpPacketizer() = default;
 
-absl::Span<uint8_t> RtpPacketizer::GeneratePacket(const EncryptedFrame& frame,
-                                                  FramePacketId packet_id,
-                                                  absl::Span<uint8_t> buffer) {
+ByteBuffer RtpPacketizer::GeneratePacket(const EncryptedFrame& frame,
+                                         FramePacketId packet_id,
+                                         ByteBuffer buffer) {
   OSP_CHECK_GE(static_cast<int>(buffer.size()), max_packet_size_);
 
   const int num_packets = ComputeNumberOfPackets(frame);
@@ -78,7 +78,7 @@ absl::Span<uint8_t> RtpPacketizer::GeneratePacket(const EncryptedFrame& frame,
   }
   packet_size += data_chunk_size;
   OSP_DCHECK_LE(packet_size, max_packet_size_);
-  const absl::Span<uint8_t> packet(buffer.data(), packet_size);
+  const ByteBuffer packet(buffer.data(), packet_size);
 
   // RTP Header.
   AppendField<uint8_t>(kRtpRequiredFirstByte, &buffer);

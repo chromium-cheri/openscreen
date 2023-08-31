@@ -60,6 +60,11 @@ TEST(SpanTest, TestBasics) {
   EXPECT_EQ(middleBytes[0], 'o');
   EXPECT_EQ(middleBytes[3], 'e');
 
+  ByteView allBytes(googlePlex.subspan(0, kSampleSize));
+  EXPECT_EQ(allBytes.data(), googlePlex.data());
+  EXPECT_EQ(allBytes.size(), kSampleSize);
+  EXPECT_STREQ(kSampleBytes, reinterpret_cast<const char*>(allBytes.data()));
+
   ByteView fromPointers(kSampleData, kSampleData + kSampleSize);
   EXPECT_EQ(googlePlex.data(), kSampleData);
   EXPECT_EQ(googlePlex.size(), kSampleSize);
