@@ -447,8 +447,13 @@ TEST_F(StatisticsAnalyzerTest, FrameEncodedPacketSentAndReceived) {
         ExpectStatEq(stats.video_statistics, StatisticType::kNumPacketsReceived,
                      kDefaultNumEvents);
 
-        double expected_time_since_last_receiver_response = static_cast<double>(
-            to_milliseconds(fake_clock_.now() - last_event_time).count());
+        const double avg_network_delay =
+            stats.video_statistics[static_cast<int>(
+                StatisticType::kAvgNetworkLatencyMs)];
+        const double expected_time_since_last_receiver_response =
+            static_cast<double>(
+                to_milliseconds(fake_clock_.now() - last_event_time).count()) -
+            avg_network_delay;
         ExpectStatEq(stats.video_statistics,
                      StatisticType::kTimeSinceLastReceiverResponseMs,
                      expected_time_since_last_receiver_response);
