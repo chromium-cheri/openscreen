@@ -18,6 +18,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21c64bc9_81fe27eb",
+        "filename": "cast/streaming/encoded_frame.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-01T21:28:04Z",
+      "side": 1,
+      "message": "This patch made me question again what our policy for passing optional types into our APIs are.\n\n1. Use absl::optional, like Chrome. Sounds good--but we are banning Abseil from our public APIs.\n\n2. Use std::optional, banned in Chrome. Maybe fine, weird to me to use it in our public APIs and use absl::optional elsewhere.\n\n3. Use std::unique_ptr\u003c\u003e. Feels like overkill for these types of values.\n\n4. Do what we have now (and Chrome in general, dcheng@ in particular are advocating for NOT doing this) and use special types of the value, like {} or min().\n\nI don\u0027t really see a good option for representation.\n\n------\n\nAs far as construction goes--I don\u0027t want to provide a bunch of constructors, but maybe the answer is have one with ALL optional fields and one with none? What I *really* want is for this to just be an aggregate type but I think we are beyond that at this point.\n\nI updated the comment, happy to revisit.",
+      "parentUuid": "7d5eb8b9_f0da63b1",
+      "revId": "26f69a429266b3a8db7184c46d72e3ed27cf2fa7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d94b595_40b01956",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-09-01T17:00:31Z",
       "side": 1,
       "message": "Can you check that the new statistics have test coverage in this file?",
+      "revId": "26f69a429266b3a8db7184c46d72e3ed27cf2fa7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06bda5b2_03eda395",
+        "filename": "cast/streaming/statistics_analyzer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-01T21:28:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d94b595_40b01956",
       "revId": "26f69a429266b3a8db7184c46d72e3ed27cf2fa7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
