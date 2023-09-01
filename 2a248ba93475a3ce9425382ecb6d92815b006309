@@ -18,6 +18,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f089aca6_9f643bc5",
+        "filename": "cast/streaming/clock_offset_estimator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-01T00:52:42Z",
+      "side": 1,
+      "message": "I originally decided to not have an interface. However, this made testing the StatisticsAnalyzer borderline impossible. I think this ends up being more like a clock class where we want a different, discrete implementation for testing.",
+      "parentUuid": "abf1429d_6e36b994",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0fcba27_2c5e6da9",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-08-31T23:13:12Z",
       "side": 1,
       "message": "Nit: can you mention the specific header file in Chromium to help us find it later?",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18f3d172_2a6d6eba",
+        "filename": "cast/streaming/clock_offset_estimator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-01T00:52:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0fcba27_2c5e6da9",
       "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -52,6 +88,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41e1c8b1_64c677c4",
+        "filename": "cast/streaming/clock_offset_estimator_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-01T00:52:42Z",
+      "side": 1,
+      "message": "I just pulled this method from the legacy implementation. I agree it\u0027s overcomplicated for this use case. Removed, and updated the key to be packet first so we can literally just remove std::map::begin().",
+      "parentUuid": "7a16569e_1d426fce",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d74fe709_9ed79cc3",
@@ -65,6 +119,24 @@
       "writtenOn": "2023-08-31T23:13:12Z",
       "side": 1,
       "message": "Can you add ASCII art for the key format?",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08f7a987_3d71d524",
+        "filename": "cast/streaming/clock_offset_estimator_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-01T00:52:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d74fe709_9ed79cc3",
       "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -86,6 +158,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "97232b8a_dc1236a2",
+        "filename": "cast/streaming/clock_offset_estimator_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-01T00:52:42Z",
+      "side": 1,
+      "message": "We only include that past 500 events (which ends up with multiple events per frame and packet), so I don\u0027t think the RTP wraparound will impact this.",
+      "parentUuid": "324b3d51_a60b2506",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15bb9b17_26a7a7d4",
@@ -99,6 +189,24 @@
       "writtenOn": "2023-08-31T23:13:12Z",
       "side": 1,
       "message": "Can you use static_cast\u003c\u003e for the constants here for consistency?",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a10676bc_23ea6579",
+        "filename": "cast/streaming/clock_offset_estimator_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-01T00:52:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15bb9b17_26a7a7d4",
       "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -120,6 +228,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ad8408b_10b067ca",
+        "filename": "cast/streaming/clock_offset_estimator_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-01T00:52:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53a07f4f_5bbab525",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d9845da8_128b1c45",
@@ -133,6 +259,24 @@
       "writtenOn": "2023-08-31T23:13:12Z",
       "side": 1,
       "message": "I didn\u0027t see this used here; move to .cc?",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91ef9965_020764d0",
+        "filename": "cast/streaming/clock_offset_estimator_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-01T00:52:42Z",
+      "side": 1,
+      "message": "SGTM. It was in the header as an FYI about the implementation.",
+      "parentUuid": "d9845da8_128b1c45",
       "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -154,6 +298,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c061899_8e8efba8",
+        "filename": "cast/streaming/clock_offset_estimator_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-01T00:52:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de624ba7_a2b46023",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3fbc071f_bff1a3a1",
@@ -167,6 +329,24 @@
       "writtenOn": "2023-08-31T23:13:12Z",
       "side": 1,
       "message": "What are the units for this value?",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb482d39_471851b1",
+        "filename": "cast/streaming/clock_offset_estimator_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-01T00:52:42Z",
+      "side": 1,
+      "message": "Renamed to make clear and added comment.",
+      "parentUuid": "3fbc071f_bff1a3a1",
       "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -188,6 +368,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "860b4de0_e6f0491e",
+        "filename": "cast/streaming/clock_offset_estimator_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-01T00:52:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a259afd_a9f259b0",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b364ced_64d7c2a0",
@@ -205,6 +403,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1eba662e_6cfa5c0d",
+        "filename": "cast/streaming/clock_offset_estimator_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-01T00:52:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b364ced_64d7c2a0",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ec69388_a1295a0c",
@@ -218,6 +434,24 @@
       "writtenOn": "2023-08-31T23:13:12Z",
       "side": 1,
       "message": "The estimated bounds will be directly influenced by the round trip time of the network, right?  I don\u0027t see a correction for the RTT unless I\u0027m missing something.\n\nSay that the actual difference is 50 ms and the RTT is 10ms.  The estimated bound will be something like 60 ms because it takes 10 ms for the receiver event to make it to the sender (or vice versa).\n\nIf there was a correction for the RTT, we could make it more accurate.  However maybe the RTT is usually low enough that it\u0027s not going to make a big difference.  What sort of bounds are you seeing in practice?\n\nFWIW, I don\u0027t think this concern is blocking, just trying to understand the algorithm.",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7b9e975_5ec8fd2d",
+        "filename": "cast/streaming/clock_offset_estimator_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-01T00:52:42Z",
+      "side": 1,
+      "message": "Network latency is usually like 10ms. I\u0027ll give this some thought and fix that in the next patch (almost up for review!).",
+      "parentUuid": "3ec69388_a1295a0c",
       "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -256,6 +490,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddc36534_7c9adadb",
+        "filename": "cast/streaming/statistics_analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-01T00:52:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e781f570_8be40e8e",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ef8790a_02dfc74b",
@@ -269,6 +521,24 @@
       "writtenOn": "2023-08-31T23:13:12Z",
       "side": 1,
       "message": "You could declare the base class movable and pass by rvalue reference; I don\u0027t feel strongly about this though.",
+      "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd8f2c70_09a4a5f0",
+        "filename": "cast/streaming/statistics_analyzer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-01T00:52:42Z",
+      "side": 1,
+      "message": "I think I do want the analyzer to own the offset_estimator, though. Unless I\u0027m missing something here?",
+      "parentUuid": "5ef8790a_02dfc74b",
       "revId": "2a248ba93475a3ce9425382ecb6d92815b006309",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
