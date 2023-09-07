@@ -504,15 +504,18 @@ void Sender::OnReceiverCheckpoint(FrameId frame_id,
   // CompoundRtcpParser should guarantee this:
   OSP_DCHECK(playout_delay >= milliseconds::zero());
 
-  while (checkpoint_frame_id_ < frame_id) {
-    ++checkpoint_frame_id_;
-    PendingFrameSlot* const slot = get_slot_for(checkpoint_frame_id_);
-    if (slot && slot->is_active_for_frame(checkpoint_frame_id_)) {
+  // TODO: add tests for this.
+  // Should fix downstream crash in https://crbug.com/1433584.
+  const int first_frame_to_cancel = checkpoint_frame_id_;
+  checkpoint_frame_id_ = frame_id;
+  for (int id = first_frame_to_cancel; id < frame_id; ++id) {
+    PendingFrameSlot* const slot = get_slot_for(id);
+    if (slot && slot->is_active_for_frame(id)) {
       const RtpTimeTicks rtp_timestamp = slot->frame->rtp_timestamp;
       DispatchAckEvent(config_.stream_type, rtp_timestamp, checkpoint_frame_id_,
                        *environment_);
+      CancelPendingFrame(id);
     }
-    CancelPendingFrame(checkpoint_frame_id_);
   }
   latest_expected_frame_id_ = std::max(latest_expected_frame_id_, frame_id);
 

@@ -254,8 +254,12 @@ class Sender final : public SenderPacketRouter::Sender,
   // been cancelled by the sender fully received (e.g., based on the ACK
   // feedback from the Receiver in a RTCP packet, or the receiver checkpoint
   // frame). This clears the corresponding entry in |pending_frames_| and
-  // notifies the Observer. NOTE: every frame_id ends up being "cancelled" at
-  // least once.
+  // notifies the Observer.
+  //
+  // NOTE: * every frame_id ends up being "cancelled" at least once.
+  //       * since embedders may choose to enqueue a new frame as soon as one is
+  //         cancelled, care should be taken to ensure that
+  //         `checkpoint_frame_id_` at all times.
   void CancelPendingFrame(FrameId frame_id);
 
   // Inline helper to return the slot that would contain the tracking info for

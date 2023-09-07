@@ -475,9 +475,9 @@ TEST_F(SenderTest, SendsFramesEfficiently) {
   }));
 
   NiceMock<MockObserver> observer;
-  EXPECT_CALL(observer, OnFrameCanceled(FrameId::first())).Times(1);
-  EXPECT_CALL(observer, OnFrameCanceled(FrameId::first() + 1)).Times(1);
-  EXPECT_CALL(observer, OnFrameCanceled(FrameId::first() + 2)).Times(1);
+  EXPECT_CALL(observer, OnFrameCanceled(FrameId::first()));
+  EXPECT_CALL(observer, OnFrameCanceled(FrameId::first() + 1));
+  EXPECT_CALL(observer, OnFrameCanceled(FrameId::first() + 2));
   sender()->SetObserver(&observer);
 
   EncodedFrameWithBuffer frames[3];
@@ -496,8 +496,71 @@ TEST_F(SenderTest, SendsFramesEfficiently) {
   }
   SimulateExecution(kTargetPlayoutDelay);
 
-  ExpectFramesReceivedCorrectly(Span(frames, 3),
-                                receiver()->TakeCompleteFrames());
+  ExpectFramesReceivedCorrectly(frames, receiver()->TakeCompleteFrames());
+}
+
+// Tests that the Sender properly updates the checkpoint frame ID while
+// it is cancelling frames. See https://crbug.com/1433584 for an example crash
+// where the checkpoint frame ID is invalid.
+TEST_F(SenderTest, UpdatesCheckpointFrameIdWhileCancellingFrames) {
+  constexpr milliseconds kOneWayNetworkDelay{1};
+  SetSenderToReceiverNetworkDelay(kOneWayNetworkDelay);
+  SetReceiverToSenderNetworkDelay(kOneWayNetworkDelay);
+
+  // Expect that each packet is only sent once.
+  std::set<std::pair<FrameId, FramePacketId>> received_packets;
+  EXPECT_CALL(*receiver(), OnRtpPacket(_))
+      .WillRepeatedly(
+          Invoke([&](const RtpPacketParser::ParseResult& parsed_packet) {
+            std::pair<FrameId, FramePacketId> id(parsed_packet.frame_id,
+                                                 parsed_packet.packet_id);
+            const auto insert_result = received_packets.insert(id);
+            EXPECT_TRUE(insert_result.second)
+                << "Received duplicate packet: " << id.first << ':'
+                << static_cast<int>(id.second);
+          }));
+
+  // Simulate normal frame ACK'ing behavior. ACK after the first frame, then
+  // after the third.
+  const FrameId kFrameIdsToAck[]{FrameId::first(), FrameId::first() + 2};
+  for (FrameId id : kFrameIdsToAck) {
+    ON_CALL(*receiver(), OnFrameComplete(id))
+        .WillByDefault(InvokeWithoutArgs([&] {
+          if (receiver()->AutoAdvanceCheckpoint()) {
+            receiver()->TransmitRtcpFeedbackPacket();
+          }
+        }));
+  }
+
+  std::array<EncodedFrameWithBuffer, 3> frames;
+  PopulateFrameWithDefaults(FrameId::first(), FakeClock::now() - kCaptureDelay,
+                            0xbf, 8196, &frames[0]);
+  SimulateExecution(kFrameDuration);
+  PopulateFrameWithDefaults(FrameId::first() + 1,
+                            FakeClock::now() - kCaptureDelay, 0xbf - 1, 1900,
+                            &frames[1]);
+  SimulateExecution(kFrameDuration);
+  PopulateFrameWithDefaults(FrameId::first() + 2,
+                            FakeClock::now() - kCaptureDelay, 0xbf - 2, 1800,
+                            &frames[2]);
+
+  NiceMock<MockObserver> observer;
+  EXPECT_CALL(observer, OnFrameCanceled(FrameId::first()));
+  EXPECT_CALL(observer, OnFrameCanceled(FrameId::first() + 1))
+      .WillOnce([sender = sender(), &frames](FrameId id) {
+        // Immediately try to enqueue a frame.
+        ASSERT_EQ(Sender::OK, sender->EnqueueFrame(frames[2]));
+      });
+  EXPECT_CALL(observer, OnFrameCanceled(FrameId::first() + 2));
+  sender()->SetObserver(&observer);
+
+  EXPECT_TRUE(sender()->NeedsKeyFrame());
+  ASSERT_EQ(Sender::OK, sender()->EnqueueFrame(frames[0]));
+  SimulateExecution(kFrameDuration);
+  ASSERT_EQ(Sender::OK, sender()->EnqueueFrame(frames[1]));
+
+  SimulateExecution(kTargetPlayoutDelay);
+  ExpectFramesReceivedCorrectly(frames, receiver()->TakeCompleteFrames());
 }
 
 // Tests that the Sender correctly computes the current in-flight media
@@ -747,9 +810,9 @@ TEST_F(SenderTest, ManagesReceiverPictureLossWorkflow) {
   SimulateExecution(kTargetPlayoutDelay);
 
   // Simulate the Receiver ACK'ing the first three frames.
-  EXPECT_CALL(observer, OnFrameCanceled(FrameId::first())).Times(1);
-  EXPECT_CALL(observer, OnFrameCanceled(FrameId::first() + 1)).Times(1);
-  EXPECT_CALL(observer, OnFrameCanceled(FrameId::first() + 2)).Times(1);
+  EXPECT_CALL(observer, OnFrameCanceled(FrameId::first()));
+  EXPECT_CALL(observer, OnFrameCanceled(FrameId::first() + 1));
+  EXPECT_CALL(observer, OnFrameCanceled(FrameId::first() + 2));
   EXPECT_CALL(observer, OnPictureLost()).Times(0);
   receiver()->SetCheckpointFrame(frames[2].frame_id);
   receiver()->TransmitRtcpFeedbackPacket();
@@ -760,7 +823,7 @@ TEST_F(SenderTest, ManagesReceiverPictureLossWorkflow) {
   // loss to the Sender. The Sender should then propagate this to its Observer
   // and return true when NeedsKeyFrame() is called.
   EXPECT_CALL(observer, OnFrameCanceled(_)).Times(0);
-  EXPECT_CALL(observer, OnPictureLost()).Times(1);
+  EXPECT_CALL(observer, OnPictureLost());
   EXPECT_FALSE(sender()->NeedsKeyFrame());
   receiver()->SetPictureLossIndicator(true);
   receiver()->TransmitRtcpFeedbackPacket();
@@ -803,7 +866,7 @@ TEST_F(SenderTest, ManagesReceiverPictureLossWorkflow) {
   // its picture loss again to the Sender. Observer::OnPictureLost() should not
   // be called, and NeedsKeyFrame() should NOT return true, because the Sender
   // knows the Receiver hasn't acknowledged the key frame (just sent) yet.
-  EXPECT_CALL(observer, OnFrameCanceled(nonkey_frame.frame_id)).Times(1);
+  EXPECT_CALL(observer, OnFrameCanceled(nonkey_frame.frame_id));
   EXPECT_CALL(observer, OnPictureLost()).Times(0);
   receiver()->SetCheckpointFrame(nonkey_frame.frame_id);
   receiver()->SetPictureLossIndicator(true);
@@ -815,8 +878,8 @@ TEST_F(SenderTest, ManagesReceiverPictureLossWorkflow) {
   // Now, simulate the Receiver getting the key frame, but NOT recovering. This
   // should cause Observer::OnPictureLost() to be called, and cause
   // NeedsKeyFrame() to return true again.
-  EXPECT_CALL(observer, OnFrameCanceled(recovery_frame.frame_id)).Times(1);
-  EXPECT_CALL(observer, OnPictureLost()).Times(1);
+  EXPECT_CALL(observer, OnFrameCanceled(recovery_frame.frame_id));
+  EXPECT_CALL(observer, OnPictureLost());
   receiver()->SetCheckpointFrame(recovery_frame.frame_id);
   receiver()->SetPictureLossIndicator(true);
   receiver()->TransmitRtcpFeedbackPacket();
@@ -840,8 +903,7 @@ TEST_F(SenderTest, ManagesReceiverPictureLossWorkflow) {
 
   // Now, simulate the Receiver recovering. It will report this to the Sender,
   // and NeedsKeyFrame() will still return false.
-  EXPECT_CALL(observer, OnFrameCanceled(another_recovery_frame.frame_id))
-      .Times(1);
+  EXPECT_CALL(observer, OnFrameCanceled(another_recovery_frame.frame_id));
   EXPECT_CALL(observer, OnPictureLost()).Times(0);
   receiver()->SetCheckpointFrame(another_recovery_frame.frame_id);
   receiver()->SetPictureLossIndicator(false);
@@ -850,8 +912,7 @@ TEST_F(SenderTest, ManagesReceiverPictureLossWorkflow) {
   Mock::VerifyAndClearExpectations(&observer);
   EXPECT_FALSE(sender()->NeedsKeyFrame());
 
-  ExpectFramesReceivedCorrectly(Span(frames, 6),
-                                receiver()->TakeCompleteFrames());
+  ExpectFramesReceivedCorrectly(frames, receiver()->TakeCompleteFrames());
 }
 
 // Tests that the Receiver should get a Sender Report just before the first RTP
@@ -867,7 +928,7 @@ TEST_F(SenderTest, ProvidesSenderReports) {
             sender_reports.push_back(report);
           }))
       .RetiresOnSaturation();
-  EXPECT_CALL(*receiver(), OnRtpPacket(_)).Times(1).InSequence(packet_sequence);
+  EXPECT_CALL(*receiver(), OnRtpPacket(_)).InSequence(packet_sequence);
   EXPECT_CALL(*receiver(), OnSenderReport(_))
       .Times(3)
       .InSequence(packet_sequence)
@@ -968,8 +1029,7 @@ TEST_F(SenderTest, ProvidesKickstartPacketsIfReceiverDoesNotACK) {
   EXPECT_CALL(*receiver(), OnRtpPacket(_)).Times(0);
   SimulateExecution(10 * kTargetPlayoutDelay);
 
-  ExpectFramesReceivedCorrectly(Span(frames, 3),
-                                receiver()->TakeCompleteFrames());
+  ExpectFramesReceivedCorrectly(frames, receiver()->TakeCompleteFrames());
 }
 
 // Tests that the Sender only retransmits packets specifically NACK'ed by the
@@ -1049,8 +1109,7 @@ TEST_F(SenderTest, ResendsIndividuallyNackedPackets) {
   EXPECT_CALL(*receiver(), OnRtpPacket(_)).Times(0);
   SimulateExecution(10 * kTargetPlayoutDelay);
 
-  ExpectFramesReceivedCorrectly(Span(frames, 3),
-                                receiver()->TakeCompleteFrames());
+  ExpectFramesReceivedCorrectly(frames, receiver()->TakeCompleteFrames());
 }
 
 // Tests that the Sender retransmits an entire frame if the Receiver requests it
@@ -1118,13 +1177,13 @@ TEST_F(SenderTest, ResendsMissingFrames) {
   // the third frame, then the second frame.
   Sequence cancel_sequence;
   EXPECT_CALL(observer, OnFrameCanceled(FrameId::first()))
-      .Times(1)
+
       .InSequence(cancel_sequence);
   EXPECT_CALL(observer, OnFrameCanceled(FrameId::first() + 2))
-      .Times(1)
+
       .InSequence(cancel_sequence);
   EXPECT_CALL(observer, OnFrameCanceled(FrameId::first() + 1))
-      .Times(1)
+
       .InSequence(cancel_sequence);
 
   // With all the expectations/sequences in-place, let 'er rip!
@@ -1145,8 +1204,7 @@ TEST_F(SenderTest, ResendsMissingFrames) {
   EXPECT_CALL(*receiver(), OnRtpPacket(_)).Times(0);
   SimulateExecution(10 * kTargetPlayoutDelay);
 
-  ExpectFramesReceivedCorrectly(Span(frames, 3),
-                                receiver()->TakeCompleteFrames());
+  ExpectFramesReceivedCorrectly(frames, receiver()->TakeCompleteFrames());
 }
 
 }  // namespace
