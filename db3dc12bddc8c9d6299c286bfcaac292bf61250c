@@ -18,6 +18,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5be59ef_2b5ac168",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-13T20:03:06Z",
+      "side": 1,
+      "message": "I\u0027ll do some more investigation. This patch is a good fix I think, but we could definitely have more improvements in this area.",
+      "parentUuid": "1219535b_43a2b935",
+      "revId": "db3dc12bddc8c9d6299c286bfcaac292bf61250c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b05b7c4c_6f8b1fad",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-09-13T17:21:00Z",
       "side": 1,
       "message": "Was the previous code cancelling frame IDs it shouldn\u0027t?",
+      "revId": "db3dc12bddc8c9d6299c286bfcaac292bf61250c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6ede456_b1512111",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-13T20:03:06Z",
+      "side": 1,
+      "message": "Yes and no. The repro case I have in the patch description is a good example.\n\nEvery frame should get cancelled at least once--whenever a frame plays out it is cancelled.\n\nThis fix basically just makes it so that we don\u0027t have any side effects/call code that attempts to enqueue frames while we are processing receiver reports--in the middle of processing a report we may have invalid state, e.g. the temporary checkpoint frame ID + 1 may be already cancelled.",
+      "parentUuid": "b05b7c4c_6f8b1fad",
       "revId": "db3dc12bddc8c9d6299c286bfcaac292bf61250c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
