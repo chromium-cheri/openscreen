@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1219535b_43a2b935",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-09-13T17:21:00Z",
+      "side": 1,
+      "message": "Nice fix.  However there are a couple of higher level issues here that seem worth looking into.\n\n1. I wonder if we can simplify GetInFlightMediaDuration() by tracking the the timestamp of the most recently checkpointed frame, and subtracting it from the next frame timestamp.   No need to look up slots?\n\n2. The computation of GetMaxInFlightMediaDuration() assumes it takes 1/2 the playout delay for capture and encoding.   This isn\u0027t accurate, I expect this to take less than 50 ms in most cases.  A better way to estimate this value would be to keep a running average of the capture+encode time when the frame is queued, then subtract it from the playout delay.",
+      "revId": "db3dc12bddc8c9d6299c286bfcaac292bf61250c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b05b7c4c_6f8b1fad",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-09-13T17:21:00Z",
+      "side": 1,
+      "message": "Was the previous code cancelling frame IDs it shouldn\u0027t?",
+      "revId": "db3dc12bddc8c9d6299c286bfcaac292bf61250c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
