@@ -69,6 +69,24 @@ class StatisticsAnalyzer {
     int late_frame_counter = 0;
   };
 
+  // Named std::pair equivalent for audio + video classes.
+  template <typename T>
+  struct AVPair {
+    T audio;
+    T video;
+
+    const T& Get(const StatisticsEventMediaType media_type) const {
+      if (media_type == StatisticsEventMediaType::kAudio) {
+        return audio;
+      }
+      OSP_CHECK(media_type == StatisticsEventMediaType::kVideo);
+      return video;
+    }
+    T& Get(const StatisticsEventMediaType media_type) {
+      return const_cast<T&>(const_cast<const AVPair*>(this)->Get(media_type));
+    }
+  };
+
   using FrameStatsMap = std::map<StatisticsEventType, FrameStatsAggregate>;
   using PacketStatsMap = std::map<StatisticsEventType, PacketStatsAggregate>;
   using LatencyStatsMap = std::map<StatisticType, LatencyStatsAggregate>;
@@ -94,9 +112,7 @@ class StatisticsAnalyzer {
   void ProcessPacketEvents(const std::vector<PacketEvent> packet_events);
   void RecordFrameLatencies(const FrameEvent frame_event);
   void RecordPacketLatencies(const PacketEvent packet_event);
-  void RecordEventTimes(const Clock::time_point timestamp,
-                        const StatisticsEventMediaType media_type,
-                        const bool is_receiver_event);
+  void RecordEventTimes(const StatisticsEvent& event);
   void ErasePacketInfo(const PacketEvent packet_event);
   void AddToLatencyAggregrate(const StatisticType latency_stat,
                               const Clock::duration latency_delta,
@@ -104,25 +120,6 @@ class StatisticsAnalyzer {
   void AddToHistogram(const HistogramType histogram,
                       const StatisticsEventMediaType media_type,
                       const int64_t sample);
-
-  // Gets a reference to the appropriate object based on `media_type`.
-  FrameStatsMap* GetFrameStatsMapForMediaType(
-      const StatisticsEventMediaType media_type);
-  PacketStatsMap* GetPacketStatsMapForMediaType(
-      const StatisticsEventMediaType media_type);
-  LatencyStatsMap* GetLatencyStatsMapForMediaType(
-      const StatisticsEventMediaType media_type);
-  SessionStats* GetSessionStatsForMediaType(
-      const StatisticsEventMediaType media_type);
-  FrameInfoMap* GetRecentFrameInfosForMediaType(
-      const StatisticsEventMediaType media_type);
-  PacketInfoMap* GetRecentPacketInfosForMediaType(
-      const StatisticsEventMediaType media_type);
-
-  // Create copies of the stat histograms in their current stats, and return
-  // them as a list.
-  SenderStats::HistogramsList GetAudioHistograms();
-  SenderStats::HistogramsList GetVideoHistograms();
 
   // Creates a stats list, and populates the entries based on stored stats info
   // / aggregates for each stat field.
@@ -170,7 +167,11 @@ class StatisticsAnalyzer {
   // the sender-side version of this receiver timestamp, if possible.
   absl::optional<Clock::time_point> ToSenderTimestamp(
       Clock::time_point receiver_timestamp,
-      StatisticsEventMediaType media_type);
+      StatisticsEventMediaType media_type) const;
+
+  // If available, gets the estimated current network latency.
+  absl::optional<Clock::duration> GetEstimatedNetworkLatency(
+      StatisticsEventMediaType media_type) const;
 
   // The statistics client to which we report analyzed statistics.
   SenderStatsClient* const stats_client_;
@@ -189,29 +190,20 @@ class StatisticsAnalyzer {
   // Maps of frame / packet infos used for stats that rely on seeing multiple
   // events. For example, network latency is the calculated time difference
   // between went a packet is sent, and when it is received.
-  FrameInfoMap audio_recent_frame_infos_;
-  FrameInfoMap video_recent_frame_infos_;
-  PacketInfoMap audio_recent_packet_infos_;
-  PacketInfoMap video_recent_packet_infos_;
+  AVPair<FrameInfoMap> recent_frame_infos_;
+  AVPair<PacketInfoMap> recent_packet_infos_;
 
-  // Aggregate stats for particular event types.
-  FrameStatsMap audio_frame_stats_;
-  FrameStatsMap video_frame_stats_;
-  PacketStatsMap audio_packet_stats_;
-  PacketStatsMap video_packet_stats_;
-
-  // Aggregates related to latency-type stats.
-  LatencyStatsMap audio_latency_stats_;
-  LatencyStatsMap video_latency_stats_;
+  // Aggregate statistics.
+  AVPair<FrameStatsMap> frame_stats_;
+  AVPair<PacketStatsMap> packet_stats_;
+  AVPair<LatencyStatsMap> latency_stats_;
 
   // Stats that relate to the entirety of the session. For example, total late
   // frames, or time of last event.
-  SessionStats audio_session_stats_;
-  SessionStats video_session_stats_;
+  AVPair<SessionStats> session_stats_;
 
-  // Histograms
-  SenderStats::HistogramsList audio_histograms_;
-  SenderStats::HistogramsList video_histograms_;
+  // Histograms.
+  AVPair<SenderStats::HistogramsList> histograms_;
 };
 
 }  // namespace cast

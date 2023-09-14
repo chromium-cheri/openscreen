@@ -34,28 +34,29 @@ constexpr int kDefaultNumEvents = 20;
 constexpr int kDefaultSizeBytes = 10;
 constexpr int kDefaultStatIntervalMs = 5;
 
-const FrameEvent kDefaultFrameEvent =
-    FrameEvent(FrameId::first(),
-               StatisticsEventType::kFrameEncoded,
-               StatisticsEventMediaType::kVideo,
-               RtpTimeTicks(),
-               640,
-               480,
-               kDefaultSizeBytes,
-               Clock::time_point::min(),
-               std::chrono::milliseconds(20),
-               false,
-               0);
+constexpr FrameEvent kDefaultFrameEvent(FrameId::first(),
+                                        StatisticsEventType::kFrameEncoded,
+                                        StatisticsEventMediaType::kVideo,
+                                        RtpTimeTicks(),
+                                        kDefaultSizeBytes,
+                                        Clock::time_point::min(),
+                                        Clock::time_point::min(),
+                                        640,
+                                        480,
+                                        std::chrono::milliseconds(20),
+                                        false,
+                                        0);
 
-const PacketEvent kDefaultPacketEvent =
-    PacketEvent(0u,
-                100u,
-                RtpTimeTicks(),
-                FrameId::first(),
-                kDefaultSizeBytes,
-                Clock::time_point::min(),
-                StatisticsEventType::kPacketSentToNetwork,
-                StatisticsEventMediaType::kVideo);
+constexpr PacketEvent kDefaultPacketEvent(
+    FrameId::first(),
+    StatisticsEventType::kPacketSentToNetwork,
+    StatisticsEventMediaType::kVideo,
+    RtpTimeTicks(),
+    kDefaultSizeBytes,
+    Clock::time_point::min(),
+    Clock::time_point::min(),
+    0u,
+    100u);
 
 void ExpectStatEq(SenderStats::StatisticsList stats_list,
                   StatisticType stat,

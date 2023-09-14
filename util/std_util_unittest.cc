@@ -31,6 +31,11 @@ TEST(StdUtilTest, Join) {
   EXPECT_EQ("", Join(std::vector<std::string>({""}), ","));
 }
 
+TEST(StdUtilTest, RemoveWhitespace) {
+  EXPECT_EQ("Portland", RemoveWhitespace("Portland"));
+  EXPECT_EQ("Portland", RemoveWhitespace("  Po\f\v\tr\t\ntla  n\r\nd\t\t  "));
+}
+
 TEST(StdUtilTest, RemoveValueFromMap) {
   std::string capitol1("Olympia");
   std::string capitol2("Eugene");

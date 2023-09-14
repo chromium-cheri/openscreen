@@ -99,6 +99,11 @@ SimpleHistogram& SimpleHistogram::operator=(const SimpleHistogram&) = default;
 SimpleHistogram& SimpleHistogram::operator=(SimpleHistogram&&) = default;
 SimpleHistogram::~SimpleHistogram() = default;
 
+bool SimpleHistogram::operator==(const SimpleHistogram& other) const {
+  return min == other.min && max == other.max && width == other.width &&
+         buckets == other.buckets;
+}
+
 void SimpleHistogram::Add(int64_t sample) {
   if (sample < min) {
     ++buckets.front();
@@ -115,21 +120,38 @@ void SimpleHistogram::Reset() {
   buckets.assign(buckets.size(), 0);
 }
 
-SimpleHistogram SimpleHistogram::Copy() {
-  return SimpleHistogram(min, max, width, buckets);
-}
-
 Json::Value SimpleHistogram::ToJson() const {
-  Json::Value out;
-  out["min"] = min;
-  out["max"] = max;
-  out["width"] = width;
-  out["buckets"] = json::PrimitiveVectorToJson(buckets);
+  // Nest the bucket values in an array instead of a dictionary, so we sort
+  // numerically instead of alphabetically.
+  Json::Value out(Json::ValueType::arrayValue);
+  for (size_t i = 0; i < buckets.size(); ++i) {
+    if (buckets[i] != 0) {
+      Json::Value entry;
+      entry[GetBucketName(i)] = buckets[i];
+      out.append(entry);
+    }
+  }
   return out;
 }
 
 std::string SimpleHistogram::ToString() const {
   return json::Stringify(ToJson()).value();
+}
+
+std::string SimpleHistogram::GetBucketName(size_t index) const {
+  if (index == 0) {
+    return "<" + std::to_string(min);
+  }
+
+  if (index == buckets.size() - 1) {
+    return ">=" + std::to_string(max);
+  }
+
+  // See the constructor comment for an example of how these bucket bounds
+  // are calculated.
+  const int bucket_min = min + width * (index - 1);
+  const int bucket_max = min + index * width - 1;
+  return StringPrintf("%d-%d", bucket_min, bucket_max);
 }
 
 Json::Value SenderStats::ToJson() const {
