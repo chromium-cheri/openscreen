@@ -1,0 +1,191 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcbd37f3_8bf50cc0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-09-19T21:14:49Z",
+      "side": 1,
+      "message": "Overall LG with minor things.  I did want to understand the change about receiver timestamps.  Is this due to clock skew or just bugs in the implementation?",
+      "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51a5bad3_92097a40",
+        "filename": "cast/streaming/statistics.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-09-19T21:14:49Z",
+      "side": 1,
+      "message": "Nit: Reorder definitions to match declaration order",
+      "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85fcad3d_163d2f8e",
+        "filename": "cast/streaming/statistics.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-09-19T21:14:49Z",
+      "side": 1,
+      "message": "Can this use a delegated constructor so it benefits form the CHECKs above?",
+      "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b7cd20e_d9afb2b7",
+        "filename": "cast/streaming/statistics_analyzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-09-19T21:14:49Z",
+      "side": 1,
+      "message": "Since received_timestamp is assigned by the sender, how does it reflect the time the event was created on the receiver?",
+      "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0623b533_9a082117",
+        "filename": "cast/streaming/statistics_analyzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-09-19T21:14:49Z",
+      "side": 1,
+      "message": "Is it possible to keep this updated as new latency data points are inserted?\nAlthough this is is just a map lookup, so it may not be worth optimizing.",
+      "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "862ef451_3d5df6be",
+        "filename": "cast/streaming/statistics_analyzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-09-19T21:14:49Z",
+      "side": 1,
+      "message": "Is this an average over all data points collected during the session?\n\nIt\u0027s possible to change over time (i.e., user moves laptop to a different place)... however I am not sure how to most accurately weigh recent data vs. older data.",
+      "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "347d89a9_d283c88a",
+        "filename": "cast/streaming/statistics_analyzer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-09-19T21:14:49Z",
+      "side": 1,
+      "message": "I don\u0027t think you need a const for an enum parameter but I see it used throughout this file...",
+      "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6db5f24d_e1637c5a",
+        "filename": "cast/streaming/statistics_analyzer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-09-19T21:14:49Z",
+      "side": 1,
+      "message": "Can you do this the other way around (have the const version call the non-const version)?  Then I don\u0027t think you will need all of the const_casts.",
+      "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5199558a_462c96bb",
+        "filename": "cast/streaming/statistics_analyzer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-09-19T21:14:49Z",
+      "side": 1,
+      "message": "Please check that these don\u0027t invoke complex constructors (i.e. it is actually constexpr)",
+      "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "685a0fd2_1396f207",
+        "filename": "cast/streaming/statistics_collector_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-09-19T21:14:49Z",
+      "side": 1,
+      "message": "Super nit: I preferred the one field per line formatting that was here before, can you use // clang-format off around it",
+      "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31a78f34_b0a53de3",
+        "filename": "util/std_util.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-09-19T21:14:49Z",
+      "side": 1,
+      "message": "Maybe mutate s in-place?  That seems to be how it is currently used.",
+      "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
