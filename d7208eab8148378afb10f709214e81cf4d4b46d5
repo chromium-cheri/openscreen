@@ -18,6 +18,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c92290e_956e934e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-20T02:19:10Z",
+      "side": 1,
+      "message": "are you referring specifically to the receiver response change? I think the previous method of derivation is misleading at best, and this new method is actually helpful or potentially actionable. The rest is just trying to cleanup and improve the accuracy of these values.",
+      "parentUuid": "dcbd37f3_8bf50cc0",
+      "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51a5bad3_92097a40",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-09-19T21:14:49Z",
       "side": 1,
       "message": "Nit: Reorder definitions to match declaration order",
+      "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c224fe74_36da7ee2",
+        "filename": "cast/streaming/statistics.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-20T02:19:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51a5bad3_92097a40",
       "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -52,6 +88,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f31b531_f61ea5f2",
+        "filename": "cast/streaming/statistics.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-20T02:19:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85fcad3d_163d2f8e",
+      "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b7cd20e_d9afb2b7",
@@ -65,6 +119,24 @@
       "writtenOn": "2023-09-19T21:14:49Z",
       "side": 1,
       "message": "Since received_timestamp is assigned by the sender, how does it reflect the time the event was created on the receiver?",
+      "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1da43e7_68a86b01",
+        "filename": "cast/streaming/statistics_analyzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-20T02:19:10Z",
+      "side": 1,
+      "message": "It is, like any receiver-related time, an estimate. This time is the estimated time the event was sent from the receiver. I think this field is more accurate and helpful than the timestamp of the last receiver event, which has nothing to do with what time the event was sent from the receiver.",
+      "parentUuid": "9b7cd20e_d9afb2b7",
       "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -86,6 +158,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31842edf_5c92e879",
+        "filename": "cast/streaming/statistics_analyzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-20T02:19:10Z",
+      "side": 1,
+      "message": "Done/ack/different direction so hopefully this is resolved.",
+      "parentUuid": "0623b533_9a082117",
+      "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "862ef451_3d5df6be",
@@ -99,6 +189,24 @@
       "writtenOn": "2023-09-19T21:14:49Z",
       "side": 1,
       "message": "Is this an average over all data points collected during the session?\n\nIt\u0027s possible to change over time (i.e., user moves laptop to a different place)... however I am not sure how to most accurately weigh recent data vs. older data.",
+      "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94e8b0c7_a5d71609",
+        "filename": "cast/streaming/statistics_analyzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-20T02:19:10Z",
+      "side": 1,
+      "message": "Agreed. Took a stab at it, I\u0027m going to test this solution some more tomorrow.",
+      "parentUuid": "862ef451_3d5df6be",
       "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -120,6 +228,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c5c33ae_10c64d2f",
+        "filename": "cast/streaming/statistics_analyzer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-20T02:19:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "347d89a9_d283c88a",
+      "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6db5f24d_e1637c5a",
@@ -133,6 +259,24 @@
       "writtenOn": "2023-09-19T21:14:49Z",
       "side": 1,
       "message": "Can you do this the other way around (have the const version call the non-const version)?  Then I don\u0027t think you will need all of the const_casts.",
+      "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1265604c_74119ffb",
+        "filename": "cast/streaming/statistics_analyzer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-20T02:19:10Z",
+      "side": 1,
+      "message": "I\u0027m basing this on Effective C++ (https://stackoverflow.com/questions/856542/elegant-solution-to-duplicate-const-and-non-const-getters for example).\n\nThis is more compiler safe to my understanding.",
+      "parentUuid": "6db5f24d_e1637c5a",
       "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -154,6 +298,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab4009a2_62b428fa",
+        "filename": "cast/streaming/statistics_analyzer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-20T02:19:10Z",
+      "side": 1,
+      "message": "Wouldn\u0027t that cause a compile error if it was not constexpr? E.g. consider the following case:\n\n```\nint fobar \u003d 423;\n\nconstexpr FrameEvent kDefaultFrameEvent(FrameId::first() + fobar,\n...\n\n```\n        \n\nWhich results in the compiler issuing:\n\n```\n../../cast/streaming/statistics_analyzer_unittest.cc:39:22: error: constexpr variable \u0027kDefaultFrameEvent\u0027 must be initialized by a constant expression\nconstexpr FrameEvent kDefaultFrameEvent(FrameId::first() + fobar,\n                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n../../cast/streaming/statistics_analyzer_unittest.cc:39:60: note: read of non-const variable \u0027fobar\u0027 is not allowed in a constant expression\nconstexpr FrameEvent kDefaultFrameEvent(FrameId::first() + fobar,\n                                                           ^\n../../cast/streaming/statistics_analyzer_unittest.cc:37:5: note: declared here\nint fobar \u003d 423;\n```",
+      "parentUuid": "5199558a_462c96bb",
+      "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "685a0fd2_1396f207",
@@ -171,6 +333,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff65a3c9_8aefa3fd",
+        "filename": "cast/streaming/statistics_collector_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-20T02:19:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "685a0fd2_1396f207",
+      "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "31a78f34_b0a53de3",
@@ -184,6 +364,24 @@
       "writtenOn": "2023-09-19T21:14:49Z",
       "side": 1,
       "message": "Maybe mutate s in-place?  That seems to be how it is currently used.",
+      "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c892961d_9d6d4a78",
+        "filename": "util/std_util.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-09-20T02:19:10Z",
+      "side": 1,
+      "message": "Sure.",
+      "parentUuid": "31a78f34_b0a53de3",
       "revId": "d7208eab8148378afb10f709214e81cf4d4b46d5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
