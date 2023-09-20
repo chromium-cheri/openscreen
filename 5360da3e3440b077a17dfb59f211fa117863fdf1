@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0138aa6b_3ab826b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-09-20T18:08:33Z",
+      "side": 1,
+      "message": "Looks good.  I\u0027m still having a bit of trouble following how the various timestamps are related though.",
+      "revId": "5360da3e3440b077a17dfb59f211fa117863fdf1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f974bc54_b5dbe0f9",
+        "filename": "cast/streaming/statistics_analyzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-09-20T18:08:33Z",
+      "side": 1,
+      "message": "I\u0027m still a little fuzzy on why the time since a last response from the receiver could depend on event.timestamp.   My reading is that it should only depend on event.received_timestamp, since it must be based on getting a \"receiver event.\"  Can you add more comments in this function to clarify the various timestamps and how they are related?",
+      "revId": "5360da3e3440b077a17dfb59f211fa117863fdf1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
