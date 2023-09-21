@@ -12,9 +12,11 @@
 #include "osp/impl/quic/quic_connection_factory.h"
 #include "platform/api/udp_socket.h"
 #include "platform/base/ip_address.h"
-#include "third_party/chromium_quic/src/base/at_exit.h"
-#include "third_party/chromium_quic/src/net/quic/quic_chromium_alarm_factory.h"
-#include "third_party/chromium_quic/src/net/third_party/quic/quartc/quartc_factory.h"
+#include "third_party/quiche/src/quiche/quic/core/crypto/quic_crypto_client_config.h"
+#include "third_party/quiche/src/quiche/quic/core/crypto/quic_crypto_server_config.h"
+#include "third_party/quiche/src/quiche/quic/core/deterministic_connection_id_generator.h"
+#include "third_party/quiche/src/quiche/quic/core/quic_connection.h"
+#include "third_party/quiche/src/quiche/quic/core/quic_versions.h"
 
 namespace openscreen {
 namespace osp {
@@ -41,10 +43,19 @@ class QuicConnectionFactoryImpl final : public QuicConnectionFactory {
   void OnConnectionClosed(QuicConnection* connection);
 
  private:
-  ::base::AtExitManager exit_manager_;
-  scoped_refptr<QuicTaskRunner> quic_task_runner_;
-  std::unique_ptr<::net::QuicChromiumAlarmFactory> alarm_factory_;
-  std::unique_ptr<::quic::QuartcFactory> quartc_factory_;
+  std::unique_ptr<quic::QuicConnectionHelperInterface> helper_;
+  std::unique_ptr<quic::QuicAlarmFactory> alarm_factory_;
+  quic::ParsedQuicVersionVector supported_versions_;
+  quic::DeterministicConnectionIdGenerator connection_id_generator_{
+      quic::kQuicDefaultConnectionIdLength};
+  quic::QuicConfig config_;
+  quic::QuicServerId server_id_;
+  quic::QuicCompressedCertsCache compressed_certs_cache_;
+
+  union {
+    quic::QuicCryptoClientConfig client_config;
+    quic::QuicCryptoServerConfig server_config;
+  } crypto_config_;
 
   ServerDelegate* server_delegate_ = nullptr;
 
