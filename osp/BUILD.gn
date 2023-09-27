@@ -44,3 +44,19 @@ source_set("unittests") {
     "public:test_support",
   ]
 }
+
+if (!build_with_chromium && !is_mac) {
+  executable("osp_demo") {
+    visibility += [ "../*" ]
+    sources = [ "demo/osp_demo.cc" ]
+    deps = [
+      "../platform:base",
+      "../platform:standalone_impl",
+      "../third_party/quiche",
+      "../third_party/tinycbor",
+      "../util",
+      "impl",
+      "public",
+    ]
+  }
+}
