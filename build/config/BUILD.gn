@@ -189,12 +189,6 @@ config("openscreen_code") {
       ]
     }
 
-    cflags_cc += [
-      # Generate warning if code generates exit-time destructors, since such
-      # things are in violation of Chromium C++ Don'ts.
-      "-Wexit-time-destructors",
-    ]
-
     # TODO(issuetracker.google.com/202964797): Support all build flags on Mac
     # once it migrates to a newer clang.
     if (is_linux) {
