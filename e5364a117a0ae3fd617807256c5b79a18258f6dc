@@ -16,6 +16,57 @@
       "message": "Hi, mark. I am trying to re-enable osp_demo in this CL (still WIP, will ask you to review when almost done): https://chromium-review.googlesource.com/c/openscreen/+/4880923.\nIt is found that most features needed by QUICHE from abseil-cpp are not enabled in OpenScreen now. So I submitted this CL to enable them. PATL, thanks.",
       "revId": "e5364a117a0ae3fd617807256c5b79a18258f6dc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30f7b695_5425512d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-09-27T17:49:59Z",
+      "side": 1,
+      "message": "Exciting to see this make progress 😊\n\nDo you have a CL that uses these additional abseil features? I didn\u0027t see them in the CL you linked.  Or are these all used by the quiche platform checked into third_party/quiche_src?",
+      "revId": "e5364a117a0ae3fd617807256c5b79a18258f6dc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0b31799_82efe7b2",
+        "filename": "third_party/abseil/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-09-27T17:49:59Z",
+      "side": 1,
+      "message": "Similarly, can you add this to private_abseil_quiche_config and use it for the abseil_quiche target?",
+      "revId": "e5364a117a0ae3fd617807256c5b79a18258f6dc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b43106f_f68bd0b0",
+        "filename": "third_party/abseil/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-09-27T17:49:59Z",
+      "side": 1,
+      "message": "In general we are trying to minimize usage of abseil in the core open screen library; this is because on platforms like Android, it is difficult or impossible for them to ship abseil as a shared library.\n\nI think it\u0027s fine to add abseil dependencies for use in the osp_demo, but for this file, can you move all of these additional sources to their own source_set, like \"abseil_quiche\", and set the GN visibility of that source_set to only be visible to the quiche code that needs it?",
+      "revId": "e5364a117a0ae3fd617807256c5b79a18258f6dc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
