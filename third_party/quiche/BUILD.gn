@@ -37,7 +37,9 @@ if (build_with_chromium) {
   source_set("quiche") {
     sources = quiche_core_hdrs + quiche_core_srcs + binary_http_hdrs +
               binary_http_srcs + oblivious_http_hdrs + oblivious_http_srcs +
-              default_platform_impl_hdrs + default_platform_impl_srcs
+              default_platform_impl_hdrs + default_platform_impl_srcs +
+              default_platform_impl_tool_support_hdrs +
+              default_platform_impl_tool_support_srcs
 
     configs += [ ":quiche_internal_config" ]
     all_dependent_configs = [ ":quiche_config" ]
