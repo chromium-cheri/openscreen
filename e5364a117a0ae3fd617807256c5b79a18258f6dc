@@ -35,6 +35,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ccb9b6b_976d69ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2023-09-28T04:55:52Z",
+      "side": 1,
+      "message": "I add the `executable(\"osp_demo\")` in the linked CL and add these additional files one by one when there are link errors when building. I think these files are needed both by quiche core implementation and quiche default platform implementation.\n\nIf I understand correctly, we enable building QUICHE as a source set in the previous CL. However, no executable target depends on it. So we don\u0027t meet link error there.",
+      "parentUuid": "30f7b695_5425512d",
+      "revId": "e5364a117a0ae3fd617807256c5b79a18258f6dc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0b31799_82efe7b2",
@@ -52,6 +70,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "68182970_2f55aa44",
+        "filename": "third_party/abseil/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2023-09-28T04:55:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0b31799_82efe7b2",
+      "revId": "e5364a117a0ae3fd617807256c5b79a18258f6dc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b43106f_f68bd0b0",
@@ -65,6 +101,24 @@
       "writtenOn": "2023-09-27T17:49:59Z",
       "side": 1,
       "message": "In general we are trying to minimize usage of abseil in the core open screen library; this is because on platforms like Android, it is difficult or impossible for them to ship abseil as a shared library.\n\nI think it\u0027s fine to add abseil dependencies for use in the osp_demo, but for this file, can you move all of these additional sources to their own source_set, like \"abseil_quiche\", and set the GN visibility of that source_set to only be visible to the quiche code that needs it?",
+      "revId": "e5364a117a0ae3fd617807256c5b79a18258f6dc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24517a6c_de3303f0",
+        "filename": "third_party/abseil/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2023-09-28T04:55:52Z",
+      "side": 1,
+      "message": "Thanks for the explanation and the suggestion, PTAL.",
+      "parentUuid": "7b43106f_f68bd0b0",
       "revId": "e5364a117a0ae3fd617807256c5b79a18258f6dc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }

@@ -16,6 +16,24 @@
       "message": "We want this on by default as it\u0027s required to use our code in Chromium.   Is there abseil code that is using exit time destructors?",
       "revId": "32acf062765f112c4610cfa88008c0c8396f7ccc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2617a798_77c5a7ee",
+        "filename": "build/config/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2023-09-28T04:55:52Z",
+      "side": 0,
+      "message": "Yes, abseil codes use the exit time destructors. If I understand correctly, this will override the \"-Wno-exit-time-destructors\" in \"private_abseil_quiche_config\". So can we make this on only build_with_chromium?",
+      "parentUuid": "b4a4e342_e7de14b3",
+      "revId": "32acf062765f112c4610cfa88008c0c8396f7ccc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
