@@ -123,9 +123,31 @@ def _CheckNoexceptOnMove(filename, clean_lines, linenum, error):
     _CheckNoRegexMatches(_RE_PATTERN_MOVE_WITHOUT_NOEXCEPT, cpplint_args,
                          error_to_return, False)
 
+# Matches "namespace <foo> {/nnamespace <bar> {". Note that we use \s to match
+# empty whitespace, so this will match the above example even if there is a
+# newline between them.
+_RE_PATTERN_UNNESTED_NAMESPACE = re.compile(
+    r'namespace +\w+ +\{\s+namespace +\w+ +\{')
+
+
+def _CheckUnnestedNamespaces(filename, clean_lines, linenum, error):
+    """Checks that nestable namespaces are nested.
+
+    filename: The name of the current file.
+    clean_lines: A CleansedLines instance containing the file.
+    linenum: The number of the line to check.
+    error: The function to call with any errors found.
+    """
+    cpplint_args = CpplintArgs(filename, clean_lines, linenum, error)
+    error_to_return = Error('runtime/nested_namespace',
+                            'Namespaces could be nested, and are not')
+    _CheckNoRegexMatches(_RE_PATTERN_UNNESTED_NAMESPACE, cpplint_args,
+                         error_to_return)
+
 
 # Gives additional debug information whenever a linting error occurs.
 _CPPLINT_VERBOSE_LEVEL = 4
+
 
 # - We disable c++11 header checks since Open Screen allows them.
 # - We disable whitespace/braces because of various false positives.
@@ -145,8 +167,10 @@ def _CheckChangeLintsClean(input_api, output_api):
     ]
 
     for file_name in files:
-        cpplint.ProcessFile(file_name, _CPPLINT_VERBOSE_LEVEL,
-                            [_CheckNoexceptOnMove, _CheckNoValueDchecks])
+        cpplint.ProcessFile(file_name, _CPPLINT_VERBOSE_LEVEL, [
+            _CheckNoexceptOnMove, _CheckNoValueDchecks,
+            _CheckUnnestedNamespaces
+        ])
 
     if cpplint._cpplint_state.error_count:
         if input_api.is_committing:
@@ -161,8 +185,8 @@ def _CheckChangeLintsClean(input_api, output_api):
 def _CheckLuciCfgLint(input_api, output_api):
     """Check that the luci configs pass the linter."""
     path = os.path.join('infra', 'config', 'global', 'main.star')
-    pred = lambda f : os.path.samefile(f.AbsoluteLocalPath(), path)
-    if not input_api.AffectedSourceFiles(pred):
+    if not input_api.AffectedSourceFiles(
+            lambda f: os.path.samefile(f.AbsoluteLocalPath(), path)):
         return []
 
     result = []
