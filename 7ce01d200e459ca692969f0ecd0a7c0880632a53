@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dceb4b0_629e66c3",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-10-02T23:02:35Z",
+      "side": 1,
+      "message": "It\u0027s technically valid to have the following in the same file:\n\n```\nnamespace foo {\n\u003ccode\u003e\nnamespace bar {\n\u003cmore code\u003e\n}\n}\n```\n\nor\n\n```\nnamespace foo {\n...\n}\n\nnamespace bar {\n...\n}\n\n```\n\nWould either of these trip the linter?",
+      "revId": "7ce01d200e459ca692969f0ecd0a7c0880632a53",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
