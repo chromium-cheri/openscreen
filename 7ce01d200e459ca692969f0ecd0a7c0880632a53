@@ -16,6 +16,24 @@
       "message": "It\u0027s technically valid to have the following in the same file:\n\n```\nnamespace foo {\n\u003ccode\u003e\nnamespace bar {\n\u003cmore code\u003e\n}\n}\n```\n\nor\n\n```\nnamespace foo {\n...\n}\n\nnamespace bar {\n...\n}\n\n```\n\nWould either of these trip the linter?",
       "revId": "7ce01d200e459ca692969f0ecd0a7c0880632a53",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57ad21f6_c1416b35",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2023-10-03T00:35:12Z",
+      "side": 1,
+      "message": "No. As currently written it only checks the next line, which is the most common case:\n\n    namespace \u003csomething\u003e {\n    namespace \u003csomething\u003e {\n\nAnd doesn\u0027t even cover just a whitespace line difference:\n\n    namespace \u003csomething\u003e {\n    \n    namespace \u003csomething\u003e {\n\nI didn\u0027t want any false positives.",
+      "parentUuid": "4dceb4b0_629e66c3",
+      "revId": "7ce01d200e459ca692969f0ecd0a7c0880632a53",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
