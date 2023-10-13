@@ -78,8 +78,8 @@ void FakeQuicConnectionFactoryBridge::RunTasks(bool is_client) {
                      connections_.receiver->streams().begin());
 
   for (size_t i = 0; i < num_streams; ++i) {
-    auto* controller_stream = stream_it_pair.first->second;
-    auto* receiver_stream = stream_it_pair.second->second;
+    auto* controller_stream = stream_it_pair.first->second.get();
+    auto* receiver_stream = stream_it_pair.second->second.get();
 
     std::vector<uint8_t> written_data = controller_stream->TakeWrittenData();
     OSP_DCHECK(controller_stream->TakeReceivedData().empty());
@@ -111,8 +111,8 @@ void FakeQuicConnectionFactoryBridge::RunTasks(bool is_client) {
 
     if (controller_stream->both_ends_closed() &&
         receiver_stream->both_ends_closed()) {
-      controller_stream->delegate()->OnClose(controller_stream->id());
-      receiver_stream->delegate()->OnClose(receiver_stream->id());
+      controller_stream->delegate()->OnClose(controller_stream->GetStreamId());
+      receiver_stream->delegate()->OnClose(receiver_stream->GetStreamId());
 
       controller_stream->delegate()->OnReceived(controller_stream, nullptr, 0);
       receiver_stream->delegate()->OnReceived(receiver_stream, nullptr, 0);
@@ -139,11 +139,11 @@ std::unique_ptr<QuicConnection> FakeQuicConnectionFactoryBridge::Connect(
   OSP_DCHECK(!connections_.controller);
   OSP_DCHECK(!connections_.receiver);
   auto controller_connection = std::make_unique<FakeQuicConnection>(
-      this, next_connection_id_++, connection_delegate);
+      this, std::to_string(next_connection_id_++), connection_delegate);
   connections_.controller = controller_connection.get();
 
   auto receiver_connection = std::make_unique<FakeQuicConnection>(
-      this, next_connection_id_++,
+      this, std::to_string(next_connection_id_++),
       delegate_->NextConnectionDelegate(controller_endpoint_));
   connections_.receiver = receiver_connection.get();
   delegate_->OnIncomingConnection(std::move(receiver_connection));

@@ -112,7 +112,7 @@ void QuicServer::OnConnectionDestroyed(QuicProtocolConnection* connection) {
 
 uint64_t QuicServer::OnCryptoHandshakeComplete(
     ServiceConnectionDelegate* delegate,
-    uint64_t connection_id) {
+    std::string connection_id) {
   OSP_DCHECK_EQ(state_, State::kRunning);
   const IPEndpoint& endpoint = delegate->endpoint();
   auto pending_entry = pending_connections_.find(endpoint);
@@ -133,7 +133,7 @@ void QuicServer::OnIncomingStream(
 }
 
 void QuicServer::OnConnectionClosed(uint64_t endpoint_id,
-                                    uint64_t connection_id) {
+                                    std::string connection_id) {
   OSP_DCHECK_EQ(state_, State::kRunning);
   auto connection_entry = connections_.find(endpoint_id);
   if (connection_entry == connections_.end())
@@ -147,11 +147,11 @@ void QuicServer::OnConnectionClosed(uint64_t endpoint_id,
 }
 
 void QuicServer::OnDataReceived(uint64_t endpoint_id,
-                                uint64_t connection_id,
+                                uint64_t protocol_connection_id,
                                 const uint8_t* data,
                                 size_t data_size) {
   OSP_DCHECK_EQ(state_, State::kRunning);
-  demuxer_->OnStreamData(endpoint_id, connection_id, data, data_size);
+  demuxer_->OnStreamData(endpoint_id, protocol_connection_id, data, data_size);
 }
 
 void QuicServer::CloseAllConnections() {

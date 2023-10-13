@@ -8,6 +8,7 @@
 #include <cstdint>
 #include <map>
 #include <memory>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -60,13 +61,13 @@ class QuicClient final : public ProtocolConnectionClient,
 
   // ServiceConnectionDelegate::ServiceDelegate overrides.
   uint64_t OnCryptoHandshakeComplete(ServiceConnectionDelegate* delegate,
-                                     uint64_t connection_id) override;
+                                     std::string connection_id) override;
   void OnIncomingStream(
       std::unique_ptr<QuicProtocolConnection> connection) override;
   void OnConnectionClosed(uint64_t endpoint_id,
-                          uint64_t connection_id) override;
+                          std::string connection_id) override;
   void OnDataReceived(uint64_t endpoint_id,
-                      uint64_t connection_id,
+                      uint64_t protocol_connection_id,
                       const uint8_t* data,
                       size_t data_size) override;
 
