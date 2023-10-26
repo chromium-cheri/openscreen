@@ -146,14 +146,19 @@ void StatisticsAnalyzer::RecordFrameLatencies(const FrameEvent& frame_event) {
 
   auto it = frame_infos.find(frame_event.rtp_timestamp);
   if (it == frame_infos.end()) {
+    // If the map is full, determine if we want to make space.
+    if (frame_infos.size() == kMaxRecentFrameInfoMapSize) {
+      // Event is too old, don't bother.
+      if (frame_event.rtp_timestamp <= frame_infos.begin()->first) {
+        return;
+      }
+      frame_infos.erase(frame_infos.begin());
+    }
+
     auto emplace_result =
         frame_infos.emplace(frame_event.rtp_timestamp, FrameInfo{});
     OSP_CHECK(emplace_result.second);
     it = emplace_result.first;
-
-    if (frame_infos.size() >= kMaxRecentFrameInfoMapSize) {
-      frame_infos.erase(frame_infos.begin());
-    }
   }
 
   switch (frame_event.type) {
