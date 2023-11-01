@@ -3,8 +3,9 @@
 # found in the LICENSE file.
 
 toolchain("clang") {
-  c_command = "clang"
-  cpp_command = "clang++"
+  prefix = rebase_path("$clang_base_path/bin", root_build_dir)
+  c_command = "$prefix/clang"
+  cpp_command = "$prefix/clang++"
 
   lib_switch = "-l"
   lib_dir_switch = "-L"
