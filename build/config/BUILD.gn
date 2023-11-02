@@ -208,10 +208,13 @@ config("openscreen_code") {
     }
 
     if (sysroot != "") {
-      cflags += [
-        # Use the generated sysroot path, if any, for compilation.
-        "--sysroot=$sysroot",
+      sysroot_flags = [
+        # Use the sysroot path, if any, for compilation.
+        "--sysroot=" + rebase_path(sysroot, root_build_dir),
       ]
+      asmflags = sysroot_flags
+      ldflags += sysroot_flags
+      cflags += sysroot_flags
     }
 
     cflags_objcc += cflags_cc
@@ -294,7 +297,7 @@ config("default_coverage") {
 }
 
 config("sysroot_runtime_libraries") {
-  if (sysroot != "") {
+  if (sysroot_platform != "") {
     assert(is_clang)
     sysroot_path = rebase_path(sysroot, root_build_dir)
     flags = [ "--sysroot=" + sysroot_path ]

@@ -11,9 +11,9 @@ declare_args() {
   # The relative path to directory containing sysroot images
   target_sysroot_dir = "../"
 
-  # Sysroots should only be used for cross compilation, which are currently only
-  # supported on Linux. Only current, valid sysroot is "bullseye", based on the
-  # Debian release of the same name.
+  # Sysroots can be used for cross compilation, which is currently only
+  # supported on Linux. Only current, valid sysroot for cross-compilation is
+  # "bullseye", based on the Debian release of the same name.
   #
   # NOTE: to add new platforms, start with the documentation located
   # at //docs/cross_compilation.md. Also please update the VALID_PLATFORMS
@@ -21,6 +21,10 @@ declare_args() {
   sysroot_platform = ""
   if (is_linux && (current_cpu == "arm" || current_cpu == "arm64")) {
     sysroot_platform = "bullseye"
+  }
+
+  if (is_mac) {
+    sysroot = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk"
   }
 }
 
