@@ -36,6 +36,10 @@ group("gn_all") {
       "osp",
       "osp/msgs",
     ]
+
+    if (!build_with_chromium) {
+      deps += [ "osp:osp_demo" ]
+    }
   }
 
   if (!build_with_chromium) {

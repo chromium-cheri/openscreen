@@ -12,9 +12,12 @@
 #include "osp/impl/quic/quic_connection_factory.h"
 #include "platform/api/udp_socket.h"
 #include "platform/base/ip_address.h"
-#include "third_party/chromium_quic/src/base/at_exit.h"
-#include "third_party/chromium_quic/src/net/quic/quic_chromium_alarm_factory.h"
-#include "third_party/chromium_quic/src/net/third_party/quic/quartc/quartc_factory.h"
+#include "quiche/quic/core/crypto/quic_crypto_client_config.h"
+#include "quiche/quic/core/crypto/quic_crypto_server_config.h"
+#include "quiche/quic/core/deterministic_connection_id_generator.h"
+#include "quiche/quic/core/quic_alarm_factory.h"
+#include "quiche/quic/core/quic_connection.h"
+#include "quiche/quic/core/quic_versions.h"
 
 namespace openscreen::osp {
 
@@ -22,7 +25,7 @@ class QuicTaskRunner;
 
 class QuicConnectionFactoryImpl final : public QuicConnectionFactory {
  public:
-  explicit QuicConnectionFactoryImpl(TaskRunner& task_runner);
+  QuicConnectionFactoryImpl(TaskRunner& task_runner, bool is_for_client);
   ~QuicConnectionFactoryImpl() override;
 
   // UdpSocket::Client overrides.
@@ -40,11 +43,18 @@ class QuicConnectionFactoryImpl final : public QuicConnectionFactory {
   void OnConnectionClosed(QuicConnection* connection);
 
  private:
-  ::base::AtExitManager exit_manager_;
-  scoped_refptr<QuicTaskRunner> quic_task_runner_;
-  std::unique_ptr<::net::QuicChromiumAlarmFactory> alarm_factory_;
-  std::unique_ptr<::quic::QuartcFactory> quartc_factory_;
-
+  std::unique_ptr<quic::QuicConnectionHelperInterface> helper_;
+  std::unique_ptr<quic::QuicAlarmFactory> alarm_factory_;
+  quic::ParsedQuicVersionVector supported_versions_;
+  quic::QuicConfig config_;
+  quic::DeterministicConnectionIdGenerator connection_id_generator_{
+      quic::kQuicDefaultConnectionIdLength};
+  // Used only by QuicClient.
+  quic::QuicServerId server_id_;
+  std::unique_ptr<quic::QuicCryptoClientConfig> client_config_;
+  // Used only by QuicServer.
+  quic::QuicCompressedCertsCache compressed_certs_cache_;
+  std::unique_ptr<quic::QuicCryptoServerConfig> server_config_;
   ServerDelegate* server_delegate_ = nullptr;
 
   std::vector<std::unique_ptr<UdpSocket>> sockets_;

@@ -109,7 +109,7 @@ void QuicClient::OnConnectionDestroyed(QuicProtocolConnection* connection) {
 
 uint64_t QuicClient::OnCryptoHandshakeComplete(
     ServiceConnectionDelegate* delegate,
-    uint64_t connection_id) {
+    std::string connection_id) {
   const IPEndpoint& endpoint = delegate->endpoint();
   auto pending_entry = pending_connections_.find(endpoint);
   if (pending_entry == pending_connections_.end())
@@ -142,7 +142,7 @@ void QuicClient::OnIncomingStream(
 }
 
 void QuicClient::OnConnectionClosed(uint64_t endpoint_id,
-                                    uint64_t connection_id) {
+                                    std::string connection_id) {
   // TODO(btolsch): Is this how handshake failure is communicated to the
   // delegate?
   auto connection_entry = connections_.find(endpoint_id);
@@ -157,10 +157,10 @@ void QuicClient::OnConnectionClosed(uint64_t endpoint_id,
 }
 
 void QuicClient::OnDataReceived(uint64_t endpoint_id,
-                                uint64_t connection_id,
+                                uint64_t protocol_connection_id,
                                 const uint8_t* data,
                                 size_t data_size) {
-  demuxer_->OnStreamData(endpoint_id, connection_id, data, data_size);
+  demuxer_->OnStreamData(endpoint_id, protocol_connection_id, data, data_size);
 }
 
 QuicClient::PendingConnectionData::PendingConnectionData(
