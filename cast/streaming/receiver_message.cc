@@ -6,7 +6,6 @@
 
 #include <utility>
 
-#include "absl/strings/ascii.h"
 #include "cast/streaming/message_fields.h"
 #include "json/reader.h"
 #include "json/writer.h"
@@ -16,6 +15,7 @@
 #include "util/json/json_helpers.h"
 #include "util/json/json_serialization.h"
 #include "util/osp_logging.h"
+#include "util/string_util.h"
 #include "util/stringprintf.h"
 
 namespace openscreen::cast {
@@ -44,10 +44,9 @@ ReceiverMessage::Type GetMessageType(const Json::Value& root) {
   if (!json::TryParseString(root[kMessageType], &type)) {
     return ReceiverMessage::Type::kUnknown;
   }
+  string_util::AsciiStrToUpper(type);
 
-  absl::AsciiStrToUpper(&type);
   ErrorOr<ReceiverMessage::Type> parsed = GetEnum(kMessageTypeNames, type);
-
   return parsed.value(ReceiverMessage::Type::kUnknown);
 }
 

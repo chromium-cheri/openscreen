@@ -13,13 +13,8 @@
 #include <utility>
 #include <vector>
 
-#include "absl/strings/ascii.h"
-#include "absl/strings/match.h"
 #include "tools/cddl/logging.h"
-
-static_assert(sizeof(std::string_view::size_type) == sizeof(size_t),
-              "We assume string_view's size_type is the same as size_t. If "
-              "not, the following file needs to be refactored");
+#include "util/string_util.h"
 
 // All of the parsing methods in this file that operate on Parser are named
 // either Parse* or Skip* and are named according to the CDDL grammar in
@@ -49,7 +44,8 @@ bool IsBinaryDigit(char x) {
 
 // Determines if the given character matches regex '[a-zA-Z@_$]'.
 bool IsExtendedAlpha(char x) {
-  return absl::ascii_isalpha(x) || x == '@' || x == '_' || x == '$';
+  return openscreen::string_util::ascii_isalpha(x) || x == '@' || x == '_' ||
+         x == '$';
 }
 
 bool IsNewline(char x) {
@@ -75,7 +71,7 @@ std::string_view SkipComment(std::string_view view) {
   if (view[index] == ';') {
     ++index;
     while (!IsNewline(view[index]) && index < view.length()) {
-      CHECK(absl::ascii_isprint(view[index]));
+      CHECK(openscreen::string_util::ascii_isprint(view[index]));
       ++index;
     }
 
@@ -89,7 +85,8 @@ std::string_view SkipComment(std::string_view view) {
 
 void SkipWhitespace(Parser* p, bool skip_comments = true) {
   if (!skip_comments) {
-    p->data = absl::StripLeadingAsciiWhitespace(p->data).data();
+    p->data =
+        openscreen::string_util::StripLeadingAsciiWhitespace(p->data).data();
     return;
   }
 
@@ -99,7 +96,7 @@ void SkipWhitespace(Parser* p, bool skip_comments = true) {
   while (true) {
     new_view = SkipComment(view);
     if (new_view.data() == view.data()) {
-      new_view = absl::StripLeadingAsciiWhitespace(view);
+      new_view = openscreen::string_util::StripLeadingAsciiWhitespace(view);
     }
 
     if (new_view == view) {
@@ -162,14 +159,15 @@ void SkipUint(Parser* p) {
 
   bool is_binary = false;
   size_t index = 0;
-  if (absl::StartsWith(view, "0b")) {
+  if (openscreen::string_util::starts_with(view, "0b")) {
     is_binary = true;
     index = 2;
-  } else if (absl::StartsWith(view, "0x")) {
+  } else if (openscreen::string_util::starts_with(view, "0x")) {
     index = 2;
   }
 
-  while (index < view.length() && absl::ascii_isdigit(view[index])) {
+  while (index < view.length() &&
+         openscreen::string_util::ascii_isdigit(view[index])) {
     if (is_binary) {
       CHECK(IsBinaryDigit(view[index]));
     }
@@ -182,7 +180,7 @@ void SkipUint(Parser* p) {
 
 AstNode* ParseNumber(Parser* p) {
   Parser p_speculative{p->data};
-  if (!absl::ascii_isdigit(p_speculative.data[0]) &&
+  if (!openscreen::string_util::ascii_isdigit(p_speculative.data[0]) &&
       p_speculative.data[0] != '-') {
     // TODO(btolsch): Add support for hexfloat, fraction, exponent.
     return nullptr;
@@ -214,9 +212,10 @@ AstNode* ParseBytes(Parser* p) {
 // This is not a guarantee however, since 'h' and 'b' could also indicate the
 // start of an ID, but value needs to be tried first.
 bool IsValue(char c) {
-  return (c == '-' || absl::ascii_isdigit(c) ||  // FIRST(number)
-          c == '"' ||                            // FIRST(text)
-          c == '\'' || c == 'h' || c == 'b');    // FIRST(bytes)
+  return (c == '-' ||
+          openscreen::string_util::ascii_isdigit(c) ||  // FIRST(number)
+          c == '"' ||                                   // FIRST(text)
+          c == '\'' || c == 'h' || c == 'b');           // FIRST(bytes)
 }
 
 AstNode* ParseValue(Parser* p) {
@@ -261,14 +260,16 @@ std::optional<std::string> ParseTypeKeyFromComment(Parser* p) {
 
   SkipWhitespace(&p_speculative, false);
   const char kTypeKeyPrefix[] = "type key";
-  if (!absl::StartsWith(p_speculative.data, kTypeKeyPrefix)) {
+  if (!openscreen::string_util::starts_with(p_speculative.data,
+                                            kTypeKeyPrefix)) {
     return std::nullopt;
   }
   p_speculative.data += strlen(kTypeKeyPrefix);
 
   SkipWhitespace(&p_speculative, false);
   Parser p_speculative2{p_speculative.data};
-  for (; absl::ascii_isdigit(p_speculative2.data[0]); p_speculative2.data++) {
+  for (; openscreen::string_util::ascii_isdigit(p_speculative2.data[0]);
+       p_speculative2.data++) {
   }
   auto result = std::string_view(p_speculative.data,
                                  p_speculative2.data - p_speculative.data);
@@ -440,11 +441,11 @@ AstNode* ParseGroup(Parser* p) {
 // ABNF rule: rangeop = "..." / ".."
 AstNode* ParseRangeop(Parser* p) {
   std::string_view view(p->data);
-  if (absl::StartsWith(view, "...")) {
+  if (openscreen::string_util::starts_with(view, "...")) {
     // rangeop ...
     p->data += 3;
     return AddNode(p, AstNode::Type::kRangeop, view.substr(0, 3));
-  } else if (absl::StartsWith(view, "..")) {
+  } else if (openscreen::string_util::starts_with(view, "..")) {
     // rangeop ..
     p->data += 2;
     return AddNode(p, AstNode::Type::kRangeop, view.substr(0, 2));
@@ -456,7 +457,7 @@ AstNode* ParseRangeop(Parser* p) {
 // ABNF rule: ctlop = "." id
 AstNode* ParseCtlop(Parser* p) {
   std::string_view view(p->data);
-  if (!absl::StartsWith(view, ".")) {
+  if (!openscreen::string_util::starts_with(view, ".")) {
     return nullptr;
   }
   ++p->data;
@@ -625,7 +626,7 @@ AstNode* ParseType2(Parser* p) {
       }
       ++p->data;
       node->children = type;
-    } else if (absl::ascii_isdigit(it[0])) {
+    } else if (openscreen::string_util::ascii_isdigit(it[0])) {
       std::cerr << "# MAJOR unimplemented" << std::endl;
       return nullptr;
     } else {
@@ -711,11 +712,13 @@ AstNode* ParseId(Parser* p) {
   while (true) {
     if (it[0] == '-' || it[0] == '.') {
       ++it;
-      if (!IsExtendedAlpha(it[0]) && !absl::ascii_isdigit(it[0])) {
+      if (!IsExtendedAlpha(it[0]) &&
+          !openscreen::string_util::ascii_isdigit(it[0])) {
         return nullptr;
       }
       ++it;
-    } else if (IsExtendedAlpha(it[0]) || absl::ascii_isdigit(it[0])) {
+    } else if (IsExtendedAlpha(it[0]) ||
+               openscreen::string_util::ascii_isdigit(it[0])) {
       ++it;
     } else {
       break;

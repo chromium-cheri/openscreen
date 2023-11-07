@@ -18,7 +18,10 @@ config("trace_logging_config") {
   }
 }
 
-# The set of util classes which have no dependency on platform:api.
+# The set of util classes which have no dependency on //platform:api.
+#
+# TODO(issuetracker.google.com/309442516): These actually do depend on
+# //platform/api/logging.h.  Sort this out :-P
 source_set("base") {
   visibility += [ "../*" ]
 
@@ -38,6 +41,7 @@ source_set("base") {
     "simple_fraction.h",
     "span_util.h",
     "std_util.h",
+    "string_util.h",
     "stringprintf.h",
     "url.h",
     "weak_ptr.h",
@@ -52,6 +56,7 @@ source_set("base") {
     "simple_fraction.cc",
     "span_util.cc",
     "std_util.cc",
+    "string_util.cc",
     "stringprintf.cc",
     "url.cc",
     "yet_another_bit_vector.cc",
@@ -153,6 +158,7 @@ source_set("unittests") {
     "serial_delete_ptr_unittest.cc",
     "simple_fraction_unittest.cc",
     "std_util_unittest.cc",
+    "string_util_unittest.cc",
     "stringprintf_unittest.cc",
     "trace_logging/scoped_trace_operations_unittest.cc",
     "url_unittest.cc",
