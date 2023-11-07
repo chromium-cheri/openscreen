@@ -24,7 +24,17 @@ if (current_toolchain == host_toolchain) {
       "sema.h",
     ]
 
-    deps = [ "../../third_party/abseil" ]
+    deps = [
+      "../../third_party/abseil",
+      "../../util:base",
+    ]
+    if (!build_with_chromium) {
+      deps += [
+        # TODO(issuetracker.google.com/309442516): Possibly remove dependency on
+        # :standalone_impl when this issue is resolved.
+        "../../platform:standalone_impl",
+      ]
+    }
 
     configs += [ "../../build:openscreen_include_dirs" ]
   }
