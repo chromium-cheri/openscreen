@@ -16,6 +16,9 @@ import sys
 _REPO_PATH = os.path.dirname(os.path.realpath('__file__'))
 _IMPORT_SUBFOLDERS = ['tools', os.path.join('buildtools', 'checkdeps')]
 
+print(_REPO_PATH)
+print(_IMPORT_SUBFOLDERS)
+
 # git-cl upload is not compatible with __init__.py based subfolder imports, so
 # we extend the system path instead.
 sys.path.extend(os.path.join(_REPO_PATH, p) for p in _IMPORT_SUBFOLDERS)
