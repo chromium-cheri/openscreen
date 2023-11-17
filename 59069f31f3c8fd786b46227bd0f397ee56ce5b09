@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fc39ffa_be97cbf3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-11-17T23:09:37Z",
+      "side": 1,
+      "message": "This compilation failure is a head scratcher.  It looks like when the EnumTable template is being instantiated, it can\u0027t resolve the names I\u0027m adding to the openscreen::string_util namespace.\n\nHowever, compilation another string_util usage in a template in mdns_records.h works fine.\n\nJordan, I think you updated the repo to use nested namespaces, did you run anything like this? Any ideas?",
+      "revId": "59069f31f3c8fd786b46227bd0f397ee56ce5b09",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
