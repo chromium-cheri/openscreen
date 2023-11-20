@@ -6,8 +6,8 @@
 
 #include <array>
 
-#include "absl/strings/match.h"
 #include "util/std_util.h"
+#include "util/stringutil.h"
 
 namespace openscreen::cast {
 namespace {
@@ -116,26 +116,28 @@ bool IsCastStreamingAppId(const std::string& app_id) {
 }
 
 bool IsCastStreamingAudioVideoAppId(const std::string& app_id) {
-  return absl::EqualsIgnoreCase(app_id, GetCastStreamingAudioVideoAppId());
+  return stringutilEqualsIgnoreCase(app_id, GetCastStreamingAudioVideoAppId());
 }
 
 bool IsCastStreamingAudioOnlyAppId(const std::string& app_id) {
-  return absl::EqualsIgnoreCase(app_id, GetCastStreamingAudioOnlyAppId());
+  return stringutilEqualsIgnoreCase(app_id, GetCastStreamingAudioOnlyAppId());
 }
 
 bool IsCastStreamingReceiverAppId(const std::string& app_id) {
-  if (absl::EqualsIgnoreCase(app_id, GetCastStreamingAudioVideoAppId()) ||
-      absl::EqualsIgnoreCase(app_id, GetCastStreamingAudioOnlyAppId()) ||
-      absl::EqualsIgnoreCase(app_id, GetAndroidMirroringAudioVideoAppId()) ||
-      absl::EqualsIgnoreCase(app_id, GetAndroidMirroringAudioOnlyAppId()) ||
-      absl::EqualsIgnoreCase(app_id, GetAndroidAppStreamingAudioVideoAppId()) ||
-      absl::EqualsIgnoreCase(app_id, GetIosAppStreamingAudioVideoAppId())) {
+  if (stringutilEqualsIgnoreCase(app_id, GetCastStreamingAudioVideoAppId()) ||
+      stringutilEqualsIgnoreCase(app_id, GetCastStreamingAudioOnlyAppId()) ||
+      stringutilEqualsIgnoreCase(app_id,
+                                 GetAndroidMirroringAudioVideoAppId()) ||
+      stringutilEqualsIgnoreCase(app_id, GetAndroidMirroringAudioOnlyAppId()) ||
+      stringutilEqualsIgnoreCase(app_id,
+                                 GetAndroidAppStreamingAudioVideoAppId()) ||
+      stringutilEqualsIgnoreCase(app_id, GetIosAppStreamingAudioVideoAppId())) {
     return true;
   }
 
   return ContainsIf(kRemoteDisplayAppStreamingAudioVideoAppIds,
                     [app_id](const std::string& id) {
-                      return absl::EqualsIgnoreCase(id, app_id);
+                      return stringutilEqualsIgnoreCase(id, app_id);
                     });
 }
 
