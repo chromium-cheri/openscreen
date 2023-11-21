@@ -33,7 +33,6 @@
 #include "platform/impl/platform_client_posix.h"
 #include "platform/impl/task_runner.h"
 #include "platform/impl/text_trace_logging_platform.h"
-#include "platform/impl/udp_socket_reader_posix.h"
 #include "third_party/tinycbor/src/src/cbor.h"
 #include "util/trace_logging.h"
 
@@ -429,7 +428,7 @@ void ListenerDemo() {
   ServiceListener::Config listener_config;
   for (const InterfaceInfo& interface : GetNetworkInterfaces()) {
     OSP_VLOG << "Found interface: " << interface;
-    if (!interface.addresses.empty()) {
+    if (!interface.addresses.empty() && interface.HasHardwareAddress()) {
       listener_config.network_interfaces.push_back(interface);
     }
   }
@@ -532,7 +531,7 @@ void PublisherDemo(std::string_view friendly_name) {
   ServerConfig server_config;
   for (const InterfaceInfo& interface : GetNetworkInterfaces()) {
     OSP_VLOG << "Found interface: " << interface;
-    if (!interface.addresses.empty()) {
+    if (!interface.addresses.empty() && interface.HasHardwareAddress()) {
       server_config.connection_endpoints.push_back(
           IPEndpoint{interface.addresses[0].address, server_port});
       publisher_config.network_interfaces.push_back(interface);
