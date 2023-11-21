@@ -50,6 +50,24 @@
       "message": "still LGTM.\nThis is a really tricky bug!",
       "revId": "4eb8b7544c78e0315e803f8268e5b883cd16a92c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e1850ad_4c69dfc8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2023-11-21T17:58:08Z",
+      "side": 1,
+      "message": "The problem isn\u0027t the namespace, it\u0027s shadowing via the -I include path.  There is a different third_party library in Chromium that also has `util/string_utils.h` and it comes earlier in the include path, so when the compiler sees `#include \"util/string_utils.h\"` in this code it gets the wrong one :-)\n\nIt might be possible to refactor BUILD files downstream to see if we can make more dependencies on the other library private (which means that configs with include paths are not propagated to other targets) but just renaming my file is the simpler and reliable fix IMO.",
+      "parentUuid": "749c6af3_cb70dc7c",
+      "revId": "4eb8b7544c78e0315e803f8268e5b883cd16a92c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
