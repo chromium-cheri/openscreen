@@ -4,6 +4,16 @@
 
 visibility = [ "./*" ]
 
+config("impl_internal_config") {
+  cflags = []
+  if (is_clang) {
+    cflags += [
+      "-Wno-shadow-field",
+      "-Wno-implicit-int-float-conversion",
+    ]
+  }
+}
+
 source_set("impl") {
   visibility += [ "..:*" ]
   public = []
@@ -23,6 +33,8 @@ source_set("impl") {
     "presentation/presentation_receiver.cc",
     "presentation/url_availability_requester.cc",
     "presentation/url_availability_requester.h",
+    "protocol_connection_client_factory.cc",
+    "protocol_connection_server_factory.cc",
     "receiver_list.cc",
     "receiver_list.h",
     "service_listener_impl.cc",
@@ -32,6 +44,7 @@ source_set("impl") {
     "with_destruction_callback.cc",
     "with_destruction_callback.h",
   ]
+  configs += [ ":impl_internal_config" ]
   public_deps = [
     "../msgs",
     "../public",
@@ -41,6 +54,7 @@ source_set("impl") {
     "../../discovery:public",
     "../../platform",
     "../../third_party/abseil",
+    "../../third_party/quiche",
     "../../util",
     "quic",
   ]
