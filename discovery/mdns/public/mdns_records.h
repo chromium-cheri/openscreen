@@ -32,6 +32,7 @@ bool IsValidDomainLabel(std::string_view label);
 class DomainName {
  public:
   DomainName();
+  ~DomainName();
 
   template <typename IteratorType>
   static ErrorOr<DomainName> TryCreate(IteratorType first, IteratorType last) {
@@ -115,6 +116,7 @@ class RawRecordRdata {
   RawRecordRdata(const uint8_t* begin, size_t size);
   RawRecordRdata(const RawRecordRdata& other);
   RawRecordRdata(RawRecordRdata&& other) noexcept;
+  ~RawRecordRdata();
 
   RawRecordRdata& operator=(const RawRecordRdata& rhs);
   RawRecordRdata& operator=(RawRecordRdata&& rhs);
@@ -276,6 +278,7 @@ class TxtRecordRdata {
   explicit TxtRecordRdata(std::vector<Entry> texts);
   TxtRecordRdata(const TxtRecordRdata& other);
   TxtRecordRdata(TxtRecordRdata&& other) noexcept;
+  ~TxtRecordRdata();
 
   TxtRecordRdata& operator=(const TxtRecordRdata& rhs);
   TxtRecordRdata& operator=(TxtRecordRdata&& rhs);
@@ -322,6 +325,7 @@ class TxtRecordRdata {
 class NsecRecordRdata {
  public:
   NsecRecordRdata();
+  ~NsecRecordRdata();
 
   // Constructor that takes an arbitrary number of DnsType parameters.
   // NOTE: If `types...` provide a valid set of parameters for an
@@ -362,6 +366,9 @@ class OptRecordRdata {
  public:
   // A single option as defined in RFC6891 section 6.1.2.
   struct Option {
+    Option();
+    ~Option();
+
     size_t MaxWireSize() const;
 
     bool operator>(const Option& rhs) const;
@@ -390,6 +397,7 @@ class OptRecordRdata {
   };
 
   OptRecordRdata();
+  ~OptRecordRdata();
 
   // Constructor that takes zero or more Option parameters.
   template <typename... Types>
@@ -463,6 +471,7 @@ class MdnsRecord {
              Rdata rdata);
   MdnsRecord(const MdnsRecord& other);
   MdnsRecord(MdnsRecord&& other) noexcept;
+  ~MdnsRecord();
 
   MdnsRecord& operator=(const MdnsRecord& rhs);
   MdnsRecord& operator=(MdnsRecord&& rhs);
@@ -575,7 +584,8 @@ class MdnsMessage {
       std::vector<MdnsRecord> authority_records,
       std::vector<MdnsRecord> additional_records);
 
-  MdnsMessage() = default;
+  MdnsMessage();
+
   // Constructs a message with ID, flags and empty question, answer, authority
   // and additional record collections.
   MdnsMessage(uint16_t id, MessageType type);
@@ -585,6 +595,7 @@ class MdnsMessage {
               std::vector<MdnsRecord> answers,
               std::vector<MdnsRecord> authority_records,
               std::vector<MdnsRecord> additional_records);
+  ~MdnsMessage();
 
   bool operator==(const MdnsMessage& other) const;
   bool operator!=(const MdnsMessage& other) const;

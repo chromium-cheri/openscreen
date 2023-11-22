@@ -1,6 +1,10 @@
 [submodule "buildtools"]
 	path = buildtools
 	url = https://chromium.googlesource.com/chromium/src/buildtools
+[submodule "build"]
+	path = build
+	url = https://chromium.googlesource.com/chromium/src/build
+	gclient-condition = not build_with_chromium
 [submodule "third_party/clang-format/script"]
 	path = third_party/clang-format/script
 	url = https://chromium.googlesource.com/external/github.com/llvm/llvm-project/clang/tools/clang-format
@@ -40,6 +44,12 @@
 	path = third_party/libfuzzer/src
 	url = https://chromium.googlesource.com/chromium/llvm-project/compiler-rt/lib/fuzzer
 	gclient-condition = not build_with_chromium
+[submodule "third_party/libc++/src"]
+	path = third_party/libc++/src
+	url = https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxx
+[submodule "third_party/libc++abi/src"]
+	path = third_party/libc++abi/src
+	url = https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi
 [submodule "third_party/modp_b64"]
 	path = third_party/modp_b64
 	url = https://chromium.googlesource.com/chromium/src/third_party/modp_b64

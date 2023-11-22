@@ -20,6 +20,13 @@ class MdnsWriter : public BigEndianWriter {
   using BigEndianWriter::BigEndianWriter;
   using BigEndianWriter::Write;
 
+  MdnsWriter();
+  MdnsWriter(MdnsWriter&&) noexcept;
+  MdnsWriter(const MdnsWriter&);
+  MdnsWriter& operator=(MdnsWriter&&);
+  MdnsWriter& operator=(const MdnsWriter&);
+  ~MdnsWriter();
+
   // The following methods return true if the method was able to successfully
   // write the value to the underlying buffer and advances current() to point
   // right past the written data. Returns false if the method failed to write

@@ -10,6 +10,11 @@
 use_relative_paths = True
 git_dependencies = 'SYNC'
 
+gclient_gn_args_file = 'build/config/gclient_args.gni'
+gclient_gn_args = [
+  'build_with_chromium',
+]
+
 vars = {
   'boringssl_git': 'https://boringssl.googlesource.com',
   'chromium_git': 'https://chromium.googlesource.com',
@@ -40,15 +45,20 @@ vars = {
 }
 
 deps = {
-  # NOTE: This commit hash here references a repository/branch that is a mirror
-  # of the commits to the buildtools directory in the Chromium repository. This
-  # should be regularly updated with the tip of the MIRRORED master branch,
+  # NOTE: These commit hashes here referencesa repository/branch that is a mirror
+  # of the commits in the corresponding Chromium repository directory, and should be regularly updated with the tip of the MIRRORED master branch,
   # found here:
   # https://chromium.googlesource.com/chromium/src/buildtools/+/refs/heads/main
   'buildtools': {
     'url': Var('chromium_git') + '/chromium/src/buildtools' +
       '@' + 'a9a6f0c49d0e8fa0cda37337430b4736ab3dc944',
   },
+  'build': {
+    'url': Var('chromium_git') + '/chromium/src/build' +
+      '@' + '7f9fca99314e6b1ab0bf45dddbcbe1f1bd572bcd',
+    'condition': 'not build_with_chromium',
+  },
+
   'third_party/clang-format/script': {
     'url': Var('chromium_git') +
       '/external/github.com/llvm/llvm-project/clang/tools/clang-format.git' +
@@ -74,6 +84,16 @@ deps = {
     ],
     'dep_type': 'cipd',
     'condition': 'host_os == "mac" and not build_with_chromium',
+  },
+  'buildtools/win': {
+    'packages': [
+      {
+        'package': 'gn/gn/windows-amd64',
+        'version': Var('gn_version'),
+      }
+    ],
+    'dep_type': 'cipd',
+    'condition': 'host_os == "win"',
   },
 
   'third_party/ninja': {
@@ -156,6 +176,14 @@ deps = {
     'condition': 'not build_with_chromium',
   },
 
+  'third_party/libc++/src':
+    Var('chromium_git') +
+    '/external/github.com/llvm/llvm-project/libcxx.git' + '@' + 'e07dcc1eaa7e5e0bc670106580f3a4fc211bfeac',
+
+  'third_party/libc++abi/src':
+    Var('chromium_git') +
+    '/external/github.com/llvm/llvm-project/libcxxabi.git' + '@' + 'db9800c042df3ee2691031a58b5e37e89a7356a3',
+
   'third_party/modp_b64': {
     'url': Var('chromium_git') + '/chromium/src/third_party/modp_b64'
     '@' + '3643752c065d984647f0ded68a9a01926fb3b9cd',  # 2022-11-28
@@ -182,7 +210,7 @@ hooks = [
     'name': 'clang_update_script',
     'pattern': '.',
     'condition': 'not build_with_chromium',
-    'action': [ 'tools/download-clang-update-script.py',
+    'action': [ 'python3', 'tools/download-clang-update-script.py',
                 '--output', 'tools/clang/scripts/update.py' ],
     # NOTE: This file appears in .gitignore, as it is not a part of the
     # openscreen repo.
@@ -223,6 +251,24 @@ hooks = [
                 '--bucket', 'chromium-clang-format',
                 '-s', 'buildtools/mac/clang-format.arm64.sha1' ],
     'condition': 'host_os == "mac" and host_cpu == "arm64" and not build_with_chromium',
+  },
+  {
+    'name': 'clang_format_win',
+    'pattern': '.',
+    'action': [ 'download_from_google_storage.py',
+                '--no_resume',
+                '--no_auth',
+                '--bucket', 'chromium-clang-format',
+                '-s', 'buildtools/win/clang-format.exe.sha1',
+    ],
+    'condition': 'host_os == "win" and not build_with_chromium',
+  },
+  {
+    # Update LASTCHANGE.
+    'name': 'lastchange',
+    'pattern': '.',
+    'action': ['python3', 'build/util/lastchange.py',
+               '-o', 'build/util/LASTCHANGE'],
   },
 ]
 

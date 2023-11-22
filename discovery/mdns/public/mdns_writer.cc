@@ -46,6 +46,11 @@ bool UpdateRecordLength(const uint8_t* end, uint8_t* begin) {
 
 }  // namespace
 
+MdnsWriter::MdnsWriter(MdnsWriter&&) = default;
+MdnsWriter::MdnsWriter(const MdnsWriter&) = default;
+MdnsWriter& MdnsWriter::operator=(MdnsWriter&&) = default;
+MdnsWriter& MdnsWriter::operator=(const MdnsWriter&) = default;
+
 bool MdnsWriter::Write(ByteView value) {
   if (value.size() > std::numeric_limits<uint8_t>::max()) {
     return false;
