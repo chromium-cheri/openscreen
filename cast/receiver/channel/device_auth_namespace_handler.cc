@@ -47,6 +47,11 @@ CastMessage GenerateErrorMessage(AuthError::ErrorType error_type) {
 
 }  // namespace
 
+DeviceCredentials::DeviceCredentials() = default;
+DeviceCredentials::DeviceCredentials(DeviceCredentials&&) = default;
+DeviceCredentials& DeviceCredentials::operator=(DeviceCredentials&&) = default;
+DeviceCredentials::~DeviceCredentials() = default;
+
 DeviceAuthNamespaceHandler::CredentialsProvider::~CredentialsProvider() =
     default;
 

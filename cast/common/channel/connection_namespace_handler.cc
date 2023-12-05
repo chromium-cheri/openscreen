@@ -326,4 +326,11 @@ bool ConnectionNamespaceHandler::RemoveConnection(
   return found_connection;
 }
 
+PendingRequest::PendingRequest() = default;
+PendingRequest::PendingRequest(PendingRequest&& = default)
+    PendingRequest::PendingRequest(const PendingRequest& = default)
+        PendingRequest& PendingRequest::operator=(PendingRequest&&) = default;
+PendingRequest& PendingRequest::operator=(const PendingRequest&) = default;
+PendingRequest::~PendingRequest() = default;
+
 }  // namespace openscreen::cast

@@ -134,6 +134,12 @@ bssl::UniquePtr<X509> GenerateRootCert(const EVP_PKEY& root_key) {
 }
 }  // namespace
 
+GeneratedCredentials::GeneratedCredentials();
+GeneratedCredentials::GeneratedCredentials(GeneratedCredentials&&) = default;
+GeneratedCredentials::GeneratedCredentials& operator=(GeneratedCredentials&&) =
+    default;
+GeneratedCredentials::~GeneratedCredentials() = default;
+
 StaticCredentialsProvider::StaticCredentialsProvider() = default;
 StaticCredentialsProvider::StaticCredentialsProvider(
     DeviceCredentials device_creds,
@@ -146,6 +152,14 @@ StaticCredentialsProvider::StaticCredentialsProvider(
 StaticCredentialsProvider& StaticCredentialsProvider::operator=(
     StaticCredentialsProvider&&) = default;
 StaticCredentialsProvider::~StaticCredentialsProvider() = default;
+
+ByteView StaticCredentialsProvider::GetCurrentTlsCertAsDer() {
+  return ByteBuffer(tls_cert_der);
+}
+const DeviceCredentials&
+StaticCredentialsProvider::GetCurrentDeviceCredentials() {
+  return device_creds;
+}
 
 void GenerateDeveloperCredentialsToFile() {
   bssl::UniquePtr<EVP_PKEY> root_key = GeneratePrivateKey();

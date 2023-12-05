@@ -15,8 +15,8 @@ namespace openscreen {
 
 class MockUdpSocket : public UdpSocket {
  public:
-  MockUdpSocket() = default;
-  ~MockUdpSocket() override = default;
+  MockUdpSocket();
+  ~MockUdpSocket() override;
 
   MOCK_CONST_METHOD0(IsIPv4, bool());
   MOCK_CONST_METHOD0(IsIPv6, bool());

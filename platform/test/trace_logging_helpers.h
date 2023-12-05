@@ -23,14 +23,8 @@ enum ArgumentId { kFirst, kSecond };
 
 class MockLoggingPlatform : public TraceLoggingPlatform {
  public:
-  MockLoggingPlatform() {
-    StartTracing(this);
-
-    ON_CALL(*this, IsTraceLoggingEnabled(::testing::_))
-        .WillByDefault(::testing::Return(true));
-  }
-
-  ~MockLoggingPlatform() override { StopTracing(); }
+  MockLoggingPlatform();
+  ~MockLoggingPlatform() override;
 
   MOCK_METHOD1(IsTraceLoggingEnabled, bool(TraceCategory category));
   MOCK_METHOD2(LogTrace, void(TraceEvent event, Clock::time_point));

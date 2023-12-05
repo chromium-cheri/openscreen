@@ -189,6 +189,10 @@ Error StreamSocketPosix::Listen(int max_backlog_size) {
   return Error::None();
 }
 
+const SocketHandle& StreamSocketPosix::socket_handle() const {
+  return handle_;
+}
+
 std::optional<IPEndpoint> StreamSocketPosix::remote_address() const {
   if ((state_ != TcpSocketState::kConnected) || !remote_address_) {
     return std::nullopt;

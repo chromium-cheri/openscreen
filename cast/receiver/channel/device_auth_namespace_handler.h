@@ -16,6 +16,13 @@
 namespace openscreen::cast {
 
 struct DeviceCredentials {
+  DeviceCredentials();
+  DeviceCredentials(const DeviceCredentials&) = delete;
+  DeviceCredentials(DeviceCredentials&&);
+  DeviceCredentials& operator=(const DeviceCredentials&) = delete;
+  DeviceCredentials& operator=(DeviceCredentials&&);
+  ~DeviceCredentials();
+
   // The device's certificate chain in DER form, where |certs[0]| is the
   // device's certificate and |certs[certs.size()-1]| is the last intermediate
   // before a Cast root certificate.
@@ -42,7 +49,7 @@ class DeviceAuthNamespaceHandler final : public CastMessageHandler {
 
   // |creds_provider| must outlive |this|.
   explicit DeviceAuthNamespaceHandler(CredentialsProvider* creds_provider);
-  ~DeviceAuthNamespaceHandler();
+  ~DeviceAuthNamespaceHandler() override;
 
   // CastMessageHandler overrides.
   void OnMessage(VirtualConnectionRouter* router,
