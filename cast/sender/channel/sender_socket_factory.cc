@@ -136,6 +136,13 @@ void SenderSocketFactory::OnError(TlsConnectionFactory* factory, Error error) {
   }
 }
 
+SenderSocketFactory::PendingAuth::PendingAuth() =
+    default SenderSocketFactory::PendingAuth::PendingAuth(const PendingAuth&) =
+        default;
+SenderSocketFactory::PendingAuth& SenderSocketFactory::PendingAuth::operator=(
+    const PendingAuth&);
+SenderSocketFactory::PendingAuth::~PendingAuth() = default;
+
 std::vector<SenderSocketFactory::PendingConnection>::iterator
 SenderSocketFactory::FindPendingConnection(const IPEndpoint& endpoint) {
   return std::find_if(pending_connections_.begin(), pending_connections_.end(),

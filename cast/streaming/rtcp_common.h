@@ -194,6 +194,12 @@ struct RtcpReceiverEventLogMessage {
 };
 
 struct RtcpReceiverFrameLogMessage {
+  RtcpReceiverFrameLogMessage(const RtcpReceiverFrameLogMessage&);
+  RtcpReceiverFrameLogMessage(RtcpReceiverFrameLogMessage&&) noexcept;
+  RtcpReceiverFrameLogMessage& operator=(const RtcpReceiverFrameLogMessage&);
+  RtcpReceiverFrameLogMessage& operator=(RtcpReceiverFrameLogMessage&&);
+  ~RtcpReceiverFrameLogMessage();
+
   RtpTimeTicks rtp_timestamp;
   std::vector<RtcpReceiverEventLogMessage> messages;
 };

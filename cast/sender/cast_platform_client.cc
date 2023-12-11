@@ -117,6 +117,37 @@ void CastPlatformClient::CancelRequest(int request_id) {
   }
 }
 
+CastPlatformClient::AvailabilityRequest::AvailabilityRequest(
+    int request_id,
+    std::string app_id,
+    std::unique_ptr<Alarm> timeout,
+    AppAvailabilityCallback callback)
+    : request_id(request_id),
+      app_id(std::move(app_id)),
+      timeout(std::move(timeout)),
+      callback(std::move(callback)) {}
+
+CastPlatformClient::AvailabilityRequest::AvailabilityRequest() = default;
+CastPlatformClient::AvailabilityRequest::AvailabilityRequest(
+    CastPlatformClient::AvailabilityRequest&&) noexcept = default;
+CastPlatformClient::AvailabilityRequest&
+CastPlatformClient::AvailabilityRequest::operator=(
+    CastPlatformClient::AvailabilityRequest&&) = default;
+CastPlatformClient::AvailabilityRequest::~AvailabilityRequest() = default;
+
+CastPlatformClient::AvailabilityRequest::AvailabilityRequest() = default;
+CastPlatformClient::AvailabilityRequest::AvailabilityRequest(
+    CastPlatformClient::AvailabilityRequest&&) noexcept = default;
+CastPlatformClient::AvailabilityRequest::AvailabilityRequest(
+    const CastPlatformClient::AvailabilityRequest&) noexcept = default;
+CastPlatformClient::AvailabilityRequest&
+CastPlatformClient::AvailabilityRequest::operator=(
+    CastPlatformClient::AvailabilityRequest&&) = default;
+CastPlatformClient::AvailabilityRequest&
+CastPlatformClient::AvailabilityRequest::operator=(
+    const CastPlatformClient::AvailabilityRequest&) = default;
+CastPlatformClient::AvailabilityRequest::~AvailabilityRequest() = default;
+
 void CastPlatformClient::OnMessage(VirtualConnectionRouter* router,
                                    CastSocket* socket,
                                    ::cast::channel::CastMessage message) {

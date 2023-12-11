@@ -44,18 +44,16 @@ TaskRunnerImpl::~TaskRunnerImpl() {
 }
 
 void TaskRunnerImpl::PostPackagedTask(Task task) {
-  std::lock_guard<std::mutex> lock(task_mutex_);
+  absl::MutexLock lock(&task_mutex_);
   tasks_.emplace_back(std::move(task));
   if (task_waiter_) {
     task_waiter_->OnTaskPosted();
-  } else {
-    run_loop_wakeup_.notify_one();
   }
 }
 
 void TaskRunnerImpl::PostPackagedTaskWithDelay(Task task,
                                                Clock::duration delay) {
-  std::lock_guard<std::mutex> lock(task_mutex_);
+  absl::MutexLock lock(&task_mutex_);
   if (delay <= Clock::duration::zero()) {
     tasks_.emplace_back(std::move(task));
   } else {
@@ -64,8 +62,6 @@ void TaskRunnerImpl::PostPackagedTaskWithDelay(Task task,
   }
   if (task_waiter_) {
     task_waiter_->OnTaskPosted();
-  } else {
-    run_loop_wakeup_.notify_one();
   }
 }
 
@@ -128,6 +124,14 @@ void TaskRunnerImpl::RequestStopSoon() {
   PostTask([this]() { is_running_ = false; });
 }
 
+TaskRunnerImpl::TaskWithMetadata::TaskWithMetadata(TaskRunnerImpl::Task task)
+    : task_(std::move(task)), trace_ids_(TRACE_HIERARCHY) {}
+TaskRunnerImpl::TaskWithMetadata::TaskWithMetadata(TaskWithMetadata&&) =
+    default;
+TaskRunnerImpl::TaskWithMetadata& TaskRunnerImpl::TaskWithMetadata::operator=(
+    TaskWithMetadata&&) = default;
+TaskRunnerImpl::TaskWithMetadata::~TaskWithMetadata() = default;
+
 void TaskRunnerImpl::RunRunnableTasks() {
   for (TaskWithMetadata& running_task : running_tasks_) {
     // Move the task to the stack so that its bound state is freed immediately
@@ -139,7 +143,7 @@ void TaskRunnerImpl::RunRunnableTasks() {
 }
 
 void TaskRunnerImpl::ScheduleDelayedTasks() {
-  std::lock_guard<std::mutex> lock(task_mutex_);
+  absl::MutexLock lock(&task_mutex_);
 
   // Getting the time can be expensive on some platforms, so only get it once.
   const auto current_time = now_function_();
@@ -150,10 +154,16 @@ void TaskRunnerImpl::ScheduleDelayedTasks() {
   delayed_tasks_.erase(delayed_tasks_.begin(), end_of_range);
 }
 
+bool TaskRunnerImpl::AtLeastOneTaskIsReady() {
+  absl::MutexLock lock(&task_mutex_);
+  return !tasks_.empty() || (!delayed_tasks_.empty() &&
+                             delayed_tasks_.begin()->first >= now_function_());
+}
+
 bool TaskRunnerImpl::GrabMoreRunnableTasks() {
   OSP_DCHECK(running_tasks_.empty());
 
-  std::unique_lock<std::mutex> lock(task_mutex_);
+  absl::ReleasableMutexLock lock(&task_mutex_);
   if (!tasks_.empty()) {
     running_tasks_.swap(tasks_);
     return true;
@@ -172,17 +182,14 @@ bool TaskRunnerImpl::GrabMoreRunnableTasks() {
         timeout = next_task_delta;
       }
     }
-    lock.unlock();
+    lock.Release();
     task_waiter_->WaitForTaskToBePosted(timeout);
     return false;
   }
 
-  if (delayed_tasks_.empty()) {
-    run_loop_wakeup_.wait(lock);
-  } else {
-    run_loop_wakeup_.wait_for(lock,
-                              delayed_tasks_.begin()->first - now_function_());
-  }
+  // Wait until at least one task is ready.
+  task_mutex_.Await(
+      absl::Condition(this, &TaskRunnerImpl::AtLeastOneTaskIsReady));
   return false;
 }
 

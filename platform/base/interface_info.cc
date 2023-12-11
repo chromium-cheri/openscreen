@@ -22,6 +22,10 @@ InterfaceInfo::InterfaceInfo(NetworkInterfaceIndex index,
       name(std::move(name)),
       type(type),
       addresses(std::move(addresses)) {}
+InterfaceInfo::InterfaceInfo(InterfaceInfo&& other) noexcept = default;
+InterfaceInfo::InterfaceInfo(const InterfaceInfo& other) = default;
+InterfaceInfo& InterfaceInfo::operator=(InterfaceInfo&& other) = default;
+InterfaceInfo& InterfaceInfo::operator=(const InterfaceInfo& other) = default;
 InterfaceInfo::~InterfaceInfo() = default;
 
 IPSubnet::IPSubnet() = default;

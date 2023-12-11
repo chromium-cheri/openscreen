@@ -240,4 +240,14 @@ std::optional<RtcpReportBlock> RtcpReportBlock::ParseOne(ByteView buffer,
 RtcpSenderReport::RtcpSenderReport() = default;
 RtcpSenderReport::~RtcpSenderReport() = default;
 
+RtcpReceiverFrameLogMessage::RtcpReceiverFrameLogMessage(
+    const RtcpReceiverFrameLogMessage&) = default;
+RtcpReceiverFrameLogMessage::RtcpReceiverFrameLogMessage(
+    RtcpReceiverFrameLogMessage&&) = default;
+RtcpReceiverFrameLogMessage& RtcpReceiverFrameLogMessage::operator=(
+    const RtcpReceiverFrameLogMessage&) = default;
+RtcpReceiverFrameLogMessage& RtcpReceiverFrameLogMessage::operator=(
+    RtcpReceiverFrameLogMessage&&) = default;
+RtcpReceiverFrameLogMessage::~RtcpReceiverFrameLogMessage() = default;
+
 }  // namespace openscreen::cast

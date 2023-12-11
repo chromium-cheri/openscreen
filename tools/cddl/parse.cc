@@ -958,11 +958,26 @@ AstNode* ParseRule(Parser* p) {
   SkipWhitespace(p, false);
 
   // Return the results.
-  auto rule_node = AddNode(p, AstNode::Type::kRule,
-                           std::string_view(start, p->data - start), id);
+  AstNode* rule_node = AddNode(p, AstNode::Type::kRule,
+                               std::string_view(start, p->data - start), id);
   rule_node->type_key = type_key;
   return rule_node;
 }
+
+AstNode::AstNode() = default;
+AstNode::AstNode(AstNode&&) noexcept = default;
+AstNode::AstNode(const AstNode&) = default;
+AstNode& AstNode::operator=(AstNode&&) = default;
+AstNode& AstNode::operator=(const AstNode&) = default;
+AstNode::~AstNode() = default;
+
+ParseResult::ParseResult(AstNode* root,
+                         std::vector<std::unique_ptr<AstNode>> nodes)
+    : root(root), nodes(std::move(nodes)) {}
+ParseResult::ParseResult() = default;
+ParseResult::ParseResult(ParseResult&&) noexcept = default;
+ParseResult& ParseResult::operator=(ParseResult&&) = default;
+ParseResult::~ParseResult() = default;
 
 // Iteratively parse the CDDL spec into a tree structure.
 ParseResult ParseCddl(std::string_view data) {
@@ -993,6 +1008,7 @@ ParseResult ParseCddl(std::string_view data) {
     }
     tail = next;
   } while (p.data[0]);
+
   return {root, std::move(p.nodes)};
 }
 

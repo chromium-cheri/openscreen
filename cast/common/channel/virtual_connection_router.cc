@@ -232,4 +232,9 @@ void VirtualConnectionRouter::OnMessage(CastSocket* socket,
   }
 }
 
+SocketWithHandler::SocketWithHandler() = default;
+SocketWithHandler::SocketWithHandler(SocketWithHandler&&) = default;
+SocketWithHandler& SocketWithHandler::operator=(SocketWithHandler&&) = default;
+SocketWithHandler::~SocketWithHandler() = default;
+
 }  // namespace openscreen::cast

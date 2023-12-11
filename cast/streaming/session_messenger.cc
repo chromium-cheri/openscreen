@@ -82,6 +82,10 @@ void SessionMessenger::ReportError(Error error) {
   error_callback_(std::move(error));
 }
 
+const std::string& SessionMessenger::source_id() {
+  return source_id_;
+}
+
 SenderSessionMessenger::SenderSessionMessenger(MessagePort* message_port,
                                                std::string source_id,
                                                std::string receiver_id,
@@ -90,6 +94,8 @@ SenderSessionMessenger::SenderSessionMessenger(MessagePort* message_port,
     : SessionMessenger(message_port, std::move(source_id), std::move(cb)),
       task_runner_(task_runner),
       receiver_id_(std::move(receiver_id)) {}
+
+SenderSessionMessenger::~SenderSessionMessenger() = default;
 
 void SenderSessionMessenger::SetHandler(ReceiverMessage::Type type,
                                         ReplyCallback cb) {
@@ -218,6 +224,8 @@ ReceiverSessionMessenger::ReceiverSessionMessenger(MessagePort* message_port,
                                                    std::string source_id,
                                                    ErrorCallback cb)
     : SessionMessenger(message_port, std::move(source_id), std::move(cb)) {}
+
+ReceiverSessionMessenger::~ReceiverSessionMessenger() = default;
 
 void ReceiverSessionMessenger::SetHandler(SenderMessage::Type type,
                                           RequestCallback cb) {

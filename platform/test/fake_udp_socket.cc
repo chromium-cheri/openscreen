@@ -8,6 +8,9 @@
 
 namespace openscreen {
 
+FakeUdpSocket::MockClient::MockClient() = default;
+FakeUdpSocket::MockClient::~MockClient() = default;
+
 FakeUdpSocket::FakeUdpSocket(Client* client, Version version)
     : client_(client), version_(version) {}
 

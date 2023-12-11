@@ -20,6 +20,9 @@ class FakeUdpSocket : public UdpSocket {
  public:
   class MockClient : public UdpSocket::Client {
    public:
+    MockClient();
+    ~MockClient() override;
+
     MOCK_METHOD1(OnBound, void(UdpSocket*));
     MOCK_METHOD2(OnError, void(UdpSocket*, Error));
     MOCK_METHOD2(OnSendError, void(UdpSocket*, Error));

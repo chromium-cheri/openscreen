@@ -59,13 +59,17 @@ class FrameCollector {
 
  private:
   struct PayloadChunk {
-    std::vector<uint8_t> buffer;
-    ByteView payload;  // Once set, is within |buffer.data()|.
-
     PayloadChunk();
+    PayloadChunk(const PayloadChunk&);
+    PayloadChunk(PayloadChunk&&);
+    PayloadChunk& operator=(const PayloadChunk&);
+    PayloadChunk& operator=(PayloadChunk&&);
     ~PayloadChunk();
 
     bool has_data() const { return !!payload.data(); }
+
+    std::vector<uint8_t> buffer;
+    ByteView payload;  // Once set, is within |buffer.data()|.
   };
 
   // Storage for frame metadata and data. Once the frame has been completely

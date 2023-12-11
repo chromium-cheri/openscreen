@@ -67,6 +67,14 @@ bool TryParseCapability(const Json::Value& value, MediaCapability* out) {
 
 }  // namespace
 
+ReceiverCapability::ReceiverCapability(const ReceiverCapability&) = default;
+ReceiverCapability::ReceiverCapability(ReceiverCapability&&) noexcept = default;
+ReceiverCapability& ReceiverCapability::operator=(const ReceiverCapability&) =
+    default;
+ReceiverCapability& ReceiverCapability::operator=(ReceiverCapability&&) =
+    default;
+ReceiverCapability::~ReceiverCapability() = default;
+
 ReceiverError::ReceiverError(int code, std::string_view description)
     : code(code), description(description) {
   if (code >= kOpenscreenErrorOffset) {

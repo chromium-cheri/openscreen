@@ -32,6 +32,12 @@ enum class MediaCapability {
 };
 
 struct ReceiverCapability {
+  ReceiverCapability(const ReceiverCapability&);
+  ReceiverCapability(ReceiverCapability&&) noexcept;
+  ReceiverCapability& operator=(const ReceiverCapability&);
+  ReceiverCapability& operator=(ReceiverCapability&&);
+  ~ReceiverCapability();
+
   static constexpr int kRemotingVersionUnknown = -1;
 
   Json::Value ToJson() const;

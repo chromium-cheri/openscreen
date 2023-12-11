@@ -234,6 +234,8 @@ MdnsQuerier::RecordTrackerLruCache::RecordTrackerLruCache(
   OSP_DCHECK_GT(config_.querier_max_records_cached, 0);
 }
 
+MdnsQuerier::RecordTrackerLruCache::~RecordTrackerLruCache() = default;
+
 std::vector<std::reference_wrapper<const MdnsRecordTracker>>
 MdnsQuerier::RecordTrackerLruCache::Find(const DomainName& name) {
   return Find(name, DnsType::kANY, DnsClass::kANY);

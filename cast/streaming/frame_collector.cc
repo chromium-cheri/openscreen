@@ -154,6 +154,12 @@ void FrameCollector::Reset() {
 }
 
 FrameCollector::PayloadChunk::PayloadChunk() = default;
+FrameCollector::PayloadChunk::PayloadChunk(const PayloadChunk&) = default;
+FrameCollector::PayloadChunk::PayloadChunk(PayloadChunk&&) = default;
+FrameCollector::PayloadChunk& FrameCollector::PayloadChunk::operator=(
+    const PayloadChunk&) = default;
+FrameCollector::PayloadChunk& FrameCollector::PayloadChunk::operator=(
+    PayloadChunk&&) = default;
 FrameCollector::PayloadChunk::~PayloadChunk() = default;
 
 }  // namespace openscreen::cast

@@ -14,6 +14,7 @@
 #include <vector>
 
 #include "absl/base/thread_annotations.h"
+#include "absl/synchronization/mutex.h"
 #include "platform/api/task_runner.h"
 #include "platform/api/time.h"
 #include "platform/base/error.h"
@@ -84,8 +85,12 @@ class TaskRunnerImpl final : public TaskRunner {
     // NOTE: 'explicit' keyword omitted so that conversion construtor can be
     // used. This simplifies switching between 'Task' and 'TaskWithMetadata'
     // based on the compilation flag.
-    TaskWithMetadata(Task task)  // NOLINT
-        : task_(std::move(task)), trace_ids_(TRACE_HIERARCHY) {}
+    TaskWithMetadata(Task task);  // NOLINT
+    TaskWithMetadata(const TaskWithMetadata&) = delete;
+    TaskWithMetadata(TaskWithMetadata&&);
+    TaskWithMetadata& operator=(const TaskWithMetadata&) = delete;
+    TaskWithMetadata& operator=(TaskWithMetadata&&);
+    ~TaskWithMetadata();
 
     void operator()() {
       TRACE_SET_HIERARCHY(trace_ids_);
@@ -113,6 +118,9 @@ class TaskRunnerImpl final : public TaskRunner {
   // transferred.
   bool GrabMoreRunnableTasks();
 
+  // Returns true if at least one task is ready to run.
+  bool AtLeastOneTaskIsReady();
+
   const ClockNowFunctionPtr now_function_;
 
   // Flag that indicates whether the task runner loop should continue. This is
@@ -120,17 +128,15 @@ class TaskRunnerImpl final : public TaskRunner {
   bool is_running_;
 
   // This mutex is used for |tasks_| and |delayed_tasks_|, and also for
-  // notifying the run loop to wake up when it is waiting for a task to be added
-  // to the queue in |run_loop_wakeup_|.
-  std::mutex task_mutex_;
+  // notifying the run loop to wake up when it is waiting for a task.
+  absl::Mutex task_mutex_;
   std::vector<TaskWithMetadata> tasks_ ABSL_GUARDED_BY(task_mutex_);
   std::multimap<Clock::time_point, TaskWithMetadata> delayed_tasks_
       ABSL_GUARDED_BY(task_mutex_);
 
-  // When |task_waiter_| is nullptr, |run_loop_wakeup_| is used for sleeping the
-  // task runner.  Otherwise, |run_loop_wakeup_| isn't used and |task_waiter_|
-  // is used instead (along with |waiter_timeout_|).
-  std::condition_variable run_loop_wakeup_;
+  // When provided, the |task_waiter_| is used for sleeping the task runner. If
+  // nullptr,
+  // the |task_mutex_| is used.
   TaskWaiter* const task_waiter_;
   Clock::duration waiter_timeout_;
 
