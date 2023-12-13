@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ca5cf9d_ebeae702",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2023-12-13T08:57:35Z",
+      "side": 0,
+      "message": "Hi, @mfoltz@chromium.org. I am confused here. Why here pass a remote endpoint to UdpSocket::Create before? And `socket-\u003eBind();` is not called before. Is there a problem with the previous code or is there something wrong with my understanding?\n\nI meet issues when creating QUIC connection, so I\u0027m wondering if there is something wrong with UdpSocket binding.",
+      "revId": "576e2ca4ac63de1d8eeeda718e68ec56a2e62118",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
