@@ -1,0 +1,293 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36cb016f_d8db5bff",
+        "filename": ".gitmodules",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-10T18:50:53Z",
+      "side": 1,
+      "message": "These should probably also be `gclient-condition \u003d not build_with_chromium` as Chromium builds will already have these?",
+      "revId": "93a1b17cf435ec5ac5b53b4a380dbe67c6df732a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45986330_7e34aa88",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-10T18:50:53Z",
+      "side": 1,
+      "message": "Made a first pass; we should VC to go over some of these comments.\n\nIt looks like there were a lot of style and third_party/ cleanups layered into this change and it\u0027s not clear which are required to switch build systems, and which can be tackled separately.\n\n\nThe abseil changes need more discussion.  We are trying to limit and reduce the scope of abseil usage in the library since it makes it more difficult to package the library as a shared object e.g. in Android.\n\n\nRegarding the copy/assignment cleanup, my understanding is that declarations are only mandatory when there are user defined ctors/operators.  I think some of the structs you updated would fall under the \"obvious\" case in the style guide. \n\nhttps://google.github.io/styleguide/cppguide.html#Copyable_Movable_Types\n\nI don\u0027t think the changes are wrong, just want to avoid extra lines of code where they are not needed.",
+      "revId": "93a1b17cf435ec5ac5b53b4a380dbe67c6df732a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "494c484f_a56f1c7b",
+        "filename": "DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-10T18:50:53Z",
+      "side": 1,
+      "message": "It might be good to separate out the QUICHE and absl rolls from the rest of this (very large) CL.  If there\u0027s a dependency can they be submitted first?",
+      "revId": "93a1b17cf435ec5ac5b53b4a380dbe67c6df732a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e602e317_d5cffd65",
+        "filename": "build_overrides/build.gni",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-10T18:50:53Z",
+      "side": 1,
+      "message": "I would prefer extra declarations specific to standalone builds go into a separate file that is included either from here, or the repo\u0027s top-level .gn file.\n\nEventually I want to flip the sense of the configuration so that:\n\n- The default configuration is for standalone builds\n- Embedders like Chromium will set a new GN arg, like `build_config \u003d \"chromium\"`\n- Setting `build_config` will trigger a number of other configurations and eventually `build_with_chromium` can be removed.\n\nSee: https://issuetracker.google.com/155336849\n\nFor this change, sticking all of the standalone config stuff in an easy to find place will help.",
+      "revId": "93a1b17cf435ec5ac5b53b4a380dbe67c6df732a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bcbc9a6_22ae8032",
+        "filename": "build_overrides/build.gni",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-10T18:50:53Z",
+      "side": 1,
+      "message": "Should this go into a declare_arg?  Usually you can\u0027t modify the value of a GN arg once it\u0027s declared.",
+      "revId": "93a1b17cf435ec5ac5b53b4a380dbe67c6df732a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3b36d04_ffa09e25",
+        "filename": "cast/common/certificate/cast_crl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-10T18:50:53Z",
+      "side": 1,
+      "message": "Was this detected by the ccflags in the chromium toolchain?",
+      "revId": "93a1b17cf435ec5ac5b53b4a380dbe67c6df732a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf00e471_9610a193",
+        "filename": "cast/common/channel/connection_namespace_handler.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-10T18:50:53Z",
+      "side": 1,
+      "message": "I don\u0027t think a declared ctor is mandatory here?  There is no user-defined behavior?\n\nSame comment applies throughout",
+      "revId": "93a1b17cf435ec5ac5b53b4a380dbe67c6df732a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2224342f_438384df",
+        "filename": "cast/receiver/channel/static_credentials.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-10T18:50:53Z",
+      "side": 1,
+      "message": "ByteView?",
+      "revId": "93a1b17cf435ec5ac5b53b4a380dbe67c6df732a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d850098f_a2a5a06a",
+        "filename": "discovery/mdns/impl/mdns_querier.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-10T18:50:53Z",
+      "side": 1,
+      "message": "This class needs to declare/delete copy/assignment operators (probably just delete)",
+      "revId": "93a1b17cf435ec5ac5b53b4a380dbe67c6df732a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd026462_e62f4dec",
+        "filename": "discovery/mdns/public/mdns_reader.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-10T18:50:53Z",
+      "side": 1,
+      "message": "Doesn\u0027t std::find always return an iterator type?",
+      "revId": "93a1b17cf435ec5ac5b53b4a380dbe67c6df732a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61fc4ff8_fc1c72e4",
+        "filename": "platform/impl/logging_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-10T18:50:53Z",
+      "side": 1,
+      "message": "There\u0027s no harm in this, but I don\u0027t think we consistently declare test overrides as final... so just `override` should be ok?",
+      "revId": "93a1b17cf435ec5ac5b53b4a380dbe67c6df732a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dde9b2f5_a2b622c5",
+        "filename": "platform/impl/task_runner.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-10T18:50:53Z",
+      "side": 1,
+      "message": "We don\u0027t want to add more absl:: usages to open screen code unless absolutely necessary.",
+      "revId": "93a1b17cf435ec5ac5b53b4a380dbe67c6df732a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dcf9e2a_320198ae",
+        "filename": "platform/test/mock_tls_connection.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-10T18:50:53Z",
+      "side": 1,
+      "message": "This should declare/delete copy/assignment operators, but a low priority I think to fix in test mocks.",
+      "revId": "93a1b17cf435ec5ac5b53b4a380dbe67c6df732a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9481469_0acb0d9f",
+        "filename": "third_party/abseil/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-10T18:50:53Z",
+      "side": 1,
+      "message": "Why this change?  The source sets are split so that QUICHE can use additional abseil code separate from the rest of the library.",
+      "revId": "93a1b17cf435ec5ac5b53b4a380dbe67c6df732a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5472bd7_84b5132d",
+        "filename": "third_party/protobuf/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-10T18:50:53Z",
+      "side": 1,
+      "message": "Is this config used somewhere?",
+      "revId": "93a1b17cf435ec5ac5b53b4a380dbe67c6df732a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5ff4061_87d05674",
+        "filename": "third_party/protobuf/patches/0004-fix-shared-library-exports.patch",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-10T18:50:53Z",
+      "side": 1,
+      "message": "I don\u0027t think we use these?",
+      "revId": "93a1b17cf435ec5ac5b53b4a380dbe67c6df732a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66ea3bb5_759a2beb",
+        "filename": "util/stringutil.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-10T18:50:53Z",
+      "side": 1,
+      "message": "std::find_if_not returns an iterator type not a raw pointer.",
+      "revId": "93a1b17cf435ec5ac5b53b4a380dbe67c6df732a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
