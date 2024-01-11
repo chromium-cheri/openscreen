@@ -7,6 +7,7 @@
 
 #include <map>
 #include <memory>
+#include <string>
 #include <vector>
 
 #include "osp/impl/quic/quic_connection.h"
@@ -34,10 +35,12 @@ class FakeQuicStream final : public QuicStream {
 
   Delegate* delegate() { return delegate_; }
 
+  uint64_t GetStreamId() override;
   void Write(const uint8_t* data, size_t size) override;
   void CloseWriteEnd() override;
 
  private:
+  uint64_t stream_id_ = 0u;
   bool write_end_closed_ = false;
   bool read_end_closed_ = false;
   std::vector<uint8_t> write_buffer_;
@@ -47,15 +50,17 @@ class FakeQuicStream final : public QuicStream {
 class FakeQuicConnection final : public QuicConnection {
  public:
   FakeQuicConnection(FakeQuicConnectionFactoryBridge* parent_factory,
-                     uint64_t connection_id,
+                     std::string connection_id,
                      Delegate* delegate);
   ~FakeQuicConnection() override;
 
   Delegate* delegate() { return delegate_; }
-  uint64_t id() const { return connection_id_; }
-  std::map<uint64_t, FakeQuicStream*>& streams() { return streams_; }
+  std::string id() const { return connection_id_; }
+  std::map<uint64_t, std::unique_ptr<FakeQuicStream>>& streams() {
+    return streams_;
+  }
 
-  std::unique_ptr<FakeQuicStream> MakeIncomingStream();
+  FakeQuicStream* MakeIncomingStream();
 
   // UdpSocket::Client overrides.
   void OnRead(UdpSocket* socket, ErrorOr<UdpPacket> data) override;
@@ -63,15 +68,14 @@ class FakeQuicConnection final : public QuicConnection {
   void OnError(UdpSocket* socket, Error error) override;
 
   // QuicConnection overrides.
-  std::unique_ptr<QuicStream> MakeOutgoingStream(
-      QuicStream::Delegate* delegate) override;
+  QuicStream* MakeOutgoingStream(QuicStream::Delegate* delegate) override;
   void Close() override;
 
  private:
   FakeQuicConnectionFactoryBridge* const parent_factory_;
-  const uint64_t connection_id_;
+  const std::string connection_id_;
   uint64_t next_stream_id_ = 1;
-  std::map<uint64_t, FakeQuicStream*> streams_;
+  std::map<uint64_t, std::unique_ptr<FakeQuicStream>> streams_;
 };
 
 }  // namespace openscreen::osp
