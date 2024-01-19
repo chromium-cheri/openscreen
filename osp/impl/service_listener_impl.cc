@@ -95,7 +95,7 @@ void ServiceListenerImpl::OnReceiverUpdated(
 }
 
 void ServiceListenerImpl::OnReceiverAdded(const ServiceInfo& info) {
-  OSP_VLOG << __func__ << ": new receiver added=" << info.ToString();
+  // OSP_VLOG << __func__ << ": new receiver added=" << info.ToString();
   receiver_list_.OnReceiverAdded(info);
   for (auto* observer : observers_) {
     observer->OnReceiverAdded(info);
