@@ -33,8 +33,8 @@ class ServiceDispatcher final : public DnsSdPublisher,
   ~ServiceDispatcher() override;
 
   // DnsSdService overrides.
-  DnsSdQuerier* GetQuerier() override { return querier_; }
-  DnsSdPublisher* GetPublisher() override { return publisher_; }
+  DnsSdQuerier* GetQuerier() override;
+  DnsSdPublisher* GetPublisher() override;
 
  private:
   // DnsSdQuerier overrides.

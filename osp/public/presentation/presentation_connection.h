@@ -187,6 +187,7 @@ class Connection {
 class ConnectionManager final : public MessageDemuxer::MessageCallback {
  public:
   explicit ConnectionManager(MessageDemuxer* demuxer);
+  ~ConnectionManager() override;
 
   void AddConnection(Connection* connection);
   void RemoveConnection(Connection* connection);

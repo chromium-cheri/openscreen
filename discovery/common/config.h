@@ -13,6 +13,14 @@ namespace openscreen::discovery {
 
 // This struct provides parameters needed to initialize the discovery pipeline.
 struct Config {
+  explicit Config(std::vector<InterfaceInfo> network_info);
+  Config();
+  Config(Config&&) noexcept;
+  Config(const Config&);
+  Config& operator=(Config&&);
+  Config& operator=(const Config&);
+  ~Config();
+
   /*****************************************
    * Common Settings
    *****************************************/

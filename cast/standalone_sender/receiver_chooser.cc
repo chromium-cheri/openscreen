@@ -26,9 +26,10 @@ ReceiverChooser::ReceiverChooser(const InterfaceInfo& interface,
                                  ResultCallback result_callback)
     : result_callback_(std::move(result_callback)),
       menu_alarm_(&Clock::now, task_runner) {
-  discovery::Config config{.network_info = {interface},
-                           .enable_publication = false,
-                           .enable_querying = true};
+  discovery::Config config;
+  config.network_info = {interface};
+  config.enable_publication = false;
+  config.enable_querying = true;
   service_ =
       discovery::CreateDnsSdService(task_runner, this, std::move(config));
 

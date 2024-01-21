@@ -85,16 +85,14 @@ StreamingAv1Encoder::StreamingAv1Encoder(const Parameters& params,
 
 StreamingAv1Encoder::~StreamingAv1Encoder() {
   {
-    std::unique_lock<std::mutex> lock(mutex_);
+    absl::MutexLock lock(&mutex_);
     target_bitrate_ = 0;
-    cv_.notify_one();
   }
   encode_thread_.join();
 }
 
-int StreamingAv1Encoder::GetTargetBitrate() const {
-  // Note: No need to lock the |mutex_| since this method should be called on
-  // the same thread as SetTargetBitrate().
+int StreamingAv1Encoder::GetTargetBitrate() {
+  absl::MutexLock lock(&mutex_);
   return target_bitrate_;
 }
 
@@ -103,7 +101,7 @@ void StreamingAv1Encoder::SetTargetBitrate(int new_bitrate) {
   // bitrate will not be zero.
   new_bitrate = std::max(new_bitrate, kBytesPerKilobyte);
 
-  std::unique_lock<std::mutex> lock(mutex_);
+  absl::MutexLock lock(&mutex_);
   // Only assign the new target bitrate if |target_bitrate_| has not yet been
   // used to signal the |encode_thread_| to end.
   if (target_bitrate_ > 0) {
@@ -168,12 +166,26 @@ void StreamingAv1Encoder::EncodeAndSend(
   work_unit.stats_callback = std::move(stats_callback);
   const bool force_key_frame = sender_->NeedsKeyFrame();
   {
-    std::unique_lock<std::mutex> lock(mutex_);
+    absl::MutexLock lock(&mutex_);
     needs_key_frame_ |= force_key_frame;
     encode_queue_.push(std::move(work_unit));
-    cv_.notify_one();
   }
 }
+
+StreamingAv1Encoder::WorkUnit::WorkUnit() = default;
+StreamingAv1Encoder::WorkUnit::WorkUnit(
+    StreamingAv1Encoder::WorkUnit&&) noexcept = default;
+StreamingAv1Encoder::WorkUnit& StreamingAv1Encoder::WorkUnit::operator=(
+    StreamingAv1Encoder::WorkUnit&&) = default;
+StreamingAv1Encoder::WorkUnit::~WorkUnit() = default;
+
+StreamingAv1Encoder::WorkUnitWithResults::WorkUnitWithResults() = default;
+StreamingAv1Encoder::WorkUnitWithResults::WorkUnitWithResults(
+    StreamingAv1Encoder::WorkUnitWithResults&&) noexcept = default;
+StreamingAv1Encoder::WorkUnitWithResults&
+StreamingAv1Encoder::WorkUnitWithResults::operator=(
+    StreamingAv1Encoder::WorkUnitWithResults&&) = default;
+StreamingAv1Encoder::WorkUnitWithResults::~WorkUnitWithResults() = default;
 
 void StreamingAv1Encoder::DestroyEncoder() {
   OSP_DCHECK_EQ(std::this_thread::get_id(), encode_thread_.get_id());
@@ -186,6 +198,11 @@ void StreamingAv1Encoder::DestroyEncoder() {
   }
 }
 
+bool StreamingAv1Encoder::HaveSomethingToEncode() {
+  absl::MutexLock lock(&mutex_);
+  return !encode_queue_.empty();
+}
+
 void StreamingAv1Encoder::ProcessWorkUnitsUntilTimeToQuit() {
   OSP_DCHECK_EQ(std::this_thread::get_id(), encode_thread_.get_id());
 
@@ -194,15 +211,13 @@ void StreamingAv1Encoder::ProcessWorkUnitsUntilTimeToQuit() {
     bool force_key_frame;
     int target_bitrate;
     {
-      std::unique_lock<std::mutex> lock(mutex_);
+      absl::MutexLock lock(&mutex_);
       if (target_bitrate_ <= 0) {
         break;  // Time to end this thread.
       }
       if (encode_queue_.empty()) {
-        cv_.wait(lock);
-        if (encode_queue_.empty()) {
-          continue;
-        }
+        mutex_.Await(
+            absl::Condition(this, &StreamingAv1Encoder::HaveSomethingToEncode));
       }
       static_cast<WorkUnit&>(work_unit) = std::move(encode_queue_.front());
       encode_queue_.pop();
@@ -389,7 +404,7 @@ void StreamingAv1Encoder::SendEncodedFrame(WorkUnitWithResults results) {
   if (sender_->EnqueueFrame(frame) != Sender::OK) {
     // Since the frame will not be sent, the encoder's frame dependency chain
     // has been broken. Force a key frame for the next frame.
-    std::unique_lock<std::mutex> lock(mutex_);
+    absl::MutexLock lock(&mutex_);
     needs_key_frame_ = true;
   }
 

@@ -67,6 +67,7 @@ source_set("util") {
     "crypto/sha2.cc",
     "json/json_serialization.cc",
     "json/json_value.cc",
+    "osp_logging.cc",
     "scoped_wake_lock.cc",
     "simple_fraction.cc",
     "span_util.cc",
@@ -99,7 +100,7 @@ source_set("util") {
   ]
 
   public_configs = [
-    "../build:openscreen_include_dirs",
+    "../build_overrides:openscreen_include_dirs",
     ":trace_logging_config",
   ]
 

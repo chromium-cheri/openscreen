@@ -232,4 +232,16 @@ void VirtualConnectionRouter::OnMessage(CastSocket* socket,
   }
 }
 
+VirtualConnectionRouter::SocketWithHandler::SocketWithHandler(
+    std::unique_ptr<CastSocket> socket,
+    VirtualConnectionRouter::SocketErrorHandler* error_handler)
+    : socket(std::move(socket)), error_handler(error_handler) {}
+VirtualConnectionRouter::SocketWithHandler::SocketWithHandler() = default;
+VirtualConnectionRouter::SocketWithHandler::SocketWithHandler(
+    VirtualConnectionRouter::SocketWithHandler&&) noexcept = default;
+VirtualConnectionRouter::SocketWithHandler&
+VirtualConnectionRouter::SocketWithHandler::operator=(SocketWithHandler&&) =
+    default;
+VirtualConnectionRouter::SocketWithHandler::~SocketWithHandler() = default;
+
 }  // namespace openscreen::cast

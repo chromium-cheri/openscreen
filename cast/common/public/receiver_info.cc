@@ -56,6 +56,13 @@ std::string CalculateInstanceId(const ReceiverInfo& info) {
 
 }  // namespace
 
+ReceiverInfo::ReceiverInfo() = default;
+ReceiverInfo::ReceiverInfo(ReceiverInfo&&) noexcept = default;
+ReceiverInfo::ReceiverInfo(const ReceiverInfo&) = default;
+ReceiverInfo& ReceiverInfo::operator=(ReceiverInfo&&) = default;
+ReceiverInfo& ReceiverInfo::operator=(const ReceiverInfo&) = default;
+ReceiverInfo::~ReceiverInfo() = default;
+
 const std::string& ReceiverInfo::GetInstanceId() const {
   if (instance_id_ == std::string("")) {
     instance_id_ = CalculateInstanceId(*this);

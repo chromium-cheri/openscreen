@@ -43,4 +43,8 @@ PresentationID::PresentationID(std::string presentation_id)
   }
 }
 
+PresentationID::PresentationID(PresentationID&&) noexcept = default;
+PresentationID& PresentationID::operator=(PresentationID&&) = default;
+PresentationID::~PresentationID() = default;
+
 }  // namespace openscreen::osp

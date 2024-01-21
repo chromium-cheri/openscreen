@@ -149,7 +149,7 @@ class StreamingVideoEncoder {
 
   // Get/Set the target bitrate. This may be changed at any time, as frequently
   // as desired, and it will take effect internally as soon as possible.
-  virtual int GetTargetBitrate() const = 0;
+  virtual int GetTargetBitrate() = 0;
   virtual void SetTargetBitrate(int new_bitrate) = 0;
 
   // Encode |frame| using the video encoder, assemble an EncodedFrame, and

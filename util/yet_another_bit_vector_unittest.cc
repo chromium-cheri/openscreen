@@ -28,8 +28,8 @@ const int kTestSizes[] = {0,  1,  2,  3,  5,  7,  11, 13, 17,  19,
 // Returns a subspan of |kTestSizes| that contains all values in the range
 // [first,last].
 Span<const int> GetTestSizesInRange(int first, int last) {
-  const auto begin = absl::c_lower_bound(kTestSizes, first);
-  const auto end = absl::c_upper_bound(kTestSizes, last);
+  const auto* begin = absl::c_lower_bound(kTestSizes, first);
+  const auto* end = absl::c_upper_bound(kTestSizes, last);
   return Span<const int>(&*begin, std::distance(begin, end));
 }
 

@@ -124,6 +124,15 @@ class VirtualConnectionRouter final : public CastSocket::Client {
   };
 
   struct SocketWithHandler {
+    SocketWithHandler(std::unique_ptr<CastSocket> socket,
+                      SocketErrorHandler* error_handler);
+    SocketWithHandler();
+    SocketWithHandler(const SocketWithHandler&) = delete;
+    SocketWithHandler(SocketWithHandler&&) noexcept;
+    SocketWithHandler& operator=(const SocketWithHandler&) = delete;
+    SocketWithHandler& operator=(SocketWithHandler&&);
+    ~SocketWithHandler();
+
     std::unique_ptr<CastSocket> socket;
     SocketErrorHandler* error_handler;
   };

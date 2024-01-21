@@ -35,7 +35,7 @@ bool IsSubspan(ByteView needle, ByteView haystack) {
 class RtpPacketizerTest : public testing::Test {
  public:
   RtpPacketizerTest() = default;
-  ~RtpPacketizerTest() = default;
+  ~RtpPacketizerTest() override = default;
 
   RtpPacketizer* packetizer() { return &packetizer_; }
 

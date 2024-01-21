@@ -78,6 +78,14 @@ ServiceDispatcher::~ServiceDispatcher() {
   OSP_DCHECK(task_runner_.IsRunningOnTaskRunner());
 }
 
+// DnsSdService overrides.
+DnsSdQuerier* ServiceDispatcher::GetQuerier() {
+  return querier_;
+}
+DnsSdPublisher* ServiceDispatcher::GetPublisher() {
+  return publisher_;
+}
+
 // DnsSdQuerier overrides.
 void ServiceDispatcher::StartQuery(const std::string& service, Callback* cb) {
   TRACE_DEFAULT_SCOPED(TraceCategory::kDiscovery);

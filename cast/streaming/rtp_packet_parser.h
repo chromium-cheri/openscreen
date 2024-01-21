@@ -27,6 +27,13 @@ namespace openscreen::cast {
 class RtpPacketParser {
  public:
   struct ParseResult {
+    ParseResult();
+    ParseResult(const ParseResult&);
+    ParseResult(ParseResult&&) noexcept;
+    ParseResult& operator=(const ParseResult&);
+    ParseResult& operator=(ParseResult&&);
+    ~ParseResult();
+
     // Elements from RTP packet header.
     // https://tools.ietf.org/html/rfc3550#section-5
     RtpPayloadType payload_type;
@@ -45,9 +52,6 @@ class RtpPacketParser {
     // payload. WARNING: This memory region is only valid while the original
     // |packet| memory remains valid.
     ByteView payload;
-
-    ParseResult();
-    ~ParseResult();
   };
 
   explicit RtpPacketParser(Ssrc sender_ssrc);

@@ -46,6 +46,13 @@ bool UpdateRecordLength(const uint8_t* end, uint8_t* begin) {
 
 }  // namespace
 
+MdnsWriter::MdnsWriter(uint8_t* buffer, size_t length)
+    : BigEndianWriter(buffer, length) {}
+MdnsWriter::MdnsWriter() : BigEndianWriter(nullptr, 0) {}
+MdnsWriter::MdnsWriter(MdnsWriter&&) noexcept = default;
+MdnsWriter& MdnsWriter::operator=(MdnsWriter&&) = default;
+MdnsWriter::~MdnsWriter() = default;
+
 bool MdnsWriter::Write(ByteView value) {
   if (value.size() > std::numeric_limits<uint8_t>::max()) {
     return false;

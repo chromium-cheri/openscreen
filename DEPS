@@ -10,6 +10,11 @@
 use_relative_paths = True
 git_dependencies = 'SYNC'
 
+gclient_gn_args_file = 'build/config/gclient_args.gni'
+gclient_gn_args = [
+  'build_with_chromium',
+]
+
 vars = {
   'boringssl_git': 'https://boringssl.googlesource.com',
   'chromium_git': 'https://chromium.googlesource.com',
@@ -40,15 +45,24 @@ vars = {
 }
 
 deps = {
-  # NOTE: This commit hash here references a repository/branch that is a mirror
-  # of the commits to the buildtools directory in the Chromium repository. This
-  # should be regularly updated with the tip of the MIRRORED master branch,
+  # NOTE: These commit hashes here reference a repository/branch that is a
+  # mirror of the commits in the corresponding Chromium repository directory,
+  # and should be regularly updated with the tip of the MIRRORED master branch,
   # found here:
   # https://chromium.googlesource.com/chromium/src/buildtools/+/refs/heads/main
   'buildtools': {
     'url': Var('chromium_git') + '/chromium/src/buildtools' +
-      '@' + 'a9a6f0c49d0e8fa0cda37337430b4736ab3dc944',
+      '@' + '0ac67b7cef80e421283f633ee9c2ce652f6e42cc',
   },
+
+  # and here:
+  # https://chromium.googlesource.com/chromium/src/buildtools/+/refs/heads/main
+  'build': {
+    'url': Var('chromium_git') + '/chromium/src/build' +
+      '@' + 'bb826aaf00833bb61244a7ab5c4ca8c69c51314a',
+    'condition': 'not build_with_chromium',
+  },
+
   'third_party/clang-format/script': {
     'url': Var('chromium_git') +
       '/external/github.com/llvm/llvm-project/clang/tools/clang-format.git' +
@@ -74,6 +88,16 @@ deps = {
     ],
     'dep_type': 'cipd',
     'condition': 'host_os == "mac" and not build_with_chromium',
+  },
+  'buildtools/win': {
+    'packages': [
+      {
+        'package': 'gn/gn/windows-amd64',
+        'version': Var('gn_version'),
+      }
+    ],
+    'dep_type': 'cipd',
+    'condition': 'host_os == "win"',
   },
 
   'third_party/ninja': {
@@ -131,7 +155,7 @@ deps = {
   # To roll forward, use quiche_revision from chromium/src/DEPS.
   'third_party/quiche/src': {
     'url': Var('quiche_git') + '/quiche.git' +
-      '@' + '1125f4e47606119f56c91018b71bc4ae9de3a6d8',  # 2023-09-11
+      '@' + '45374cbe5557a6d3da7aa1a43c969314f7b1894e',  # 2023-11-23
     'condition': 'not build_with_chromium',
   },
 
@@ -145,7 +169,7 @@ deps = {
   'third_party/abseil/src': {
     'url': Var('chromium_git') +
       '/external/github.com/abseil/abseil-cpp.git' + '@' +
-      '78be63686ba732b25052be15f8d6dee891c05749',  # lts_2023_01_25
+      'a39d71a80fbdf0ee2f00222943c1ca08361cec20',  # lts_2023_01_25
     'condition': 'not build_with_chromium',
   },
 
@@ -155,6 +179,14 @@ deps = {
       '@' + 'debe7d2d1982e540fbd6bd78604bf001753f9e74',
     'condition': 'not build_with_chromium',
   },
+
+  'third_party/libc++/src':
+    Var('chromium_git') +
+    '/external/github.com/llvm/llvm-project/libcxx.git' + '@' + 'caccdb0407e84357ca6490165e88dcad64e47d17',
+
+  'third_party/libc++abi/src':
+    Var('chromium_git') +
+    '/external/github.com/llvm/llvm-project/libcxxabi.git' + '@' + '4cb5c2cefedc025433f81735bacbc0f773fdcd8f',
 
   'third_party/modp_b64': {
     'url': Var('chromium_git') + '/chromium/src/third_party/modp_b64'
@@ -182,7 +214,7 @@ hooks = [
     'name': 'clang_update_script',
     'pattern': '.',
     'condition': 'not build_with_chromium',
-    'action': [ 'tools/download-clang-update-script.py',
+    'action': [ 'python3', 'tools/download-clang-update-script.py',
                 '--output', 'tools/clang/scripts/update.py' ],
     # NOTE: This file appears in .gitignore, as it is not a part of the
     # openscreen repo.
@@ -224,6 +256,24 @@ hooks = [
                 '-s', 'buildtools/mac/clang-format.arm64.sha1' ],
     'condition': 'host_os == "mac" and host_cpu == "arm64" and not build_with_chromium',
   },
+  {
+    'name': 'clang_format_win',
+    'pattern': '.',
+    'action': [ 'download_from_google_storage.py',
+                '--no_resume',
+                '--no_auth',
+                '--bucket', 'chromium-clang-format',
+                '-s', 'buildtools/win/clang-format.exe.sha1',
+    ],
+    'condition': 'host_os == "win" and not build_with_chromium',
+  },
+  {
+    # Update LASTCHANGE.
+    'name': 'lastchange',
+    'pattern': '.',
+    'action': ['python3', 'build/util/lastchange.py',
+               '-o', 'build/util/LASTCHANGE'],
+  },
 ]
 
 include_rules = [
@@ -256,6 +306,7 @@ include_rules = [
   '+absl/strings/str_replace.h',
   '+absl/strings/str_split.h',
   '+absl/strings/substitute.h',
+  '+absl/synchronization/mutex.h',
   '+absl/types/variant.h',
 
   # Similar to abseil, don't include boringssl using root path.  Instead,

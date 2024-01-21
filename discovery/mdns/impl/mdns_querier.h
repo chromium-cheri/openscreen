@@ -91,6 +91,7 @@ class MdnsQuerier : public MdnsReceiver::ResponseClient {
                           ClockNowFunctionPtr now_function,
                           ReportingClient* reporting_client,
                           const Config& config);
+    ~RecordTrackerLruCache();
 
     // Returns all trackers with the associated |name| such that its type
     // represents a type corresponding to |dns_type| and class corresponding to

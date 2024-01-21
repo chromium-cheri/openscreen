@@ -98,6 +98,7 @@ bool IsValidDomainLabel(std::string_view label) {
 }
 
 DomainName::DomainName() = default;
+DomainName::~DomainName() = default;
 
 DomainName::DomainName(std::vector<std::string> labels)
     : DomainName(labels.begin(), labels.end()) {}
@@ -199,6 +200,8 @@ RawRecordRdata::RawRecordRdata(RawRecordRdata&& other) noexcept = default;
 RawRecordRdata& RawRecordRdata::operator=(const RawRecordRdata& rhs) = default;
 
 RawRecordRdata& RawRecordRdata::operator=(RawRecordRdata&& rhs) = default;
+
+RawRecordRdata::~RawRecordRdata() = default;
 
 bool RawRecordRdata::operator==(const RawRecordRdata& rhs) const {
   return rdata_ == rhs.rdata_;
@@ -354,6 +357,7 @@ ErrorOr<TxtRecordRdata> TxtRecordRdata::TryCreate(std::vector<Entry> texts) {
 }
 
 TxtRecordRdata::TxtRecordRdata() = default;
+TxtRecordRdata::~TxtRecordRdata() = default;
 
 TxtRecordRdata::TxtRecordRdata(std::vector<Entry> texts) {
   ErrorOr<TxtRecordRdata> rdata = TxtRecordRdata::TryCreate(std::move(texts));
@@ -384,6 +388,7 @@ size_t TxtRecordRdata::MaxWireSize() const {
 }
 
 NsecRecordRdata::NsecRecordRdata() = default;
+NsecRecordRdata::~NsecRecordRdata() = default;
 
 NsecRecordRdata::NsecRecordRdata(DomainName next_domain_name,
                                  std::vector<DnsType> types)
@@ -453,6 +458,18 @@ size_t NsecRecordRdata::MaxWireSize() const {
   return next_domain_name_.MaxWireSize() + encoded_types_.size();
 }
 
+OptRecordRdata::Option::Option(uint16_t code,
+                               uint16_t length,
+                               std::vector<uint8_t> data)
+    : code(code), length(length), data(data) {}
+OptRecordRdata::Option::Option() = default;
+OptRecordRdata::Option::Option(Option&&) noexcept = default;
+OptRecordRdata::Option::Option(const Option&) = default;
+OptRecordRdata::Option& OptRecordRdata::Option::operator=(Option&&) = default;
+OptRecordRdata::Option& OptRecordRdata::Option::operator=(const Option&) =
+    default;
+OptRecordRdata::Option::~Option() = default;
+
 size_t OptRecordRdata::Option::MaxWireSize() const {
   // One uint16_t for each of OPTION-LENGTH and OPTION-CODE as defined in RFC
   // 6891 section 6.1.2.
@@ -505,6 +522,7 @@ bool OptRecordRdata::Option::operator!=(
 }
 
 OptRecordRdata::OptRecordRdata() = default;
+OptRecordRdata::~OptRecordRdata() = default;
 
 OptRecordRdata::OptRecordRdata(std::vector<Option> options)
     : options_(std::move(options)) {
@@ -565,6 +583,8 @@ MdnsRecord::MdnsRecord(DomainName name,
 MdnsRecord::MdnsRecord(const MdnsRecord& other) = default;
 
 MdnsRecord::MdnsRecord(MdnsRecord&& other) noexcept = default;
+
+MdnsRecord::~MdnsRecord() = default;
 
 MdnsRecord& MdnsRecord::operator=(const MdnsRecord& rhs) = default;
 
@@ -763,6 +783,8 @@ ErrorOr<MdnsMessage> MdnsMessage::TryCreate(
                      std::move(additional_records));
 }
 
+MdnsMessage::MdnsMessage() = default;
+
 MdnsMessage::MdnsMessage(uint16_t id, MessageType type)
     : id_(id), type_(type) {}
 
@@ -796,6 +818,13 @@ MdnsMessage::MdnsMessage(uint16_t id,
     max_wire_size_ += record.MaxWireSize();
   }
 }
+
+MdnsMessage::MdnsMessage(const MdnsMessage&) = default;
+MdnsMessage::MdnsMessage(MdnsMessage&&) noexcept = default;
+MdnsMessage& MdnsMessage::operator=(const MdnsMessage&) = default;
+MdnsMessage& MdnsMessage::operator=(MdnsMessage&&) = default;
+
+MdnsMessage::~MdnsMessage() = default;
 
 bool MdnsMessage::operator==(const MdnsMessage& rhs) const {
   return id_ == rhs.id_ && type_ == rhs.type_ && questions_ == rhs.questions_ &&

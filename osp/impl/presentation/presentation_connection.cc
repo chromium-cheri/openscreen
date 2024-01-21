@@ -159,6 +159,7 @@ ConnectionManager::ConnectionManager(MessageDemuxer* demuxer) {
   close_event_watch_ = demuxer->SetDefaultMessageTypeWatch(
       msgs::Type::kPresentationConnectionCloseEvent, this);
 }
+ConnectionManager::~ConnectionManager() = default;
 
 void ConnectionManager::AddConnection(Connection* connection) {
   auto emplace_result =

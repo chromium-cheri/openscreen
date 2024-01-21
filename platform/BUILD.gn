@@ -37,7 +37,7 @@ source_set("base") {
     "base/udp_packet.cc",
   ]
 
-  public_configs = [ "../build:openscreen_include_dirs" ]
+  public_configs = [ "../build_overrides:openscreen_include_dirs" ]
 }
 
 # Public API source files. May depend on nothing except :base.
@@ -187,7 +187,10 @@ source_set("test") {
     "test/fake_clock.cc",
     "test/fake_task_runner.cc",
     "test/fake_udp_socket.cc",
+    "test/mock_tls_connection.cc",
+    "test/mock_udp_socket.cc",
     "test/paths_internal.h",
+    "test/trace_logging_helpers.cc",
   ]
 
   if (is_posix) {
@@ -252,7 +255,7 @@ source_set("unittests") {
   if (!build_with_chromium) {
     sources += [
       "impl/task_runner_unittest.cc",
-      "impl/time_unittest.cc",
+      "impl/time_impl_unittest.cc",
     ]
 
     if (is_posix) {
