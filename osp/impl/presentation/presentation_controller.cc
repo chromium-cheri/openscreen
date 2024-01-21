@@ -68,7 +68,7 @@ class Controller::MessageGroupStreams final
       public RequestResponseHandler<TerminationRequest>::Delegate {
  public:
   MessageGroupStreams(Controller* controller, const std::string& service_id);
-  ~MessageGroupStreams();
+  ~MessageGroupStreams() override;
 
   uint64_t SendStartRequest(StartRequest request);
   void CancelStartRequest(uint64_t request_id);
@@ -673,6 +673,26 @@ ErrorOr<size_t> Controller::TerminationListener::OnStreamMessage(
   controller_->termination_listener_by_id_.erase(event.presentation_id);
   return result;
 }
+
+Controller::ControlledPresentation::ControlledPresentation(
+    std::string service_id,
+    std::string url,
+    std::vector<Connection*> connections)
+    : service_id(std::move(service_id)),
+      url(std::move(url)),
+      connections(std::move(connections)) {}
+Controller::ControlledPresentation::ControlledPresentation() = default;
+Controller::ControlledPresentation::ControlledPresentation(
+    const Controller::ControlledPresentation&) = default;
+Controller::ControlledPresentation::ControlledPresentation(
+    Controller::ControlledPresentation&&) noexcept = default;
+Controller::ControlledPresentation&
+Controller::ControlledPresentation::operator=(
+    const Controller::ControlledPresentation&) = default;
+Controller::ControlledPresentation&
+Controller::ControlledPresentation::operator=(
+    Controller::ControlledPresentation&&) = default;
+Controller::ControlledPresentation::~ControlledPresentation() = default;
 
 // static
 std::string Controller::MakePresentationId(const std::string& url,

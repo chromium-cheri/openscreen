@@ -12,11 +12,9 @@
 #include "platform/api/tls_connection.h"
 #include "util/weak_ptr.h"
 
-namespace cast {
-namespace channel {
+namespace cast::channel {
 class CastMessage;
-}  // namespace channel
-}  // namespace cast
+}  // namespace cast::channel
 
 namespace openscreen::cast {
 
@@ -39,7 +37,7 @@ class CastSocket : public TlsConnection::Client {
   };
 
   CastSocket(std::unique_ptr<TlsConnection> connection, Client* client);
-  ~CastSocket();
+  ~CastSocket() override;
 
   // Sends |message| immediately unless the underlying TLS connection is
   // write-blocked, in which case |message| will be queued.  An error will be

@@ -11,6 +11,7 @@
 #include <vector>
 
 #include "absl/base/thread_annotations.h"
+#include "absl/synchronization/mutex.h"
 #include "platform/api/time.h"
 #include "platform/impl/socket_handle_waiter.h"
 #include "util/osp_logging.h"
@@ -89,10 +90,10 @@ class TlsDataRouterPosix : public SocketHandleWaiter::Subscriber {
   SocketHandleWaiter* waiter_;
 
   // Mutex guarding connections_ vector.
-  mutable std::mutex connections_mutex_;
+  mutable absl::Mutex connections_mutex_;
 
   // Mutex guarding |accept_socket_mappings_|.
-  mutable std::mutex accept_socket_mutex_;
+  mutable absl::Mutex accept_socket_mutex_;
 
   // Function to get the current time.
   std::function<Clock::time_point()> now_function_;

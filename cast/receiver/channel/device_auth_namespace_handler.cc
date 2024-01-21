@@ -47,6 +47,18 @@ CastMessage GenerateErrorMessage(AuthError::ErrorType error_type) {
 
 }  // namespace
 
+DeviceCredentials::DeviceCredentials(std::vector<std::string> certs,
+                                     bssl::UniquePtr<EVP_PKEY> private_key,
+                                     std::string serialized_crl)
+    : certs(certs),
+      private_key(std::move(private_key)),
+      serialized_crl(serialized_crl) {}
+
+DeviceCredentials::DeviceCredentials() = default;
+DeviceCredentials::DeviceCredentials(DeviceCredentials&&) noexcept = default;
+DeviceCredentials& DeviceCredentials::operator=(DeviceCredentials&&) = default;
+DeviceCredentials::~DeviceCredentials() = default;
+
 DeviceAuthNamespaceHandler::CredentialsProvider::~CredentialsProvider() =
     default;
 

@@ -32,6 +32,15 @@ enum class MediaCapability {
 };
 
 struct ReceiverCapability {
+  ReceiverCapability(int remoting_version,
+                     std::vector<MediaCapability> media_capabilities);
+  ReceiverCapability();
+  ReceiverCapability(const ReceiverCapability&);
+  ReceiverCapability(ReceiverCapability&&) noexcept;
+  ReceiverCapability& operator=(const ReceiverCapability&);
+  ReceiverCapability& operator=(ReceiverCapability&&);
+  ~ReceiverCapability();
+
   static constexpr int kRemotingVersionUnknown = -1;
 
   Json::Value ToJson() const;
@@ -92,6 +101,22 @@ struct ReceiverMessage {
     kRpc,
   };
 
+  using Body =
+      absl::variant<absl::monostate,
+                    Answer,
+                    std::vector<uint8_t>,  // Binary-encoded RPC message.
+                    ReceiverCapability,
+                    ReceiverError>;
+
+  ReceiverMessage(Type type, int32_t sequence_number, bool valid);
+  ReceiverMessage(Type type, int32_t sequence_number, bool valid, Body body);
+  ReceiverMessage();
+  ReceiverMessage(const ReceiverMessage&);
+  ReceiverMessage(ReceiverMessage&&) noexcept;
+  ReceiverMessage& operator=(const ReceiverMessage&);
+  ReceiverMessage& operator=(ReceiverMessage&&);
+  ~ReceiverMessage();
+
   static ErrorOr<ReceiverMessage> Parse(const Json::Value& value);
   ErrorOr<Json::Value> ToJson() const;
 
@@ -101,12 +126,7 @@ struct ReceiverMessage {
 
   bool valid = false;
 
-  absl::variant<absl::monostate,
-                Answer,
-                std::vector<uint8_t>,  // Binary-encoded RPC message.
-                ReceiverCapability,
-                ReceiverError>
-      body;
+  Body body;
 };
 
 }  // namespace openscreen::cast

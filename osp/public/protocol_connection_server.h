@@ -32,7 +32,7 @@ class ProtocolConnectionServer {
 
   class Observer : public ProtocolConnectionServiceObserver {
    public:
-    virtual ~Observer() = default;
+    ~Observer() override = default;
 
     // Called when the state becomes kSuspended.
     virtual void OnSuspended() = 0;

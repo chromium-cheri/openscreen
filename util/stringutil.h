@@ -88,7 +88,7 @@ bool EqualsIgnoreCase(std::string_view piece1, std::string_view piece2);
 // Returns std::string_view with whitespace stripped from the beginning of the
 // given string_view.
 inline std::string_view StripLeadingAsciiWhitespace(std::string_view str) {
-  auto it = std::find_if_not(str.cbegin(), str.cend(), ascii_isspace);
+  const char* it = std::find_if_not(str.cbegin(), str.cend(), ascii_isspace);
   return str.substr(static_cast<size_t>(it - str.begin()));
 }
 

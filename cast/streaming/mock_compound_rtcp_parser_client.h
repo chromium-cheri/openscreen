@@ -14,6 +14,13 @@ namespace openscreen::cast {
 
 class MockCompoundRtcpParserClient : public CompoundRtcpParser::Client {
  public:
+  MockCompoundRtcpParserClient();
+  MockCompoundRtcpParserClient(const MockCompoundRtcpParserClient&);
+  MockCompoundRtcpParserClient(MockCompoundRtcpParserClient&&) noexcept;
+  MockCompoundRtcpParserClient& operator=(const MockCompoundRtcpParserClient&);
+  MockCompoundRtcpParserClient& operator=(MockCompoundRtcpParserClient&&);
+  ~MockCompoundRtcpParserClient() override;
+
   MOCK_METHOD(void,
               OnReceiverReferenceTimeAdvanced,
               (Clock::time_point reference_time),

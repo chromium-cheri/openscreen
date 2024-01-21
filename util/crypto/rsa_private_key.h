@@ -22,8 +22,10 @@ namespace openscreen {
 // keys to other formats, or to extract a public key.
 class RSAPrivateKey {
  public:
-  RSAPrivateKey(RSAPrivateKey&& other) noexcept = default;
-  RSAPrivateKey& operator=(RSAPrivateKey&& other) = default;
+  RSAPrivateKey(RSAPrivateKey&& other) noexcept;
+  RSAPrivateKey(const RSAPrivateKey& other) noexcept = delete;
+  RSAPrivateKey& operator=(RSAPrivateKey&& other);
+  RSAPrivateKey& operator=(const RSAPrivateKey& other) = delete;
   ~RSAPrivateKey();
 
   // Create a new random instance. Can return nullptr if initialization fails.
@@ -55,8 +57,6 @@ class RSAPrivateKey {
   RSAPrivateKey();
 
   bssl::UniquePtr<EVP_PKEY> key_;
-
-  OSP_DISALLOW_COPY_AND_ASSIGN(RSAPrivateKey);
 };
 
 }  // namespace openscreen

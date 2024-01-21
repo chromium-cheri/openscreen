@@ -109,7 +109,7 @@ class StatisticsAnalyzerTest : public ::testing::Test {
   StatisticsAnalyzerTest()
       : fake_clock_(Clock::now()), fake_task_runner_(&fake_clock_) {}
 
-  void SetUp() {
+  void SetUp() override {
     // In general, use an estimator that doesn't have an offset.
     // TODO(issuetracker.google.com/298085631): add test coverage for the
     // estimator usage in this class.

@@ -54,6 +54,17 @@ class CastPlatformClient final : public CastMessageHandler {
 
  private:
   struct AvailabilityRequest {
+    AvailabilityRequest(int request_id,
+                        std::string app_id,
+                        std::unique_ptr<Alarm> timeout,
+                        AppAvailabilityCallback callback);
+    AvailabilityRequest();
+    AvailabilityRequest(const AvailabilityRequest&) = delete;
+    AvailabilityRequest(AvailabilityRequest&&) noexcept;
+    AvailabilityRequest& operator=(const AvailabilityRequest&) = delete;
+    AvailabilityRequest& operator=(AvailabilityRequest&&);
+    ~AvailabilityRequest();
+
     int request_id;
     std::string app_id;
     std::unique_ptr<Alarm> timeout;
@@ -61,6 +72,13 @@ class CastPlatformClient final : public CastMessageHandler {
   };
 
   struct PendingRequests {
+    PendingRequests();
+    PendingRequests(const PendingRequests&) = delete;
+    PendingRequests(PendingRequests&&) noexcept;
+    PendingRequests& operator=(const PendingRequests&) = delete;
+    PendingRequests& operator=(PendingRequests&&);
+    ~PendingRequests();
+
     std::vector<AvailabilityRequest> availability;
   };
 

@@ -21,6 +21,11 @@
 #include "absl/strings/numbers.h"
 #include "tools/cddl/logging.h"
 
+CppSymbolTable::CppSymbolTable() = default;
+CppSymbolTable::CppSymbolTable(CppSymbolTable&&) noexcept = default;
+CppSymbolTable& CppSymbolTable::operator=(CppSymbolTable&&) = default;
+CppSymbolTable::~CppSymbolTable() = default;
+
 std::vector<CppType*> CppSymbolTable::TypesWithId() {
   if (!this->TypesWithId_.size()) {
     for (const std::unique_ptr<CppType>& ptr : this->cpp_types) {
@@ -60,6 +65,11 @@ CddlType::~CddlType() {
   }
 }
 
+CddlGroup::CddlGroup() = default;
+CddlGroup::CddlGroup(CddlGroup&&) noexcept = default;
+CddlGroup& CddlGroup::operator=(CddlGroup&&) = default;
+CddlGroup::~CddlGroup() = default;
+
 CddlGroup::Entry::Entry() : group(nullptr) {}
 CddlGroup::Entry::~Entry() {
   switch (which) {
@@ -72,6 +82,11 @@ CddlGroup::Entry::~Entry() {
       break;
   }
 }
+
+CddlSymbolTable::CddlSymbolTable() = default;
+CddlSymbolTable::CddlSymbolTable(CddlSymbolTable&&) noexcept = default;
+CddlSymbolTable& CddlSymbolTable::operator=(CddlSymbolTable&&) = default;
+CddlSymbolTable::~CddlSymbolTable() = default;
 
 CppType::CppType() : vector_type() {}
 CppType::~CppType() {
@@ -125,6 +140,31 @@ void CppType::InitDiscriminatedUnion() {
 void CppType::InitBytes() {
   which = Which::kBytes;
 }
+
+CppType::Enum::Enum() = default;
+CppType::Enum::Enum(Enum&&) noexcept = default;
+CppType::Enum::Enum(const Enum&) = default;
+CppType::Enum& CppType::Enum::operator=(Enum&&) = default;
+CppType::Enum& CppType::Enum::operator=(const Enum&) = default;
+CppType::Enum::~Enum() = default;
+
+CppType::Struct::Struct() = default;
+CppType::Struct::Struct(Struct&&) noexcept = default;
+CppType::Struct::Struct(const Struct&) = default;
+CppType::Struct& CppType::Struct::operator=(Struct&&) = default;
+CppType::Struct& CppType::Struct::operator=(const Struct&) = default;
+CppType::Struct::~Struct() = default;
+
+CppType::DiscriminatedUnion::DiscriminatedUnion() = default;
+CppType::DiscriminatedUnion::DiscriminatedUnion(DiscriminatedUnion&&) noexcept =
+    default;
+CppType::DiscriminatedUnion::DiscriminatedUnion(const DiscriminatedUnion&) =
+    default;
+CppType::DiscriminatedUnion& CppType::DiscriminatedUnion::operator=(
+    DiscriminatedUnion&&) = default;
+CppType::DiscriminatedUnion& CppType::DiscriminatedUnion::operator=(
+    const DiscriminatedUnion&) = default;
+CppType::DiscriminatedUnion::~DiscriminatedUnion() = default;
 
 void InitString(std::string* s, std::string_view value) {
   new (s) std::string(value);
@@ -840,7 +880,7 @@ void DumpType(CddlType* type, int indent_level) {
     case CddlType::Which::kDirectChoice:
       output = "kDirectChoice" + DumpTypeKey(type->type_key) + ": ";
       Logger::Log(output);
-      for (auto& option : type->direct_choice)
+      for (auto* option : type->direct_choice)
         DumpType(option, indent_level + 1);
       break;
     case CddlType::Which::kValue:

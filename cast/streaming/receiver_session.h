@@ -36,7 +36,7 @@ class Receiver;
 // negotiation.
 //
 // NOTE: In some cases, the session initialization may be pending waiting for
-// the UDP socket to be ready. In this case, the receivers and the answer
+// the UDb socket to be ready. In this case, the receivers and the answer
 // message will not be configured and sent until the UDP socket has finished
 // binding.
 class ReceiverSession final : public Environment::SocketSubscriber {
@@ -44,6 +44,18 @@ class ReceiverSession final : public Environment::SocketSubscriber {
   // Upon successful negotiation, a set of configured receivers is constructed
   // for handling audio and video. Note that either receiver may be null.
   struct ConfiguredReceivers {
+    ConfiguredReceivers(Receiver* audio_receiver,
+                        AudioCaptureConfig audio_config,
+                        Receiver* video_receiver,
+                        VideoCaptureConfig video_config,
+                        std::string sender_id);
+    ConfiguredReceivers();
+    ConfiguredReceivers(const ConfiguredReceivers&);
+    ConfiguredReceivers(ConfiguredReceivers&&) noexcept;
+    ConfiguredReceivers& operator=(const ConfiguredReceivers&);
+    ConfiguredReceivers& operator=(ConfiguredReceivers&&);
+    ~ConfiguredReceivers();
+
     // In practice, we may have 0, 1, or 2 receivers configured, depending
     // on if the device supports audio and video, and if we were able to
     // successfully negotiate a receiver configuration.
@@ -129,9 +141,7 @@ class ReceiverSession final : public Environment::SocketSubscriber {
     // then any offered streams that have a non-empty codec parameter field must
     // match. If a stream does not have a codec parameter, this callback will
     // not be called.
-    virtual bool SupportsCodecParameter(const std::string& parameter) {
-      return true;
-    }
+    virtual bool SupportsCodecParameter(const std::string& parameter);
 
    protected:
     virtual ~Client();
@@ -158,6 +168,13 @@ class ReceiverSession final : public Environment::SocketSubscriber {
   // may have a pending session that cannot start yet. This class provides
   // all necessary info to instantiate a session.
   struct PendingOffer {
+    PendingOffer();
+    PendingOffer(const PendingOffer&) = delete;
+    PendingOffer(PendingOffer&&) noexcept;
+    PendingOffer& operator=(const PendingOffer&) = delete;
+    PendingOffer& operator=(PendingOffer&&);
+    ~PendingOffer();
+
     // The cast mode the OFFER was sent for.
     CastMode mode;
 

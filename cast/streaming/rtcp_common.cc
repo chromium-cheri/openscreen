@@ -238,6 +238,26 @@ std::optional<RtcpReportBlock> RtcpReportBlock::ParseOne(ByteView buffer,
 }
 
 RtcpSenderReport::RtcpSenderReport() = default;
+RtcpSenderReport::RtcpSenderReport(const RtcpSenderReport&) = default;
+RtcpSenderReport::RtcpSenderReport(RtcpSenderReport&&) noexcept = default;
+RtcpSenderReport& RtcpSenderReport::operator=(const RtcpSenderReport&) =
+    default;
+RtcpSenderReport& RtcpSenderReport::operator=(RtcpSenderReport&&) = default;
 RtcpSenderReport::~RtcpSenderReport() = default;
+
+RtcpReceiverFrameLogMessage::RtcpReceiverFrameLogMessage(
+    RtpTimeTicks rtp_timestamp,
+    std::vector<RtcpReceiverEventLogMessage> messages)
+    : rtp_timestamp(rtp_timestamp), messages(std::move(messages)) {}
+RtcpReceiverFrameLogMessage::RtcpReceiverFrameLogMessage() = default;
+RtcpReceiverFrameLogMessage::RtcpReceiverFrameLogMessage(
+    const RtcpReceiverFrameLogMessage&) = default;
+RtcpReceiverFrameLogMessage::RtcpReceiverFrameLogMessage(
+    RtcpReceiverFrameLogMessage&&) noexcept = default;
+RtcpReceiverFrameLogMessage& RtcpReceiverFrameLogMessage::operator=(
+    const RtcpReceiverFrameLogMessage&) = default;
+RtcpReceiverFrameLogMessage& RtcpReceiverFrameLogMessage::operator=(
+    RtcpReceiverFrameLogMessage&&) = default;
+RtcpReceiverFrameLogMessage::~RtcpReceiverFrameLogMessage() = default;
 
 }  // namespace openscreen::cast
