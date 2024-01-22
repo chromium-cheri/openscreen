@@ -16,6 +16,24 @@
       "message": "Hi, @mfoltz@chromium.org. I am confused here. Why here pass a remote endpoint to UdpSocket::Create before? And `socket-\u003eBind();` is not called before. Is there a problem with the previous code or is there something wrong with my understanding?\n\nI meet issues when creating QUIC connection, so I\u0027m wondering if there is something wrong with UdpSocket binding.",
       "revId": "576e2ca4ac63de1d8eeeda718e68ec56a2e62118",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0dd88c1_df7edb49",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-01-22T04:24:07Z",
+      "side": 0,
+      "message": "I think we should do this, because the osp_demo is workable now. The other question here is which IPEndpoint to use if client has more than one workable IPEndpoints. I use the first one in this CL for simplicity.",
+      "parentUuid": "2ca5cf9d_ebeae702",
+      "revId": "576e2ca4ac63de1d8eeeda718e68ec56a2e62118",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
