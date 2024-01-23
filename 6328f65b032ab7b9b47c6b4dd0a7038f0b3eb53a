@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8783faf_8586e5a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-01-23T05:34:56Z",
+      "side": 1,
+      "message": "Had to manually adjust mac_min_system_version, mac_deployment_target to 14 to allow linking libraries like libavcodec.\n\nNot sure how much cleanup we will have to do to get this working. Definitely frustrating to do all these manually constructor/destructor changes. Not sure how to avoid that, doesn\u0027t seem like we can turn it off.\n\nThis patch is the MVP to get it working on macOS. I made the minimum set of changes to unblock the build.",
+      "revId": "6328f65b032ab7b9b47c6b4dd0a7038f0b3eb53a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
