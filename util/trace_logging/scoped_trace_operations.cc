@@ -113,6 +113,9 @@ TraceLoggerBase::TraceLoggerBase(TraceCategory category,
                       ids.parent,
                       ids.root) {}
 
+void TraceLoggerBase::SetTraceResult(Error::Code error) {
+  event_.result = error;
+}
 SynchronousTraceLogger::~SynchronousTraceLogger() {
   const CurrentTracingDestination destination;
   if (destination) {

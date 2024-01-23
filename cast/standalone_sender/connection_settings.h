@@ -16,6 +16,21 @@ namespace openscreen::cast {
 // are used throughout the standalone sender component to initialize state from
 // the command line parameters.
 struct ConnectionSettings {
+  ConnectionSettings(IPEndpoint receiver_endpoint,
+                     std::string path_to_file,
+                     int max_bitrate,
+                     bool should_include_video,
+                     bool use_android_rtp_hack,
+                     bool use_remoting,
+                     bool should_loop_video,
+                     VideoCodec codec);
+  ConnectionSettings();
+  ConnectionSettings(const ConnectionSettings&);
+  ConnectionSettings(ConnectionSettings&&) noexcept;
+  ConnectionSettings& operator=(const ConnectionSettings&);
+  ConnectionSettings& operator=(ConnectionSettings&&);
+  ~ConnectionSettings();
+
   // The endpoint of the receiver we wish to connect to.
   IPEndpoint receiver_endpoint;
 

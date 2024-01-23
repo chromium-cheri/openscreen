@@ -160,6 +160,40 @@ Clock::time_point UrlAvailabilityRequester::RefreshWatches() {
   return minimum_schedule_time;
 }
 
+UrlAvailabilityRequester::ReceiverRequester::Request::Request(
+    uint64_t watch_id,
+    std::vector<std::string> urls)
+    : watch_id(watch_id), urls(urls) {}
+UrlAvailabilityRequester::ReceiverRequester::Request::Request() = default;
+UrlAvailabilityRequester::ReceiverRequester::Request::Request(
+    const UrlAvailabilityRequester::ReceiverRequester::Request&) = default;
+UrlAvailabilityRequester::ReceiverRequester::Request::Request(
+    UrlAvailabilityRequester::ReceiverRequester::Request&&) noexcept = default;
+UrlAvailabilityRequester::ReceiverRequester::Request&
+UrlAvailabilityRequester::ReceiverRequester::Request::operator=(
+    const UrlAvailabilityRequester::ReceiverRequester::Request&) = default;
+UrlAvailabilityRequester::ReceiverRequester::Request&
+UrlAvailabilityRequester::ReceiverRequester::Request::operator=(
+    UrlAvailabilityRequester::ReceiverRequester::Request&&) = default;
+UrlAvailabilityRequester::ReceiverRequester::Request::~Request() = default;
+
+UrlAvailabilityRequester::ReceiverRequester::Watch::Watch(
+    Clock::time_point deadline,
+    std::vector<std::string> urls)
+    : deadline(deadline), urls(urls) {}
+UrlAvailabilityRequester::ReceiverRequester::Watch::Watch() = default;
+UrlAvailabilityRequester::ReceiverRequester::Watch::Watch(
+    const UrlAvailabilityRequester::ReceiverRequester::Watch&) = default;
+UrlAvailabilityRequester::ReceiverRequester::Watch::Watch(
+    UrlAvailabilityRequester::ReceiverRequester::Watch&&) noexcept = default;
+UrlAvailabilityRequester::ReceiverRequester::Watch&
+UrlAvailabilityRequester::ReceiverRequester::Watch::operator=(
+    const UrlAvailabilityRequester::ReceiverRequester::Watch&) = default;
+UrlAvailabilityRequester::ReceiverRequester::Watch&
+UrlAvailabilityRequester::ReceiverRequester::Watch::operator=(
+    UrlAvailabilityRequester::ReceiverRequester::Watch&&) = default;
+UrlAvailabilityRequester::ReceiverRequester::Watch::~Watch() = default;
+
 UrlAvailabilityRequester::ReceiverRequester::ReceiverRequester(
     UrlAvailabilityRequester* listener,
     const std::string& service_id,
@@ -213,7 +247,7 @@ void UrlAvailabilityRequester::ReceiverRequester::RequestUrlAvailabilities(
                           Request{watch_id_or_error.value(), std::move(urls)});
   } else {
     for (const auto& url : urls)
-      for (auto& observer : listener->observers_by_url_[url])
+      for (auto* observer : listener->observers_by_url_[url])
         observer->OnRequestFailed(url, service_id);
   }
 }
@@ -336,7 +370,7 @@ void UrlAvailabilityRequester::ReceiverRequester::RemoveUnobservedRequests(
                            Request{watch_id_or_error.value(), std::move(urls)});
     } else {
       for (const auto& url : urls)
-        for (auto& observer : listener->observers_by_url_[url])
+        for (auto* observer : listener->observers_by_url_[url])
           observer->OnRequestFailed(url, service_id);
     }
   }
@@ -377,7 +411,7 @@ void UrlAvailabilityRequester::ReceiverRequester::RemoveReceiver() {
   for (const auto& availability : known_availability_by_url) {
     if (availability.second == msgs::UrlAvailability::kAvailable) {
       const std::string& url = availability.first;
-      for (auto& observer : listener->observers_by_url_[url])
+      for (auto* observer : listener->observers_by_url_[url])
         observer->OnReceiverUnavailable(url, service_id);
     }
   }
@@ -414,7 +448,7 @@ void UrlAvailabilityRequester::ReceiverRequester::OnConnectionFailed(
     }
   }
   for (const auto& url : waiting_urls)
-    for (auto& observer : listener->observers_by_url_[url])
+    for (auto* observer : listener->observers_by_url_[url])
       observer->OnRequestFailed(url, service_id);
 
   std::string id = std::move(service_id);

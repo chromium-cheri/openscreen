@@ -77,11 +77,27 @@ class UrlAvailabilityRequester {
       : ProtocolConnectionClient::ConnectionRequestCallback,
         MessageDemuxer::MessageCallback {
     struct Request {
+      Request(uint64_t watch_id, std::vector<std::string> urls);
+      Request();
+      Request(const Request&);
+      Request(Request&&) noexcept;
+      Request& operator=(const Request&);
+      Request& operator=(Request&&);
+      ~Request();
+
       uint64_t watch_id;
       std::vector<std::string> urls;
     };
 
     struct Watch {
+      Watch(Clock::time_point deadline, std::vector<std::string> urls);
+      Watch();
+      Watch(const Watch&);
+      Watch(Watch&&) noexcept;
+      Watch& operator=(const Watch&);
+      Watch& operator=(Watch&&);
+      ~Watch();
+
       Clock::time_point deadline;
       std::vector<std::string> urls;
     };

@@ -17,10 +17,8 @@ class TaskRunner;
 
 class MockTlsConnection : public TlsConnection {
  public:
-  MockTlsConnection(IPEndpoint local_address, IPEndpoint remote_address)
-      : local_address_(local_address), remote_address_(remote_address) {}
-
-  ~MockTlsConnection() override = default;
+  MockTlsConnection(IPEndpoint local_address, IPEndpoint remote_address);
+  ~MockTlsConnection() override;
 
   using TlsConnection::Client;
   void SetClient(Client* client) override { client_ = client; }

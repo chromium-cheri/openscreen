@@ -84,8 +84,12 @@ class TaskRunnerImpl final : public TaskRunner {
     // NOTE: 'explicit' keyword omitted so that conversion construtor can be
     // used. This simplifies switching between 'Task' and 'TaskWithMetadata'
     // based on the compilation flag.
-    TaskWithMetadata(Task task)  // NOLINT
-        : task_(std::move(task)), trace_ids_(TRACE_HIERARCHY) {}
+    TaskWithMetadata(Task task);  // NOLINT
+    TaskWithMetadata(const TaskWithMetadata&) = delete;
+    TaskWithMetadata(TaskWithMetadata&&) noexcept;
+    TaskWithMetadata& operator=(const TaskWithMetadata&) = delete;
+    TaskWithMetadata& operator=(TaskWithMetadata&&);
+    ~TaskWithMetadata();
 
     void operator()() {
       TRACE_SET_HIERARCHY(trace_ids_);
@@ -94,7 +98,7 @@ class TaskRunnerImpl final : public TaskRunner {
 
    private:
     Task task_;
-    TraceIdHierarchy trace_ids_;
+    TraceIdHierarchy trace_ids_ = TRACE_HIERARCHY;
   };
 #else   // !defined(ENABLE_TRACE_LOGGING)
   using TaskWithMetadata = Task;
@@ -123,9 +127,8 @@ class TaskRunnerImpl final : public TaskRunner {
   // notifying the run loop to wake up when it is waiting for a task to be added
   // to the queue in |run_loop_wakeup_|.
   std::mutex task_mutex_;
-  std::vector<TaskWithMetadata> tasks_ ABSL_GUARDED_BY(task_mutex_);
-  std::multimap<Clock::time_point, TaskWithMetadata> delayed_tasks_
-      ABSL_GUARDED_BY(task_mutex_);
+  std::vector<TaskWithMetadata> tasks_;
+  std::multimap<Clock::time_point, TaskWithMetadata> delayed_tasks_;
 
   // When |task_waiter_| is nullptr, |run_loop_wakeup_| is used for sleeping the
   // task runner.  Otherwise, |run_loop_wakeup_| isn't used and |task_waiter_|

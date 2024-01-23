@@ -43,6 +43,20 @@ namespace cast {
 class CastService final : public discovery::ReportingClient {
  public:
   struct Configuration {
+    explicit Configuration(TaskRunner& task_runner);
+
+    Configuration(TaskRunner& task_runner,
+                  InterfaceInfo interface,
+                  GeneratedCredentials credentials,
+                  std::string friendly_name,
+                  std::string model_name,
+                  bool enable_discovery = true);
+    Configuration(const Configuration&) = delete;
+    Configuration(Configuration&&) noexcept;
+    Configuration& operator=(const Configuration&) = delete;
+    Configuration& operator=(Configuration&&) = delete;
+    ~Configuration();
+
     // The task runner to be used for async calls.
     TaskRunner& task_runner;
 

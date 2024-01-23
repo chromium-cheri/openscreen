@@ -78,7 +78,7 @@ class MdnsPublisherTest : public testing::Test {
                    FakeClock::now,
                    config_) {}
 
-  ~MdnsPublisherTest() {
+  ~MdnsPublisherTest() override {
     // Clear out any remaining calls in the task runner queue.
     clock_.Advance(Clock::to_duration(std::chrono::seconds(1)));
   }

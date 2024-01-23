@@ -43,7 +43,7 @@ class SessionMessenger : public MessagePort::Client {
   // Used to report errors in subclasses.
   void ReportError(Error error);
 
-  const std::string& source_id() override { return source_id_; }
+  const std::string& source_id() override;
 
  private:
   MessagePort* const message_port_;
@@ -64,6 +64,7 @@ class SenderSessionMessenger final : public SessionMessenger {
                          std::string receiver_id,
                          ErrorCallback cb,
                          TaskRunner& task_runner);
+  ~SenderSessionMessenger() final;
 
   // Set receiver message handler. Note that this should only be
   // applied for messages that don't have sequence numbers, like RPC
@@ -115,6 +116,7 @@ class ReceiverSessionMessenger final : public SessionMessenger {
   ReceiverSessionMessenger(MessagePort* message_port,
                            std::string source_id,
                            ErrorCallback cb);
+  ~ReceiverSessionMessenger() final;
 
   // Set sender message handler.
   void SetHandler(SenderMessage::Type type, RequestCallback cb);

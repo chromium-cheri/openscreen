@@ -382,7 +382,7 @@ class ReceiverSessionTest : public ::testing::Test {
     return environment;
   }
 
-  void SetUp() { SetUpWithConstraints(ReceiverConstraints{}); }
+  void SetUp() override { SetUpWithConstraints(ReceiverConstraints{}); }
 
   // Since constraints are constant throughout the life of a session,
   // changing them requires configuring a new session.

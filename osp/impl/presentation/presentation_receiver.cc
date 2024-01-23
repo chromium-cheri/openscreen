@@ -517,6 +517,13 @@ void Receiver::OnConnectionDestroyed(Connection* connection) {
   connection_manager_->RemoveConnection(connection);
 }
 
+Receiver::Presentation::Presentation() = default;
+Receiver::Presentation::Presentation(Receiver::Presentation&&) noexcept =
+    default;
+Receiver::Presentation& Receiver::Presentation::operator=(
+    Receiver::Presentation&&) = default;
+Receiver::Presentation::~Presentation() = default;
+
 void Receiver::DeleteQueuedResponse(const std::string& presentation_id,
                                     Receiver::QueuedResponseIterator response) {
   auto entry = queued_responses_.find(presentation_id);

@@ -148,29 +148,10 @@ bool ParseOptional(const Json::Value& value, std::optional<T>* out) {
 
 }  // namespace
 
-// static
-bool AspectRatio::TryParse(const Json::Value& value, AspectRatio* out) {
-  std::string parsed_value;
-  if (!json::TryParseString(value, &parsed_value)) {
-    return false;
-  }
-
-  std::vector<std::string_view> fields =
-      absl::StrSplit(parsed_value, kAspectRatioDelimiter);
-  if (fields.size() != 2) {
-    return false;
-  }
-
-  if (!absl::SimpleAtoi(fields[0], &out->width) ||
-      !absl::SimpleAtoi(fields[1], &out->height)) {
-    return false;
-  }
-  return out->IsValid();
-}
-
-bool AspectRatio::IsValid() const {
-  return width > 0 && height > 0;
-}
+AudioConstraints& AudioConstraints::operator=(const AudioConstraints&) =
+    default;
+AudioConstraints& AudioConstraints::operator=(AudioConstraints&&) = default;
+AudioConstraints::~AudioConstraints() = default;
 
 // static
 bool AudioConstraints::TryParse(const Json::Value& root,
@@ -209,6 +190,27 @@ bool AudioConstraints::IsValid() const {
   return max_sample_rate > 0 && max_channels > 0 && min_bit_rate > 0 &&
          max_bit_rate >= min_bit_rate;
 }
+
+VideoConstraints::VideoConstraints(
+    std::optional<double> max_pixels_per_second,
+    std::optional<Dimensions> min_resolution,
+    Dimensions max_dimensions,
+    int min_bit_rate,
+    int max_bit_rate,
+    std::optional<std::chrono::milliseconds> max_delay)
+    : max_pixels_per_second(std::move(max_pixels_per_second)),
+      min_resolution(std::move(min_resolution)),
+      max_dimensions(std::move(max_dimensions)),
+      min_bit_rate(min_bit_rate),
+      max_bit_rate(max_bit_rate),
+      max_delay(std::move(max_delay)) {}
+VideoConstraints::VideoConstraints() = default;
+VideoConstraints::VideoConstraints(const VideoConstraints&) = default;
+VideoConstraints::VideoConstraints(VideoConstraints&&) noexcept = default;
+VideoConstraints& VideoConstraints::operator=(const VideoConstraints&) =
+    default;
+VideoConstraints& VideoConstraints::operator=(VideoConstraints&&) = default;
+VideoConstraints::~VideoConstraints() = default;
 
 // static
 bool VideoConstraints::TryParse(const Json::Value& root,
@@ -265,6 +267,15 @@ Json::Value VideoConstraints::ToJson() const {
   return root;
 }
 
+Constraints::Constraints(AudioConstraints audio, VideoConstraints video)
+    : audio(std::move(audio)), video(std::move(video)) {}
+Constraints::Constraints() = default;
+Constraints::Constraints(const Constraints&) = default;
+Constraints::Constraints(Constraints&&) noexcept = default;
+Constraints& Constraints::operator=(const Constraints&) = default;
+Constraints& Constraints::operator=(Constraints&&) = default;
+Constraints::~Constraints() = default;
+
 // static
 bool Constraints::TryParse(const Json::Value& root, Constraints* out) {
   if (!AudioConstraints::TryParse(root[kAudio], &(out->audio)) ||
@@ -285,6 +296,51 @@ Json::Value Constraints::ToJson() const {
   root[kVideo] = video.ToJson();
   return root;
 }
+
+AspectRatio& AspectRatio::operator=(const AspectRatio&) = default;
+AspectRatio& AspectRatio::operator=(AspectRatio&&) = default;
+AspectRatio::~AspectRatio() = default;
+
+// static
+bool AspectRatio::TryParse(const Json::Value& value, AspectRatio* out) {
+  std::string parsed_value;
+  if (!json::TryParseString(value, &parsed_value)) {
+    return false;
+  }
+
+  std::vector<std::string_view> fields =
+      absl::StrSplit(parsed_value, kAspectRatioDelimiter);
+  if (fields.size() != 2) {
+    return false;
+  }
+
+  if (!absl::SimpleAtoi(fields[0], &out->width) ||
+      !absl::SimpleAtoi(fields[1], &out->height)) {
+    return false;
+  }
+  return out->IsValid();
+}
+
+bool AspectRatio::IsValid() const {
+  return width > 0 && height > 0;
+}
+
+DisplayDescription::DisplayDescription(
+    std::optional<Dimensions> dimensions,
+    std::optional<AspectRatio> aspect_ratio,
+    std::optional<AspectRatioConstraint> aspect_ratio_constraint)
+    : dimensions(std::move(dimensions)),
+      aspect_ratio(std::move(aspect_ratio)),
+      aspect_ratio_constraint(std::move(aspect_ratio_constraint)) {}
+
+DisplayDescription::DisplayDescription() = default;
+DisplayDescription::DisplayDescription(const DisplayDescription&) = default;
+DisplayDescription::DisplayDescription(DisplayDescription&&) noexcept = default;
+DisplayDescription& DisplayDescription::operator=(const DisplayDescription&) =
+    default;
+DisplayDescription& DisplayDescription::operator=(DisplayDescription&&) =
+    default;
+DisplayDescription::~DisplayDescription() = default;
 
 // static
 bool DisplayDescription::TryParse(const Json::Value& root,
@@ -343,6 +399,30 @@ Json::Value DisplayDescription::ToJson() const {
   }
   return root;
 }
+
+Answer::Answer(int udp_port,
+               std::vector<int> send_indexes,
+               std::vector<Ssrc> ssrcs,
+               std::optional<Constraints> constraints,
+               std::optional<DisplayDescription> display,
+               std::vector<int> receiver_rtcp_event_log,
+               std::vector<int> receiver_rtcp_dscp,
+               std::vector<std::string> rtp_extensions)
+    : udp_port(udp_port),
+      send_indexes(std::move(send_indexes)),
+      ssrcs(std::move(ssrcs)),
+      constraints(std::move(constraints)),
+      display(std::move(display)),
+      receiver_rtcp_event_log(std::move(receiver_rtcp_event_log)),
+      receiver_rtcp_dscp(std::move(receiver_rtcp_dscp)),
+      rtp_extensions(std::move(rtp_extensions)) {}
+
+Answer::Answer() = default;
+Answer::Answer(const Answer&) = default;
+Answer::Answer(Answer&&) noexcept = default;
+Answer& Answer::operator=(const Answer&) = default;
+Answer& Answer::operator=(Answer&&) = default;
+Answer::~Answer() = default;
 
 bool Answer::TryParse(const Json::Value& root, Answer* out) {
   if (!json::TryParseInt(root[kUdpPort], &(out->udp_port)) ||

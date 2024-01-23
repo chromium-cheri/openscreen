@@ -189,7 +189,7 @@ class SenderSessionTest : public ::testing::Test {
     return environment;
   }
 
-  void SetUp() {
+  void SetUp() override {
     message_port_ = std::make_unique<SimpleMessagePort>("receiver-12345");
     environment_ = MakeEnvironment();
 

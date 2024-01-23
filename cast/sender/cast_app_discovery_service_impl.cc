@@ -95,6 +95,21 @@ void CastAppDiscoveryServiceImpl::RemoveReceiver(const ReceiverInfo& receiver) {
       availability_tracker_.RemoveResultsForReceiver(receiver_id));
 }
 
+CastAppDiscoveryServiceImpl::AvailabilityCallbackEntry::
+    AvailabilityCallbackEntry(uint32_t id, AvailabilityCallback callback)
+    : id(id), callback(std::move(callback)) {}
+CastAppDiscoveryServiceImpl::AvailabilityCallbackEntry::
+    AvailabilityCallbackEntry() = default;
+CastAppDiscoveryServiceImpl::AvailabilityCallbackEntry::
+    AvailabilityCallbackEntry(
+        CastAppDiscoveryServiceImpl::AvailabilityCallbackEntry&&) noexcept =
+        default;
+CastAppDiscoveryServiceImpl::AvailabilityCallbackEntry&
+CastAppDiscoveryServiceImpl::AvailabilityCallbackEntry::operator=(
+    CastAppDiscoveryServiceImpl::AvailabilityCallbackEntry&&) = default;
+CastAppDiscoveryServiceImpl::AvailabilityCallbackEntry::
+    ~AvailabilityCallbackEntry() = default;
+
 void CastAppDiscoveryServiceImpl::RequestAppAvailability(
     const std::string& receiver_id,
     const std::string& app_id) {

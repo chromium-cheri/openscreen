@@ -306,8 +306,8 @@ bool CompoundRtcpParser::ParseFrameLogMessages(
 
     const RtpTimeTicks frame_log_rtp_timestamp =
         latest_frame_log_rtp_timestamp_.Expand(truncated_rtp_timestamp);
-    RtcpReceiverFrameLogMessage frame_log_message{.rtp_timestamp =
-                                                      frame_log_rtp_timestamp};
+    RtcpReceiverFrameLogMessage frame_log_message;
+    frame_log_message.rtp_timestamp = frame_log_rtp_timestamp;
 
     for (size_t event = 0; event < num_events; ++event) {
       if (in.size() < kRtcpReceiverFrameLogMessageBlockSize) {

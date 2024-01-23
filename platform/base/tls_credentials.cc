@@ -17,6 +17,11 @@ TlsCredentials::TlsCredentials(std::vector<uint8_t> der_rsa_private_key,
       der_rsa_public_key(std::move(der_rsa_public_key)),
       der_x509_cert(std::move(der_x509_cert)) {}
 
+TlsCredentials::TlsCredentials(const TlsCredentials&) = default;
+TlsCredentials::TlsCredentials(TlsCredentials&&) noexcept = default;
+TlsCredentials& TlsCredentials::operator=(const TlsCredentials&) = default;
+TlsCredentials& TlsCredentials::operator=(TlsCredentials&&) = default;
+
 TlsCredentials::~TlsCredentials() = default;
 
 }  // namespace openscreen

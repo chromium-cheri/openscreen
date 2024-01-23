@@ -35,6 +35,23 @@ namespace openscreen::cast {
 // (3) IsValid. Used by both TryParse and ToJson to ensure that the
 //     object is in a good state.
 struct AudioConstraints {
+  constexpr AudioConstraints(int max_sample_rate,
+                             int max_channels,
+                             int min_bit_rate,
+                             int max_bit_rate,
+                             std::optional<std::chrono::milliseconds> max_delay)
+      : max_sample_rate(max_sample_rate),
+        max_channels(max_channels),
+        min_bit_rate(min_bit_rate),
+        max_bit_rate(max_bit_rate),
+        max_delay(std::move(max_delay)) {}
+  constexpr AudioConstraints() = default;
+  constexpr AudioConstraints(const AudioConstraints&) = default;
+  constexpr AudioConstraints(AudioConstraints&&) noexcept = default;
+  AudioConstraints& operator=(const AudioConstraints&);
+  AudioConstraints& operator=(AudioConstraints&&);
+  ~AudioConstraints();
+
   static bool TryParse(const Json::Value& value, AudioConstraints* out);
   Json::Value ToJson() const;
   bool IsValid() const;
@@ -47,6 +64,19 @@ struct AudioConstraints {
 };
 
 struct VideoConstraints {
+  VideoConstraints(std::optional<double> max_pixels_per_second,
+                   std::optional<Dimensions> min_resolution,
+                   Dimensions max_dimensions,
+                   int min_bit_rate,
+                   int max_bit_rate,
+                   std::optional<std::chrono::milliseconds> max_delay);
+  VideoConstraints();
+  VideoConstraints(const VideoConstraints&);
+  VideoConstraints(VideoConstraints&&) noexcept;
+  VideoConstraints& operator=(const VideoConstraints&);
+  VideoConstraints& operator=(VideoConstraints&&);
+  ~VideoConstraints();
+
   static bool TryParse(const Json::Value& value, VideoConstraints* out);
   Json::Value ToJson() const;
   bool IsValid() const;
@@ -60,6 +90,14 @@ struct VideoConstraints {
 };
 
 struct Constraints {
+  Constraints(AudioConstraints audio, VideoConstraints video);
+  Constraints();
+  Constraints(const Constraints&);
+  Constraints(Constraints&&) noexcept;
+  Constraints& operator=(const Constraints&);
+  Constraints& operator=(Constraints&&);
+  ~Constraints();
+
   static bool TryParse(const Json::Value& value, Constraints* out);
   Json::Value ToJson() const;
   bool IsValid() const;
@@ -74,6 +112,14 @@ struct Constraints {
 enum class AspectRatioConstraint : uint8_t { kVariable = 0, kFixed };
 
 struct AspectRatio {
+  constexpr AspectRatio(int width, int height) : width(width), height(height) {}
+  constexpr AspectRatio() = default;
+  constexpr AspectRatio(const AspectRatio&) = default;
+  constexpr AspectRatio(AspectRatio&&) noexcept = default;
+  AspectRatio& operator=(const AspectRatio&);
+  AspectRatio& operator=(AspectRatio&&);
+  ~AspectRatio();
+
   static bool TryParse(const Json::Value& value, AspectRatio* out);
   bool IsValid() const;
 
@@ -86,6 +132,17 @@ struct AspectRatio {
 };
 
 struct DisplayDescription {
+  DisplayDescription(
+      std::optional<Dimensions> dimensions,
+      std::optional<AspectRatio> aspect_ratio = {},
+      std::optional<AspectRatioConstraint> aspect_ratio_constraint = {});
+  DisplayDescription();
+  DisplayDescription(const DisplayDescription&);
+  DisplayDescription(DisplayDescription&&) noexcept;
+  DisplayDescription& operator=(const DisplayDescription&);
+  DisplayDescription& operator=(DisplayDescription&&);
+  ~DisplayDescription();
+
   static bool TryParse(const Json::Value& value, DisplayDescription* out);
   Json::Value ToJson() const;
   bool IsValid() const;
@@ -98,6 +155,22 @@ struct DisplayDescription {
 };
 
 struct Answer {
+  Answer(int udp_port,
+         std::vector<int> send_indexes,
+         std::vector<Ssrc> ssrcs,
+         std::optional<Constraints> constraints = {},
+         std::optional<DisplayDescription> display = {},
+         std::vector<int> receiver_rtcp_event_log = {},
+         std::vector<int> receiver_rtcp_dscp = {},
+         std::vector<std::string> rtp_extensions = {});
+
+  Answer();
+  Answer(const Answer&);
+  Answer(Answer&&) noexcept;
+  Answer& operator=(const Answer&);
+  Answer& operator=(Answer&&);
+  ~Answer();
+
   static bool TryParse(const Json::Value& value, Answer* out);
   Json::Value ToJson() const;
   bool IsValid() const;

@@ -51,7 +51,7 @@ class SenderSocketFactory final : public TlsConnectionFactory::Client,
                       TaskRunner& task_runner,
                       std::unique_ptr<TrustStore> cast_trust_store,
                       std::unique_ptr<TrustStore> crl_trust_store);
-  ~SenderSocketFactory();
+  ~SenderSocketFactory() override;
 
   // |factory| cannot be nullptr and must outlive |this|.
   void set_factory(TlsConnectionFactory* factory);
@@ -86,6 +86,19 @@ class SenderSocketFactory final : public TlsConnectionFactory::Client,
   };
 
   struct PendingAuth {
+    PendingAuth(IPEndpoint endpoint,
+                DeviceMediaPolicy media_policy,
+                SerialDeletePtr<CastSocket> socket,
+                CastSocket::Client* client,
+                std::unique_ptr<AuthContext> auth_context,
+                std::unique_ptr<ParsedCertificate> peer_cert);
+    PendingAuth();
+    PendingAuth(const PendingAuth&) = delete;
+    PendingAuth(PendingAuth&&) noexcept;
+    PendingAuth& operator=(const PendingAuth&) = delete;
+    PendingAuth& operator=(PendingAuth&&);
+    ~PendingAuth();
+
     IPEndpoint endpoint;
     DeviceMediaPolicy media_policy;
     SerialDeletePtr<CastSocket> socket;

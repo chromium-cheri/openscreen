@@ -35,6 +35,23 @@ SenderMessage::Type GetMessageType(const Json::Value& root) {
 
 }  // namespace
 
+SenderMessage::SenderMessage(Type type, int32_t sequence_number, bool valid)
+    : SenderMessage(type, sequence_number, valid, Body{}) {}
+SenderMessage::SenderMessage(Type type,
+                             int32_t sequence_number,
+                             bool valid,
+                             Body body)
+    : type(type),
+      sequence_number(sequence_number),
+      valid(valid),
+      body(std::move(body)) {}
+SenderMessage::SenderMessage() = default;
+SenderMessage::SenderMessage(const SenderMessage&) = default;
+SenderMessage::SenderMessage(SenderMessage&&) noexcept = default;
+SenderMessage& SenderMessage::operator=(const SenderMessage&) = default;
+SenderMessage& SenderMessage::operator=(SenderMessage&&) = default;
+SenderMessage::~SenderMessage() = default;
+
 // static
 ErrorOr<SenderMessage> SenderMessage::Parse(const Json::Value& value) {
   if (!value) {

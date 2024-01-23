@@ -132,6 +132,10 @@ struct RtcpReportBlock {
 
 struct RtcpSenderReport {
   RtcpSenderReport();
+  RtcpSenderReport(const RtcpSenderReport&);
+  RtcpSenderReport(RtcpSenderReport&&) noexcept;
+  RtcpSenderReport& operator=(const RtcpSenderReport&);
+  RtcpSenderReport& operator=(RtcpSenderReport&&);
   ~RtcpSenderReport();
 
   // The point-in-time at which this report was sent, according to both: 1) the
@@ -194,6 +198,16 @@ struct RtcpReceiverEventLogMessage {
 };
 
 struct RtcpReceiverFrameLogMessage {
+  RtcpReceiverFrameLogMessage(
+      RtpTimeTicks rtp_timestamp,
+      std::vector<RtcpReceiverEventLogMessage> messages);
+  RtcpReceiverFrameLogMessage();
+  RtcpReceiverFrameLogMessage(const RtcpReceiverFrameLogMessage&);
+  RtcpReceiverFrameLogMessage(RtcpReceiverFrameLogMessage&&) noexcept;
+  RtcpReceiverFrameLogMessage& operator=(const RtcpReceiverFrameLogMessage&);
+  RtcpReceiverFrameLogMessage& operator=(RtcpReceiverFrameLogMessage&&);
+  ~RtcpReceiverFrameLogMessage();
+
   RtpTimeTicks rtp_timestamp;
   std::vector<RtcpReceiverEventLogMessage> messages;
 };
