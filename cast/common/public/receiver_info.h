@@ -55,6 +55,13 @@ constexpr uint64_t kNoCapabilities = 0;
 // This is the top-level receiver info class for CastV2. It describes a specific
 // service instance.
 struct ReceiverInfo {
+  ReceiverInfo();
+  ReceiverInfo(ReceiverInfo&&) noexcept;
+  ReceiverInfo(const ReceiverInfo&);
+  ReceiverInfo& operator=(ReceiverInfo&&);
+  ReceiverInfo& operator=(const ReceiverInfo&);
+  ~ReceiverInfo();
+
   // returns the instance id associated with this ReceiverInfo instance.
   const std::string& GetInstanceId() const;
 

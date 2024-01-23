@@ -166,6 +166,20 @@ struct SenderStats {
       std::array<SimpleHistogram,
                  static_cast<size_t>(HistogramType::kNumTypes)>;
 
+  SenderStats(StatisticsList audio_statistics,
+              HistogramsList audio_histograms,
+              StatisticsList video_statistics,
+              HistogramsList video_histograms);
+  SenderStats();
+  SenderStats(SenderStats&&) noexcept;
+  SenderStats(const SenderStats&);
+  SenderStats& operator=(SenderStats&&);
+  SenderStats& operator=(const SenderStats&);
+  ~SenderStats();
+
+  Json::Value ToJson() const;
+  std::string ToString() const;
+
   // The current audio statistics.
   StatisticsList audio_statistics;
 
@@ -177,9 +191,6 @@ struct SenderStats {
 
   // The current video histograms.
   HistogramsList video_histograms;
-
-  Json::Value ToJson() const;
-  std::string ToString() const;
 };
 
 // The consumer may provide a statistics client if they are interested in

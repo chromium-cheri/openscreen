@@ -15,6 +15,13 @@
 #include <vector>
 
 struct AstNode {
+  AstNode();
+  AstNode(AstNode&&) noexcept;
+  AstNode(const AstNode&);
+  AstNode& operator=(AstNode&&);
+  AstNode& operator=(const AstNode&);
+  ~AstNode();
+
   // These types all correspond to types in the grammar, which can be found in
   // grammar.abnf.
   enum class Type {
@@ -146,6 +153,14 @@ inline std::ostream& operator<<(std::ostream& os, const AstNode::Type& which) {
 }
 
 struct ParseResult {
+  ParseResult(AstNode* root, std::vector<std::unique_ptr<AstNode>> nodes);
+  ParseResult();
+  ParseResult(ParseResult&&) noexcept;
+  ParseResult(const ParseResult&) = delete;
+  ParseResult& operator=(ParseResult&&);
+  ParseResult& operator=(const ParseResult&) = delete;
+  ~ParseResult();
+
   AstNode* root;
   std::vector<std::unique_ptr<AstNode>> nodes;
 };

@@ -232,6 +232,32 @@ RemotingCapabilities ToCapabilities(const ReceiverCapability& capability) {
 
 SenderSession::Client::~Client() = default;
 
+SenderSession::Configuration::Configuration(IPAddress remote_address,
+                                            Client* const client,
+                                            Environment* environment,
+                                            MessagePort* message_port,
+                                            std::string message_source_id,
+                                            std::string message_destination_id,
+                                            bool use_android_rtp_hack)
+    : remote_address(std::move(remote_address)),
+      client(client),
+      environment(environment),
+      message_port(message_port),
+      message_source_id(std::move(message_source_id)),
+      message_destination_id(std::move(message_destination_id)),
+      use_android_rtp_hack(use_android_rtp_hack) {}
+
+SenderSession::Configuration::Configuration() = default;
+SenderSession::Configuration::Configuration(
+    const SenderSession::Configuration&) = default;
+SenderSession::Configuration::Configuration(
+    SenderSession::Configuration&&) noexcept = default;
+SenderSession::Configuration& SenderSession::Configuration::operator=(
+    const SenderSession::Configuration&) = default;
+SenderSession::Configuration& SenderSession::Configuration::operator=(
+    SenderSession::Configuration&&) = default;
+SenderSession::Configuration::~Configuration() = default;
+
 SenderSession::SenderSession(Configuration config)
     : config_(config),
       messenger_(
@@ -325,6 +351,26 @@ void SenderSession::SetStatsClient(SenderStatsClient* client) {
   stats_analyzer_->ScheduleAnalysis();
 }
 
+SenderSession::InProcessNegotiation::InProcessNegotiation(
+    Offer offer,
+    std::vector<AudioCaptureConfig> audio_configs,
+    std::vector<VideoCaptureConfig> video_configs)
+    : offer(std::move(offer)),
+      audio_configs(std::move(audio_configs)),
+      video_configs(std::move(video_configs)) {}
+SenderSession::InProcessNegotiation::InProcessNegotiation() = default;
+SenderSession::InProcessNegotiation::InProcessNegotiation(
+    const SenderSession::InProcessNegotiation&) = default;
+SenderSession::InProcessNegotiation::InProcessNegotiation(
+    SenderSession::InProcessNegotiation&&) noexcept = default;
+SenderSession::InProcessNegotiation&
+SenderSession::InProcessNegotiation::operator=(
+    const SenderSession::InProcessNegotiation&) = default;
+SenderSession::InProcessNegotiation&
+SenderSession::InProcessNegotiation::operator=(
+    SenderSession::InProcessNegotiation&&) = default;
+SenderSession::InProcessNegotiation::~InProcessNegotiation() = default;
+
 void SenderSession::ResetState() {
   state_ = State::kIdle;
   current_negotiation_.reset();
@@ -334,9 +380,8 @@ Error SenderSession::StartNegotiation(
     std::vector<AudioCaptureConfig> audio_configs,
     std::vector<VideoCaptureConfig> video_configs,
     Offer offer) {
-  current_negotiation_ =
-      std::unique_ptr<InProcessNegotiation>(new InProcessNegotiation{
-          offer, std::move(audio_configs), std::move(video_configs)});
+  current_negotiation_ = std::make_unique<InProcessNegotiation>(
+      offer, std::move(audio_configs), std::move(video_configs));
 
   return messenger_.SendRequest(
       SenderMessage{SenderMessage::Type::kOffer, ++current_sequence_number_,
@@ -383,6 +428,22 @@ void SenderSession::OnAnswer(ErrorOr<ReceiverMessage> message) {
 
   config_.client->OnNegotiated(this, std::move(senders), recommendations);
 }
+
+SenderSession::ConfiguredSenders::ConfiguredSenders(
+    std::unique_ptr<Sender> audio_sender,
+    AudioCaptureConfig audio_config,
+    std::unique_ptr<Sender> video_sender,
+    VideoCaptureConfig video_config)
+    : audio_sender(std::move(audio_sender)),
+      audio_config(std::move(audio_config)),
+      video_sender(std::move(video_sender)),
+      video_config(std::move(video_config)) {}
+SenderSession::ConfiguredSenders::ConfiguredSenders() = default;
+SenderSession::ConfiguredSenders::ConfiguredSenders(
+    SenderSession::ConfiguredSenders&&) noexcept = default;
+SenderSession::ConfiguredSenders& SenderSession::ConfiguredSenders::operator=(
+    SenderSession::ConfiguredSenders&&) = default;
+SenderSession::ConfiguredSenders::~ConfiguredSenders() = default;
 
 void SenderSession::OnCapabilitiesResponse(ErrorOr<ReceiverMessage> message) {
   // Some receivers may not send a capabilities response at all, or may send an

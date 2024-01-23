@@ -39,6 +39,7 @@ def _CheckLicenses(input_api, output_api):
     # check ou the libraries in buildtools/third_party, so explicitly exclude
     # that folder. See https://crbug.com/1215335 for more info.
     licenses.PRUNE_PATHS.add(os.path.join('buildtools', 'third_party'))
+    licenses.PRUNE_PATHS.add(os.path.join('third_party', 'rust-toolchain'))
 
     if any(s.LocalPath().startswith('third_party')
            for s in input_api.change.AffectedFiles()):

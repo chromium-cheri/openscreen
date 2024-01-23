@@ -36,10 +36,31 @@ IPEndpoint DetermineEndpoint(const InterfaceInfo& interface) {
 }
 
 discovery::Config MakeDiscoveryConfig(const InterfaceInfo& interface) {
-  return discovery::Config{.network_info = {interface}};
+  discovery::Config config;
+  config.network_info = {interface};
+  return config;
 }
 
 }  // namespace
+
+CastService::Configuration::Configuration(TaskRunner& task_runner)
+    : task_runner(task_runner) {}
+CastService::Configuration::Configuration(TaskRunner& task_runner,
+                                          InterfaceInfo interface,
+                                          GeneratedCredentials credentials,
+                                          std::string friendly_name,
+                                          std::string model_name,
+                                          bool enable_discovery)
+    : task_runner(task_runner),
+      interface(std::move(interface)),
+      credentials(std::move(credentials)),
+      friendly_name(std::move(friendly_name)),
+      model_name(std::move(model_name)),
+      enable_discovery(enable_discovery) {}
+
+CastService::Configuration::Configuration(
+    CastService::Configuration&&) noexcept = default;
+CastService::Configuration::~Configuration() = default;
 
 CastService::CastService(CastService::Configuration config)
     : local_endpoint_(DetermineEndpoint(config.interface)),

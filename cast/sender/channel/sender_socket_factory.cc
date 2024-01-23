@@ -136,6 +136,26 @@ void SenderSocketFactory::OnError(TlsConnectionFactory* factory, Error error) {
   }
 }
 
+SenderSocketFactory::PendingAuth::PendingAuth(
+    IPEndpoint endpoint,
+    DeviceMediaPolicy media_policy,
+    SerialDeletePtr<CastSocket> socket,
+    CastSocket::Client* client,
+    std::unique_ptr<AuthContext> auth_context,
+    std::unique_ptr<ParsedCertificate> peer_cert)
+    : endpoint(std::move(endpoint)),
+      media_policy(media_policy),
+      socket(std::move(socket)),
+      client(client),
+      auth_context(std::move(auth_context)),
+      peer_cert(std::move(peer_cert)) {}
+
+SenderSocketFactory::PendingAuth::PendingAuth() = default;
+SenderSocketFactory::PendingAuth::PendingAuth(PendingAuth&&) noexcept = default;
+SenderSocketFactory::PendingAuth& SenderSocketFactory::PendingAuth::operator=(
+    PendingAuth&&) = default;
+SenderSocketFactory::PendingAuth::~PendingAuth() = default;
+
 std::vector<SenderSocketFactory::PendingConnection>::iterator
 SenderSocketFactory::FindPendingConnection(const IPEndpoint& endpoint) {
   return std::find_if(pending_connections_.begin(), pending_connections_.end(),

@@ -56,6 +56,8 @@ StreamingPlaybackController::StreamingPlaybackController(
 }
 #endif  // defined(CAST_STANDALONE_RECEIVER_HAVE_EXTERNAL_LIBS)
 
+StreamingPlaybackController::~StreamingPlaybackController() = default;
+
 void StreamingPlaybackController::OnNegotiated(
     const ReceiverSession* session,
     ReceiverSession::ConfiguredReceivers receivers) {

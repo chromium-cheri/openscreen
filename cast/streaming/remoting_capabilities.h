@@ -47,6 +47,13 @@ enum class VideoCapability {
 // TODO(issuetracker.google.com/184189100): this object should be expanded to
 // allow more specific constraint tracking.
 struct RemotingCapabilities {
+  RemotingCapabilities();
+  RemotingCapabilities(const RemotingCapabilities&);
+  RemotingCapabilities(RemotingCapabilities&&) noexcept;
+  RemotingCapabilities& operator=(const RemotingCapabilities&);
+  RemotingCapabilities& operator=(RemotingCapabilities&&);
+  ~RemotingCapabilities();
+
   // Receiver audio-specific capabilities.
   std::vector<AudioCapability> audio;
 
