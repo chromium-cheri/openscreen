@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67f6fb21_7df971be",
+        "filename": ".gitmodules",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-25T18:25:00Z",
+      "side": 1,
+      "message": "Do these need `gclient-condition \u003d not build_with_chromium` as Chromium builds won\u0027t need these?",
+      "revId": "02cc754782848b25c9d6b5081221b7d83b041785",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "492267c1_71b26c19",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-25T18:25:00Z",
+      "side": 1,
+      "message": "I think the DEPS file has some syntax errors to clean up? \n\n```\nValueError: duplicate key in dictionary: condition (file \u0027/b/s/w/ir/cache/builder/openscreen_presubmit/openscreen/DEPS\u0027, line 241)\n```",
+      "revId": "02cc754782848b25c9d6b5081221b7d83b041785",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fd731eb_f35575f5",
+        "filename": "DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-25T18:25:00Z",
+      "side": 1,
+      "message": "I don\u0027t know if there is any builder coverage for mips/mips64 downstream and I don\u0027t see us ever adding it for openscreen... I guess it can\u0027t hurt to have it here since it won\u0027t be downloaded unless the developer opts in via checkout_mips.",
+      "revId": "02cc754782848b25c9d6b5081221b7d83b041785",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50783b6c_97530e4f",
+        "filename": "build/linux/sysroot_scripts/install-sysroot.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-25T18:25:00Z",
+      "side": 1,
+      "message": "Will these added files get overwritten when we start checking out build/ from Chromium?",
+      "revId": "02cc754782848b25c9d6b5081221b7d83b041785",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9103ebc_c977811f",
+        "filename": "build/linux/sysroot_scripts/install-sysroot.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-25T18:25:00Z",
+      "side": 1,
+      "message": "I guess should technically update the copyright years as we\u0027re adding a new copy.",
+      "revId": "02cc754782848b25c9d6b5081221b7d83b041785",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f0683ea_1e68dfbc",
+        "filename": "build/util/LASTCHANGE",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-25T18:25:00Z",
+      "side": 1,
+      "message": "What keeps this up to date?",
+      "revId": "02cc754782848b25c9d6b5081221b7d83b041785",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
