@@ -320,8 +320,9 @@ class DemoReceiverDelegate final : public ReceiverDelegate {
   }
 
   void TerminatePresentation(const std::string& id,
+                             TerminationSource source,
                              TerminationReason reason) override {
-    receiver_->OnPresentationTerminated(id, reason);
+    receiver_->OnPresentationTerminated(id, source, reason);
   }
 
   Receiver* receiver_;
@@ -415,7 +416,8 @@ void RunControllerPollLoop(Controller* controller) {
           std::move(request_delegate.connection_), &request_delegate);
     } else if (command_result.command_line.command == "term") {
       request_delegate.connection_->Terminate(
-          TerminationReason::kControllerTerminateCalled);
+          TerminationSource::kController,
+          TerminationReason::kApplicationTerminated);
     }
   }
 
@@ -487,7 +489,8 @@ void HandleReceiverCommand(std::string_view command,
     delegate.connection_->SendString(argument_tail);
   } else if (command == "term") {
     delegate.receiver_->OnPresentationTerminated(
-        delegate.presentation_id_, TerminationReason::kReceiverUserTerminated);
+        delegate.presentation_id_, TerminationSource::kReceiver,
+        TerminationReason::kUserTerminated);
   } else {
     OSP_LOG_FATAL << "Received unknown receiver command: " << command;
   }
