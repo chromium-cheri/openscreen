@@ -80,12 +80,10 @@ void StatisticsAnalyzer::SendStatistics() {
 
   const Clock::time_point end_time = now_();
   stats_client_->OnStatisticsUpdated(SenderStats{
-      .audio_statistics =
-          ConstructStatisticsList(end_time, StatisticsEventMediaType::kAudio),
-      .audio_histograms = histograms_.audio,
-      .video_statistics =
-          ConstructStatisticsList(end_time, StatisticsEventMediaType::kVideo),
-      .video_histograms = histograms_.video});
+      ConstructStatisticsList(end_time, StatisticsEventMediaType::kAudio),
+      histograms_.audio,
+      ConstructStatisticsList(end_time, StatisticsEventMediaType::kVideo),
+      histograms_.video});
 }
 
 void StatisticsAnalyzer::ProcessFrameEvents(

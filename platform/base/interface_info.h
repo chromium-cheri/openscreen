@@ -72,6 +72,11 @@ struct InterfaceInfo {
                 std::string name,
                 Type type,
                 std::vector<IPSubnet> addresses);
+  InterfaceInfo(InterfaceInfo&& other) noexcept;
+  InterfaceInfo(const InterfaceInfo& other);
+  InterfaceInfo& operator=(InterfaceInfo&& other);
+  InterfaceInfo& operator=(const InterfaceInfo& other);
+
   ~InterfaceInfo();
 };
 

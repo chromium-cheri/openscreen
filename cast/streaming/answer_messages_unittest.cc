@@ -106,8 +106,8 @@ static const VideoConstraints kValidVideoConstraints{
     kValidDimensions,         300 * 1000,
     300 * 1000 * 1000,        milliseconds(3000)};
 
-constexpr AudioConstraints kValidAudioConstraints{123, 456, 300, 9920,
-                                                  milliseconds(123)};
+static const AudioConstraints kValidAudioConstraints{123, 456, 300, 9920,
+                                                     milliseconds(123)};
 
 void ExpectEqualsValidAnswerJson(const Answer& answer) {
   EXPECT_EQ(1234, answer.udp_port);
@@ -399,16 +399,16 @@ TEST(AnswerMessagesTest, AssumesMinBitRateIfOmitted) {
 // Instead of testing all possible json parsing options for validity, we
 // can instead directly test the IsValid() methods.
 TEST(AnswerMessagesTest, AudioConstraintsIsValid) {
-  constexpr AudioConstraints kInvalidSampleRate{0, 456, 300, 9920,
-                                                milliseconds(123)};
-  constexpr AudioConstraints kInvalidMaxChannels{123, 0, 300, 9920,
-                                                 milliseconds(123)};
-  constexpr AudioConstraints kInvalidMinBitRate{123, 456, 0, 9920,
-                                                milliseconds(123)};
-  constexpr AudioConstraints kInvalidMaxBitRate{123, 456, 300, 0,
-                                                milliseconds(123)};
-  constexpr AudioConstraints kInvalidMaxDelay{123, 456, 300, 0,
-                                              milliseconds(0)};
+  static const AudioConstraints kInvalidSampleRate{0, 456, 300, 9920,
+                                                   milliseconds(123)};
+  static const AudioConstraints kInvalidMaxChannels{123, 0, 300, 9920,
+                                                    milliseconds(123)};
+  static const AudioConstraints kInvalidMinBitRate{123, 456, 0, 9920,
+                                                   milliseconds(123)};
+  static const AudioConstraints kInvalidMaxBitRate{123, 456, 300, 0,
+                                                   milliseconds(123)};
+  static const AudioConstraints kInvalidMaxDelay{123, 456, 300, 0,
+                                                 milliseconds(0)};
 
   EXPECT_TRUE(kValidAudioConstraints.IsValid());
   EXPECT_FALSE(kInvalidSampleRate.IsValid());
@@ -420,14 +420,15 @@ TEST(AnswerMessagesTest, AudioConstraintsIsValid) {
 
 TEST(AnswerMessagesTest, DimensionsIsValid) {
   // NOTE: in some cases (such as min dimensions) a frame rate of zero is valid.
-  constexpr Dimensions kValidZeroFrameRate{1920, 1080, SimpleFraction{0, 60}};
-  constexpr Dimensions kInvalidWidth{0, 1080, SimpleFraction{60, 1}};
-  constexpr Dimensions kInvalidHeight{1920, 0, SimpleFraction{60, 1}};
-  constexpr Dimensions kInvalidFrameRateZeroDenominator{1920, 1080,
-                                                        SimpleFraction{60, 0}};
-  constexpr Dimensions kInvalidFrameRateNegativeNumerator{
+  static const Dimensions kValidZeroFrameRate{1920, 1080,
+                                              SimpleFraction{0, 60}};
+  static const Dimensions kInvalidWidth{0, 1080, SimpleFraction{60, 1}};
+  static const Dimensions kInvalidHeight{1920, 0, SimpleFraction{60, 1}};
+  static const Dimensions kInvalidFrameRateZeroDenominator{
+      1920, 1080, SimpleFraction{60, 0}};
+  static const Dimensions kInvalidFrameRateNegativeNumerator{
       1920, 1080, SimpleFraction{-1, 30}};
-  constexpr Dimensions kInvalidFrameRateNegativeDenominator{
+  static const Dimensions kInvalidFrameRateNegativeDenominator{
       1920, 1080, SimpleFraction{30, -1}};
 
   EXPECT_TRUE(kValidDimensions.IsValid());
@@ -486,9 +487,9 @@ TEST(AnswerMessagesTest, ConstraintsIsValid) {
 }
 
 TEST(AnswerMessagesTest, AspectRatioIsValid) {
-  constexpr AspectRatio kValid{16, 9};
-  constexpr AspectRatio kInvalidWidth{0, 9};
-  constexpr AspectRatio kInvalidHeight{16, 0};
+  static const AspectRatio kValid{16, 9};
+  static const AspectRatio kInvalidWidth{0, 9};
+  static const AspectRatio kInvalidHeight{16, 0};
 
   EXPECT_TRUE(kValid.IsValid());
   EXPECT_FALSE(kInvalidWidth.IsValid());

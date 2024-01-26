@@ -18,6 +18,20 @@ namespace openscreen::cast {
 // receiver to playback audio. Used by Cast Streaming to provide an offer to the
 // receiver.
 struct AudioCaptureConfig {
+  AudioCaptureConfig(AudioCodec codec,
+                     int channels,
+                     int bit_rate,
+                     int sample_rate,
+                     std::chrono::milliseconds target_playout_delay =
+                         kDefaultTargetPlayoutDelay,
+                     std::string codec_parameter = {});
+  AudioCaptureConfig();
+  AudioCaptureConfig(const AudioCaptureConfig&);
+  AudioCaptureConfig(AudioCaptureConfig&&) noexcept;
+  AudioCaptureConfig& operator=(const AudioCaptureConfig&);
+  AudioCaptureConfig& operator=(AudioCaptureConfig&&);
+  ~AudioCaptureConfig();
+
   // Audio codec represented by this configuration.
   AudioCodec codec = AudioCodec::kOpus;
 
@@ -45,6 +59,20 @@ struct AudioCaptureConfig {
 // well as the receiver to playback video. Used by Cast Streaming to provide an
 // offer to the receiver.
 struct VideoCaptureConfig {
+  VideoCaptureConfig(VideoCodec codec,
+                     SimpleFraction max_frame_rate,
+                     int max_bit_rate,
+                     std::vector<Resolution> resolutions,
+                     std::chrono::milliseconds target_playout_delay =
+                         kDefaultTargetPlayoutDelay,
+                     std::string codec_parameter = {});
+  VideoCaptureConfig();
+  VideoCaptureConfig(const VideoCaptureConfig&);
+  VideoCaptureConfig(VideoCaptureConfig&&) noexcept;
+  VideoCaptureConfig& operator=(const VideoCaptureConfig&);
+  VideoCaptureConfig& operator=(VideoCaptureConfig&&);
+  ~VideoCaptureConfig();
+
   // Video codec represented by this configuration.
   VideoCodec codec = VideoCodec::kVp8;
 

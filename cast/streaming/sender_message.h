@@ -34,17 +34,28 @@ struct SenderMessage {
     kRpc,
   };
 
+  using Body =
+      absl::variant<absl::monostate,
+                    std::vector<uint8_t>,  // Binary-encoded RPC message.
+                    Offer,
+                    std::string>;
+
+  SenderMessage(Type type, int32_t sequence_number, bool valid);
+  SenderMessage(Type type, int32_t sequence_number, bool valid, Body body);
+  SenderMessage();
+  SenderMessage(const SenderMessage&);
+  SenderMessage(SenderMessage&&) noexcept;
+  SenderMessage& operator=(const SenderMessage&);
+  SenderMessage& operator=(SenderMessage&&);
+  ~SenderMessage();
+
   static ErrorOr<SenderMessage> Parse(const Json::Value& value);
   ErrorOr<Json::Value> ToJson() const;
 
   Type type = Type::kUnknown;
   int32_t sequence_number = -1;
   bool valid = false;
-  absl::variant<absl::monostate,
-                std::vector<uint8_t>,  // Binary-encoded RPC message.
-                Offer,
-                std::string>
-      body;
+  Body body;
 };
 
 }  // namespace openscreen::cast

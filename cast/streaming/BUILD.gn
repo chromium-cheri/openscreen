@@ -28,11 +28,12 @@ source_set("streaming_configs") {
     "resolution.h",
   ]
   sources = [
+    "capture_configs.cc",
     "message_fields.cc",
     "resolution.cc",
   ]
 
-  public_configs = [ "../../build:openscreen_include_dirs" ]
+  public_configs = [ "../../build_overrides:openscreen_include_dirs" ]
 
   public_deps = [
     "../../third_party/abseil",
@@ -98,7 +99,7 @@ source_set("common") {
     "statistics_defines.h",
   ]
 
-  public_configs = [ "../../build:openscreen_include_dirs" ]
+  public_configs = [ "../../build_overrides:openscreen_include_dirs" ]
 
   public_deps = [
     ":remoting_proto",
@@ -185,6 +186,7 @@ source_set("sender") {
     "clock_offset_estimator_impl.h",
     "compound_rtcp_parser.cc",
     "compound_rtcp_parser.h",
+    "remoting_capabilities.cc",
     "rtp_packetizer.cc",
     "rtp_packetizer.h",
     "sender.cc",
@@ -243,6 +245,7 @@ source_set("unittests") {
     "frame_collector_unittest.cc",
     "frame_crypto_unittest.cc",
     "message_fields_unittest.cc",
+    "mock_compound_rtcp_parser_client.cc",
     "mock_compound_rtcp_parser_client.h",
     "mock_environment.cc",
     "mock_environment.h",

@@ -128,7 +128,7 @@ class TraceLoggerBase : public ScopedTraceOperation {
 
  protected:
   // Set the result.
-  void SetTraceResult(Error::Code error) override { event_.result = error; }
+  void SetTraceResult(Error::Code error) override;
 
   TraceEvent event_;
 
@@ -170,7 +170,7 @@ class TraceIdSetter final : public ScopedTraceOperation {
 
  private:
   // Implement abstract method for use in Macros.
-  void SetTraceResult(Error::Code error) {}
+  void SetTraceResult(Error::Code error) override {}
 
   OSP_DISALLOW_COPY_AND_ASSIGN(TraceIdSetter);
 };

@@ -125,6 +125,13 @@ inline std::ostream& operator<<(std::ostream& os,
 // Represets a group defined in CDDL.
 // TODO(btolsch): group choices
 struct CddlGroup {
+  CddlGroup();
+  CddlGroup(CddlGroup&&) noexcept;
+  CddlGroup(const CddlGroup&) = delete;
+  CddlGroup& operator=(CddlGroup&&);
+  CddlGroup& operator=(const CddlGroup&) = delete;
+  ~CddlGroup();
+
   struct Entry {
     enum class Which {
       kUninitialized = 0,
@@ -188,6 +195,13 @@ inline std::ostream& operator<<(std::ostream& os,
 
 // Represents all CDDL definitions.
 struct CddlSymbolTable {
+  CddlSymbolTable();
+  CddlSymbolTable(CddlSymbolTable&&) noexcept;
+  CddlSymbolTable(const CddlSymbolTable&) = delete;
+  CddlSymbolTable& operator=(CddlSymbolTable&&);
+  CddlSymbolTable& operator=(const CddlSymbolTable&) = delete;
+  ~CddlSymbolTable();
+
   // Set of all CDDL types.
   std::vector<std::unique_ptr<CddlType>> types;
 
@@ -236,6 +250,13 @@ struct CppType {
   };
 
   struct Enum {
+    Enum();
+    Enum(Enum&&) noexcept;
+    Enum(const Enum&);
+    Enum& operator=(Enum&&);
+    Enum& operator=(const Enum&);
+    ~Enum();
+
     std::string name;
     std::vector<CppType*> sub_members;
     std::vector<std::pair<std::string, uint64_t>> members;
@@ -243,6 +264,13 @@ struct CppType {
 
   // Represents a C++ Struct.
   struct Struct {
+    Struct();
+    Struct(Struct&&) noexcept;
+    Struct(const Struct&);
+    Struct& operator=(Struct&&);
+    Struct& operator=(const Struct&);
+    ~Struct();
+
     enum class KeyType {
       kMap,
       kArray,
@@ -279,6 +307,13 @@ struct CppType {
   };
 
   struct DiscriminatedUnion {
+    DiscriminatedUnion();
+    DiscriminatedUnion(DiscriminatedUnion&&) noexcept;
+    DiscriminatedUnion(const DiscriminatedUnion&);
+    DiscriminatedUnion& operator=(DiscriminatedUnion&&);
+    DiscriminatedUnion& operator=(const DiscriminatedUnion&);
+    ~DiscriminatedUnion();
+
     std::vector<CppType*> members;
   };
 
@@ -355,6 +390,13 @@ inline std::ostream& operator<<(std::ostream& os, const CppType::Which& which) {
 
 struct CppSymbolTable {
  public:
+  CppSymbolTable();
+  CppSymbolTable(CppSymbolTable&&) noexcept;
+  CppSymbolTable(const CppSymbolTable&) = delete;
+  CppSymbolTable& operator=(CppSymbolTable&&);
+  CppSymbolTable& operator=(const CppSymbolTable&) = delete;
+  ~CppSymbolTable();
+
   std::vector<std::unique_ptr<CppType>> cpp_types;
   std::map<std::string, CppType*> cpp_type_map;
 

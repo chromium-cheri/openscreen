@@ -138,8 +138,8 @@ bool EqualsIgnoreCase(std::string_view piece1, std::string_view piece2) {
     return false;
   if (piece1.empty() && piece2.empty())
     return true;
-  auto it1 = piece1.cbegin();
-  auto it2 = piece2.cbegin();
+  const char* it1 = piece1.cbegin();
+  const char* it2 = piece2.cbegin();
   while (it1 != piece1.cend()) {
     if (ascii_tolower(*it1) != ascii_tolower(*it2))
       return false;

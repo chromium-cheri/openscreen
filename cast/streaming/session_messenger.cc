@@ -82,6 +82,10 @@ void SessionMessenger::ReportError(Error error) {
   error_callback_(std::move(error));
 }
 
+const std::string& SessionMessenger::source_id() {
+  return source_id_;
+}
+
 SenderSessionMessenger::SenderSessionMessenger(MessagePort* message_port,
                                                std::string source_id,
                                                std::string receiver_id,
@@ -90,6 +94,8 @@ SenderSessionMessenger::SenderSessionMessenger(MessagePort* message_port,
     : SessionMessenger(message_port, std::move(source_id), std::move(cb)),
       task_runner_(task_runner),
       receiver_id_(std::move(receiver_id)) {}
+
+SenderSessionMessenger::~SenderSessionMessenger() = default;
 
 void SenderSessionMessenger::SetHandler(ReceiverMessage::Type type,
                                         ReplyCallback cb) {
@@ -104,9 +110,9 @@ void SenderSessionMessenger::ResetHandler(ReceiverMessage::Type type) {
 }
 
 Error SenderSessionMessenger::SendOutboundMessage(SenderMessage message) {
-  const auto namespace_ = (message.type == SenderMessage::Type::kRpc)
-                              ? kCastRemotingNamespace
-                              : kCastWebrtcNamespace;
+  const auto* namespace_ = (message.type == SenderMessage::Type::kRpc)
+                               ? kCastRemotingNamespace
+                               : kCastWebrtcNamespace;
 
   ErrorOr<Json::Value> jsonified = message.ToJson();
   OSP_CHECK(jsonified.is_value()) << "Tried to send an invalid message";
@@ -219,6 +225,8 @@ ReceiverSessionMessenger::ReceiverSessionMessenger(MessagePort* message_port,
                                                    ErrorCallback cb)
     : SessionMessenger(message_port, std::move(source_id), std::move(cb)) {}
 
+ReceiverSessionMessenger::~ReceiverSessionMessenger() = default;
+
 void ReceiverSessionMessenger::SetHandler(SenderMessage::Type type,
                                           RequestCallback cb) {
   OSP_DCHECK(callbacks_.find(type) == callbacks_.end());
@@ -236,9 +244,9 @@ Error ReceiverSessionMessenger::SendMessage(const std::string& source_id,
                  "Cannot send a message without a current source ID.");
   }
 
-  const auto namespace_ = (message.type == ReceiverMessage::Type::kRpc)
-                              ? kCastRemotingNamespace
-                              : kCastWebrtcNamespace;
+  const auto* namespace_ = (message.type == ReceiverMessage::Type::kRpc)
+                               ? kCastRemotingNamespace
+                               : kCastWebrtcNamespace;
 
   ErrorOr<Json::Value> message_json = message.ToJson();
   OSP_CHECK(message_json.is_value()) << "Tried to send an invalid message";

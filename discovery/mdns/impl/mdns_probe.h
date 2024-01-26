@@ -57,7 +57,7 @@ class MdnsProbe : public MdnsReceiver::ResponseClient {
   };
 
   MdnsProbe(DomainName target_name, IPAddress address);
-  virtual ~MdnsProbe();
+  ~MdnsProbe() override;
 
   // Postpones the current probe operation by |delay|, after which the probing
   // process is re-initialized.

@@ -73,6 +73,14 @@ deps = {
       '@' + 'd8688b9036d46d14ef1f6fc26bcbb1da2b17f897',
   },
 
+  # and here:
+  # https://chromium.googlesource.com/chromium/src/build/+/refs/heads/main
+  'build': {
+    'url': Var('chromium_git') + '/chromium/src/build' +
+      '@' + '0b7a0198da6202822e3c9d934327e390760459f1',
+    'condition': 'not build_with_chromium',
+  },
+
   'third_party/clang-format/script': {
     'url': Var('chromium_git') +
       '/external/github.com/llvm/llvm-project/clang/tools/clang-format.git' +

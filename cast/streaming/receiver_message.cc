@@ -67,6 +67,20 @@ bool TryParseCapability(const Json::Value& value, MediaCapability* out) {
 
 }  // namespace
 
+ReceiverCapability::ReceiverCapability() = default;
+ReceiverCapability::ReceiverCapability(
+    int remoting_version,
+    std::vector<MediaCapability> media_capabilities)
+    : remoting_version(remoting_version),
+      media_capabilities(std::move(media_capabilities)) {}
+ReceiverCapability::ReceiverCapability(const ReceiverCapability&) = default;
+ReceiverCapability::ReceiverCapability(ReceiverCapability&&) noexcept = default;
+ReceiverCapability& ReceiverCapability::operator=(const ReceiverCapability&) =
+    default;
+ReceiverCapability& ReceiverCapability::operator=(ReceiverCapability&&) =
+    default;
+ReceiverCapability::~ReceiverCapability() = default;
+
 ReceiverError::ReceiverError(int code, std::string_view description)
     : code(code), description(description) {
   if (code >= kOpenscreenErrorOffset) {
@@ -159,6 +173,23 @@ Json::Value ReceiverCapability::ToJson() const {
   root["mediaCaps"] = std::move(capabilities);
   return root;
 }
+
+ReceiverMessage::ReceiverMessage(Type type, int32_t sequence_number, bool valid)
+    : ReceiverMessage(type, sequence_number, valid, Body{}) {}
+ReceiverMessage::ReceiverMessage(Type type,
+                                 int32_t sequence_number,
+                                 bool valid,
+                                 Body body)
+    : type(type),
+      sequence_number(sequence_number),
+      valid(valid),
+      body(std::move(body)) {}
+ReceiverMessage::ReceiverMessage() = default;
+ReceiverMessage::ReceiverMessage(const ReceiverMessage&) = default;
+ReceiverMessage::ReceiverMessage(ReceiverMessage&&) noexcept = default;
+ReceiverMessage& ReceiverMessage::operator=(const ReceiverMessage&) = default;
+ReceiverMessage& ReceiverMessage::operator=(ReceiverMessage&&) = default;
+ReceiverMessage::~ReceiverMessage() = default;
 
 // static
 ErrorOr<ReceiverMessage> ReceiverMessage::Parse(const Json::Value& value) {

@@ -90,9 +90,9 @@ class MdnsResponder {
                    const Config& config);
     TruncatedQuery(const TruncatedQuery& other) = delete;
     TruncatedQuery(TruncatedQuery&& other) noexcept = delete;
-
     TruncatedQuery& operator=(const TruncatedQuery& other) = delete;
     TruncatedQuery& operator=(TruncatedQuery&& other) noexcept = delete;
+    ~TruncatedQuery();
 
     // Sets the query associated with this instance. Must only be called if no
     // query has already been set, here or through the ctor.

@@ -16,6 +16,10 @@ struct TlsCredentials {
   TlsCredentials(std::vector<uint8_t> der_rsa_private_key,
                  std::vector<uint8_t> der_rsa_public_key,
                  std::vector<uint8_t> der_x509_cert);
+  TlsCredentials(const TlsCredentials&);
+  TlsCredentials(TlsCredentials&&) noexcept;
+  TlsCredentials& operator=(const TlsCredentials&);
+  TlsCredentials& operator=(TlsCredentials&&);
   ~TlsCredentials();
 
   // DER-encoded RSA private key.

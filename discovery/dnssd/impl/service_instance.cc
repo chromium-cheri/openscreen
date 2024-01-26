@@ -38,4 +38,11 @@ ServiceInstance::~ServiceInstance() {
   OSP_DCHECK(task_runner_.IsRunningOnTaskRunner());
 }
 
+DnsSdQuerier* ServiceInstance::GetQuerier() {
+  return querier_.get();
+}
+DnsSdPublisher* ServiceInstance::GetPublisher() {
+  return publisher_.get();
+}
+
 }  // namespace openscreen::discovery

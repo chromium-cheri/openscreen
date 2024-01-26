@@ -305,6 +305,8 @@ MdnsResponder::TruncatedQuery::TruncatedQuery(MdnsResponder* responder,
   RescheduleSend();
 }
 
+MdnsResponder::TruncatedQuery::~TruncatedQuery() = default;
+
 void MdnsResponder::TruncatedQuery::SetQuery(const MdnsMessage& message) {
   OSP_DCHECK(questions_.empty());
   questions_.insert(questions_.end(), message.questions().begin(),
