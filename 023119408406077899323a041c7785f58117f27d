@@ -1,0 +1,497 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49c0f3db_cd13d086",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "Finally got through this with the help of a lot of strong coffee :-)\n\n- A lot of classes/structs have no-arg default constructors added, are you sure all of them are actually used?  It\u0027s not a huge deal because the compiler *should* remove them if they are not, but if we don\u0027t want an object to be default constructed, it would be better not to declare a default ctor for it.\n\n- Related: the rules for value initializing types are confusing and I can\u0027t figure out if the compiler guarantees that POD fields will always be zero initialized.\n\nTo be on the safe side I always put initializers on POD field declarations, unless I\u0027m initializing everything in a custom constructor anyway.  Otherwise you can end up with undefined / indeterminate behavior if the compiler doesn\u0027t zero initialize one of your fields.\n\nhttps://en.cppreference.com/w/cpp/language/default_initialization\n\nMaybe I\u0027m paranoid as C++11 seems to have tightened the rules around this?\n\n- I noted a few types that we should avoid copying if possible; not asking for any code changes to optimize copies, just deleting copy operators if they are not needed",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a38cfab7_8ba70a16",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "I think the callback is meant to be invoked once, so should this be move-only?",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ae684b9_686fd607",
+        "filename": "cast/common/channel/virtual_connection_router.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "Nit: intiialize error_handler with nullptr",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34d357fa_c09d05c5",
+        "filename": "cast/common/channel/virtual_connection_router.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "Just checking that this is used (same goes for other default constructors).  If you have a user-defined constructor, the compiler will automatically skip generating a default constructor.\n\nhttps://en.cppreference.com/w/cpp/language/default_constructor",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "293f6aa9_7fd9ac02",
+        "filename": "cast/common/public/receiver_info.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "Nit: add initializer",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcd71c41_2ea9b4d3",
+        "filename": "cast/receiver/channel/static_credentials.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "Can this value be moved?",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7344e527_52951a98",
+        "filename": "cast/standalone_receiver/cast_service.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "Nit: I wonder if there is a way to declare the initial value once (instead of repeating it here and in the ctor).",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfb9a9f5_2bb599a9",
+        "filename": "cast/standalone_sender/connection_settings.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "Nit: Put default ctor declaration first for consistency",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d49fe5e1_4de057ed",
+        "filename": "cast/streaming/answer_messages_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "The AudioConstraints ctor is marked constexpr, so can this be static constexpr? (Same comment applies below)",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b9fd443_d51bfbac",
+        "filename": "cast/streaming/frame_collector.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "This should be move-only if possible (we don\u0027t want to copy buffers)",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73b35e56_9d935a6f",
+        "filename": "cast/streaming/frame_collector.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "IMO this should really be private and take an underlying buffer as an rvalue reference in the ctor, so that it\u0027s set once then only accessed through `payload`...\n\nFor another day...",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df8e9e7d_da902bc9",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "Move-only?",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90570fa9_534b8572",
+        "filename": "cast/streaming/receiver_message.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "Can this be move-only so we don\u0027t make unnecessary copies of messages?",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd22d26f_acc1a786",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "Move-only?",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1958f5a9_60d89d6c",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "Move-only?",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fcd5ddb_1339c40d",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "Initialize to nullptr",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2dc74b4_2c8770a0",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0865a9ce_50af8b7c",
+        "filename": "cast/streaming/sender_message.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "Move-only?",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6490655c_0cca6b23",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "Initialize to nullptr",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3aebe92c_a024314d",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "695d88a3_5338565b",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f61922dc_85072cfb",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "Move-only?",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d4bc634_3bd31fed",
+        "filename": "cast/streaming/statistics.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "Move-only?",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb085718_a9fc9f79",
+        "filename": "osp/impl/presentation/presentation_controller.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "This should be move-only (should not be copying connection pointers)",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82f257f2_01411c00",
+        "filename": "osp/public/presentation/presentation_controller.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "Move-only please",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80e8f88f_745cdebf",
+        "filename": "platform/base/tls_credentials.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "move-only?",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e8712a6_5967f172",
+        "filename": "tools/cddl/parse.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "Move-only?",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b96b9b2b_f4453cc3",
+        "filename": "util/trace_logging/scoped_trace_operations.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "Trivial setters can remain inline (and this once could be called in performance-sensitive code).",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06a608f4_b8f70c3c",
+        "filename": "util/trace_logging/scoped_trace_operations.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-01-29T19:33:08Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "023119408406077899323a041c7785f58117f27d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
