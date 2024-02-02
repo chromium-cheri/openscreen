@@ -41,6 +41,15 @@ class CastAppDiscoveryServiceImpl : public CastAppDiscoveryService {
 
  private:
   struct AvailabilityCallbackEntry {
+    AvailabilityCallbackEntry(uint32_t id, AvailabilityCallback callback);
+    AvailabilityCallbackEntry();
+    AvailabilityCallbackEntry(const AvailabilityCallbackEntry&) = delete;
+    AvailabilityCallbackEntry(AvailabilityCallbackEntry&&) noexcept;
+    AvailabilityCallbackEntry& operator=(const AvailabilityCallbackEntry&) =
+        delete;
+    AvailabilityCallbackEntry& operator=(AvailabilityCallbackEntry&&);
+    ~AvailabilityCallbackEntry();
+
     uint32_t id;
     AvailabilityCallback callback;
   };

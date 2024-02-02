@@ -36,6 +36,17 @@ class SenderSession final {
   // Upon successful negotiation, a set of configured senders is constructed
   // for handling audio and video. Note that either sender may be null.
   struct ConfiguredSenders {
+    ConfiguredSenders(std::unique_ptr<Sender> audio_sender,
+                      AudioCaptureConfig audio_config,
+                      std::unique_ptr<Sender> video_sender,
+                      VideoCaptureConfig video_config);
+    ConfiguredSenders();
+    ConfiguredSenders(const ConfiguredSenders&) = delete;
+    ConfiguredSenders(ConfiguredSenders&&) noexcept;
+    ConfiguredSenders& operator=(const ConfiguredSenders&) = delete;
+    ConfiguredSenders& operator=(ConfiguredSenders&&);
+    ~ConfiguredSenders();
+
     // In practice, we may have 0, 1, or 2 senders configured, depending
     // on if the device supports audio and video, and if we were able to
     // successfully negotiate a sender configuration.
@@ -98,20 +109,34 @@ class SenderSession final {
 
   // The configuration information required to set up the session.
   struct Configuration {
+    Configuration(IPAddress remote_address,
+                  Client* const client,
+                  Environment* environment,
+                  MessagePort* message_port,
+                  std::string message_source_id,
+                  std::string message_destination_id,
+                  bool use_android_rtp_hack = true);
+    Configuration();
+    Configuration(const Configuration&);
+    Configuration(Configuration&&) noexcept;
+    Configuration& operator=(const Configuration&);
+    Configuration& operator=(Configuration&&);
+    ~Configuration();
+
     // The remote address of the receiver to connect to. NOTE: we do eventually
     // set the remote endpoint on the |environment| object, but only after
     // getting the port information from a successful ANSWER message.
     IPAddress remote_address;
 
     // The client for notifying of successful negotiations and errors. Required.
-    Client* const client;
+    Client* client = nullptr;
 
     // The cast environment used to access operating system resources, such
     // as the UDP socket for RTP/RTCP messaging. Required.
-    Environment* environment;
+    Environment* environment = nullptr;
 
     // The message port used to send streaming control protocol messages.
-    MessagePort* message_port;
+    MessagePort* message_port = nullptr;
 
     // The message source identifier (e.g. this sender).
     std::string message_source_id;
@@ -181,6 +206,16 @@ class SenderSession final {
   // receiver we can line up the selected streams with the original
   // configuration.
   struct InProcessNegotiation {
+    InProcessNegotiation(Offer offer,
+                         std::vector<AudioCaptureConfig> audio_configs,
+                         std::vector<VideoCaptureConfig> video_configs);
+    InProcessNegotiation();
+    InProcessNegotiation(const InProcessNegotiation&) = delete;
+    InProcessNegotiation(InProcessNegotiation&&) noexcept;
+    InProcessNegotiation& operator=(const InProcessNegotiation&) = delete;
+    InProcessNegotiation& operator=(InProcessNegotiation&&);
+    ~InProcessNegotiation();
+
     // The offer, which should always be valid if we have an in process
     // negotiation.
     Offer offer;

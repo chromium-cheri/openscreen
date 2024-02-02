@@ -148,7 +148,7 @@ bool CastCRL::CheckRevocation(
     if (subject_index > 0) {
       const auto issuer_iter = revoked_serial_numbers_.find(spki_hash.value());
       if (issuer_iter != revoked_serial_numbers_.end()) {
-        const auto& subordinate = trusted_chain[subject_index - 1];
+        const auto* subordinate = trusted_chain[subject_index - 1];
         uint64_t serial_number;
 
         // Only Google generated device certificates will be revoked by range.

@@ -47,6 +47,7 @@ if (!build_with_chromium) {
     libs = []
     if (have_external_libs) {
       sources += [
+        "connection_settings.cc",
         "connection_settings.h",
         "ffmpeg_glue.cc",
         "ffmpeg_glue.h",
@@ -92,7 +93,7 @@ if (!build_with_chromium) {
     configs += [ "../common:certificate_config" ]
 
     public_configs = [
-      "../../build:openscreen_include_dirs",
+      "../../build_overrides:openscreen_include_dirs",
       ":standalone_external_libs",
     ]
   }

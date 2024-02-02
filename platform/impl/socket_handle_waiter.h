@@ -41,7 +41,7 @@ class SocketHandleWaiter {
   };
 
   explicit SocketHandleWaiter(ClockNowFunctionPtr now_function);
-  virtual ~SocketHandleWaiter() = default;
+  virtual ~SocketHandleWaiter();
 
   // Start notifying |subscriber| whenever |handle| has an event. May be called
   // multiple times, to be notified for multiple handles, but should not be
