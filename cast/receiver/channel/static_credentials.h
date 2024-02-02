@@ -27,20 +27,26 @@ class StaticCredentialsProvider final
   StaticCredentialsProvider& operator=(const StaticCredentialsProvider&) =
       delete;
   StaticCredentialsProvider& operator=(StaticCredentialsProvider&&);
-  ~StaticCredentialsProvider();
+  ~StaticCredentialsProvider() override;
 
-  ByteView GetCurrentTlsCertAsDer() override {
-    return ByteBuffer(tls_cert_der);
-  }
-  const DeviceCredentials& GetCurrentDeviceCredentials() override {
-    return device_creds;
-  }
+  ByteView GetCurrentTlsCertAsDer() override;
+  const DeviceCredentials& GetCurrentDeviceCredentials() override;
 
   DeviceCredentials device_creds;
   std::vector<uint8_t> tls_cert_der;
 };
 
 struct GeneratedCredentials {
+  GeneratedCredentials(std::unique_ptr<StaticCredentialsProvider> provider,
+                       TlsCredentials tls_credentials,
+                       std::vector<uint8_t> root_cert_der);
+  GeneratedCredentials();
+  GeneratedCredentials(const GeneratedCredentials&) = delete;
+  GeneratedCredentials(GeneratedCredentials&&) noexcept;
+  GeneratedCredentials& operator=(const GeneratedCredentials&) = delete;
+  GeneratedCredentials& operator=(GeneratedCredentials&&);
+  ~GeneratedCredentials();
+
   std::unique_ptr<StaticCredentialsProvider> provider;
   TlsCredentials tls_credentials;
   std::vector<uint8_t> root_cert_der;

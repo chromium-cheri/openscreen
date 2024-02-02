@@ -139,6 +139,7 @@ class ReceiverConstraints {
   ReceiverConstraints(const ReceiverConstraints&);
   ReceiverConstraints& operator=(ReceiverConstraints&&) noexcept;
   ReceiverConstraints& operator=(const ReceiverConstraints&);
+  ~ReceiverConstraints();
 
   // Returns true if all configurations supported by |other| are also
   // supported by this instance.

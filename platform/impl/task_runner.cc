@@ -128,6 +128,14 @@ void TaskRunnerImpl::RequestStopSoon() {
   PostTask([this]() { is_running_ = false; });
 }
 
+TaskRunnerImpl::TaskWithMetadata::TaskWithMetadata(TaskRunnerImpl::Task task)
+    : task_(std::move(task)), trace_ids_(TRACE_HIERARCHY) {}
+TaskRunnerImpl::TaskWithMetadata::TaskWithMetadata(
+    TaskWithMetadata&&) noexcept = default;
+TaskRunnerImpl::TaskWithMetadata& TaskRunnerImpl::TaskWithMetadata::operator=(
+    TaskWithMetadata&&) = default;
+TaskRunnerImpl::TaskWithMetadata::~TaskWithMetadata() = default;
+
 void TaskRunnerImpl::RunRunnableTasks() {
   for (TaskWithMetadata& running_task : running_tasks_) {
     // Move the task to the stack so that its bound state is freed immediately

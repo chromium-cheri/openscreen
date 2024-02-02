@@ -108,6 +108,14 @@ std::optional<RtpPacketParser::ParseResult> RtpPacketParser::Parse(
 }
 
 RtpPacketParser::ParseResult::ParseResult() = default;
+RtpPacketParser::ParseResult::ParseResult(const RtpPacketParser::ParseResult&) =
+    default;
+RtpPacketParser::ParseResult::ParseResult(
+    RtpPacketParser::ParseResult&&) noexcept = default;
+RtpPacketParser::ParseResult& RtpPacketParser::ParseResult::operator=(
+    const RtpPacketParser::ParseResult&) = default;
+RtpPacketParser::ParseResult& RtpPacketParser::ParseResult::operator=(
+    RtpPacketParser::ParseResult&&) = default;
 RtpPacketParser::ParseResult::~ParseResult() = default;
 
 }  // namespace openscreen::cast

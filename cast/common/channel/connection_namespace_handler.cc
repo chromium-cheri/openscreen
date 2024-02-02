@@ -102,7 +102,7 @@ void ConnectionNamespaceHandler::OpenRemoteConnection(
   OSP_DCHECK(std::none_of(
       pending_remote_requests_.begin(), pending_remote_requests_.end(),
       [&](const PendingRequest& request) { return request.conn == conn; }));
-  pending_remote_requests_.push_back({conn, std::move(result_callback)});
+  pending_remote_requests_.emplace_back(conn, std::move(result_callback));
 
   SendConnect(std::move(conn));
 }
@@ -325,5 +325,17 @@ bool ConnectionNamespaceHandler::RemoveConnection(
 
   return found_connection;
 }
+
+ConnectionNamespaceHandler::PendingRequest::PendingRequest(
+    VirtualConnection conn,
+    RemoteConnectionResultCallback result_callback)
+    : conn(std::move(conn)), result_callback(std::move(result_callback)) {}
+ConnectionNamespaceHandler::PendingRequest::PendingRequest() = default;
+ConnectionNamespaceHandler::PendingRequest::PendingRequest(
+    ConnectionNamespaceHandler::PendingRequest&&) noexcept = default;
+ConnectionNamespaceHandler::PendingRequest&
+ConnectionNamespaceHandler::PendingRequest::operator=(
+    ConnectionNamespaceHandler::PendingRequest&&) = default;
+ConnectionNamespaceHandler::PendingRequest::~PendingRequest() = default;
 
 }  // namespace openscreen::cast

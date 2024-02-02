@@ -172,6 +172,37 @@ bool TryParseResolutions(const Json::Value& value,
 
 }  // namespace
 
+Stream::Stream(int index,
+               Type type,
+               int channels,
+               RtpPayloadType rtp_payload_type,
+               Ssrc ssrc,
+               std::chrono::milliseconds target_delay,
+               std::array<uint8_t, 16> aes_key,
+               std::array<uint8_t, 16> aes_iv_mask,
+               bool receiver_rtcp_event_log,
+               std::string receiver_rtcp_dscp,
+               int rtp_timebase,
+               std::string codec_parameter)
+    : index(index),
+      type(type),
+      channels(channels),
+      rtp_payload_type(rtp_payload_type),
+      ssrc(ssrc),
+      target_delay(target_delay),
+      aes_key(aes_key),
+      aes_iv_mask(aes_iv_mask),
+      receiver_rtcp_event_log(receiver_rtcp_event_log),
+      receiver_rtcp_dscp(receiver_rtcp_dscp),
+      rtp_timebase(rtp_timebase),
+      codec_parameter(codec_parameter) {}
+Stream::Stream() = default;
+Stream::Stream(Stream&&) noexcept = default;
+Stream::Stream(const Stream&) = default;
+Stream& Stream::operator=(Stream&&) = default;
+Stream& Stream::operator=(const Stream&) = default;
+Stream::~Stream() = default;
+
 Error Stream::TryParse(const Json::Value& value,
                        Stream::Type type,
                        Stream* out) {
@@ -252,6 +283,15 @@ bool Stream::IsValid() const {
          rtp_timebase >= 1;
 }
 
+AudioStream::AudioStream(Stream stream, AudioCodec codec, int bit_rate)
+    : stream(std::move(stream)), codec(codec), bit_rate(bit_rate) {}
+AudioStream::AudioStream() = default;
+AudioStream::AudioStream(AudioStream&&) noexcept = default;
+AudioStream::AudioStream(const AudioStream&) = default;
+AudioStream& AudioStream::operator=(AudioStream&&) = default;
+AudioStream& AudioStream::operator=(const AudioStream&) = default;
+AudioStream::~AudioStream() = default;
+
 Error AudioStream::TryParse(const Json::Value& value, AudioStream* out) {
   Error error =
       Stream::TryParse(value, Stream::Type::kAudioSource, &out->stream);
@@ -292,6 +332,32 @@ Json::Value AudioStream::ToJson() const {
 bool AudioStream::IsValid() const {
   return bit_rate >= 0 && stream.IsValid();
 }
+
+VideoStream::VideoStream(Stream stream,
+                         VideoCodec codec,
+                         SimpleFraction max_frame_rate,
+                         int max_bit_rate,
+                         std::string protection,
+                         std::string profile,
+                         std::string level,
+                         std::vector<Resolution> resolutions,
+                         std::string error_recovery_mode)
+    : stream(stream),
+      codec(codec),
+      max_frame_rate(max_frame_rate),
+      max_bit_rate(max_bit_rate),
+      protection(protection),
+      profile(profile),
+      level(level),
+      resolutions(resolutions),
+      error_recovery_mode(error_recovery_mode) {}
+
+VideoStream::VideoStream() = default;
+VideoStream::VideoStream(VideoStream&&) noexcept = default;
+VideoStream::VideoStream(const VideoStream&) = default;
+VideoStream& VideoStream::operator=(VideoStream&&) = default;
+VideoStream& VideoStream::operator=(const VideoStream&) = default;
+VideoStream::~VideoStream() = default;
 
 Error VideoStream::TryParse(const Json::Value& value, VideoStream* out) {
   Error error =
@@ -361,6 +427,19 @@ Json::Value VideoStream::ToJson() const {
 bool VideoStream::IsValid() const {
   return max_bit_rate > 0 && max_frame_rate.is_positive();
 }
+
+Offer::Offer(CastMode cast_mode,
+             std::vector<AudioStream> audio_streams,
+             std::vector<VideoStream> video_streams)
+    : cast_mode(cast_mode),
+      audio_streams(std::move(audio_streams)),
+      video_streams(std::move(video_streams)) {}
+Offer::Offer() = default;
+Offer::Offer(Offer&&) noexcept = default;
+Offer::Offer(const Offer&) = default;
+Offer& Offer::operator=(Offer&&) = default;
+Offer& Offer::operator=(const Offer&) = default;
+Offer::~Offer() = default;
 
 // static
 Error Offer::TryParse(const Json::Value& root, Offer* out) {

@@ -86,6 +86,15 @@ class ConnectionNamespaceHandler : public CastMessageHandler {
   VirtualConnectionPolicy* const vc_policy_;
 
   struct PendingRequest {
+    PendingRequest(VirtualConnection conn,
+                   RemoteConnectionResultCallback result_callback);
+    PendingRequest();
+    PendingRequest(PendingRequest&&) noexcept;
+    PendingRequest(const PendingRequest&) = delete;
+    PendingRequest& operator=(PendingRequest&&);
+    PendingRequest& operator=(const PendingRequest&) = delete;
+    ~PendingRequest();
+
     VirtualConnection conn;
     RemoteConnectionResultCallback result_callback;
   };

@@ -87,7 +87,7 @@ class SenderPacketRouter : public BandwidthEstimator,
                      int max_packets_per_burst,
                      std::chrono::milliseconds burst_interval);
 
-  ~SenderPacketRouter();
+  ~SenderPacketRouter() override;
 
   int max_packet_size() const { return packet_buffer_size_; }
   int max_burst_bitrate() const { return max_burst_bitrate_; }

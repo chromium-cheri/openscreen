@@ -296,11 +296,11 @@ void LoopingFileCastAgent::CreateAndStartSession() {
   AudioCaptureConfig audio_config;
   // Opus does best at 192kbps, so we cap that here.
   audio_config.bit_rate = 192 * 1000;
-  VideoCaptureConfig video_config = {
-      .codec = connection_settings_->codec,
-      // The video config is allowed to use whatever is left over after audio.
-      .max_bit_rate =
-          connection_settings_->max_bitrate - audio_config.bit_rate};
+  VideoCaptureConfig video_config;
+  video_config.codec = connection_settings_->codec;
+  // The video config is allowed to use whatever is left over after audio.
+  video_config.max_bit_rate =
+      connection_settings_->max_bitrate - audio_config.bit_rate;
   // Use default display resolution of 1080P.
   video_config.resolutions.emplace_back(Resolution{1920, 1080});
 

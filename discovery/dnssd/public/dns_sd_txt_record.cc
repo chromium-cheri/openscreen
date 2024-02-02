@@ -11,6 +11,13 @@
 
 namespace openscreen::discovery {
 
+DnsSdTxtRecord::DnsSdTxtRecord() = default;
+DnsSdTxtRecord::DnsSdTxtRecord(const DnsSdTxtRecord&) = default;
+DnsSdTxtRecord::DnsSdTxtRecord(DnsSdTxtRecord&&) noexcept = default;
+DnsSdTxtRecord& DnsSdTxtRecord::operator=(const DnsSdTxtRecord&) = default;
+DnsSdTxtRecord& DnsSdTxtRecord::operator=(DnsSdTxtRecord&&) = default;
+DnsSdTxtRecord::~DnsSdTxtRecord() = default;
+
 // static
 bool DnsSdTxtRecord::IsValidTxtValue(const std::string& key, ByteView value) {
   // The max length of any individual TXT record is 255 bytes.

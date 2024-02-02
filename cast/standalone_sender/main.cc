@@ -249,14 +249,9 @@ int StandaloneSenderMain(int argc, char* argv[]) {
         new LoopingFileCastAgent(*task_runner, std::move(cast_trust_store),
                                  [&] { task_runner->RequestStopSoon(); });
 
-    cast_agent->Connect({.receiver_endpoint = remote_endpoint,
-                         .path_to_file = path,
-                         .max_bitrate = max_bitrate,
-                         .should_include_video = true,
-                         .use_android_rtp_hack = use_android_rtp_hack,
-                         .use_remoting = use_remoting,
-                         .should_loop_video = should_loop_video,
-                         .codec = codec});
+    cast_agent->Connect(ConnectionSettings(
+        remote_endpoint, path, max_bitrate, true, use_android_rtp_hack,
+        use_remoting, should_loop_video, codec));
   });
 
   // Run the event loop until SIGINT (e.g., CTRL-C at the console) or

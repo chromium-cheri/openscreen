@@ -111,6 +111,13 @@ class Receiver final : public MessageDemuxer::MessageCallback,
   };
 
   struct Presentation {
+    Presentation();
+    Presentation(const Presentation&) = delete;
+    Presentation(Presentation&&) noexcept;
+    Presentation& operator=(const Presentation&) = delete;
+    Presentation& operator=(Presentation&&);
+    ~Presentation();
+
     uint64_t endpoint_id;
     MessageDemuxer::MessageWatch terminate_watch;
     uint64_t terminate_request_id;

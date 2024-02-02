@@ -40,6 +40,14 @@ class StreamingPlaybackController final : public ReceiverSession::Client {
       StreamingPlaybackController::Client* client);
 #endif  // defined(CAST_STANDALONE_RECEIVER_HAVE_EXTERNAL_LIBS)
 
+  StreamingPlaybackController(const StreamingPlaybackController&) = delete;
+  StreamingPlaybackController(StreamingPlaybackController&&) noexcept = delete;
+  StreamingPlaybackController& operator=(const StreamingPlaybackController&) =
+      delete;
+  StreamingPlaybackController& operator=(StreamingPlaybackController&&) =
+      delete;
+  ~StreamingPlaybackController() override;
+
   // ReceiverSession::Client overrides.
   void OnNegotiated(const ReceiverSession* session,
                     ReceiverSession::ConfiguredReceivers receivers) override;

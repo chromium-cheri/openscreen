@@ -173,6 +173,14 @@ void MdnsProbeManagerImpl::TiebreakSimultaneousProbes(
   }
 }
 
+std::unique_ptr<MdnsProbe> MdnsProbeManagerImpl::CreateProbe(
+    DomainName name,
+    IPAddress address) {
+  return std::make_unique<MdnsProbeImpl>(sender_, receiver_, random_delay_,
+                                         task_runner_, now_function_, this,
+                                         std::move(name), std::move(address));
+}
+
 void MdnsProbeManagerImpl::OnProbeSuccess(MdnsProbe* probe) {
   auto it = FindOngoingProbe(probe);
   if (it != ongoing_probes_.end()) {
@@ -247,5 +255,11 @@ MdnsProbeManagerImpl::OngoingProbe::OngoingProbe(
     : probe(std::move(probe)),
       requested_name(std::move(name)),
       callback(callback) {}
+
+MdnsProbeManagerImpl::OngoingProbe::OngoingProbe(OngoingProbe&&) noexcept =
+    default;
+MdnsProbeManagerImpl::OngoingProbe&
+MdnsProbeManagerImpl::OngoingProbe::operator=(OngoingProbe&&) = default;
+MdnsProbeManagerImpl::OngoingProbe::~OngoingProbe() = default;
 
 }  // namespace openscreen::discovery

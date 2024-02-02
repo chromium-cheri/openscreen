@@ -79,7 +79,7 @@ class LoopingFileCastAgent final
   LoopingFileCastAgent(TaskRunner& task_runner,
                        std::unique_ptr<TrustStore> cast_trust_store,
                        ShutdownCallback shutdown_callback);
-  ~LoopingFileCastAgent();
+  ~LoopingFileCastAgent() final;
 
   // Connect to a Cast Receiver, and start the workflow to establish a
   // mirroring/streaming session. Destroy the LoopingFileCastAgent to shutdown

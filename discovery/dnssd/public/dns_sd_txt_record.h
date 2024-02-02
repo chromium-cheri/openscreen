@@ -20,6 +20,13 @@ namespace openscreen::discovery {
 
 class DnsSdTxtRecord {
  public:
+  DnsSdTxtRecord();
+  DnsSdTxtRecord(const DnsSdTxtRecord&);
+  DnsSdTxtRecord(DnsSdTxtRecord&&) noexcept;
+  DnsSdTxtRecord& operator=(const DnsSdTxtRecord&);
+  DnsSdTxtRecord& operator=(DnsSdTxtRecord&&);
+  ~DnsSdTxtRecord();
+
   // Returns whether the provided key value pair is valid for a TXT record.
   static bool IsValidTxtValue(const std::string& key, ByteView value);
   static bool IsValidTxtValue(const std::string& key, const std::string& value);

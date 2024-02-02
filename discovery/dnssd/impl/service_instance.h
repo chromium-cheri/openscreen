@@ -39,8 +39,8 @@ class ServiceInstance final : public DnsSdService {
   }
 
   // DnsSdService overrides.
-  DnsSdQuerier* GetQuerier() override { return querier_.get(); }
-  DnsSdPublisher* GetPublisher() override { return publisher_.get(); }
+  DnsSdQuerier* GetQuerier() override;
+  DnsSdPublisher* GetPublisher() override;
 
  private:
   TaskRunner& task_runner_;
