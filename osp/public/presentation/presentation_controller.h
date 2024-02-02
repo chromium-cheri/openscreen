@@ -97,7 +97,7 @@ class Controller final : public ServiceListener::Observer,
   };
 
   explicit Controller(ClockNowFunctionPtr now_function);
-  ~Controller();
+  ~Controller() override;
 
   // Requests receivers compatible with all urls in |urls| and registers
   // |observer| for availability changes.  The screens will be a subset of the
@@ -163,6 +163,16 @@ class Controller final : public ServiceListener::Observer,
   class MessageGroupStreams;
 
   struct ControlledPresentation {
+    ControlledPresentation(std::string service_id,
+                           std::string url,
+                           std::vector<Connection*> connections);
+    ControlledPresentation();
+    ControlledPresentation(const ControlledPresentation&);
+    ControlledPresentation(ControlledPresentation&&) noexcept;
+    ControlledPresentation& operator=(const ControlledPresentation&);
+    ControlledPresentation& operator=(ControlledPresentation&&);
+    ~ControlledPresentation();
+
     std::string service_id;
     std::string url;
     std::vector<Connection*> connections;
