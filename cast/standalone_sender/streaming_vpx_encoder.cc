@@ -186,6 +186,21 @@ void StreamingVpxEncoder::EncodeAndSend(
   }
 }
 
+StreamingVpxEncoder::WorkUnit::WorkUnit() = default;
+StreamingVpxEncoder::WorkUnit::WorkUnit(
+    StreamingVpxEncoder::WorkUnit&&) noexcept = default;
+StreamingVpxEncoder::WorkUnit& StreamingVpxEncoder::WorkUnit::operator=(
+    StreamingVpxEncoder::WorkUnit&&) = default;
+StreamingVpxEncoder::WorkUnit::~WorkUnit() = default;
+
+StreamingVpxEncoder::WorkUnitWithResults::WorkUnitWithResults() = default;
+StreamingVpxEncoder::WorkUnitWithResults::WorkUnitWithResults(
+    StreamingVpxEncoder::WorkUnitWithResults&&) noexcept = default;
+StreamingVpxEncoder::WorkUnitWithResults&
+StreamingVpxEncoder::WorkUnitWithResults::operator=(
+    StreamingVpxEncoder::WorkUnitWithResults&&) = default;
+StreamingVpxEncoder::WorkUnitWithResults::~WorkUnitWithResults() = default;
+
 void StreamingVpxEncoder::DestroyEncoder() {
   OSP_DCHECK_EQ(std::this_thread::get_id(), encode_thread_.get_id());
 

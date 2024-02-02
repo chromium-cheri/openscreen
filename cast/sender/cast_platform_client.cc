@@ -67,8 +67,8 @@ std::optional<int> CastPlatformClient::RequestAppAvailability(
   timeout->ScheduleFromNow(
       [this, request_id]() { CancelAppAvailabilityRequest(request_id); },
       kRequestTimeout);
-  pending_requests.availability.push_back(AvailabilityRequest{
-      request_id, app_id, std::move(timeout), std::move(callback)});
+  pending_requests.availability.emplace_back(
+      request_id, app_id, std::move(timeout), std::move(callback));
 
   VirtualConnection virtual_conn{sender_id_, kPlatformReceiverId, socket_id};
   if (!virtual_conn_router_->GetConnectionData(virtual_conn)) {
@@ -116,6 +116,32 @@ void CastPlatformClient::CancelRequest(int request_id) {
     }
   }
 }
+
+CastPlatformClient::AvailabilityRequest::AvailabilityRequest(
+    int request_id,
+    std::string app_id,
+    std::unique_ptr<Alarm> timeout,
+    AppAvailabilityCallback callback)
+    : request_id(request_id),
+      app_id(std::move(app_id)),
+      timeout(std::move(timeout)),
+      callback(std::move(callback)) {}
+
+CastPlatformClient::AvailabilityRequest::AvailabilityRequest() = default;
+CastPlatformClient::AvailabilityRequest::AvailabilityRequest(
+    CastPlatformClient::AvailabilityRequest&&) noexcept = default;
+CastPlatformClient::AvailabilityRequest&
+CastPlatformClient::AvailabilityRequest::operator=(
+    CastPlatformClient::AvailabilityRequest&&) = default;
+CastPlatformClient::AvailabilityRequest::~AvailabilityRequest() = default;
+
+CastPlatformClient::PendingRequests::PendingRequests() = default;
+CastPlatformClient::PendingRequests::PendingRequests(
+    CastPlatformClient::PendingRequests&&) noexcept = default;
+CastPlatformClient::PendingRequests&
+CastPlatformClient::PendingRequests::operator=(
+    CastPlatformClient::PendingRequests&&) = default;
+CastPlatformClient::PendingRequests::~PendingRequests() = default;
 
 void CastPlatformClient::OnMessage(VirtualConnectionRouter* router,
                                    CastSocket* socket,

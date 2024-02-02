@@ -21,14 +21,14 @@ class LoggingTest : public ::testing::Test {
  public:
   LoggingTest() {}
 
-  void SetUp() {
+  void SetUp() override {
     previous_log_level = GetLogLevel();
     SetLogLevel(LogLevel::kInfo);
     SetLogBufferForTest(&log_messages);
     testing::FLAGS_gtest_death_test_style = "threadsafe";
   }
 
-  void TearDown() {
+  void TearDown() override {
     SetLogLevel(previous_log_level);
     SetLogBufferForTest(nullptr);
   }

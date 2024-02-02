@@ -187,7 +187,9 @@ class BigEndianBuffer {
   BigEndianBuffer(T* buffer, size_t length)
       : begin_(buffer), current_(buffer), end_(buffer + length) {}
   BigEndianBuffer(const BigEndianBuffer&) = delete;
+  BigEndianBuffer(BigEndianBuffer&&) noexcept = default;
   BigEndianBuffer& operator=(const BigEndianBuffer&) = delete;
+  BigEndianBuffer& operator=(BigEndianBuffer&&) = default;
 
  private:
   T* begin_;
@@ -216,6 +218,10 @@ class BigEndianReader : public BigEndianBuffer<const uint8_t> {
 class BigEndianWriter : public BigEndianBuffer<uint8_t> {
  public:
   BigEndianWriter(uint8_t* buffer, size_t length);
+  BigEndianWriter(BigEndianWriter&&) noexcept;
+  BigEndianWriter(const BigEndianWriter&) = delete;
+  BigEndianWriter& operator=(BigEndianWriter&&);
+  BigEndianWriter& operator=(const BigEndianWriter&) = delete;
 
   template <typename T>
   bool Write(T value) {

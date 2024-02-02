@@ -17,8 +17,8 @@ namespace openscreen::discovery {
 namespace {
 
 bool TryParseDnsType(uint16_t to_parse, DnsType* type) {
-  auto it = std::find(kSupportedDnsTypes.begin(), kSupportedDnsTypes.end(),
-                      static_cast<DnsType>(to_parse));
+  auto* it = std::find(kSupportedDnsTypes.begin(), kSupportedDnsTypes.end(),
+                       static_cast<DnsType>(to_parse));
   if (it == kSupportedDnsTypes.end()) {
     return false;
   }

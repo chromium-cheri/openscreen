@@ -77,7 +77,36 @@ MediaCapability ToCapability(VideoCodec codec) {
 
 }  // namespace
 
+ReceiverSession::ConfiguredReceivers::ConfiguredReceivers(
+    Receiver* audio_receiver,
+    AudioCaptureConfig audio_config,
+    Receiver* video_receiver,
+    VideoCaptureConfig video_config,
+    std::string sender_id)
+    : audio_receiver(audio_receiver),
+      audio_config(std::move(audio_config)),
+      video_receiver(video_receiver),
+      video_config(std::move(video_config)),
+      sender_id(std::move(sender_id)) {}
+ReceiverSession::ConfiguredReceivers::ConfiguredReceivers() = default;
+ReceiverSession::ConfiguredReceivers::ConfiguredReceivers(
+    const ReceiverSession::ConfiguredReceivers&) = default;
+ReceiverSession::ConfiguredReceivers::ConfiguredReceivers(
+    ReceiverSession::ConfiguredReceivers&&) noexcept = default;
+ReceiverSession::ConfiguredReceivers&
+ReceiverSession::ConfiguredReceivers::operator=(
+    const ReceiverSession::ConfiguredReceivers&) = default;
+ReceiverSession::ConfiguredReceivers&
+ReceiverSession::ConfiguredReceivers::operator=(
+    ReceiverSession::ConfiguredReceivers&&) = default;
+ReceiverSession::ConfiguredReceivers::~ConfiguredReceivers() = default;
+
 ReceiverSession::Client::~Client() = default;
+
+bool ReceiverSession::Client::SupportsCodecParameter(
+    const std::string& parameter) {
+  return true;
+}
 
 ReceiverSession::ReceiverSession(Client* const client,
                                  Environment* environment,
@@ -144,6 +173,13 @@ void ReceiverSession::OnSocketInvalid(Error error) {
                    Error(Error::Code::kSocketFailure,
                          "The environment is invalid and should be replaced."));
 }
+
+ReceiverSession::PendingOffer::PendingOffer() = default;
+ReceiverSession::PendingOffer::PendingOffer(
+    ReceiverSession::PendingOffer&&) noexcept = default;
+ReceiverSession::PendingOffer& ReceiverSession::PendingOffer::operator=(
+    ReceiverSession::PendingOffer&&) = default;
+ReceiverSession::PendingOffer::~PendingOffer() = default;
 
 bool ReceiverSession::PendingOffer::IsValid() const {
   return (selected_audio || selected_video) && !sender_id.empty() &&

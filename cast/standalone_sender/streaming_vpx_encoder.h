@@ -60,7 +60,7 @@ class StreamingVpxEncoder : public StreamingVideoEncoder {
                       TaskRunner& task_runner,
                       std::unique_ptr<Sender> sender);
 
-  ~StreamingVpxEncoder();
+  ~StreamingVpxEncoder() override;
 
   int GetTargetBitrate() const override;
   void SetTargetBitrate(int new_bitrate) override;
@@ -79,6 +79,13 @@ class StreamingVpxEncoder : public StreamingVideoEncoder {
   // Represents the state of one frame encode. This is created in
   // EncodeAndSend(), and passed to the encode thread via the |encode_queue_|.
   struct WorkUnit {
+    WorkUnit();
+    WorkUnit(const WorkUnit&) = delete;
+    WorkUnit(WorkUnit&&) noexcept;
+    WorkUnit& operator=(const WorkUnit&) = delete;
+    WorkUnit& operator=(WorkUnit&&);
+    ~WorkUnit();
+
     VpxImageUniquePtr image;
     Clock::duration duration;
     Clock::time_point capture_begin_time;
@@ -90,6 +97,13 @@ class StreamingVpxEncoder : public StreamingVideoEncoder {
 
   // Same as WorkUnit, but with additional fields to carry the encode results.
   struct WorkUnitWithResults : public WorkUnit {
+    WorkUnitWithResults();
+    WorkUnitWithResults(const WorkUnitWithResults&) = delete;
+    WorkUnitWithResults(WorkUnitWithResults&&) noexcept;
+    WorkUnitWithResults& operator=(const WorkUnitWithResults&) = delete;
+    WorkUnitWithResults& operator=(WorkUnitWithResults&&);
+    ~WorkUnitWithResults();
+
     std::vector<uint8_t> payload;
     bool is_key_frame = false;
     Stats stats;
@@ -139,19 +153,19 @@ class StreamingVpxEncoder : public StreamingVideoEncoder {
   std::mutex mutex_;
 
   // Used by the encode thread to sleep until more work is available.
-  std::condition_variable cv_ ABSL_GUARDED_BY(mutex_);
+  std::condition_variable cv_;
 
   // These encode parameters not passed in the WorkUnit struct because it is
   // desirable for them to be applied as soon as possible, with the very next
   // WorkUnit popped from the |encode_queue_| on the encode thread, and not to
   // wait until some later WorkUnit is processed.
-  bool needs_key_frame_ ABSL_GUARDED_BY(mutex_) = true;
-  int target_bitrate_ ABSL_GUARDED_BY(mutex_) = 2 << 20;  // Default: 2 Mbps.
+  bool needs_key_frame_ = true;
+  int target_bitrate_ = 2 << 20;  // Default: 2 Mbps.
 
   // The queue of frame encodes. The size of this queue is implicitly bounded by
   // EncodeAndSend(), where it checks for the total in-flight media duration and
   // maybe drops a frame.
-  std::queue<WorkUnit> encode_queue_ ABSL_GUARDED_BY(mutex_);
+  std::queue<WorkUnit> encode_queue_;
 
   // Current VP8 encoder configuration. Most of the fields are unchanging, and
   // are populated in the ctor; but thereafter, only the encode thread accesses

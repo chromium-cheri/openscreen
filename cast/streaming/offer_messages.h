@@ -43,6 +43,25 @@ constexpr int kDefaultNumAudioChannels = 2;
 struct Stream {
   enum class Type : uint8_t { kAudioSource, kVideoSource };
 
+  Stream(int index,
+         Type type,
+         int channels,
+         RtpPayloadType rtp_payload_type,
+         Ssrc ssrc,
+         std::chrono::milliseconds target_delay,
+         std::array<uint8_t, 16> aes_key,
+         std::array<uint8_t, 16> aes_iv_mask,
+         bool receiver_rtcp_event_log,
+         std::string receiver_rtcp_dscp,
+         int rtp_timebase,
+         std::string codec_parameter);
+  Stream();
+  Stream(Stream&&) noexcept;
+  Stream(const Stream&);
+  Stream& operator=(Stream&&);
+  Stream& operator=(const Stream&);
+  ~Stream();
+
   static Error TryParse(const Json::Value& root,
                         Stream::Type type,
                         Stream* out);
@@ -72,6 +91,14 @@ struct Stream {
 };
 
 struct AudioStream {
+  AudioStream(Stream stream, AudioCodec codec, int bit_rate);
+  AudioStream();
+  AudioStream(AudioStream&&) noexcept;
+  AudioStream(const AudioStream&);
+  AudioStream& operator=(AudioStream&&);
+  AudioStream& operator=(const AudioStream&);
+  ~AudioStream();
+
   static Error TryParse(const Json::Value& root, AudioStream* out);
   Json::Value ToJson() const;
   bool IsValid() const;
@@ -83,6 +110,22 @@ struct AudioStream {
 
 
 struct VideoStream {
+  VideoStream(Stream stream,
+              VideoCodec codec,
+              SimpleFraction max_frame_rate,
+              int max_bit_rate,
+              std::string protection,
+              std::string profile,
+              std::string level,
+              std::vector<Resolution> resolutions,
+              std::string error_recovery_mode);
+  VideoStream();
+  VideoStream(VideoStream&&) noexcept;
+  VideoStream(const VideoStream&);
+  VideoStream& operator=(VideoStream&&);
+  VideoStream& operator=(const VideoStream&);
+  ~VideoStream();
+
   static Error TryParse(const Json::Value& root, VideoStream* out);
   Json::Value ToJson() const;
   bool IsValid() const;
@@ -99,6 +142,16 @@ struct VideoStream {
 };
 
 struct Offer {
+  Offer(CastMode cast_mode,
+        std::vector<AudioStream> audio_streams,
+        std::vector<VideoStream> video_streams);
+  Offer();
+  Offer(Offer&&) noexcept;
+  Offer(const Offer&);
+  Offer& operator=(Offer&&);
+  Offer& operator=(const Offer&);
+  ~Offer();
+
   static Error TryParse(const Json::Value& root, Offer* out);
   Json::Value ToJson() const;
   bool IsValid() const;

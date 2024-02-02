@@ -95,11 +95,7 @@ class MdnsProbeManagerImpl : public MdnsProbe::Observer,
   void TiebreakSimultaneousProbes(const MdnsMessage& message);
 
   virtual std::unique_ptr<MdnsProbe> CreateProbe(DomainName name,
-                                                 IPAddress address) {
-    return std::make_unique<MdnsProbeImpl>(sender_, receiver_, random_delay_,
-                                           task_runner_, now_function_, this,
-                                           std::move(name), std::move(address));
-  }
+                                                 IPAddress address);
 
   // Owns an in-progress MdnsProbe. When the probe starts, an instance of this
   // struct is created. Upon successful completion of the probe, this instance
@@ -110,6 +106,11 @@ class MdnsProbeManagerImpl : public MdnsProbe::Observer,
     OngoingProbe(std::unique_ptr<MdnsProbe> probe,
                  DomainName name,
                  MdnsDomainConfirmedProvider* callback);
+    OngoingProbe(OngoingProbe&&) noexcept;
+    OngoingProbe(const OngoingProbe&) = delete;
+    OngoingProbe& operator=(OngoingProbe&&);
+    OngoingProbe& operator=(const OngoingProbe&) = delete;
+    ~OngoingProbe();
 
     // NOTE: unique_ptr objects are used to avoid issues when the container
     // holding this object is resized.

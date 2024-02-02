@@ -35,6 +35,11 @@ MessageDemuxer* GetClientDemuxer();
 class PresentationID {
  public:
   explicit PresentationID(const std::string presentation_id);
+  PresentationID(const PresentationID&) = delete;
+  PresentationID(PresentationID&&) noexcept;
+  PresentationID& operator=(const PresentationID&) = delete;
+  PresentationID& operator=(PresentationID&&);
+  ~PresentationID();
 
   operator bool() { return id_; }
   operator std::string() { return id_.value(); }

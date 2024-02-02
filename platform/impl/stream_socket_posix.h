@@ -33,7 +33,7 @@ class StreamSocketPosix : public StreamSocket {
   StreamSocketPosix(StreamSocketPosix&& other) noexcept;
   StreamSocketPosix& operator=(const StreamSocketPosix& other) = delete;
   StreamSocketPosix& operator=(StreamSocketPosix&& other);
-  virtual ~StreamSocketPosix();
+  ~StreamSocketPosix() override;
 
   WeakPtr<StreamSocketPosix> GetWeakPtr() const;
 
@@ -46,7 +46,7 @@ class StreamSocketPosix : public StreamSocket {
   Error Listen(int max_backlog_size) override;
 
   // StreamSocket getter overrides.
-  const SocketHandle& socket_handle() const override { return handle_; }
+  const SocketHandle& socket_handle() const override;
   std::optional<IPEndpoint> remote_address() const override;
   std::optional<IPEndpoint> local_address() const override;
   TcpSocketState state() const override;

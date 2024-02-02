@@ -181,6 +181,8 @@ ReceiverConstraints& ReceiverConstraints::operator=(
   return *this;
 }
 
+ReceiverConstraints::~ReceiverConstraints() = default;
+
 bool ReceiverConstraints::IsSupersetOf(const ReceiverConstraints& other) const {
   // Check simple cases first.
   if ((!!display_description != !!other.display_description) ||

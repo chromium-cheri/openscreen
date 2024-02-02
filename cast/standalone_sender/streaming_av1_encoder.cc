@@ -175,6 +175,21 @@ void StreamingAv1Encoder::EncodeAndSend(
   }
 }
 
+StreamingAv1Encoder::WorkUnit::WorkUnit() = default;
+StreamingAv1Encoder::WorkUnit::WorkUnit(
+    StreamingAv1Encoder::WorkUnit&&) noexcept = default;
+StreamingAv1Encoder::WorkUnit& StreamingAv1Encoder::WorkUnit::operator=(
+    StreamingAv1Encoder::WorkUnit&&) = default;
+StreamingAv1Encoder::WorkUnit::~WorkUnit() = default;
+
+StreamingAv1Encoder::WorkUnitWithResults::WorkUnitWithResults() = default;
+StreamingAv1Encoder::WorkUnitWithResults::WorkUnitWithResults(
+    StreamingAv1Encoder::WorkUnitWithResults&&) noexcept = default;
+StreamingAv1Encoder::WorkUnitWithResults&
+StreamingAv1Encoder::WorkUnitWithResults::operator=(
+    StreamingAv1Encoder::WorkUnitWithResults&&) = default;
+StreamingAv1Encoder::WorkUnitWithResults::~WorkUnitWithResults() = default;
+
 void StreamingAv1Encoder::DestroyEncoder() {
   OSP_DCHECK_EQ(std::this_thread::get_id(), encode_thread_.get_id());
 

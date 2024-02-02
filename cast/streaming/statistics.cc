@@ -155,6 +155,21 @@ std::string SimpleHistogram::GetBucketName(size_t index) const {
   return StringPrintf("%d-%d", bucket_min, bucket_max);
 }
 
+SenderStats::SenderStats(StatisticsList audio_statistics,
+                         HistogramsList audio_histograms,
+                         StatisticsList video_statistics,
+                         HistogramsList video_histograms)
+    : audio_statistics(std::move(audio_statistics)),
+      audio_histograms(std::move(audio_histograms)),
+      video_statistics(std::move(video_statistics)),
+      video_histograms(std::move(video_histograms)) {}
+SenderStats::SenderStats() = default;
+SenderStats::SenderStats(const SenderStats&) = default;
+SenderStats::SenderStats(SenderStats&&) noexcept = default;
+SenderStats& SenderStats::operator=(const SenderStats&) = default;
+SenderStats& SenderStats::operator=(SenderStats&&) = default;
+SenderStats::~SenderStats() = default;
+
 Json::Value SenderStats::ToJson() const {
   Json::Value out;
   out["audio_statistics"] = ArrayToJson(audio_statistics, kStatisticTypeNames);
