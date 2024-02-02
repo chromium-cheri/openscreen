@@ -69,7 +69,7 @@ class QuicConnection : public UdpSocket::Client {
   };
 
   explicit QuicConnection(Delegate* delegate) : delegate_(delegate) {}
-  virtual ~QuicConnection() = default;
+  ~QuicConnection() override = default;
 
   virtual std::unique_ptr<QuicStream> MakeOutgoingStream(
       QuicStream::Delegate* delegate) = 0;

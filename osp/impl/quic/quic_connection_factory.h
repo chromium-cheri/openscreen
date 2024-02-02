@@ -28,7 +28,7 @@ class QuicConnectionFactory : public UdpSocket::Client {
         std::unique_ptr<QuicConnection> connection) = 0;
   };
 
-  virtual ~QuicConnectionFactory() = default;
+  ~QuicConnectionFactory() override = default;
 
   // Initializes a server socket listening on |port| where new connection
   // callbacks are sent to |delegate|.

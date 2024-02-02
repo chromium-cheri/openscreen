@@ -25,7 +25,7 @@ namespace {
 
 class MockObserver final : public ServiceListener::Observer {
  public:
-  ~MockObserver() = default;
+  ~MockObserver() override = default;
 
   MOCK_METHOD0(OnStarted, void());
   MOCK_METHOD0(OnStopped, void());
