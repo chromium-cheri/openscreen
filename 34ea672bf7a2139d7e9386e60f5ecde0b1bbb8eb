@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7f535e5_c21427bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-02-03T20:54:29Z",
+      "side": 1,
+      "message": "Much simpler, nothing blocking to landing once the bots are happy",
+      "revId": "34ea672bf7a2139d7e9386e60f5ecde0b1bbb8eb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "385cfc94_9ebf3a7d",
+        "filename": "cast/common/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-02-03T20:54:29Z",
+      "side": 1,
+      "message": "This should probably just be \u0026\u0026 is_linux",
+      "revId": "34ea672bf7a2139d7e9386e60f5ecde0b1bbb8eb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "decb9c2b_812bb8c8",
+        "filename": "cast/common/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-02-03T20:54:29Z",
+      "side": 1,
+      "message": "Is there a reason this can\u0027t be built cross-platform in Chromium? I can file a bug to see if we can get it working downstream.",
+      "revId": "34ea672bf7a2139d7e9386e60f5ecde0b1bbb8eb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fa2c361_d301d9c6",
+        "filename": "cast/standalone_receiver/mirroring_application.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-02-03T20:54:29Z",
+      "side": 1,
+      "message": "Maybe we should define our own BUILDFLAG macros like Chromium ... I don\u0027t feel strongly but it would be good to update documentation in our style guide the current macros to guard platform-specific code.",
+      "revId": "34ea672bf7a2139d7e9386e60f5ecde0b1bbb8eb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dc41af6_4af2eefd",
+        "filename": "platform/impl/time_impl_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-02-03T20:54:29Z",
+      "side": 1,
+      "message": "2024?",
+      "revId": "34ea672bf7a2139d7e9386e60f5ecde0b1bbb8eb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "550ebd78_19640454",
+        "filename": "platform/impl/time_impl_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-02-03T20:54:29Z",
+      "side": 1,
+      "message": "Do we want to test this for C++20 as well? (To verify that the C++20 implementation of time also meets this standard)?",
+      "revId": "34ea672bf7a2139d7e9386e60f5ecde0b1bbb8eb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c41960ba_81f6db42",
+        "filename": "platform/impl/time_impl_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-02-03T20:54:29Z",
+      "side": 1,
+      "message": "I don\u0027t quite understand this test, and we don\u0027t use std::mktime or std::gmtime anywhere in the library.  Can we just delete this?",
+      "revId": "34ea672bf7a2139d7e9386e60f5ecde0b1bbb8eb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "823e60a6_0695579a",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-02-03T20:54:29Z",
+      "side": 1,
+      "message": "Is this debug logging?",
+      "revId": "34ea672bf7a2139d7e9386e60f5ecde0b1bbb8eb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
