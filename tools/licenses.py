@@ -59,7 +59,6 @@ SPECIAL_CASES = {
         "https://chromium.googlesource.com/external/github.com/llvm/llvm-project/clang/tools/clang-format",
         "Shipped": "no",
         "License": "Apache 2.0",
-        "License File": "NOT_SHIPPED",
     },
 }
 
