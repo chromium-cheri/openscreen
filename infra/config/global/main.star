@@ -252,7 +252,7 @@ def builder(builder_type, name, properties, os, cpu):
     if builder_type == "try":
         # We mark some bots as experimental to not block the build.
         experiment_percentage = None
-        if name in ["linux_arm64_cast_debug", "linux64_coverage_debug"]:
+        if name in ["linux_arm64_debug", "linux_arm64_cast_debug", "linux64_coverage_debug"]:
             experiment_percentage = 100
 
         luci.cq_tryjob_verifier(
