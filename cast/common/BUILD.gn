@@ -3,15 +3,11 @@
 # found in the LICENSE file.
 
 import("//build_overrides/build.gni")
+import("//build_overrides/cast.gni")
 import("//third_party/protobuf/proto_library.gni")
 import("../../testing/libfuzzer/fuzzer_test.gni")
 
 visibility = [ "./*" ]
-
-# TODO(jophba): remove if checks once Chrome uses the cast.gni file
-if (!build_with_chromium) {
-  import("../../build/config/cast.gni")
-}
 
 config("certificate_config") {
   visibility += [
