@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fcf3d9c_77d00f0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-02-12T21:48:40Z",
+      "side": 1,
+      "message": "The way ipcz does this is to define a GN variable in build_overrides with the include location:\n\nthird_party/ipcz/build_overrides/ipcz.gni\n\nand\n\nbuild_overrides/ipcz.gni\n\nThen it defines a config that is consumed locally to add that include dir:\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/ipcz/src/BUILD.gn;drc\u003de93e66a67ac7f1030fbd381e3109bac96bc70458;l\u003d320\n\nI think the difference is that there are some targets in Chromium that also need this config.  Maybe we could split he config from the include dir location in a future cleanup.  I also would rather Chromium not set include dirs this way, so that could be another way to improve this in the future.",
+      "revId": "eafd7c9062f8ddb5b1d76a42c784b01b0180be6b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d30cdbf_10b426ac",
