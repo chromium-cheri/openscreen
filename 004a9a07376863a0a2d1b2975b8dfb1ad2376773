@@ -1,0 +1,412 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c8bc6ab_1bf2ae94",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-02-21T21:46:02Z",
+      "side": 1,
+      "message": "I took an initial look.",
+      "revId": "004a9a07376863a0a2d1b2975b8dfb1ad2376773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57e8f8ad_6d1d939b",
+        "filename": "osp/impl/quic/certificates/open-screen.pem",
+        "patchSetId": 22
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-02-21T21:46:02Z",
+      "side": 1,
+      "message": "Does this certificate have any backing / part of a spec? I don\u0027t recognize it.",
+      "revId": "004a9a07376863a0a2d1b2975b8dfb1ad2376773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "758d822d_3eeb5d16",
+        "filename": "osp/impl/quic/open_screen_session_base.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-02-21T21:46:02Z",
+      "side": 1,
+      "message": "Nit: comment should be a full sentence.",
+      "revId": "004a9a07376863a0a2d1b2975b8dfb1ad2376773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c707353_700f6f02",
+        "filename": "osp/impl/quic/open_screen_session_base.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-02-21T21:46:02Z",
+      "side": 1,
+      "message": "Nit: don\u0027t need parenthesis, and present tense verb conjugation is a little confusing. My suggestion:\n\n    OSP_VLOG \u003c\u003c __func__ \u003c\u003c \": was called while disconnected.\";",
+      "revId": "004a9a07376863a0a2d1b2975b8dfb1ad2376773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4b10380_08881a67",
+        "filename": "osp/impl/quic/open_screen_session_base.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-02-21T21:46:02Z",
+      "side": 1,
+      "message": "Nit: auto* stream_ptr.",
+      "revId": "004a9a07376863a0a2d1b2975b8dfb1ad2376773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84a204e0_90490861",
+        "filename": "osp/impl/quic/quic_alarm_factory_impl.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-02-21T21:46:02Z",
+      "side": 1,
+      "message": "Why do two conversions? \n\ndelay_us \u003d deadline() - clock_-\u003eNow()\nschedule time \u003d Clock::now() + microseconds(delay_us)\n\nDoesn\u0027t that mean that the schedule time is just deadline?\n\n    alarm_.Schedule([this] { OnAlarm(); }, deadline());",
+      "revId": "004a9a07376863a0a2d1b2975b8dfb1ad2376773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8cbf71b_ec5dc26a",
+        "filename": "osp/impl/quic/quic_alarm_factory_impl.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-02-21T21:46:02Z",
+      "side": 1,
+      "message": "Nit: can just do \n\n    if (arena) {",
+      "revId": "004a9a07376863a0a2d1b2975b8dfb1ad2376773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ccd3b16_7fb74b82",
+        "filename": "osp/impl/quic/quic_client.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-02-21T21:46:02Z",
+      "side": 1,
+      "message": "Nit: connection_endpoints_?",
+      "revId": "004a9a07376863a0a2d1b2975b8dfb1ad2376773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a948074_6c025db0",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-02-21T21:46:02Z",
+      "side": 1,
+      "message": "Nit: these can all be constexpr, right?",
+      "revId": "004a9a07376863a0a2d1b2975b8dfb1ad2376773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36551d54_459617f1",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-02-21T21:46:02Z",
+      "side": 1,
+      "message": "Nit: consider breaking out the folder into a separate variable.\n\n    constexpr char kCertificateFolder \u003d \"osp/impl/quic/certificates/\";\n    constexpr char kCertificatePath \u003d kCertificateFolder + \"open-screen.pem\";\n    constexpr char kPrivateKeyPath \u003d kCertificateFolder + \"open-screen.key\";",
+      "revId": "004a9a07376863a0a2d1b2975b8dfb1ad2376773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6483a0e8_2eba75d5",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-02-21T21:46:02Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "004a9a07376863a0a2d1b2975b8dfb1ad2376773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06b98c24_c935f5f8",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-02-21T21:46:02Z",
+      "side": 1,
+      "message": "std::move quic_packet or make quic_packet const?",
+      "revId": "004a9a07376863a0a2d1b2975b8dfb1ad2376773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45e52229_30866de1",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-02-21T21:46:02Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "004a9a07376863a0a2d1b2975b8dfb1ad2376773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e293c953_c4515b40",
+        "filename": "osp/impl/quic/quic_dispatcher_impl.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-02-21T21:46:02Z",
+      "side": 1,
+      "message": "This is a ton of parameters for a function call. Are any of these part of a configurtion / does it make sense to bundle them into groups or a config struct?",
+      "revId": "004a9a07376863a0a2d1b2975b8dfb1ad2376773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6bcca98_71d0d356",
+        "filename": "osp/impl/quic/quic_packet_writer_impl.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-02-21T21:46:02Z",
+      "side": 1,
+      "message": "Nit: just return {}?\n\nIs this method just not supported, or what?",
+      "revId": "004a9a07376863a0a2d1b2975b8dfb1ad2376773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f9f9349_a8ff276e",
+        "filename": "osp/impl/quic/quic_service_common.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-02-21T21:46:02Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "004a9a07376863a0a2d1b2975b8dfb1ad2376773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6747e494_b2ba05a1",
+        "filename": "osp/impl/quic/quic_service_common.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-02-21T21:46:02Z",
+      "side": 1,
+      "message": "Consider making these const std::string\u0026",
+      "revId": "004a9a07376863a0a2d1b2975b8dfb1ad2376773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e91df54_1c5684c2",
+        "filename": "osp/impl/quic/quic_stream.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-02-21T21:46:02Z",
+      "side": 1,
+      "message": "ByteView?",
+      "revId": "004a9a07376863a0a2d1b2975b8dfb1ad2376773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15801f8a_cbc79362",
+        "filename": "osp/impl/quic/quic_stream.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-02-21T21:46:02Z",
+      "side": 1,
+      "message": "This is a good candidate for ByteView:\n\nhttps://osscs.corp.google.com/chromium/chromium/src/+/main:third_party/openscreen/src/platform/base/span.h;drc\u003df4a00cc248dd2dc8ec8759fb51620d47b5114090;l\u003d24",
+      "revId": "004a9a07376863a0a2d1b2975b8dfb1ad2376773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ab1e87c_4e7cd668",
+        "filename": "osp/impl/quic/quic_utils.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-02-21T21:46:02Z",
+      "side": 1,
+      "message": "Nit: const",
+      "revId": "004a9a07376863a0a2d1b2975b8dfb1ad2376773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbd1c5cc_8cc575fe",
+        "filename": "osp/impl/quic/quic_utils.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-02-21T21:46:02Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "004a9a07376863a0a2d1b2975b8dfb1ad2376773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51da3e01_cbaa464e",
+        "filename": "osp/impl/quic/quic_utils.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-02-21T21:46:02Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this DCHECK take place *after* the copy that occurs on line 29?",
+      "revId": "004a9a07376863a0a2d1b2975b8dfb1ad2376773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84bcced6_0a4f0727",
+        "filename": "osp/impl/quic/quic_utils.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-02-21T21:46:02Z",
+      "side": 1,
+      "message": "Nit: replace ternary operator with `value(ValueType fallback)`:\n\nhttps://osscs.corp.google.com/chromium/chromium/src/+/main:third_party/openscreen/src/platform/base/error.h;drc\u003df4a00cc248dd2dc8ec8759fb51620d47b5114090;l\u003d357\n\nE.g.\n\n    return result.value(IPEndpoint{});",
+      "revId": "004a9a07376863a0a2d1b2975b8dfb1ad2376773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29487a93_73516686",
+        "filename": "osp/impl/quic/testing/fake_quic_connection.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-02-21T21:46:02Z",
+      "side": 1,
+      "message": "consider returning const std::string\u0026, in case we don\u0027t actually want to make a copy of the string unnecessarily.",
+      "revId": "004a9a07376863a0a2d1b2975b8dfb1ad2376773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
