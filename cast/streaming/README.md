@@ -36,6 +36,17 @@ $ gn gen --args="is_debug=true have_ffmpeg=true have_libsdl2=true have_libopus=t
 $ autoninja -C out/Default cast_sender cast_receiver
 ```
 
+[!NOTE]
+Depending on what versions of these libraries you have installed, on macOS you
+may need to force the system version GN arguments to match what versions of
+the libraries you selected. For example, if your copy of libSDL2 is compiled to
+only work on macOS 14, and our build toolchain is set for version 11, you will
+get a compiler error unless you set the following GN arguments:
+```
+mac_min_system_version = "14"
+mac_deployment_target = "14"
+```
+
 ## Developer certificate generation and use
 
 To use the sender and receiver application together, a valid Cast certificate is
