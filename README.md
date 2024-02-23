@@ -79,6 +79,11 @@ The following are the main tools are required for development/builds.
   - `gcc`
   - XCode
 
+## GN setup
+
+In order to build locally, you may need to disable Chrome plugins using the
+GN argument `"clang_use_chrome_plugins=false"`.
+
 ## yajsv installation
 
 1. Install `go` from [https://golang.org](https://golang.org) or your Linux package manager.
