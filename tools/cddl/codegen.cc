@@ -835,7 +835,7 @@ bool WriteMapEncoder(int fd,
                      const std::string& nested_type_scope,
                      int encoder_depth) {
   std::string name_id = ToUnderscoreId(name);
-  dprintf(fd, "  CborEncoder encoder%d;\n", encoder_depth);
+  dprintf(fd, "  {\n  CborEncoder encoder%d;\n", encoder_depth);
   MemberCountResult member_counts = CountMemberTypes(fd, name_id, members);
   if (member_counts.num_optional == 0) {
     dprintf(fd,
@@ -891,7 +891,7 @@ bool WriteMapEncoder(int fd,
 
   dprintf(fd,
           "  CBOR_RETURN_ON_ERROR(cbor_encoder_close_container(&encoder%d, "
-          "&encoder%d));\n",
+          "&encoder%d));\n  }\n",
           encoder_depth - 1, encoder_depth);
   return true;
 }
@@ -908,7 +908,7 @@ bool WriteArrayEncoder(int fd,
                        const std::string& nested_type_scope,
                        int encoder_depth) {
   std::string name_id = ToUnderscoreId(name);
-  dprintf(fd, "  CborEncoder encoder%d;\n", encoder_depth);
+  dprintf(fd, "  {\n  CborEncoder encoder%d;\n", encoder_depth);
   MemberCountResult member_counts = CountMemberTypes(fd, name_id, members);
   if (member_counts.num_optional == 0) {
     dprintf(fd,
@@ -950,7 +950,7 @@ bool WriteArrayEncoder(int fd,
 
   dprintf(fd,
           "  CBOR_RETURN_ON_ERROR(cbor_encoder_close_container(&encoder%d, "
-          "&encoder%d));\n",
+          "&encoder%d));\n  }\n",
           encoder_depth - 1, encoder_depth);
   return true;
 }
@@ -1273,7 +1273,7 @@ bool WriteDecoder(int fd,
           "  CBOR_RETURN_ON_ERROR(cbor_value_enter_container(&it%d, &it%d));\n",
           decoder_depth, decoder_depth + 1);
       std::string loop_variable = "x" + std::to_string(decoder_depth + 1);
-      dprintf(fd, " for (auto& %s : %s) {\n", loop_variable.c_str(),
+      dprintf(fd, "  for (auto& %s : %s) {\n", loop_variable.c_str(),
               name.c_str());
       if (!WriteDecoder(fd, loop_variable, *cpp_type.vector_type.element_type,
                         decoder_depth + 1, temporary_count)) {
@@ -1432,6 +1432,7 @@ bool WriteMapDecoder(int fd,
           decoder_depth - 1);
   dprintf(fd, "    return -1;\n");
   dprintf(fd, "  }\n");
+  dprintf(fd, "  {\n");
   dprintf(fd, "  CborValue it%d;\n", decoder_depth);
   dprintf(fd, "  size_t it%d_length = 0;\n", decoder_depth);
   dprintf(fd,
@@ -1504,6 +1505,7 @@ bool WriteMapDecoder(int fd,
   dprintf(fd,
           "  CBOR_RETURN_ON_ERROR(cbor_value_leave_container(&it%d, &it%d));\n",
           decoder_depth - 1, decoder_depth);
+  dprintf(fd, "  }\n");
   return true;
 }
 
@@ -1522,6 +1524,7 @@ bool WriteArrayDecoder(int fd,
           decoder_depth - 1);
   dprintf(fd, "    return -1;\n");
   dprintf(fd, "  }\n");
+  dprintf(fd, "  {\n");
   dprintf(fd, "  CborValue it%d;\n", decoder_depth);
   dprintf(fd, "  size_t it%d_length = 0;\n", decoder_depth);
   dprintf(fd,
@@ -1577,6 +1580,7 @@ bool WriteArrayDecoder(int fd,
   dprintf(fd,
           "  CBOR_RETURN_ON_ERROR(cbor_value_leave_container(&it%d, &it%d));\n",
           decoder_depth - 1, decoder_depth);
+  dprintf(fd, "  }\n");
   return true;
 }
 
