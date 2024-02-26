@@ -18,6 +18,40 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f19b5066_2ad04463",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-02-26T23:01:25Z",
+      "side": 1,
+      "message": "Looks good, thanks.  There are a few issues with time representation and I\u0027d like to see if we can make some small improvements to the spec to simplify this, but should be easy to update the code to match.",
+      "revId": "f346296de0489dd24b8150a4274e6f3fd1cd1957",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d4f2566_89b397f0",
+        "filename": "osp/msgs/osp_messages.cddl",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-02-26T23:01:25Z",
+      "side": 1,
+      "message": "I think it would be better for all enums to be declared separately in CDDL (instead of inline).  I will file a spec issue for this.",
+      "revId": "f346296de0489dd24b8150a4274e6f3fd1cd1957",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de518ea5_f2f9abbb",
@@ -37,6 +71,47 @@
         "endLine": 402,
         "endChar": 25
       },
+      "revId": "f346296de0489dd24b8150a4274e6f3fd1cd1957",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb02d9f9_6dff1dc3",
+        "filename": "osp/msgs/osp_messages.cddl",
+        "patchSetId": 1
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-02-26T23:01:25Z",
+      "side": 1,
+      "message": "I don\u0027t think this should be media-time (which is a relative value in the media timeline), but a time since the UNIX epoch (in milliseconds) since it is translated to a Javascript Date object.\n\nThis is fine for this CL, but I will file a spec issue to clean this up.",
+      "parentUuid": "de518ea5_f2f9abbb",
+      "range": {
+        "startLine": 401,
+        "startChar": 0,
+        "endLine": 402,
+        "endChar": 25
+      },
+      "revId": "f346296de0489dd24b8150a4274e6f3fd1cd1957",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c8b1950_2363bae6",
+        "filename": "osp/msgs/osp_messages.cddl",
+        "patchSetId": 1
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-02-26T23:01:25Z",
+      "side": 1,
+      "message": "If we use float64 to represent epoch and duration, we can maybe use NaN and null to represent forever / unknown.",
       "revId": "f346296de0489dd24b8150a4274e6f3fd1cd1957",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
