@@ -17,6 +17,9 @@ build_with_chromium = false
 # `use_custom_libcxx = true`.
 enable_safe_libcxx = true
 
+# Disable chrome plugins for clang, such as the style checker.
+clang_use_chrome_plugins = false
+
 declare_args() {
   # Allows googletest to pretty-print various absl types.  Disabled for nacl due
   # to lack of toolchain support.
