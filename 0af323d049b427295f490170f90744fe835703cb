@@ -16,6 +16,108 @@
       "message": "Let\u0027s see what the bots have to say about this 😊",
       "revId": "0af323d049b427295f490170f90744fe835703cb",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05f4b6db_57702457",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-02-29T01:07:58Z",
+      "side": 1,
+      "message": "Wow, that was fast!\n\nA few initial comments, although I\u0027m not familiar with the different static library configs so I will need some time to understand those. \n\nDo we need split library support in open screen now?  If not maybe we can leave it out - YAGNI.",
+      "revId": "0af323d049b427295f490170f90744fe835703cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af7bae18_9890af48",
+        "filename": "gni/openscreen_templates.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-02-29T01:07:58Z",
+      "side": 1,
+      "message": "I would just call this file openscreen.gni.\n\nIf we want to break the templates out into their own file in the future, we can do that without having to update all of our .gn\u0027s.",
+      "revId": "0af323d049b427295f490170f90744fe835703cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d642eb15_48b05f43",
+        "filename": "gni/openscreen_templates.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-02-29T01:07:58Z",
+      "side": 1,
+      "message": "Is this so that openscreen can be built with a different symbol level than the rest of Chromium?  What would the benefit be?",
+      "revId": "0af323d049b427295f490170f90744fe835703cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbd0b57f_efeee11b",
+        "filename": "gni/openscreen_templates.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-02-29T01:07:58Z",
+      "side": 1,
+      "message": "Nit: Can you wrap comments at 80 cols?\n\nAlso, maybe:\n\nor to //third_party/openscreen in Chromium (for example).",
+      "revId": "0af323d049b427295f490170f90744fe835703cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c7ab533_d6d9da74",
+        "filename": "gni/openscreen_templates.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-02-29T01:07:58Z",
+      "side": 1,
+      "message": "Is there a link explaining the tradeoff here?",
+      "revId": "0af323d049b427295f490170f90744fe835703cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "136f5ee9_1ea56f41",
+        "filename": "gni/openscreen_templates.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-02-29T01:07:58Z",
+      "side": 1,
+      "message": "Where is openscreen_enable_cet_shadow_stack defined?",
+      "revId": "0af323d049b427295f490170f90744fe835703cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
