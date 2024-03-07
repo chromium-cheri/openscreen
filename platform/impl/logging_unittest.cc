@@ -219,24 +219,24 @@ TEST_F(LoggingTest, CheckAndLogFatal) {
 
 TEST_F(LoggingTest, DCheckAndDLogFatal) {
 #if OSP_DCHECK_IS_ON()
-  ASSERT_DEATH(OSP_DCHECK(false), ".*OSP_CHECK\\(false\\) failed: ");
+  ASSERT_DEATH(OSP_CHECK(false), ".*OSP_CHECK\\(false\\) failed: ");
 
-  ASSERT_DEATH(OSP_DCHECK_EQ(1, 2),
+  ASSERT_DEATH(OSP_CHECK_EQ(1, 2),
                ".*OSP_CHECK\\(\\(1\\) == \\(2\\)\\) failed: 1 vs\\. 2: ");
 
-  ASSERT_DEATH(OSP_DCHECK_NE(1, 1),
+  ASSERT_DEATH(OSP_CHECK_NE(1, 1),
                ".*OSP_CHECK\\(\\(1\\) != \\(1\\)\\) failed: 1 vs\\. 1: ");
 
-  ASSERT_DEATH(OSP_DCHECK_LT(2, 1),
+  ASSERT_DEATH(OSP_CHECK_LT(2, 1),
                ".*OSP_CHECK\\(\\(2\\) < \\(1\\)\\) failed: 2 vs\\. 1: ");
 
-  ASSERT_DEATH(OSP_DCHECK_LE(2, 1),
+  ASSERT_DEATH(OSP_CHECK_LE(2, 1),
                ".*OSP_CHECK\\(\\(2\\) <= \\(1\\)\\) failed: 2 vs\\. 1: ");
 
-  ASSERT_DEATH(OSP_DCHECK_GT(1, 2),
+  ASSERT_DEATH(OSP_CHECK_GT(1, 2),
                ".*OSP_CHECK\\(\\(1\\) > \\(2\\)\\) failed: 1 vs\\. 2: ");
 
-  ASSERT_DEATH(OSP_DCHECK_GE(1, 2),
+  ASSERT_DEATH(OSP_CHECK_GE(1, 2),
                ".*OSP_CHECK\\(\\(1\\) >= \\(2\\)\\) failed: 1 vs\\. 2: ");
 
   ASSERT_DEATH((OSP_DLOG_FATAL << "Fatal"), ".*Fatal");

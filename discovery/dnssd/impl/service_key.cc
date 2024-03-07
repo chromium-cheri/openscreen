@@ -30,8 +30,8 @@ ServiceKey::ServiceKey(const DomainName& domain) {
 ServiceKey::ServiceKey(std::string_view service, std::string_view domain)
     : service_id_(service.data(), service.size()),
       domain_id_(domain.data(), domain.size()) {
-  OSP_DCHECK(IsServiceValid(service_id_)) << "invalid service id: " << service;
-  OSP_DCHECK(IsDomainValid(domain_id_)) << "invalid domain id: " << domain;
+  OSP_CHECK(IsServiceValid(service_id_)) << "invalid service id: " << service;
+  OSP_CHECK(IsDomainValid(domain_id_)) << "invalid domain id: " << domain;
 }
 
 ServiceKey::ServiceKey(const ServiceKey& other) = default;
