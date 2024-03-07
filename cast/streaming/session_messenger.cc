@@ -53,8 +53,8 @@ SessionMessenger::SessionMessenger(MessagePort* message_port,
     : message_port_(message_port),
       source_id_(source_id),
       error_callback_(std::move(cb)) {
-  OSP_DCHECK(message_port_);
-  OSP_DCHECK(!source_id_.empty());
+  OSP_CHECK(message_port_);
+  OSP_CHECK(!source_id_.empty());
   message_port_->SetClient(*this);
 }
 
@@ -65,8 +65,8 @@ SessionMessenger::~SessionMessenger() {
 Error SessionMessenger::SendMessage(const std::string& destination_id,
                                     const std::string& namespace_,
                                     const Json::Value& message_root) {
-  OSP_DCHECK(namespace_ == kCastRemotingNamespace ||
-             namespace_ == kCastWebrtcNamespace);
+  OSP_CHECK(namespace_ == kCastRemotingNamespace ||
+            namespace_ == kCastWebrtcNamespace);
   auto body_or_error = json::Stringify(message_root);
   if (body_or_error.is_error()) {
     return std::move(body_or_error.error());
@@ -94,12 +94,12 @@ SenderSessionMessenger::SenderSessionMessenger(MessagePort* message_port,
 void SenderSessionMessenger::SetHandler(ReceiverMessage::Type type,
                                         ReplyCallback cb) {
   // Currently the only handler allowed is for RPC messages.
-  OSP_DCHECK(type == ReceiverMessage::Type::kRpc);
+  OSP_CHECK(type == ReceiverMessage::Type::kRpc);
   rpc_callback_ = std::move(cb);
 }
 
 void SenderSessionMessenger::ResetHandler(ReceiverMessage::Type type) {
-  OSP_DCHECK(type == ReceiverMessage::Type::kRpc);
+  OSP_CHECK(type == ReceiverMessage::Type::kRpc);
   rpc_callback_ = {};
 }
 
@@ -126,7 +126,7 @@ Error SenderSessionMessenger::SendRequest(SenderMessage message,
                                           ReceiverMessage::Type reply_type,
                                           ReplyCallback cb) {
   // RPC messages are not meant to be request/reply.
-  OSP_DCHECK(reply_type != ReceiverMessage::Type::kRpc);
+  OSP_CHECK(reply_type != ReceiverMessage::Type::kRpc);
 
   if (!cb) {
     return Error(Error::Code::kParameterInvalid,
@@ -137,8 +137,8 @@ Error SenderSessionMessenger::SendRequest(SenderMessage message,
     return error;
   }
 
-  OSP_DCHECK(awaiting_replies_.find(message.sequence_number) ==
-             awaiting_replies_.end());
+  OSP_CHECK(awaiting_replies_.find(message.sequence_number) ==
+            awaiting_replies_.end());
   awaiting_replies_.emplace_back(message.sequence_number, std::move(cb));
   task_runner_.PostTaskWithDelay(
       [self = weak_factory_.GetWeakPtr(), seq_num = message.sequence_number] {
@@ -221,7 +221,7 @@ ReceiverSessionMessenger::ReceiverSessionMessenger(MessagePort* message_port,
 
 void ReceiverSessionMessenger::SetHandler(SenderMessage::Type type,
                                           RequestCallback cb) {
-  OSP_DCHECK(callbacks_.find(type) == callbacks_.end());
+  OSP_CHECK(callbacks_.find(type) == callbacks_.end());
   callbacks_.emplace_back(type, std::move(cb));
 }
 

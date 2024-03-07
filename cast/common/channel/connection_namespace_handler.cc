@@ -85,8 +85,8 @@ ConnectionNamespaceHandler::ConnectionNamespaceHandler(
     VirtualConnectionRouter* vc_router,
     VirtualConnectionPolicy* vc_policy)
     : vc_router_(vc_router), vc_policy_(vc_policy) {
-  OSP_DCHECK(vc_router_);
-  OSP_DCHECK(vc_policy_);
+  OSP_CHECK(vc_router_);
+  OSP_CHECK(vc_policy_);
 
   vc_router_->set_connection_namespace_handler(this);
 }
@@ -98,8 +98,8 @@ ConnectionNamespaceHandler::~ConnectionNamespaceHandler() {
 void ConnectionNamespaceHandler::OpenRemoteConnection(
     VirtualConnection conn,
     RemoteConnectionResultCallback result_callback) {
-  OSP_DCHECK(!vc_router_->GetConnectionData(conn));
-  OSP_DCHECK(std::none_of(
+  OSP_CHECK(!vc_router_->GetConnectionData(conn));
+  OSP_CHECK(std::none_of(
       pending_remote_requests_.begin(), pending_remote_requests_.end(),
       [&](const PendingRequest& request) { return request.conn == conn; }));
   pending_remote_requests_.push_back({conn, std::move(result_callback)});
