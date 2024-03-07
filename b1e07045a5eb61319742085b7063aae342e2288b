@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ea62925_4d047a8b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T21:55:18Z",
+      "side": 1,
+      "message": "I think you meant cast/ here and below?",
+      "revId": "b1e07045a5eb61319742085b7063aae342e2288b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "47658832_27c84167",
@@ -18,6 +35,312 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "461235b6_d82c9f20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T21:55:18Z",
+      "side": 1,
+      "message": "Thanks for this cleanup!\n\nThere are at least two risks to converting in bulk:\n\n1. The CHECKs will trigger in production builds and will cause crashes that need to be fixed ASAP or this patch reverted.\n2. The CHECKs will cause a performance regression.\n\nFor #1, we have Chrome builds that run with DCHECKS enabled, which should catch any openscreen code used in Chrome.  I didn\u0027t see any crashes from openscreen; but most of the code in this CL is not used in Chrome so we will see.\n\nFor #2 I prefer to keep expensive conditions as DCHECK (string parsing, container checks).  I\u0027ve noted where I thought that might be happening but please double check.",
+      "revId": "b1e07045a5eb61319742085b7063aae342e2288b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2622f401_a706df01",
+        "filename": "discovery/dnssd/impl/instance_key.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T21:55:18Z",
+      "side": 1,
+      "message": "This check is somewhat expensive (it parses the string).  Please leave it as a DCHECK.",
+      "revId": "b1e07045a5eb61319742085b7063aae342e2288b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2e2d626_b89f60f2",
+        "filename": "discovery/dnssd/impl/instance_key.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T21:55:18Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "b1e07045a5eb61319742085b7063aae342e2288b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03f0cf4f_02b9199f",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T21:55:18Z",
+      "side": 1,
+      "message": "OSP_CHECK(client)",
+      "revId": "b1e07045a5eb61319742085b7063aae342e2288b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36646aa1_2ee97ab2",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T21:55:18Z",
+      "side": 1,
+      "message": "Nit: please remove extra space",
+      "revId": "b1e07045a5eb61319742085b7063aae342e2288b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82c1d54a_2def7182",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T21:55:18Z",
+      "side": 1,
+      "message": "This makes me confused (or at least nervous) about whether this is always true, and I am not sure I see the point of it either.  Please just remove these.",
+      "revId": "b1e07045a5eb61319742085b7063aae342e2288b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72c9e471_eab1459e",
+        "filename": "discovery/dnssd/impl/service_dispatcher.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T21:55:18Z",
+      "side": 1,
+      "message": "It\u0027s a little harsh to fail here ... the rest of the function will be a no-op if there are no network interfaces passed in the config.\n\nMaybe convert this to OSP_LOG_ERROR",
+      "revId": "b1e07045a5eb61319742085b7063aae342e2288b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57a3d11c_1f77094e",
+        "filename": "discovery/dnssd/impl/service_key.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T21:55:18Z",
+      "side": 1,
+      "message": "Please leave string parsing checks (IsFooValid) in this module as DCHECKS",
+      "revId": "b1e07045a5eb61319742085b7063aae342e2288b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70dd18eb_cdb51e77",
+        "filename": "discovery/mdns/impl/mdns_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T21:55:18Z",
+      "side": 1,
+      "message": "OSP_CHECK(socket_);",
+      "revId": "b1e07045a5eb61319742085b7063aae342e2288b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "221f48f1_b24f5582",
+        "filename": "discovery/mdns/public/mdns_writer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T21:55:18Z",
+      "side": 1,
+      "message": "Revert",
+      "revId": "b1e07045a5eb61319742085b7063aae342e2288b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2e70756_05946d39",
+        "filename": "platform/impl/logging_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T21:55:18Z",
+      "side": 1,
+      "message": "Revert all of these!  These are unit tests for OSP_DCHECK",
+      "revId": "b1e07045a5eb61319742085b7063aae342e2288b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be318da9_663936d1",
+        "filename": "platform/impl/time.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T21:55:18Z",
+      "side": 1,
+      "message": "Probably better to leave as-is and surround entire block with `#if OSP_DCHECK_IS_ON()`",
+      "revId": "b1e07045a5eb61319742085b7063aae342e2288b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "338ab4f9_3406fa3c",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T21:55:18Z",
+      "side": 1,
+      "message": "Please leave as a DCHECK as this is O(N)",
+      "revId": "b1e07045a5eb61319742085b7063aae342e2288b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36b91942_927c3832",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T21:55:18Z",
+      "side": 1,
+      "message": "These are the only two options ... I would just remove this.",
+      "revId": "b1e07045a5eb61319742085b7063aae342e2288b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "633507c2_247eafdc",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T21:55:18Z",
+      "side": 1,
+      "message": "OSP_CHECK(!in_create_local)",
+      "revId": "b1e07045a5eb61319742085b7063aae342e2288b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d79308db_c79731f0",
+        "filename": "platform/test/paths_internal_mac.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T21:55:18Z",
+      "side": 1,
+      "message": "OSP_CHECK_GT",
+      "revId": "b1e07045a5eb61319742085b7063aae342e2288b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3785b57_6b4c87aa",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1748,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T21:55:18Z",
+      "side": 1,
+      "message": "If we are encoding client-provided values, this might bite us in the future.  We will see.",
+      "revId": "b1e07045a5eb61319742085b7063aae342e2288b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c1c3a66_4568c1ac",
+        "filename": "util/crypto/certificate_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T21:55:18Z",
+      "side": 1,
+      "message": "OSP_CHECK_EQ",
+      "revId": "b1e07045a5eb61319742085b7063aae342e2288b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ddce9970_9c636abb",
@@ -31,6 +354,30 @@
       "writtenOn": "2024-03-07T09:15:06Z",
       "side": 1,
       "message": "Should we change these to OSP_CHECK_LT, OSP_CHECK_GT and OSP_CHECK_EQ?",
+      "range": {
+        "startLine": 56,
+        "startChar": 20,
+        "endLine": 56,
+        "endChar": 21
+      },
+      "revId": "b1e07045a5eb61319742085b7063aae342e2288b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f49a038_6c21f92e",
+        "filename": "util/trace_logging/scoped_trace_operations.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T21:55:18Z",
+      "side": 1,
+      "message": "Yes, please simplify when possible.",
+      "parentUuid": "ddce9970_9c636abb",
       "range": {
         "startLine": 56,
         "startChar": 20,
