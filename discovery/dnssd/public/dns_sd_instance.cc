@@ -64,14 +64,13 @@ DnsSdInstance::DnsSdInstance(std::string instance_id,
       txt_(std::move(txt)),
       port_(port),
       subtypes_(std::move(subtypes)) {
-  OSP_DCHECK(IsInstanceValid(instance_id_))
+  OSP_CHECK(IsInstanceValid(instance_id_))
       << instance_id_ << " is an invalid instance id";
-  OSP_DCHECK(IsServiceValid(service_id_))
+  OSP_CHECK(IsServiceValid(service_id_))
       << service_id_ << " is an invalid service id";
-  OSP_DCHECK(IsDomainValid(domain_id_))
-      << domain_id_ << " is an invalid domain";
+  OSP_CHECK(IsDomainValid(domain_id_)) << domain_id_ << " is an invalid domain";
   for (const Subtype& subtype : subtypes_) {
-    OSP_DCHECK(IsSubtypeValid(subtype)) << subtype << " is an invalid subtype";
+    OSP_CHECK(IsSubtypeValid(subtype)) << subtype << " is an invalid subtype";
   }
 
   std::sort(subtypes_.begin(), subtypes_.end());

@@ -58,7 +58,7 @@ std::chrono::seconds GetWallTimeSinceUnixEpoch() noexcept {
     constexpr std::time_t a_year_before_overflow =
         std::numeric_limits<std::time_t>::max() -
         to_seconds(365 * hours(24)).count();
-    OSP_DCHECK_LE(since_epoch, a_year_before_overflow);
+    OSP_CHECK_LE(since_epoch, a_year_before_overflow);
   }
 
   return std::chrono::seconds(since_epoch);

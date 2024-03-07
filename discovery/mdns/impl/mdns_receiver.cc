@@ -21,26 +21,26 @@ MdnsReceiver::~MdnsReceiver() {
     Stop();
   }
 
-  OSP_DCHECK(response_clients_.empty());
+  OSP_CHECK(response_clients_.empty());
 }
 
 void MdnsReceiver::SetQueryCallback(
     std::function<void(const MdnsMessage&, const IPEndpoint&)> callback) {
   // This check verifies that either new or stored callback has a target. It
   // will fail in case multiple objects try to set or clear the callback.
-  OSP_DCHECK(static_cast<bool>(query_callback_) != static_cast<bool>(callback));
+  OSP_CHECK(static_cast<bool>(query_callback_) != static_cast<bool>(callback));
   query_callback_ = callback;
 }
 
 void MdnsReceiver::AddResponseCallback(ResponseClient* callback) {
-  OSP_DCHECK(!Contains(response_clients_, callback));
+  OSP_CHECK(!Contains(response_clients_, callback));
   response_clients_.push_back(callback);
 }
 
 void MdnsReceiver::RemoveResponseCallback(ResponseClient* callback) {
   auto it =
       std::find(response_clients_.begin(), response_clients_.end(), callback);
-  OSP_DCHECK(it != response_clients_.end());
+  OSP_CHECK(it != response_clients_.end());
 
   response_clients_.erase(it);
 }

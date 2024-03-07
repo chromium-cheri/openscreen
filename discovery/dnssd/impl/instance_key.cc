@@ -21,7 +21,7 @@ InstanceKey::InstanceKey(const MdnsRecord& record)
 
 InstanceKey::InstanceKey(const DomainName& domain)
     : ServiceKey(domain), instance_id_(domain.labels()[0]) {
-  OSP_DCHECK(IsInstanceValid(instance_id_));
+  OSP_CHECK(IsInstanceValid(instance_id_));
 }
 
 InstanceKey::InstanceKey(const DnsSdInstance& instance)
@@ -33,8 +33,7 @@ InstanceKey::InstanceKey(std::string_view instance,
                          std::string_view service,
                          std::string_view domain)
     : ServiceKey(service, domain), instance_id_(instance) {
-  OSP_DCHECK(IsInstanceValid(instance_id_))
-      << "invalid instance id" << instance;
+  OSP_CHECK(IsInstanceValid(instance_id_)) << "invalid instance id" << instance;
 }
 
 InstanceKey::InstanceKey(const InstanceKey& other) = default;
