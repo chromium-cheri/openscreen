@@ -104,6 +104,516 @@
       "parentUuid": "3dfd9a87_ace8d918",
       "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7aef80d3_421c4934",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "Hi Wei - Sorry for the long time to get around to this.\n\nOverall this looks quite good and most of my questions are small style updates, requests for added documentation, or questions needing clarification. Thank you for this contribuion!",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f94e100_24f33df3",
+        "filename": "BUILD.gn",
+        "patchSetId": 23
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "Make sure this is not built on Windows after rebasing (the CDDL compiler has portability issues).",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e5dc915_d48a2a8d",
+        "filename": "osp/BUILD.gn",
+        "patchSetId": 23
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "FYI, this entire file is !is_mac after rebasing.\n\nI hope there won\u0027t be a problem building on Mac 10.15 after this lands with the updated version of QUICHE.",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4ea6e89_f2073ae5",
+        "filename": "osp/demo/osp_demo.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "Is the hardware address necessary for QUIC?",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf310def_e2400917",
+        "filename": "osp/impl/presentation/presentation_receiver_unittest.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "Thank you for updating existing APIs to use ByteView/ByteBuffer 😊",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7971cf5_8b80b4fa",
+        "filename": "osp/impl/quic/BUILD.gn",
+        "patchSetId": 23
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "Is turning off these warnings required to use QUICHE?  Or can these be cleaned up in the openscreen library at a later point?",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac1f1b92_17f20269",
+        "filename": "osp/impl/quic/open_screen_client_session.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "Optional: Add OSP_INFO logs to print the server details in `cached`.",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "680fd539_5ef6a7d7",
+        "filename": "osp/impl/quic/open_screen_client_session.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "It looks like this is a container for client-specific details for the crypto handshake.  Can you add a comment like:\n\n// NOTE: Collect and log ProofVerify details when they are implemented.",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "003f9989_e3314e36",
+        "filename": "osp/impl/quic/open_screen_client_session.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "Can this ever be nullptr?  If not, can you pass by reference?",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de389286_8ed9a893",
+        "filename": "osp/impl/quic/open_screen_session_base.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "We shouldn\u0027t be creating unencrypted streams in OSP.  I would be okay converting this to OSP_CHECK.",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "586dff4e_4273ca2f",
+        "filename": "osp/impl/quic/open_screen_session_base.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "This also seems like a logic bug, and I would be okay with converting it to an OSP_CHECK.",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7c4c9cf_43f8ff04",
+        "filename": "osp/impl/quic/open_screen_session_base.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "Can this ever be nullptr?  If not, can it be passed by reference?",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1e44bb9_fe346e38",
+        "filename": "osp/impl/quic/quic_alarm_factory_impl.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "Please use OSP_CHECK for new checks to align with Chromium\u0027s preferences.",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3ed6fbb_45ec369a",
+        "filename": "osp/impl/quic/quic_alarm_factory_impl.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "Do you need to check that delay_us is \u003e 0?",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e2d0a01_d809d500",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "Can you add a comment like the following:\n\n// TODO(issuetracker.google.com/300236996): Replace with OSP certificate generation.",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5bdcd14_9525874a",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "If there is no connection or dispatcher it looks like we can return early here (there is nowhere for the data to go).",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "144e62f0_ea6d5115",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "Is there an API that allows this to be passed by unique_ptr? That would  explicitly transfer ownership to the QuicConnection.",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d4d7e21_e24fce80",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "Do you know what are the values passed into QuicServerId used for?  Maybe just for logging/debugging if they are not part of the TLS handshake?",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4c15756_8d9704ac",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "Can you please initialize these to nullptr?",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09ac2adc_523366fb",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "Is the server_delegate_ always nullptr for client connections?  Can you document that please?",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db9d5599_1aafc31a",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "Can you document when entries are added and removed from this map?",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7bbdc4c_4f0d31e9",
+        "filename": "osp/impl/quic/quic_service_common.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "You can just use the no-arg ctor here",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e512c88d_d6f8c3cc",
+        "filename": "osp/impl/quic/quic_stream.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "Please update to 2024 (also applies to other new files in this CL)",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a9453a5_7030fb85",
+        "filename": "osp/impl/quic/quic_stream.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "Please pass by reference if it should never be nullptr",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33ed3f71_bb6f5c8d",
+        "filename": "osp/impl/quic/quic_stream_impl.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "This isn\u0027t portable to Windows as iovec is a Linux specific struct.\nIs there a portable way to implement this?",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc646300_56eb9005",
+        "filename": "osp/impl/quic/quic_utils.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "s/4/IPAddress::kV4Size/",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c122a5e_a37376ac",
+        "filename": "osp/impl/quic/quic_utils.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "Use a static_assert instead?",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8943cae_da3dde3d",
+        "filename": "osp/impl/quic/quic_utils.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "Can you make sure that quiche includes the right per-platform headers for in_addr and in6_addr?",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5c6065e_597a3e86",
+        "filename": "osp/impl/quic/quic_utils.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9dcaf3e_a4894218",
+        "filename": "testing/util/BUILD.gn",
+        "patchSetId": 23
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-07T00:51:11Z",
+      "side": 1,
+      "message": "This dep can be removed.",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
