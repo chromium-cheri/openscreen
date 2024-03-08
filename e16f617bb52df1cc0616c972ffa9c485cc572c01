@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac5ea0b5_6a975e41",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "Did you mean cast/?",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "89fbeef0_a874cd2c",
@@ -14,6 +31,584 @@
       "writtenOn": "2024-03-07T09:14:44Z",
       "side": 1,
       "message": "PTAL, thanks.",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3d9965a_44d8e32f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "Thanks for another big cleanup CL!",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e8b11af_c48c37d1",
+        "filename": "cast/common/certificate/date_time.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "I think this is trying to check whether seconds has overflowed time_t.\nCan you add // NOTE: Convert to checked_cast here?",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75b729f2_9e88a7c1",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "Please leave as a DCHECK",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae637dab_c3f6dc55",
+        "filename": "cast/common/channel/message_util.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "OSP_CHECK_EQ",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60784240_9a685b49",
+        "filename": "cast/common/discovery/e2e_test/tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "Optional: you don\u0027t need .get() on std::unique_ptr to test for nullptr (comment applies throughout)",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c3d993a_022e5ebf",
+        "filename": "cast/common/public/receiver_info.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "Revert expensive checks that e.g. parse strings",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1eb9f77c_218f8137",
+        "filename": "cast/common/public/receiver_info.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3b3dbc9_994eab6a",
+        "filename": "cast/sender/cast_app_availability_tracker.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "OSP_CHECK_NE",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4c2d2b1_537971fa",
+        "filename": "cast/standalone_receiver/simple_remoting_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "OSP_CHECK_EQ",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8aeb2144_afcf9235",
+        "filename": "cast/standalone_receiver/streaming_playback_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "OSP_CHECK(client_)",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8f60cd6_a050a396",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "OSP_CHECK_NE",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b686279_881e3a1c",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "OSP_CHECK_EQ",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "763d387d_fd85be54",
+        "filename": "cast/standalone_sender/streaming_av1_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "OSP_CHECK_EQ",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f24b802e_b1c308d6",
+        "filename": "cast/standalone_sender/streaming_vpx_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "OSP_CHECK_EQ",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cdf3c19_bcffce9b",
+        "filename": "cast/streaming/clock_drift_smoother.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "OSP_CHECK_GT",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc6b84cb_37f8bd53",
+        "filename": "cast/streaming/clock_drift_smoother.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "OSP_CHECK_NE here and below",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5cb460b_35dce71b",
+        "filename": "cast/streaming/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "Revert, keep as OSP_DCHECK throughout this function",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e2ed370_fac23ce5",
+        "filename": "cast/streaming/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "Revert",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dc78876_58bbb88e",
+        "filename": "cast/streaming/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "Revert",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cbe0afd_62f5630d",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "std::none_of",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34d01b64_b3207b96",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7fb1a6f_bd5e25b9",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "OSP_CHECK_EQ",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06be50e5_29aba6e6",
+        "filename": "cast/streaming/rpc_messenger.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "OSP_CHECK_EQ",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c5e0af3_3cdc0300",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "OSP_CHECK_GT",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfb9e6aa_b58a755d",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "OSP_CHECK_GE",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fe921d6_3df5af34",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "Revert",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4da5636b_e8820f5b",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "Revert",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e0e57d1_d7524857",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "Revert",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1107403a_75f6ea2b",
+        "filename": "cast/streaming/sender_packet_router.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "OSP_CHECK_EQ",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8504ee4a_205e7083",
+        "filename": "cast/streaming/sender_packet_router.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "OSP_CHECK_NE here and below",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "545b5d4c_e5ac6dbc",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "Revert",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27c66c94_fa07cfaa",
+        "filename": "cast/streaming/session_messenger.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "Revert",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47a2bddc_3652eae1",
+        "filename": "cast/streaming/session_messenger.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7030fc56_182aab37",
+        "filename": "cast/test/make_crl_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-08T01:00:24Z",
+      "side": 1,
+      "message": "It\u0027s not great to depend on the side effects of assertion conditions.\nCan you rewrite to separate out the call to write() from the assertion?",
       "revId": "e16f617bb52df1cc0616c972ffa9c485cc572c01",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
