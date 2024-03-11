@@ -85,7 +85,6 @@ void Receiver::SetPlayerProcessingTime(Clock::duration needed_time) {
 void Receiver::RequestKeyFrame() {
   // If we don't have picture loss indication enabled, we should not request
   // any key frames.
-  OSP_CHECK(is_pli_enabled_) << "PLI is not enabled.";
   if (is_pli_enabled_ && !last_key_frame_received_.is_null() &&
       last_frame_consumed_ >= last_key_frame_received_ &&
       !rtcp_builder_.is_picture_loss_indicator_set()) {
