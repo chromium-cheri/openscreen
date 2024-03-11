@@ -22,6 +22,30 @@
       },
       "revId": "e4ca7e5c8f0a72fcb2278a7c30e6ac6770030d50",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c0f1386_8911c649",
+        "filename": "cast/streaming/receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-11T20:58:46Z",
+      "side": 0,
+      "message": "It\u0027s probably a bug if the receiver has been configured to disable PLI, and the client is requesting a keyframe.  But I don\u0027t think it needs to be a CHECK.  I would just convert this to OSP_LOG_WARN and return early.",
+      "parentUuid": "6e7981c4_7fbdd06e",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 54
+      },
+      "revId": "e4ca7e5c8f0a72fcb2278a7c30e6ac6770030d50",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
