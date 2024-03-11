@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3e318cf2_5dac70bd",
+        "filename": "cast/common/certificate/date_time.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-03-11T06:11:26Z",
+      "side": 1,
+      "message": "Hi, mark.\n\nThis will lead to openscreen_cast_auth_util_fuzzer failure, because we use 10000 days from now: https://source.chromium.org/chromium/chromium/src/+/main:components/media_router/common/providers/cast/channel/openscreen_cast_auth_util_fuzzer.cc;l\u003d70.\n\nAny suggestion for fixing this? Related issue: https://issues.chromium.org/issues/328849159",
+      "range": {
+        "startLine": 83,
+        "startChar": 35,
+        "endLine": 83,
+        "endChar": 51
+      },
+      "revId": "e4ca7e5c8f0a72fcb2278a7c30e6ac6770030d50",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7ad8f527_343a2e49",
         "filename": "cast/streaming/receiver.cc",
         "patchSetId": 4
