@@ -61,7 +61,7 @@ class Controller final : public ServiceListener::Observer,
     ReceiverWatch(ReceiverWatch&&) noexcept;
     ~ReceiverWatch();
 
-    ReceiverWatch& operator=(ReceiverWatch);
+    ReceiverWatch& operator=(ReceiverWatch&&);
 
     explicit operator bool() const { return observer_; }
 
@@ -83,7 +83,7 @@ class Controller final : public ServiceListener::Observer,
     ConnectRequest(ConnectRequest&&) noexcept;
     ~ConnectRequest();
 
-    ConnectRequest& operator=(ConnectRequest);
+    ConnectRequest& operator=(ConnectRequest&&);
 
     explicit operator bool() const { return request_id_.has_value(); }
 
@@ -91,7 +91,7 @@ class Controller final : public ServiceListener::Observer,
 
    private:
     std::string service_id_;
-    bool is_reconnect_;
+    bool is_reconnect_ = false;
     std::optional<uint64_t> request_id_;
     Controller* controller_;
   };
