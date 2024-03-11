@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a601520_50ea061a",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-03-11T08:25:26Z",
+      "side": 1,
+      "message": "Hi, mark. I find this will fail when I am building and running osp_demo, which does not fail before.\n\nI checked the code and can not find where the discovery related tasks are posted to the `task_runner_`. So it seems all discovery related tasks run on the main thread instead of the thread where the `task_runner_` is, causing the failure. Have we made any changes to the logic of task post?",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 50
+      },
+      "revId": "dc47a1069490008f302980288d09da498ffc0bc8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
