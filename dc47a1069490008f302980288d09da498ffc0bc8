@@ -22,6 +22,30 @@
       },
       "revId": "dc47a1069490008f302980288d09da498ffc0bc8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83e7364e_48e39817",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-11T21:47:42Z",
+      "side": 1,
+      "message": "The discovery code is bound to the same sequence (thread) and it does post tasks to the task_runner_.  However, I don\u0027t see anywhere in the code where we force Register() to run in an asynchronous task, so this OSP_CHECK should be removed (and others in this file) should be removed.\n\nGood catch!",
+      "parentUuid": "5a601520_50ea061a",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 50
+      },
+      "revId": "dc47a1069490008f302980288d09da498ffc0bc8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
