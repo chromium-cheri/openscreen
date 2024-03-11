@@ -56,6 +56,24 @@
       "message": "https://ci.chromium.org/ui/p/chromium/builders/ci/Mac12%20Tests/17783/overview\n```\n[ RUN      ] ReceiverTest.PLICanBeDisabled\n[19459:259:ERROR:environment.cc(28)] Unable to create a UDP socket bound to 0.0.0.0:0: Failure: InitializationFailure \u003d \"\"\n[19459:259:FATAL:receiver.cc(88)] OSP_CHECK(is_pli_enabled_) failed: PLI is not enabled.\n0   openscreen_unittests                0x0000000101b1fc32 base::debug::CollectStackTrace(void const**, unsigned long) + 18\n1   openscreen_unittests                0x0000000101b19e93 base::debug::StackTrace::StackTrace() + 19\n2   openscreen_unittests                0x0000000101aab33d logging::LogMessage::Flush() + 189\n3   openscreen_unittests                0x0000000101aab1fd logging::LogMessage::~LogMessage() + 29\n4   openscreen_unittests                0x0000000101748d3e openscreen::LogWithLevel(openscreen::LogLevel, char const*, int, std::__Cr::basic_stringstream\u003cchar, std::__Cr::char_traits\u003cchar\u003e, std::__Cr::allocator\u003cchar\u003e\u003e) + 62\n5   openscreen_unittests                0x00000001017373ac openscreen::internal::LogMessage::~LogMessage() + 428\n6   openscreen_unittests                0x000000010194c428 openscreen::cast::Receiver::RequestKeyFrame() + 472\n7   openscreen_unittests                0x00000001018b0157 openscreen::cast::(anonymous namespace)::ReceiverTest_PLICanBeDisabled_Test::TestBody() + 183\n8   openscreen_unittests                0x00000001017134cb \n```",
       "revId": "e4ca7e5c8f0a72fcb2278a7c30e6ac6770030d50",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63a8dcc3_271243b0",
+        "filename": "cast/streaming/receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-11T21:00:23Z",
+      "side": 1,
+      "message": "There is an upstream fix for this in progress.",
+      "parentUuid": "7ad8f527_343a2e49",
+      "revId": "e4ca7e5c8f0a72fcb2278a7c30e6ac6770030d50",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
