@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aefbe8c6_29f3efbc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1111300
+      },
+      "writtenOn": "2024-03-11T01:49:08Z",
+      "side": 1,
+      "message": "FYI: openscreen_unittests is failing because of this CL:\nhttps://ci.chromium.org/ui/p/chromium/builders/ci/Mac12%20Tests/17783/overview\nhttps://ci.chromium.org/ui/p/chromium/builders/ci/Mac13%20Tests/9925/overview\n...\n\nopenscreen_unittests failed because of:\nReceiverTest.PLICanBeDisabled",
+      "revId": "e4ca7e5c8f0a72fcb2278a7c30e6ac6770030d50",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ad8f527_343a2e49",
+        "filename": "cast/streaming/receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1111300
+      },
+      "writtenOn": "2024-03-11T01:49:08Z",
+      "side": 1,
+      "message": "https://ci.chromium.org/ui/p/chromium/builders/ci/Mac12%20Tests/17783/overview\n```\n[ RUN      ] ReceiverTest.PLICanBeDisabled\n[19459:259:ERROR:environment.cc(28)] Unable to create a UDP socket bound to 0.0.0.0:0: Failure: InitializationFailure \u003d \"\"\n[19459:259:FATAL:receiver.cc(88)] OSP_CHECK(is_pli_enabled_) failed: PLI is not enabled.\n0   openscreen_unittests                0x0000000101b1fc32 base::debug::CollectStackTrace(void const**, unsigned long) + 18\n1   openscreen_unittests                0x0000000101b19e93 base::debug::StackTrace::StackTrace() + 19\n2   openscreen_unittests                0x0000000101aab33d logging::LogMessage::Flush() + 189\n3   openscreen_unittests                0x0000000101aab1fd logging::LogMessage::~LogMessage() + 29\n4   openscreen_unittests                0x0000000101748d3e openscreen::LogWithLevel(openscreen::LogLevel, char const*, int, std::__Cr::basic_stringstream\u003cchar, std::__Cr::char_traits\u003cchar\u003e, std::__Cr::allocator\u003cchar\u003e\u003e) + 62\n5   openscreen_unittests                0x00000001017373ac openscreen::internal::LogMessage::~LogMessage() + 428\n6   openscreen_unittests                0x000000010194c428 openscreen::cast::Receiver::RequestKeyFrame() + 472\n7   openscreen_unittests                0x00000001018b0157 openscreen::cast::(anonymous namespace)::ReceiverTest_PLICanBeDisabled_Test::TestBody() + 183\n8   openscreen_unittests                0x00000001017134cb \n```",
+      "revId": "e4ca7e5c8f0a72fcb2278a7c30e6ac6770030d50",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
