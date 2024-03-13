@@ -983,6 +983,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "00a6a6ba_c52f9a30",
+        "filename": "osp/impl/quic/quic_stream_impl.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-03-13T05:27:25Z",
+      "side": 1,
+      "message": "QUICHE provides interface `void Read(std::string* buffer)` to read data, we can use it:\n```\nstd::string data;\nwhile (!reading_stopped() \u0026\u0026 sequencer()-\u003eHasBytesToRead()) {\n  OSP_CHECK(!sequencer()-\u003eIsClosed());\n  sequencer()-\u003eRead(\u0026data);\n  delegate_-\u003eOnReceived(\n    this,\n    ByteViewFromString(data));\n}\n```\n\nHowever, the iterface is implemented using iovec as well: https://source.chromium.org/chromium/chromium/src/+/main:net/third_party/quiche/src/quiche/quic/core/quic_stream_sequencer.cc;l\u003d197;",
+      "parentUuid": "66a0b15f_4ef2701f",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dc646300_56eb9005",
         "filename": "osp/impl/quic/quic_utils.cc",
         "patchSetId": 23
