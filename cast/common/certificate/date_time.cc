@@ -79,8 +79,11 @@ static_assert(sizeof(time_t) >= 4, "Can't avoid overflow with < 32-bits");
 std::chrono::seconds DateTimeToSeconds(const DateTime& time) {
   OSP_CHECK_GE(time.month, 1);
   OSP_CHECK_GE(time.year, 1900);
-  // NOTE: Guard against overflow if time_t is 32-bit.
-  OSP_CHECK(sizeof(time_t) >= 8 || time.year < 2038) << time.year;
+  if (sizeof(time_t) < 8 && time.year >= 2038) {
+    OSP_LOG_WARN << "Overflow happens when time_t is 32-bit while year is "
+                    "greater than or equal to 2038.";
+    return std::chrono::seconds(0);
+  }
   struct tm tm = {};
   tm.tm_sec = time.second;
   tm.tm_min = time.minute;
