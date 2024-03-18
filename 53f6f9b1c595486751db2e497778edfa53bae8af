@@ -22,6 +22,30 @@
       },
       "revId": "53f6f9b1c595486751db2e497778edfa53bae8af",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e19cd61b_fc84129f",
+        "filename": "cast/common/certificate/date_time.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-18T19:42:52Z",
+      "side": 0,
+      "message": "It looks like this code is passed DateTime structs from peer certificates, i.e. we have no idea if the passed in DateTime is valid or not.  If you could change all of the CHECKs here to return std::chrono::seconds(0) that would be good.\n\nThe callers should also check for a zero return value and return an error if the DateTime is garbage.\n\nFeel free to punt that over to me if you want.  Thanks for the fix!",
+      "parentUuid": "2ca3e04d_1ee18986",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 66
+      },
+      "revId": "53f6f9b1c595486751db2e497778edfa53bae8af",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
