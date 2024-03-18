@@ -246,6 +246,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1079ff9_5a70482f",
+        "filename": "osp/demo/osp_demo.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-18T20:21:49Z",
+      "side": 1,
+      "message": "In principle the agent should run loopback just fine.  If you need to exclude the loopback interface to get the demo to work, you should be able to check `interface.type !\u003d InterfaceInfo::Type::kLoopback`",
+      "parentUuid": "a90824a1_8eb6ea75",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "cf310def_e2400917",
@@ -294,6 +312,24 @@
       "side": 1,
       "message": "Yes, this is required to turn off warnings for using QUICHE.",
       "parentUuid": "d7971cf5_8b80b4fa",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "434f7618_658309d6",
+        "filename": "osp/impl/quic/BUILD.gn",
+        "patchSetId": 23
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-18T20:21:49Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d0a7778d_284bc801",
       "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -510,6 +546,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e8c086b4_ad509b69",
+        "filename": "osp/impl/quic/open_screen_session_base.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-18T20:21:49Z",
+      "side": 1,
+      "message": "The style in this repo is to prefer passing references over pointers when the parameter can never be null.  This is more self documenting and reduces the number of CHECK(pointer) statements. \n\nIf you need to pass a pointer to other libraries, you can always take the address at that point.",
+      "parentUuid": "94190f73_1be20bae",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d1e44bb9_fe346e38",
         "filename": "osp/impl/quic/quic_alarm_factory_impl.cc",
         "patchSetId": 23
@@ -592,6 +646,24 @@
       "side": 1,
       "message": "I find delay_us can be \u003c 0 when I am running osp_demo, so we don\u0027t need this check. We should run these tasks immediately.",
       "parentUuid": "57103b20_8d274d9d",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5bfeaf1_470b983c",
+        "filename": "osp/impl/quic/quic_alarm_factory_impl.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-18T20:21:49Z",
+      "side": 1,
+      "message": "The API doesn\u0027t document what it should do if the deadline is in the past.  I guess this makes sense?",
+      "parentUuid": "1f4efe5f_ea6546b6",
       "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -701,6 +773,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba04d44e_678d3a66",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-18T20:21:49Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "32f5d23b_bcf7eda2",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d4d7e21_e24fce80",
@@ -732,6 +822,24 @@
       "side": 1,
       "message": "To be honest, I don\u0027t know what QuicServerId are used for? I think they are not used in TLS handshake.",
       "parentUuid": "9d4d7e21_e24fce80",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a962b75_c566a054",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-18T20:21:49Z",
+      "side": 1,
+      "message": "It looks like this is an internal ID used by QUICHE to keep track of connections.  Do we have an actual port number from the socket to use here?  The hostname has to be made up though, I guess we could use the IP address.\n\nCan you add the following:\n\n```\n// NOTE: Ask the QUICHE authors what to put here for clients that\n// aren\u0027t connecting to Internet hosts with a hostname. \n```",
+      "parentUuid": "73b8ed96_2d51406a",
       "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -948,6 +1056,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d4d8fd23_64195fb0",
+        "filename": "osp/impl/quic/quic_stream.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-18T20:21:49Z",
+      "side": 1,
+      "message": "If it shouldn\u0027t be null then prefer passing/storing reference.",
+      "parentUuid": "b46efe8a_581d3b48",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "33ed3f71_bb6f5c8d",
         "filename": "osp/impl/quic/quic_stream_impl.cc",
         "patchSetId": 23
@@ -995,6 +1121,24 @@
       "side": 1,
       "message": "QUICHE provides interface `void Read(std::string* buffer)` to read data, we can use it:\n```\nstd::string data;\nwhile (!reading_stopped() \u0026\u0026 sequencer()-\u003eHasBytesToRead()) {\n  OSP_CHECK(!sequencer()-\u003eIsClosed());\n  sequencer()-\u003eRead(\u0026data);\n  delegate_-\u003eOnReceived(\n    this,\n    ByteViewFromString(data));\n}\n```\n\nHowever, the iterface is implemented using iovec as well: https://source.chromium.org/chromium/chromium/src/+/main:net/third_party/quiche/src/quiche/quic/core/quic_stream_sequencer.cc;l\u003d197;",
       "parentUuid": "66a0b15f_4ef2701f",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcaaa28b_2bf36e72",
+        "filename": "osp/impl/quic/quic_stream_impl.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-18T20:21:49Z",
+      "side": 1,
+      "message": "It looks like there is a compatibility shim in the QUICHE platform API, so this can be fixed by including quiche/common/platform/api/quiche_iovec.h",
+      "parentUuid": "00a6a6ba_c52f9a30",
       "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -1100,6 +1244,24 @@
       "side": 1,
       "message": "I think so, because in_addr and in6_addr are used in QUICHE directly and QUICHE itself should be cross-platform.",
       "parentUuid": "a8943cae_da3dde3d",
+      "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "805ed355_5ac46e8d",
+        "filename": "osp/impl/quic/quic_utils.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-18T20:21:49Z",
+      "side": 1,
+      "message": "Including quiche/common/quiche_ip_address.h here should fix it.",
+      "parentUuid": "babdd9d5_d1cee33e",
       "revId": "688c95d8070ade47662cd29a6d2ce515b886418b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },

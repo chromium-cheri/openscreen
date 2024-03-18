@@ -16,6 +16,40 @@
       "message": "Hi, mark. All tryjobs passed, can you help review again?",
       "revId": "9c13c37504ded862d68218b76d4133e68ed79ec4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "321efcd7_e081e98e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-18T20:21:49Z",
+      "side": 1,
+      "message": "Mostly minor cleanups, getting close.\n\nThe ownership relationships among the Quic* objects are hard to follow.   It might be a good place for some future refactoring to clean that up.",
+      "revId": "9c13c37504ded862d68218b76d4133e68ed79ec4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05dc0cd3_42ca7d9a",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-18T20:21:49Z",
+      "side": 1,
+      "message": "It seems like we should close all open connections in an orderly way (i.e. call connection.close()) before destroying the factory (since connections may have pointers to objects owned by the factory).",
+      "revId": "9c13c37504ded862d68218b76d4133e68ed79ec4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
