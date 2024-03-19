@@ -35,6 +35,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fba0ad5c_3e212bdb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-03-19T06:08:43Z",
+      "side": 1,
+      "message": "Thanks, let us make it workable first and there should be many places for future refactoring. 😊",
+      "parentUuid": "321efcd7_e081e98e",
+      "revId": "9c13c37504ded862d68218b76d4133e68ed79ec4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "05dc0cd3_42ca7d9a",
@@ -48,6 +66,24 @@
       "writtenOn": "2024-03-18T20:21:49Z",
       "side": 1,
       "message": "It seems like we should close all open connections in an orderly way (i.e. call connection.close()) before destroying the factory (since connections may have pointers to objects owned by the factory).",
+      "revId": "9c13c37504ded862d68218b76d4133e68ed79ec4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84f5ce57_14ad227a",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-03-19T06:08:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05dc0cd3_42ca7d9a",
       "revId": "9c13c37504ded862d68218b76d4133e68ed79ec4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
