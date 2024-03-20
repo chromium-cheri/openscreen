@@ -55,12 +55,6 @@ class QuicProtocolConnection final : public ProtocolConnection {
 };
 
 struct ServiceStreamPair {
-  ServiceStreamPair(QuicStream* stream,
-                    QuicProtocolConnection* protocol_connection);
-  ~ServiceStreamPair();
-  ServiceStreamPair(ServiceStreamPair&&) noexcept;
-  ServiceStreamPair& operator=(ServiceStreamPair&&) noexcept;
-
   QuicStream* stream;
   uint64_t protocol_connection_id;
   QuicProtocolConnection* protocol_connection;
@@ -89,7 +83,7 @@ class ServiceConnectionDelegate final : public QuicConnection::Delegate,
                             const IPEndpoint& endpoint);
   ~ServiceConnectionDelegate() override;
 
-  void AddStreamPair(ServiceStreamPair&& stream_pair);
+  void AddStreamPair(const ServiceStreamPair& stream_pair);
   void DropProtocolConnection(QuicProtocolConnection* connection);
 
   // This should be called at the end of each event loop that effects this
@@ -123,9 +117,8 @@ class ServiceConnectionDelegate final : public QuicConnection::Delegate,
 };
 
 struct ServiceConnectionData {
-  explicit ServiceConnectionData(
-      std::unique_ptr<QuicConnection> connection,
-      std::unique_ptr<ServiceConnectionDelegate> delegate);
+  ServiceConnectionData(std::unique_ptr<QuicConnection> connection,
+                        std::unique_ptr<ServiceConnectionDelegate> delegate);
   ServiceConnectionData(ServiceConnectionData&&) noexcept;
   ~ServiceConnectionData();
   ServiceConnectionData& operator=(ServiceConnectionData&&) noexcept;
