@@ -77,7 +77,6 @@ The following are the main tools are required for development/builds.
   - JSON validator: `yajsv`
   - `libstdc++`
   - `gcc`
-  - XCode
 
 ## yajsv installation
 
@@ -92,18 +91,6 @@ instance of it. On Debian flavors, you can run:
 ```bash
    sudo apt-get install libstdc++-8-dev libstdc++6-8-dbg
 ```
-
-## XCode (Mac only)
-
-On Mac OS X, the build will use the clang provided by
-[XCode](https://apps.apple.com/us/app/xcode/id497799835?mt=12). You can install
-the XCode command-line tools only or the full version of XCode.
-
-```bash
-xcode-select --install
-```
-
-TODO(issuetracker.google.com/202964797): Switch to use Chromium clang for Mac builds.
 
 ##  gcc (optional, Linux only)
 
