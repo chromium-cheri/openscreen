@@ -12,7 +12,7 @@
 #include <utility>
 #include <vector>
 
-#include "osp/impl/quic/quic_connection_factory.h"
+#include "osp/impl/quic/quic_connection_factory_client.h"
 #include "osp/impl/quic/quic_service_common.h"
 #include "osp/public/protocol_connection_client.h"
 #include "platform/api/task_runner.h"
@@ -25,11 +25,11 @@ namespace openscreen::osp {
 // This class is the default implementation of ProtocolConnectionClient for the
 // library.  It manages connections to other endpoints as well as the lifetime
 // of each incoming and outgoing stream.  It works in conjunction with a
-// QuicConnectionFactory implementation and MessageDemuxer.
-// QuicConnectionFactory provides the actual ability to make a new QUIC
+// QuicConnectionFactoryClient and MessageDemuxer.
+// QuicConnectionFactoryClient provides the actual ability to make a new QUIC
 // connection with another endpoint.  Incoming data is given to the QuicClient
-// by the underlying QUIC implementation (through QuicConnectionFactory) and
-// this is in turn handed to MessageDemuxer for routing CBOR messages.
+// by the underlying QUIC implementation (through QuicConnectionFactoryClient)
+// and this is in turn handed to MessageDemuxer for routing CBOR messages.
 //
 // The two most significant methods of this class are Connect and
 // CreateProtocolConnection.  Both will return a new QUIC stream to a given
@@ -43,7 +43,7 @@ class QuicClient final : public ProtocolConnectionClient,
  public:
   QuicClient(const std::vector<IPEndpoint>& endpoints,
              MessageDemuxer* demuxer,
-             std::unique_ptr<QuicConnectionFactory> connection_factory,
+             std::unique_ptr<QuicConnectionFactoryClient> connection_factory,
              ProtocolConnectionServiceObserver* observer,
              ClockNowFunctionPtr now_function,
              TaskRunner& task_runner);
@@ -100,7 +100,7 @@ class QuicClient final : public ProtocolConnectionClient,
   // method should be run again.
   void Cleanup();
 
-  std::unique_ptr<QuicConnectionFactory> connection_factory_;
+  std::unique_ptr<QuicConnectionFactoryClient> connection_factory_;
 
   std::vector<IPEndpoint> connection_endpoints_;
 

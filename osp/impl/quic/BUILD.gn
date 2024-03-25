@@ -23,8 +23,8 @@ if (!is_win) {
     public = [
       "quic_client.h",
       "quic_connection.h",
-      "quic_connection_factory.h",
-      "quic_connection_factory_impl.h",
+      "quic_connection_factory_client.h",
+      "quic_connection_factory_server.h",
       "quic_server.h",
       "quic_stream.h",
     ]
@@ -38,7 +38,10 @@ if (!is_win) {
       "quic_alarm_factory_impl.cc",
       "quic_alarm_factory_impl.h",
       "quic_client.cc",
-      "quic_connection_factory_impl.cc",
+      "quic_connection_factory_base.cc",
+      "quic_connection_factory_base.h",
+      "quic_connection_factory_client.cc",
+      "quic_connection_factory_server.cc",
       "quic_connection_impl.cc",
       "quic_connection_impl.h",
       "quic_dispatcher_impl.cc",
@@ -56,10 +59,11 @@ if (!is_win) {
 
     configs = [ ":quic_internal_config" ]
 
+    public_deps = [ "../../../third_party/quiche" ]
+
     deps = [
       "../../../platform",
       "../../../third_party/abseil",
-      "../../../third_party/quiche",
       "../../../util",
       "../../public",
     ]

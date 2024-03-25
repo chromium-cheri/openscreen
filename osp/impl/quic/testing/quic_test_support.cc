@@ -26,8 +26,8 @@ FakeQuicBridge::FakeQuicBridge(FakeTaskRunner& task_runner,
   receiver_demuxer = std::make_unique<MessageDemuxer>(
       now_function, MessageDemuxer::kDefaultBufferLimit);
 
-  auto fake_client_factory =
-      std::make_unique<FakeClientQuicConnectionFactory>(fake_bridge.get());
+  auto fake_client_factory = std::make_unique<FakeClientQuicConnectionFactory>(
+      task_runner, fake_bridge.get());
   client_socket_ = std::make_unique<FakeUdpSocket>(fake_client_factory.get());
 
   quic_client = std::make_unique<QuicClient>(
@@ -35,8 +35,8 @@ FakeQuicBridge::FakeQuicBridge(FakeTaskRunner& task_runner,
       std::move(fake_client_factory), &mock_client_observer, now_function,
       task_runner);
 
-  auto fake_server_factory =
-      std::make_unique<FakeServerQuicConnectionFactory>(fake_bridge.get());
+  auto fake_server_factory = std::make_unique<FakeServerQuicConnectionFactory>(
+      task_runner, fake_bridge.get());
   server_socket_ = std::make_unique<FakeUdpSocket>(fake_server_factory.get());
   ServerConfig config;
   config.connection_endpoints.push_back(kReceiverEndpoint);
