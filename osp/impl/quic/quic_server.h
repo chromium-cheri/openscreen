@@ -36,9 +36,9 @@ class QuicServer final : public ProtocolConnectionServer,
                          public ServiceConnectionDelegate::ServiceDelegate {
  public:
   QuicServer(const ServerConfig& config,
-             MessageDemuxer* demuxer,
+             MessageDemuxer& demuxer,
              std::unique_ptr<QuicConnectionFactory> connection_factory,
-             ProtocolConnectionServer::Observer* observer,
+             ProtocolConnectionServer::Observer& observer,
              ClockNowFunctionPtr now_function,
              TaskRunner& task_runner);
   ~QuicServer() override;

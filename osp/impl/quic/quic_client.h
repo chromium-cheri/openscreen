@@ -42,9 +42,9 @@ class QuicClient final : public ProtocolConnectionClient,
                          public ServiceConnectionDelegate::ServiceDelegate {
  public:
   QuicClient(const std::vector<IPEndpoint>& endpoints,
-             MessageDemuxer* demuxer,
+             MessageDemuxer& demuxer,
              std::unique_ptr<QuicConnectionFactory> connection_factory,
-             ProtocolConnectionServiceObserver* observer,
+             ProtocolConnectionServiceObserver& observer,
              ClockNowFunctionPtr now_function,
              TaskRunner& task_runner);
   ~QuicClient() override;
