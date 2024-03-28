@@ -16,6 +16,74 @@
       "message": "Hi, mark. PTAL, thanks.",
       "revId": "74341c1208aecaeb1fa5b229a029f3a53133cd27",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4130a1f4_dd2b3cb9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-28T23:14:53Z",
+      "side": 1,
+      "message": "Thanks for doing this!  A couple of minor suggestions.",
+      "revId": "74341c1208aecaeb1fa5b229a029f3a53133cd27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2f834d1_3fa0f0d2",
+        "filename": "osp/impl/quic/quic_client_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-28T23:14:53Z",
+      "side": 1,
+      "message": "Can you update this to pass std::unique_ptr by value?  Ideally unique_ptr should not be passed by reference so the scope of the owned object is clear.\n\nMaybe the test cases could move the unique_ptr back of the callback if they need to make calls against it.",
+      "revId": "74341c1208aecaeb1fa5b229a029f3a53133cd27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6a1386f_442597a7",
+        "filename": "osp/impl/quic/quic_client_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-28T23:14:53Z",
+      "side": 1,
+      "message": "This could be rewritten as `EXPECT_TRUE(connection_callback1.HasConnection())` which would check whether the callback has a ProtocolConnection or not.",
+      "revId": "74341c1208aecaeb1fa5b229a029f3a53133cd27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9530e49a_458113cc",
+        "filename": "platform/api/tls_connection_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-03-28T23:14:53Z",
+      "side": 1,
+      "message": "Can you keep the old version as a temporary overload, so we can migrate callers in Chromium?",
+      "revId": "74341c1208aecaeb1fa5b229a029f3a53133cd27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
