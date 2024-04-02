@@ -90,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "610679a7_3100ad1f",
+        "filename": "osp/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-04-02T01:24:51Z",
+      "side": 1,
+      "message": "The error is `fatal error: \u0027quiche/quic/core/proto/cached_network_parameters.pb.h\u0027 file not found` when building quic_server_unittest.o.\n\nI think the reason is that we deps osp/impl:impl here, while osp/impl:impl deps osp/impl/quic:quic and third_party/quiche:quiche. But it is not public_deps, so we can\u0027t pick up deps on third_party/quiche:quiche here.\n\nThe same situation exists in osp/impl:impl: osp/impl:impl deps osp/impl/quic:quic, while osp/impl/quic:quic deps third_party/quiche:quiche. Buit it is not public_dpes, so we should make osp/impl:impl deps third_party/quiche:quiche directly.",
+      "parentUuid": "348e2c90_0979596f",
+      "revId": "aae58c26aefc8609851e25d58992928d4e9d3cfb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "833c0c63_372a189a",
         "filename": "osp/impl/quic/quic_connection_factory_base.h",
         "patchSetId": 3
