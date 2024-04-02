@@ -33,6 +33,24 @@
       "message": "A Chromium unittest uses the old ctor.  Can you leave an override with the old version so that we can roll this change?",
       "revId": "9f19e2c0bb0a880f9d3a91d7b80308102a8f719d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff718b78_b96c8061",
+        "filename": "cast/streaming/session_messenger.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-04-02T03:18:05Z",
+      "side": 1,
+      "message": "Can we merge this first and then roll in chromium manually？ Because there are many other interfaces have the same issue. What\u0027s worse is that we can\u0027t use this for SenderSession::Configuration::client.",
+      "parentUuid": "ca262b45_c9508497",
+      "revId": "9f19e2c0bb0a880f9d3a91d7b80308102a8f719d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
