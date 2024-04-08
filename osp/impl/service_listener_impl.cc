@@ -217,13 +217,10 @@ void ServiceListenerImpl::OnRecoverableError(Error error) {
 void ServiceListenerImpl::SetState(State state) {
   OSP_CHECK(IsTransitionValid(state_, state));
   state_ = state;
-  if (!observers_.empty()) {
-    MaybeNotifyObservers();
-  }
+  MaybeNotifyObservers();
 }
 
 void ServiceListenerImpl::MaybeNotifyObservers() {
-  OSP_CHECK(!observers_.empty());
   switch (state_) {
     case State::kRunning:
       for (auto* observer : observers_) {

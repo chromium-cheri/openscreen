@@ -550,8 +550,8 @@ void PublisherDemo(std::string_view friendly_name) {
 
   DemoPublisherObserver publisher_observer;
   auto service_publisher = ServicePublisherFactory::Create(
-      publisher_config, &publisher_observer,
-      PlatformClientPosix::GetInstance()->GetTaskRunner());
+      publisher_config, PlatformClientPosix::GetInstance()->GetTaskRunner());
+  service_publisher->AddObserver(&publisher_observer);
 
   MessageDemuxer demuxer(Clock::now, MessageDemuxer::kDefaultBufferLimit);
   DemoConnectionServerObserver server_observer;
