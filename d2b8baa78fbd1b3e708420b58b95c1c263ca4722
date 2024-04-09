@@ -33,6 +33,24 @@
       "message": "Can you pass observers by reference?",
       "revId": "d2b8baa78fbd1b3e708420b58b95c1c263ca4722",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "438dcdfb_43a7aeef",
+        "filename": "osp/public/service_publisher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-04-09T01:18:11Z",
+      "side": 1,
+      "message": "We can not use reference in std::vector, so I think we should use pointer here? If we use reference here, we still need to get pointer when inserting into std::vector.",
+      "parentUuid": "30c0b08a_acca40f4",
+      "revId": "d2b8baa78fbd1b3e708420b58b95c1c263ca4722",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
