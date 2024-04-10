@@ -18,6 +18,23 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0042cb39_5305075b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-04-10T19:14:53Z",
+      "side": 1,
+      "message": "At first glance this looks like a good solution to lower code duplication, however it places an unexpected dependency on the standalone binaries, which are intended to essentially be demo applications.\n\nI would likely prefer a new test receiver to be written in Chrome, heavily based on the standlone reciever implementation. That has its own problems around maintanence however.",
+      "revId": "fbcc1733391c64d9ce0e9529d5769a13b93fcc8b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc4fa379_cbf7570d",
@@ -55,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2dfd0aec_2770fc78",
+        "filename": "cast/standalone_receiver/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-04-10T19:14:53Z",
+      "side": 1,
+      "message": "The question for me is how much of the internal code will actually be consumed in chrome, versus the resulting binary being consumed.\n\nI would be more okay with this if there weren\u0027t public headers that can be consumed in Chrome, and the resulting binary is just used. In that case the arguments to the binary are relatively stable.\n\nThe other option is just simply copying the standalone implementation as a test receiver in Chrome -- which has its own implementation challenges.",
+      "parentUuid": "b8f729d4_3d1d43ba",
+      "revId": "fbcc1733391c64d9ce0e9529d5769a13b93fcc8b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2b0511af_e1d5963b",
         "filename": "platform/BUILD.gn",
         "patchSetId": 3
@@ -84,6 +119,24 @@
       "side": 1,
       "message": "Above, I meant \"downstream\", i.e. in Chromium.",
       "parentUuid": "2b0511af_e1d5963b",
+      "revId": "fbcc1733391c64d9ce0e9529d5769a13b93fcc8b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3208efe_d2627c07",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-04-10T19:14:53Z",
+      "side": 1,
+      "message": "I also have concerns around linking the standalone platform implementation.",
+      "parentUuid": "55d25021_5db3cb42",
       "revId": "fbcc1733391c64d9ce0e9529d5769a13b93fcc8b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
