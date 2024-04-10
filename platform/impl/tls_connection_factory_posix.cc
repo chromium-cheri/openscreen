@@ -332,13 +332,13 @@ void TlsConnectionFactoryPosix::DispatchConnectionFailed(
       });
 }
 
-void TlsConnectionFactoryPosix::DispatchError(Error error) {
-  task_runner_.PostTask([weak_this = weak_factory_.GetWeakPtr(),
-                         moved_error = std::move(error)]() mutable {
-    if (auto* self = weak_this.get()) {
-      self->client_.OnError(self, std::move(moved_error));
-    }
-  });
+void TlsConnectionFactoryPosix::DispatchError(const Error& error) {
+  task_runner_.PostTask(
+      [weak_this = weak_factory_.GetWeakPtr(), copied_error = error]() mutable {
+        if (auto* self = weak_this.get()) {
+          self->client_.OnError(self, copied_error);
+        }
+      });
 }
 
 }  // namespace openscreen

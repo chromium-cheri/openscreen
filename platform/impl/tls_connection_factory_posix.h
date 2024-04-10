@@ -69,7 +69,7 @@ class TlsConnectionFactoryPosix : public TlsConnectionFactory,
   // Called on any thread, to post a task to notify the Client that a connection
   // failure or other error has occurred.
   void DispatchConnectionFailed(const IPEndpoint& remote_endpoint);
-  void DispatchError(Error error);
+  void DispatchError(const Error& error);
 
   // Thread-safe mechanism to ensure Initialize() is only called once.
   std::once_flag init_instance_flag_;

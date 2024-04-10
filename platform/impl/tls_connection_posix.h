@@ -53,7 +53,7 @@ class TlsConnectionPosix : public TlsConnection {
  private:
   // Called on any thread, to post a task to notify the Client that an |error|
   // has occurred.
-  void DispatchError(Error error);
+  void DispatchError(const Error& error);
 
   TaskRunner& task_runner_;
   PlatformClientPosix* platform_client_ = nullptr;
