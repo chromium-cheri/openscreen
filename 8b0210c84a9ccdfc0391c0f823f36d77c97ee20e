@@ -16,6 +16,23 @@
       "message": "Hi, mark. PTAL, thanks.",
       "revId": "8b0210c84a9ccdfc0391c0f823f36d77c97ee20e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31ed8deb_924252d2",
+        "filename": "discovery/mdns/impl/mdns_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-04-23T23:21:14Z",
+      "side": 1,
+      "message": "What I would prefer is that each long-lived object like the MdnsReceiver, MdnsQuerier, MdnsResponder and MdnsPublisher each take their own copy of Config instead of relying on MdnsServiceImpl to keep it alive.  If any of those objects outlive MdnsServiceImpl, that will prevent a use-after-free.",
+      "revId": "8b0210c84a9ccdfc0391c0f823f36d77c97ee20e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
