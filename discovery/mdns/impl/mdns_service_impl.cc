@@ -32,7 +32,8 @@ MdnsServiceImpl::MdnsServiceImpl(TaskRunner& task_runner,
     : task_runner_(task_runner),
       now_function_(now_function),
       reporting_client_(reporting_client),
-      receiver_(config),
+      config_(config),
+      receiver_(config_),
       interface_(network_info.index) {
   // Create all UDP sockets needed for this object. They should not yet be bound
   // so that they do not send or receive data until the objects on which their
@@ -69,16 +70,16 @@ MdnsServiceImpl::MdnsServiceImpl(TaskRunner& task_runner,
   if (config.enable_querying) {
     querier_ = std::make_unique<MdnsQuerier>(*sender_, receiver_, task_runner_,
                                              now_function_, random_delay_,
-                                             reporting_client_, config);
+                                             reporting_client_, config_);
   }
   if (config.enable_publication) {
     probe_manager_ = std::make_unique<MdnsProbeManagerImpl>(
         *sender_, receiver_, random_delay_, task_runner_, now_function_);
     publisher_ = std::make_unique<MdnsPublisher>(
-        *sender_, *probe_manager_, task_runner_, now_function_, config);
+        *sender_, *probe_manager_, task_runner_, now_function_, config_);
     responder_ = std::make_unique<MdnsResponder>(
         *publisher_, *probe_manager_, *sender_, receiver_, task_runner_,
-        now_function_, random_delay_, config);
+        now_function_, random_delay_, config_);
   }
 
   receiver_.Start();

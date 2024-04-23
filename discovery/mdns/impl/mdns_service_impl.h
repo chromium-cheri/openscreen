@@ -73,6 +73,7 @@ class MdnsServiceImpl : public MdnsService, public UdpSocket::Client {
   ClockNowFunctionPtr now_function_;
   ReportingClient& reporting_client_;
 
+  Config config_;
   MdnsRandom random_delay_;
   MdnsReceiver receiver_;
 
