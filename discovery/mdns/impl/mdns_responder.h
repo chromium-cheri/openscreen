@@ -161,7 +161,7 @@ class MdnsResponder {
   TaskRunner& task_runner_;
   const ClockNowFunctionPtr now_function_;
   MdnsRandom& random_delay_;
-  const Config& config_;
+  Config config_;
 
   friend class MdnsResponderTest;
 };
