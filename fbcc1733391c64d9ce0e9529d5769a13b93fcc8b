@@ -192,6 +192,24 @@
       "parentUuid": "5d4fc015_4e333013",
       "revId": "fbcc1733391c64d9ce0e9529d5769a13b93fcc8b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dbaafb0_62278161",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1498402
+      },
+      "writtenOn": "2024-04-25T15:14:43Z",
+      "side": 1,
+      "message": "I got a chance to start investigating using Chrome\u0027s platform implementation instead of the standalone platform.\n\nI see the following missing dependencies:\n\n1. `openscreen::TextTraceLoggingPlatform::TextTraceLoggingPlatform()`\n    * There is an implementation of TraceLoggingPlatform in Chrome: [EventTraceLoggingPlatform](https://source.chromium.org/chromium/chromium/src/+/main:components/openscreen_platform/event_trace_logging_platform.h;l\u003d21;drc\u003dfd70da71d14f787cecd7767745f8f1243cb58ea9). We could just redirect the standalone binary to use this when building with Chrome.\n2. `openscreen::SetLogLevel()`\n    * This function is missing in Chrome\u0027s openscreen platform [logging.c](https://source.chromium.org/chromium/chromium/src/+/main:components/openscreen_platform/logging.cc;drc\u003d8310f0f31bc693b9ba0cb1b10ff91c6d276b67e7). We can implement it using [::logging::SetMinLogLevel()](https://source.chromium.org/chromium/chromium/src/+/main:components/openscreen_platform/logging.cc;drc\u003d8310f0f31bc693b9ba0cb1b10ff91c6d276b67e7).\n3. `openscreen::GetNetworkInterfaces()`\n    * This API is not implemented in Chrome\u0027s platform implementation.\n4. `openscreen::TaskRunnerImpl::TaskRunnerImpl()`, `openscreen::TaskRunnerImpl::RunUntilSignaled()`, `openscreen::TaskRunnerImpl::RunUntilStopped()`, and `openscreen::TaskRunnerImpl::RequestStopSoon()`\n    * There is a [TaskRunnerImpl](https://source.chromium.org/chromium/chromium/src/+/main:components/openscreen_platform/task_runner.h;l\u003d15;drc\u003de672a665ffa8fe4901184f03922e2cc548399da5) in the Chrome\u0027s platform implementation, but it is missing some definitions and the ctor is different for Chrome. \n5. \n`openscreen::PlatformClientPosix::Create()` and\n`openscreen::PlatformClientPosix::ShutDown()`\n    * This is not in the platform API. I haven\u0027t looked closely to see what it is providing.\n\nIf you have any insights about how to handle these, LMK! Thanks.",
+      "parentUuid": "c07d7dc5_49a1c64c",
+      "revId": "fbcc1733391c64d9ce0e9529d5769a13b93fcc8b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
