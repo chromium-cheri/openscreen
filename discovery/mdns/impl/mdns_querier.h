@@ -33,7 +33,7 @@ class MdnsQuerier : public MdnsReceiver::ResponseClient {
               ClockNowFunctionPtr now_function,
               MdnsRandom& random_delay,
               ReportingClient& reporting_client,
-              Config config);
+              const Config& config);
   MdnsQuerier(const MdnsQuerier& other) = delete;
   MdnsQuerier(MdnsQuerier&& other) noexcept = delete;
   MdnsQuerier& operator=(const MdnsQuerier& other) = delete;
