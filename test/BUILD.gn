@@ -9,7 +9,7 @@ visibility = [ "./*" ]
 source_set("test_main") {
   testonly = true
   visibility += [ "../*" ]
-  public = []
+  public = [ "getopt.h" ]
   sources = [ "test_main.cc" ]
 
   if (!build_with_chromium) {
@@ -19,6 +19,7 @@ source_set("test_main") {
   deps = [
     "../platform",
     "../platform:standalone_impl",
+    "../third_party/getopt",
     "../third_party/googletest:gtest",
   ]
 }

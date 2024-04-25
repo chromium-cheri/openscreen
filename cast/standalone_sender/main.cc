@@ -5,8 +5,6 @@
 #include "platform/impl/logging.h"
 
 #if defined(CAST_STANDALONE_SENDER_HAVE_EXTERNAL_LIBS)
-#include <getopt.h>
-
 #include <cinttypes>
 #include <cstdio>
 #include <cstring>
@@ -27,6 +25,7 @@
 #include "platform/impl/platform_client_posix.h"
 #include "platform/impl/task_runner.h"
 #include "platform/impl/text_trace_logging_platform.h"
+#include "third_party/getopt/getopt.h"
 #include "util/chrono_helpers.h"
 #include "util/stringprintf.h"
 

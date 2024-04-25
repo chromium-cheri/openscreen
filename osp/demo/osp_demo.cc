@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include <getopt.h>
 #include <poll.h>
 #include <signal.h>
 #include <unistd.h>
@@ -34,6 +33,7 @@
 #include "platform/impl/task_runner.h"
 #include "platform/impl/text_trace_logging_platform.h"
 #include "platform/impl/udp_socket_reader_posix.h"
+#include "third_party/getopt/getopt.h"
 #include "third_party/tinycbor/src/src/cbor.h"
 #include "util/trace_logging.h"
 

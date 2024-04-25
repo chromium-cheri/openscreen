@@ -4,8 +4,6 @@
 
 #include "tools/cddl/parse.h"
 
-#include <unistd.h>
-
 #include <algorithm>
 #include <iostream>
 #include <memory>

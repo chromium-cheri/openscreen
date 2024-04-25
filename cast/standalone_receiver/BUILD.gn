@@ -81,7 +81,10 @@ if (!build_with_chromium) {
     visibility += [ "../..:gn_all" ]
     sources = [ "main.cc" ]
 
-    deps = shared_deps + [ "../common:certificate_boringssl" ]
+    deps = shared_deps + [
+             "../../third_party/getopt",
+             "../common:certificate_boringssl",
+           ]
     configs += [ "../common:certificate_config" ]
 
     if (have_external_libs) {
