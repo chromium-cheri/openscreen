@@ -17,6 +17,10 @@
 
 #include "absl/algorithm/container.h"
 
+#if defined(_WIN32)
+#include <io.h>
+#endif
+
 // Convert '-' to '_' to use a CDDL identifier as a C identifier.
 std::string ToUnderscoreId(const std::string& x) {
   std::string result(x);
@@ -25,24 +29,6 @@ std::string ToUnderscoreId(const std::string& x) {
       c = '_';
   }
   return result;
-}
-
-// Return default value for each type. The default value is used to
-// avoid undefined behavior when struct is initialized on the stack.
-std::string GetTypeDefaultValue(const std::string& type) {
-  if (type == "uint64_t") {
-    return " = 0ull";
-  } else if (type == "int64_t") {
-    return " = 0ll";
-  } else if (type == "bool") {
-    return " = false";
-  } else if (type == "float") {
-    return " = 0.0f";
-  } else if (type.find("std::array") != std::string::npos) {
-    return "{}";
-  } else {
-    return "";
-  }
 }
 
 // Convert a CDDL identifier to camel case for use as a C typename.  E.g.
@@ -107,15 +93,33 @@ std::string CppTypeToString(const CppType& cpp_type) {
   }
 }
 
+#if defined(_WIN32)
+#define _PERFORM_WRITE(fd, buf, size) _write(fd, buf.get(), size);
+#else
+#define _PERFORM_WRITE(fd, buf, size) dprintf(fd, "%s", *buf);
+#endif
+
+// NOTE: cannot use a template function because format strings for snprintf must
+// be a literal.
+#define WRITE_TO_FILE(fd, fmt, ...)                                     \
+  {                                                                     \
+    const int size_s = std::snprintf(nullptr, 0, fmt, __VA_ARGS__) + 1; \
+    assert(size_s > 0);                                                 \
+    const auto size = static_cast<size_t>(size_s);                      \
+    auto buf = std::make_unique<char[]>(size);                          \
+    std::snprintf(buf.get(), size, fmt, __VA_ARGS__);                   \
+    _PERFORM_WRITE(fd, buf, size);                                      \
+  }
+
 bool WriteEnumEqualityOperatorSwitchCases(int fd,
                                           const CppType& parent,
                                           std::string child_name,
                                           std::string parent_name) {
   for (const auto& x : parent.enum_type.members) {
     std::string enum_value = "k" + ToCamelCase(x.first);
-    dprintf(fd, "    case %s::%s:\n      return parent == %s::%s;\n",
-            child_name.c_str(), enum_value.c_str(), parent_name.c_str(),
-            enum_value.c_str());
+    WRITE_TO_FILE(fd, "    case %s::%s: return parent == %s::%s;\n",
+                  child_name.c_str(), enum_value.c_str(), parent_name.c_str(),
+                  enum_value.c_str());
   }
 
   return absl::c_all_of(parent.enum_type.sub_members,
@@ -133,29 +137,33 @@ bool WriteEnumEqualityOperator(int fd,
   std::string parent_name = ToCamelCase(parent.name);
 
   // Define type == parentType.
-  dprintf(fd, "\ninline bool operator==(const %s& child, const %s& parent) {\n",
-          name.c_str(), parent_name.c_str());
-  dprintf(fd, "  switch (child) {\n");
+  WRITE_TO_FILE(fd,
+                "inline bool operator==(const %s& child, const %s& parent) {\n",
+                name.c_str(), parent_name.c_str());
+  WRITE_TO_FILE(fd, "  switch (child) {\n");
   if (!WriteEnumEqualityOperatorSwitchCases(fd, parent, name, parent_name)) {
     return false;
   }
-  dprintf(fd, "    default:\n      return false;\n");
-  dprintf(fd, "  }\n}\n");
+  WRITE_TO_FILE(fd, "    default: return false;\n");
+  WRITE_TO_FILE(fd, "  }\n}\n");
 
   // Define parentType == type.
-  dprintf(fd, "\ninline bool operator==(const %s& parent, const %s& child) {\n",
-          parent_name.c_str(), name.c_str());
-  dprintf(fd, "  return child == parent;\n}\n");
+  WRITE_TO_FILE(fd,
+                "inline bool operator==(const %s& parent, const %s& child) {\n",
+                parent_name.c_str(), name.c_str());
+  WRITE_TO_FILE(fd, "  return child == parent;\n}\n");
 
   // Define type != parentType.
-  dprintf(fd, "\ninline bool operator!=(const %s& child, const %s& parent) {\n",
-          name.c_str(), parent_name.c_str());
-  dprintf(fd, "  return !(child == parent);\n}\n");
+  WRITE_TO_FILE(fd,
+                "inline bool operator!=(const %s& child, const %s& parent) {\n",
+                name.c_str(), parent_name.c_str());
+  WRITE_TO_FILE(fd, "  return !(child == parent);\n}\n");
 
   // Define parentType != type.
-  dprintf(fd, "\ninline bool operator!=(const %s& parent, const %s& child) {\n",
-          parent_name.c_str(), name.c_str());
-  dprintf(fd, "  return !(parent == child);\n}\n");
+  WRITE_TO_FILE(fd,
+                "inline bool operator!=(const %s& parent, const %s& child) {\n",
+                parent_name.c_str(), name.c_str());
+  WRITE_TO_FILE(fd, "  return !(parent == child);\n}\n");
 
   return true;
 }
@@ -165,8 +173,8 @@ bool WriteEnumStreamOperatorSwitchCases(int fd,
                                         std::string name) {
   for (const auto& x : type.enum_type.members) {
     std::string enum_value = "k" + ToCamelCase(x.first);
-    dprintf(fd, "    case %s::%s:\n      os << \"%s\";\n      break;\n",
-            name.c_str(), enum_value.c_str(), enum_value.c_str());
+    WRITE_TO_FILE(fd, "    case %s::%s: os << \"%s\"; break;\n", name.c_str(),
+                  enum_value.c_str(), enum_value.c_str());
   }
 
   return absl::c_all_of(
@@ -178,18 +186,18 @@ bool WriteEnumStreamOperatorSwitchCases(int fd,
 bool WriteEnumOperators(int fd, const CppType& type) {
   // Write << operator.
   std::string name = ToCamelCase(type.name);
-  dprintf(
+  WRITE_TO_FILE(
       fd,
       "inline std::ostream& operator<<(std::ostream& os, const %s& val) {\n",
       name.c_str());
-  dprintf(fd, "  switch (val) {\n");
+  WRITE_TO_FILE(fd, "  switch (val) {\n");
   if (!WriteEnumStreamOperatorSwitchCases(fd, type, name)) {
     return false;
   }
-  dprintf(
+  WRITE_TO_FILE(
       fd,
-      "    default:\n      os << \"Unknown Value: \" << static_cast<int>(val);"
-      "\n      break;\n  }\n  return os;\n}\n");
+      "    default: os << \"Unknown Value: \" << static_cast<int>(val);"
+      "\n      break;\n    }\n  return os;\n}\n");
 
   // Write equality operators.
   return absl::c_all_of(type.enum_type.sub_members,
@@ -204,47 +212,47 @@ bool WriteDiscriminatedUnionEqualityOperator(
     const CppType& type,
     const std::string& name_prefix = "") {
   const std::string name = name_prefix + ToCamelCase(type.name);
-  dprintf(fd, "\nbool %s::operator==(const %s& other) const {\n", name.c_str(),
-          name.c_str());
-  dprintf(fd, "  return this->which == other.which");
+  WRITE_TO_FILE(fd, "\nbool %s::operator==(const %s& other) const {\n",
+                name.c_str(), name.c_str());
+  WRITE_TO_FILE(fd, "  return this->which == other.which");
   for (auto* union_member : type.discriminated_union.members) {
-    dprintf(fd, " &&\n         ");
+    WRITE_TO_FILE(fd, " &&\n         ");
     switch (union_member->which) {
       case CppType::Which::kBool:
-        dprintf(fd,
-                "(this->which != Which::kBool || this->bool_var == "
-                "other.bool_var)");
+        WRITE_TO_FILE(fd,
+                      "(this->which != Which::kBool || this->bool_var == "
+                      "other.bool_var)");
         break;
       case CppType::Which::kFloat:
-        dprintf(fd,
-                "(this->which != Which::kFloat || this->float_var == "
-                "other.float_var)");
+        WRITE_TO_FILE(fd,
+                      "(this->which != Which::kFloat || this->float_var == "
+                      "other.float_var)");
         break;
       case CppType::Which::kInt64:
-        dprintf(
+        WRITE_TO_FILE(
             fd,
             "(this->which != Which::kInt64 || this->int_var == other.int_var)");
         break;
       case CppType::Which::kUint64:
-        dprintf(fd,
-                "(this->which != Which::kUint64 || this->uint == other.uint)");
+        WRITE_TO_FILE(
+            fd, "(this->which != Which::kUint64 || this->uint == other.uint)");
         break;
       case CppType::Which::kString:
-        dprintf(fd,
-                "(this->which != Which::kString || this->str == other.str)");
+        WRITE_TO_FILE(
+            fd, "(this->which != Which::kString || this->str == other.str)");
         break;
       case CppType::Which::kBytes:
-        dprintf(fd,
-                "(this->which != Which::kBytes || this->bytes == other.bytes)");
+        WRITE_TO_FILE(
+            fd, "(this->which != Which::kBytes || this->bytes == other.bytes)");
         break;
       default:
         return false;
     }
   }
-  dprintf(fd, ";\n}\n");
-  dprintf(fd, "bool %s::operator!=(const %s& other) const {\n", name.c_str(),
-          name.c_str());
-  dprintf(fd, "  return !(*this == other);\n}\n");
+  WRITE_TO_FILE(fd, ";\n}\n");
+  WRITE_TO_FILE(fd, "bool %s::operator!=(const %s& other) const {\n",
+                name.c_str(), name.c_str());
+  WRITE_TO_FILE(fd, "  return !(*this == other);\n}\n");
   return true;
 }
 
@@ -253,22 +261,22 @@ bool WriteStructEqualityOperator(int fd,
                                  const CppType& type,
                                  const std::string& name_prefix = "") {
   const std::string name = name_prefix + ToCamelCase(type.name);
-  dprintf(fd, "\nbool %s::operator==(const %s& other) const {\n", name.c_str(),
-          name.c_str());
+  WRITE_TO_FILE(fd, "\nbool %s::operator==(const %s& other) const {\n",
+                name.c_str(), name.c_str());
   for (size_t i = 0; i < type.struct_type.members.size(); i++) {
     if (i == 0) {
-      dprintf(fd, "  return ");
+      WRITE_TO_FILE(fd, "  return ");
     } else {
-      dprintf(fd, " &&\n         ");
+      WRITE_TO_FILE(fd, " &&\n         ");
     }
     const auto member_name = ToUnderscoreId(type.struct_type.members[i].name);
-    dprintf(fd, "this->%s == other.%s", member_name.c_str(),
-            member_name.c_str());
+    WRITE_TO_FILE(fd, "this->%s == other.%s", member_name.c_str(),
+                  member_name.c_str());
   }
-  dprintf(fd, ";\n}");
-  dprintf(fd, "\nbool %s::operator!=(const %s& other) const {\n", name.c_str(),
-          name.c_str());
-  dprintf(fd, "  return !(*this == other);\n}\n");
+  WRITE_TO_FILE(fd, ";\n}");
+  WRITE_TO_FILE(fd, "\nbool %s::operator!=(const %s& other) const {\n",
+                name.c_str(), name.c_str());
+  WRITE_TO_FILE(fd, "  return !(*this == other);\n}\n");
   std::string new_prefix = name_prefix + ToCamelCase(type.name) + "::";
   for (const auto& x : type.struct_type.members) {
     // NOTE: Don't need to call recursively on struct members, since all structs
@@ -304,67 +312,67 @@ bool WriteStructMembers(
       } break;
       case CppType::Which::kOptional: {
         // TODO(btolsch): Make this optional<T> when one lands.
-        dprintf(fd, "  bool has_%s = false;\n", ToUnderscoreId(x.name).c_str());
+        WRITE_TO_FILE(fd, "  bool has_%s;\n", ToUnderscoreId(x.name).c_str());
         type_string = CppTypeToString(*x.type->optional_type);
       } break;
       case CppType::Which::kDiscriminatedUnion: {
         std::string cid = ToUnderscoreId(x.name);
         type_string = ToCamelCase(x.name);
-        dprintf(fd, "  struct %s {\n", type_string.c_str());
-        dprintf(fd, "    %s();\n    ~%s();\n\n", type_string.c_str(),
-                type_string.c_str());
+        WRITE_TO_FILE(fd, "  struct %s {\n", type_string.c_str());
+        WRITE_TO_FILE(fd, "    %s();\n    ~%s();\n\n", type_string.c_str(),
+                      type_string.c_str());
 
-        dprintf(fd, "  bool operator==(const %s& other) const;\n",
-                type_string.c_str());
-        dprintf(fd, "  bool operator!=(const %s& other) const;\n\n",
-                type_string.c_str());
-        dprintf(fd, "  enum class Which {\n");
+        WRITE_TO_FILE(fd, "  bool operator==(const %s& other) const;\n",
+                      type_string.c_str());
+        WRITE_TO_FILE(fd, "  bool operator!=(const %s& other) const;\n\n",
+                      type_string.c_str());
+        WRITE_TO_FILE(fd, "  enum class Which {\n");
         for (auto* union_member : x.type->discriminated_union.members) {
           switch (union_member->which) {
             case CppType::Which::kBool:
-              dprintf(fd, "    kBool,\n");
+              WRITE_TO_FILE(fd, "    kBool,\n");
               break;
             case CppType::Which::kFloat:
-              dprintf(fd, "    kFloat,\n");
+              WRITE_TO_FILE(fd, "    kFloat,\n");
               break;
             case CppType::Which::kInt64:
-              dprintf(fd, "    kInt64,\n");
+              WRITE_TO_FILE(fd, "    kInt64,\n");
               break;
             case CppType::Which::kUint64:
-              dprintf(fd, "    kUint64,\n");
+              WRITE_TO_FILE(fd, "    kUint64,\n");
               break;
             case CppType::Which::kString:
-              dprintf(fd, "    kString,\n");
+              WRITE_TO_FILE(fd, "    kString,\n");
               break;
             case CppType::Which::kBytes:
-              dprintf(fd, "    kBytes,\n");
+              WRITE_TO_FILE(fd, "    kBytes,\n");
               break;
             default:
               return false;
           }
         }
-        dprintf(fd, "    kUninitialized,\n");
-        dprintf(fd, "  } which;\n\n");
-        dprintf(fd, "  union {\n");
+        WRITE_TO_FILE(fd, "    kUninitialized,\n");
+        WRITE_TO_FILE(fd, "  } which;\n");
+        WRITE_TO_FILE(fd, "  union {\n");
         for (auto* union_member : x.type->discriminated_union.members) {
           switch (union_member->which) {
             case CppType::Which::kBool:
-              dprintf(fd, "    bool bool_var;\n");
+              WRITE_TO_FILE(fd, "    bool bool_var;\n");
               break;
             case CppType::Which::kFloat:
-              dprintf(fd, "    float float_var;\n");
+              WRITE_TO_FILE(fd, "    float float_var;\n");
               break;
             case CppType::Which::kInt64:
-              dprintf(fd, "    int64_t int_var;\n");
+              WRITE_TO_FILE(fd, "    int64_t int_var;\n");
               break;
             case CppType::Which::kUint64:
-              dprintf(fd, "    uint64_t uint;\n");
+              WRITE_TO_FILE(fd, "    uint64_t uint;\n");
               break;
             case CppType::Which::kString:
-              dprintf(fd, "    std::string str;\n");
+              WRITE_TO_FILE(fd, "    std::string str;\n");
               break;
             case CppType::Which::kBytes:
-              dprintf(fd, "    std::vector<uint8_t> bytes;\n");
+              WRITE_TO_FILE(fd, "    std::vector<uint8_t> bytes;\n");
               break;
             default:
               return false;
@@ -372,9 +380,9 @@ bool WriteStructMembers(
         }
         // NOTE: This member allows the union to be easily constructed in an
         // effectively uninitialized state.  Its value should never be used.
-        dprintf(fd, "    bool placeholder_;\n");
-        dprintf(fd, "  };\n");
-        dprintf(fd, "  };\n");
+        WRITE_TO_FILE(fd, "    bool placeholder_;\n");
+        WRITE_TO_FILE(fd, "  };\n");
+        WRITE_TO_FILE(fd, "  };\n");
       } break;
       default:
         type_string = CppTypeToString(*x.type);
@@ -382,17 +390,16 @@ bool WriteStructMembers(
     }
     if (type_string.empty())
       return false;
-    dprintf(fd, "  %s %s%s;\n", type_string.c_str(),
-            ToUnderscoreId(x.name).c_str(),
-            GetTypeDefaultValue(type_string).c_str());
+    WRITE_TO_FILE(fd, "  %s %s;\n", type_string.c_str(),
+                  ToUnderscoreId(x.name).c_str());
   }
   return true;
 }
 
 void WriteEnumMembers(int fd, const CppType& type) {
   for (const auto& x : type.enum_type.members) {
-    dprintf(fd, "  k%s = %" PRIu64 "ull,\n", ToCamelCase(x.first).c_str(),
-            x.second);
+    WRITE_TO_FILE(fd, "  k%s = %" PRIu64 "ull,\n", ToCamelCase(x.first).c_str(),
+                  x.second);
   }
   for (const auto* x : type.enum_type.sub_members) {
     WriteEnumMembers(fd, *x);
@@ -405,23 +412,25 @@ bool WriteTypeDefinition(int fd, const CppType& type) {
   std::string name = ToCamelCase(type.name);
   switch (type.which) {
     case CppType::Which::kEnum: {
-      dprintf(fd, "\nenum class %s : uint64_t {\n", name.c_str());
+      WRITE_TO_FILE(fd, "\nenum class %s : uint64_t {\n", name.c_str());
       WriteEnumMembers(fd, type);
-      dprintf(fd, "};\n\n");
+      WRITE_TO_FILE(fd, "};\n");
       if (!WriteEnumOperators(fd, type))
         return false;
     } break;
     case CppType::Which::kStruct: {
-      dprintf(fd, "\nstruct %s {\n", name.c_str());
+      WRITE_TO_FILE(fd, "\nstruct %s {\n", name.c_str());
       if (type.type_key != std::nullopt) {
-        dprintf(fd, "  // type key: %" PRIu64 "\n", type.type_key.value());
+        WRITE_TO_FILE(fd, "  // type key: %" PRIu64 "\n",
+                      type.type_key.value());
       }
-      dprintf(fd, "  bool operator==(const %s& other) const;\n", name.c_str());
-      dprintf(fd, "  bool operator!=(const %s& other) const;\n\n",
-              name.c_str());
+      WRITE_TO_FILE(fd, "  bool operator==(const %s& other) const;\n",
+                    name.c_str());
+      WRITE_TO_FILE(fd, "  bool operator!=(const %s& other) const;\n\n",
+                    name.c_str());
       if (!WriteStructMembers(fd, type.name, type.struct_type.members))
         return false;
-      dprintf(fd, "};\n");
+      WRITE_TO_FILE(fd, "};\n");
     } break;
     default:
       break;
@@ -513,13 +522,13 @@ bool WriteTypeDefinitions(int fd, CppSymbolTable* table) {
       return false;
   }
 
-  dprintf(fd, "\nenum class Type : uint64_t {\n");
-  dprintf(fd, "  kUnknown = 0ull,\n");
+  WRITE_TO_FILE(fd, "\nenum class Type : uint64_t {\n");
+  WRITE_TO_FILE(fd, "    kUnknown = 0ull,\n");
   for (CppType* type : table->TypesWithId()) {
-    dprintf(fd, "  k%s = %" PRIu64 "ull,\n", ToCamelCase(type->name).c_str(),
-            type->type_key.value());
+    WRITE_TO_FILE(fd, "    k%s = %" PRIu64 "ull,\n",
+                  ToCamelCase(type->name).c_str(), type->type_key.value());
   }
-  dprintf(fd, "};\n");
+  WRITE_TO_FILE(fd, "};\n");
   return true;
 }
 
@@ -528,15 +537,15 @@ bool WriteTypeDefinitions(int fd, CppSymbolTable* table) {
 // NOTE: In future, this could be changes to use a Trie, which would allow for
 // manufacturers to more easily add their own type ids to ours.
 bool WriteTypeParserDefinition(int fd, CppSymbolTable* table) {
-  dprintf(fd, "\n//static\n");
-  dprintf(fd, "Type TypeEnumValidator::SafeCast(uint64_t type_id) {\n");
-  dprintf(fd, "  switch (type_id) {\n");
+  WRITE_TO_FILE(fd, "\n//static\n");
+  WRITE_TO_FILE(fd, "Type TypeEnumValidator::SafeCast(uint64_t type_id) {\n");
+  WRITE_TO_FILE(fd, "  switch (type_id) {\n");
   for (CppType* type : table->TypesWithId()) {
-    dprintf(fd, "    case uint64_t{%" PRIu64 "}: return Type::k%s;\n",
-            type->type_key.value(), ToCamelCase(type->name).c_str());
+    WRITE_TO_FILE(fd, "    case uint64_t{%" PRIu64 "}: return Type::k%s;\n",
+                  type->type_key.value(), ToCamelCase(type->name).c_str());
   }
-  dprintf(fd, "    default: return Type::kUnknown;\n");
-  dprintf(fd, "  }\n}\n");
+  WRITE_TO_FILE(fd, "    default: return Type::kUnknown;\n");
+  WRITE_TO_FILE(fd, "  }\n}\n");
   return true;
 }
 
@@ -551,15 +560,15 @@ bool WriteFunctionDeclarations(int fd, CppSymbolTable* table) {
       return false;
     }
     std::string cpp_name = ToCamelCase(name);
-    dprintf(fd, "\nbool Encode%s(\n", cpp_name.c_str());
-    dprintf(fd, "    const %s& data,\n", cpp_name.c_str());
-    dprintf(fd, "    CborEncodeBuffer* buffer);\n");
-    dprintf(fd, "ssize_t Encode%s(\n", cpp_name.c_str());
-    dprintf(fd, "    const %s& data,\n", cpp_name.c_str());
-    dprintf(fd, "    uint8_t* buffer,\n    size_t length);\n");
-    dprintf(fd, "ssize_t Decode%s(\n", cpp_name.c_str());
-    dprintf(fd, "    const uint8_t* buffer,\n    size_t length,\n");
-    dprintf(fd, "    %s& data);\n", cpp_name.c_str());
+    WRITE_TO_FILE(fd, "\nbool Encode%s(\n", cpp_name.c_str());
+    WRITE_TO_FILE(fd, "    const %s& data,\n", cpp_name.c_str());
+    WRITE_TO_FILE(fd, "    CborEncodeBuffer* buffer);\n");
+    WRITE_TO_FILE(fd, "ssize_t Encode%s(\n", cpp_name.c_str());
+    WRITE_TO_FILE(fd, "    const %s& data,\n", cpp_name.c_str());
+    WRITE_TO_FILE(fd, "    uint8_t* buffer,\n    size_t length);\n");
+    WRITE_TO_FILE(fd, "ssize_t Decode%s(\n", cpp_name.c_str());
+    WRITE_TO_FILE(fd, "    const uint8_t* buffer,\n    size_t length,\n");
+    WRITE_TO_FILE(fd, "    %s& data);\n", cpp_name.c_str());
   }
   return true;
 }
@@ -603,15 +612,15 @@ bool WriteEncoder(int fd,
       } else {
         for (const auto& x : cpp_type.struct_type.members) {
           if (x.integer_key.has_value()) {
-            dprintf(fd,
-                    "  CBOR_RETURN_ON_ERROR(cbor_encode_uint("
-                    "&encoder%d, %" PRIu64 ");\n",
-                    encoder_depth, x.integer_key.value());
+            WRITE_TO_FILE(fd,
+                          "  CBOR_RETURN_ON_ERROR(cbor_encode_uint("
+                          "&encoder%d, %" PRIu64 ");\n",
+                          encoder_depth, x.integer_key.value());
           } else {
-            dprintf(fd,
-                    "  CBOR_RETURN_ON_ERROR(cbor_encode_text_string("
-                    "&encoder%d, \"%s\", sizeof(\"%s\") - 1));\n",
-                    encoder_depth, x.name.c_str(), x.name.c_str());
+            WRITE_TO_FILE(fd,
+                          "  CBOR_RETURN_ON_ERROR(cbor_encode_text_string("
+                          "&encoder%d, \"%s\", sizeof(\"%s\") - 1));\n",
+                          encoder_depth, x.name.c_str(), x.name.c_str());
           }
           if (!WriteEncoder(fd, name + "." + ToUnderscoreId(x.name), *x.type,
                             nested_type_scope, encoder_depth)) {
@@ -621,169 +630,176 @@ bool WriteEncoder(int fd,
         return true;
       }
     case CppType::Which::kBool:
-      dprintf(fd,
-              "  CBOR_RETURN_ON_ERROR(cbor_encode_boolean(&encoder%d, %s));\n",
-              encoder_depth, ToUnderscoreId(name).c_str());
+      WRITE_TO_FILE(
+          fd, "  CBOR_RETURN_ON_ERROR(cbor_encode_boolean(&encoder%d, %s));\n",
+          encoder_depth, ToUnderscoreId(name).c_str());
       return true;
     case CppType::Which::kFloat:
-      dprintf(fd,
-              "  CBOR_RETURN_ON_ERROR(cbor_encode_float(&encoder%d, %s));\n",
-              encoder_depth, ToUnderscoreId(name).c_str());
+      WRITE_TO_FILE(
+          fd, "  CBOR_RETURN_ON_ERROR(cbor_encode_float(&encoder%d, %s));\n",
+          encoder_depth, ToUnderscoreId(name).c_str());
       return true;
     case CppType::Which::kInt64:
-      dprintf(fd, "  CBOR_RETURN_ON_ERROR(cbor_encode_int(&encoder%d, %s));\n",
-              encoder_depth, ToUnderscoreId(name).c_str());
+      WRITE_TO_FILE(
+          fd, "  CBOR_RETURN_ON_ERROR(cbor_encode_int(&encoder%d, %s));\n",
+          encoder_depth, ToUnderscoreId(name).c_str());
       return true;
     case CppType::Which::kUint64:
-      dprintf(fd, "  CBOR_RETURN_ON_ERROR(cbor_encode_uint(&encoder%d, %s));\n",
-              encoder_depth, ToUnderscoreId(name).c_str());
+      WRITE_TO_FILE(
+          fd, "  CBOR_RETURN_ON_ERROR(cbor_encode_uint(&encoder%d, %s));\n",
+          encoder_depth, ToUnderscoreId(name).c_str());
       return true;
     case CppType::Which::kString: {
       std::string cid = ToUnderscoreId(name);
-      dprintf(fd, "  if (!IsValidUtf8(%s)) {\n", cid.c_str());
-      dprintf(fd, "    return -CborErrorInvalidUtf8TextString;\n");
-      dprintf(fd, "  }\n");
-      dprintf(fd,
-              "  CBOR_RETURN_ON_ERROR(cbor_encode_text_string(&encoder%d, "
-              "%s.c_str(), %s.size()));\n",
-              encoder_depth, cid.c_str(), cid.c_str());
+      WRITE_TO_FILE(fd, "  if (!IsValidUtf8(%s)) {\n", cid.c_str());
+      WRITE_TO_FILE(fd, "    return -CborErrorInvalidUtf8TextString;\n");
+      WRITE_TO_FILE(fd, "  }\n");
+      WRITE_TO_FILE(
+          fd,
+          "  CBOR_RETURN_ON_ERROR(cbor_encode_text_string(&encoder%d, "
+          "%s.c_str(), %s.size()));\n",
+          encoder_depth, cid.c_str(), cid.c_str());
       return true;
     }
     case CppType::Which::kBytes: {
       std::string cid = ToUnderscoreId(name);
-      dprintf(fd,
-              "  CBOR_RETURN_ON_ERROR(cbor_encode_byte_string(&encoder%d, "
-              "%s.data(), "
-              "%s.size()));\n",
-              encoder_depth, cid.c_str(), cid.c_str());
+      WRITE_TO_FILE(
+          fd,
+          "  CBOR_RETURN_ON_ERROR(cbor_encode_byte_string(&encoder%d, "
+          "%s.data(), "
+          "%s.size()));\n",
+          encoder_depth, cid.c_str(), cid.c_str());
       return true;
     }
     case CppType::Which::kVector: {
       std::string cid = ToUnderscoreId(name);
-      dprintf(fd, "  {\n");
+      WRITE_TO_FILE(fd, "  {\n");
       if (cpp_type.vector_type.min_length !=
           CppType::Vector::kMinLengthUnbounded) {
-        dprintf(fd, "  if (%s.size() < %d) {\n", cid.c_str(),
-                cpp_type.vector_type.min_length);
-        dprintf(fd, "    return -CborErrorTooFewItems;\n");
-        dprintf(fd, "  }\n");
+        WRITE_TO_FILE(fd, "  if (%s.size() < %d) {\n", cid.c_str(),
+                      cpp_type.vector_type.min_length);
+        WRITE_TO_FILE(fd, "    return -CborErrorTooFewItems;\n");
+        WRITE_TO_FILE(fd, "  }\n");
       }
       if (cpp_type.vector_type.max_length !=
           CppType::Vector::kMaxLengthUnbounded) {
-        dprintf(fd, "  if (%s.size() > %d) {\n", cid.c_str(),
-                cpp_type.vector_type.max_length);
-        dprintf(fd, "    return -CborErrorTooManyItems;\n");
-        dprintf(fd, "  }\n");
+        WRITE_TO_FILE(fd, "  if (%s.size() > %d) {\n", cid.c_str(),
+                      cpp_type.vector_type.max_length);
+        WRITE_TO_FILE(fd, "    return -CborErrorTooManyItems;\n");
+        WRITE_TO_FILE(fd, "  }\n");
       }
-      dprintf(fd, "  CborEncoder encoder%d;\n", encoder_depth + 1);
-      dprintf(fd,
-              "  CBOR_RETURN_ON_ERROR(cbor_encoder_create_array(&encoder%d, "
-              "&encoder%d, %s.size()));\n",
-              encoder_depth, encoder_depth + 1, cid.c_str());
+      WRITE_TO_FILE(fd, "  CborEncoder encoder%d;\n", encoder_depth + 1);
+      WRITE_TO_FILE(
+          fd,
+          "  CBOR_RETURN_ON_ERROR(cbor_encoder_create_array(&encoder%d, "
+          "&encoder%d, %s.size()));\n",
+          encoder_depth, encoder_depth + 1, cid.c_str());
       std::string loop_variable = "x" + std::to_string(encoder_depth + 1);
-      dprintf(fd, "  for (const auto& %s : %s) {\n", loop_variable.c_str(),
-              cid.c_str());
+      WRITE_TO_FILE(fd, "  for (const auto& %s : %s) {\n",
+                    loop_variable.c_str(), cid.c_str());
       if (!WriteEncoder(fd, loop_variable, *cpp_type.vector_type.element_type,
                         nested_type_scope, encoder_depth + 1)) {
         return false;
       }
-      dprintf(fd, "  }\n");
-      dprintf(fd,
-              "  CBOR_RETURN_ON_ERROR(cbor_encoder_close_container(&encoder%d, "
-              "&encoder%d));\n",
-              encoder_depth, encoder_depth + 1);
-      dprintf(fd, "  }\n");
+      WRITE_TO_FILE(fd, "  }\n");
+      WRITE_TO_FILE(
+          fd,
+          "  CBOR_RETURN_ON_ERROR(cbor_encoder_close_container(&encoder%d, "
+          "&encoder%d));\n",
+          encoder_depth, encoder_depth + 1);
+      WRITE_TO_FILE(fd, "  }\n");
       return true;
     }
     case CppType::Which::kEnum: {
-      dprintf(fd,
-              "  CBOR_RETURN_ON_ERROR(cbor_encode_uint(&encoder%d, "
-              "static_cast<uint64_t>(%s)));\n",
-              encoder_depth, ToUnderscoreId(name).c_str());
+      WRITE_TO_FILE(fd,
+                    "  CBOR_RETURN_ON_ERROR(cbor_encode_uint(&encoder%d, "
+                    "static_cast<uint64_t>(%s)));\n",
+                    encoder_depth, ToUnderscoreId(name).c_str());
       return true;
     }
     case CppType::Which::kDiscriminatedUnion: {
       for (const auto* union_member : cpp_type.discriminated_union.members) {
         switch (union_member->which) {
           case CppType::Which::kBool:
-            dprintf(fd, "  case %s::%s::Which::kBool:\n",
-                    ToCamelCase(nested_type_scope).c_str(),
-                    ToCamelCase(cpp_type.name).c_str());
+            WRITE_TO_FILE(fd, "  case %s::%s::Which::kBool:\n",
+                          ToCamelCase(nested_type_scope).c_str(),
+                          ToCamelCase(cpp_type.name).c_str());
             if (!WriteEncoder(fd, ToUnderscoreId(name + ".bool_var"),
                               *union_member, nested_type_scope,
                               encoder_depth)) {
               return false;
             }
-            dprintf(fd, "    break;\n");
+            WRITE_TO_FILE(fd, "    break;\n");
             break;
           case CppType::Which::kFloat:
-            dprintf(fd, "  case %s::%s::Which::kFloat:\n",
-                    ToCamelCase(nested_type_scope).c_str(),
-                    ToCamelCase(cpp_type.name).c_str());
+            WRITE_TO_FILE(fd, "  case %s::%s::Which::kFloat:\n",
+                          ToCamelCase(nested_type_scope).c_str(),
+                          ToCamelCase(cpp_type.name).c_str());
             if (!WriteEncoder(fd, ToUnderscoreId(name + ".float_var"),
                               *union_member, nested_type_scope,
                               encoder_depth)) {
               return false;
             }
-            dprintf(fd, "    break;\n");
+            WRITE_TO_FILE(fd, "    break;\n");
             break;
           case CppType::Which::kInt64:
-            dprintf(fd, "  case %s::%s::Which::kInt64:\n",
-                    ToCamelCase(nested_type_scope).c_str(),
-                    ToCamelCase(cpp_type.name).c_str());
+            WRITE_TO_FILE(fd, "  case %s::%s::Which::kInt64:\n",
+                          ToCamelCase(nested_type_scope).c_str(),
+                          ToCamelCase(cpp_type.name).c_str());
             if (!WriteEncoder(fd, ToUnderscoreId(name + ".int_var"),
                               *union_member, nested_type_scope,
                               encoder_depth)) {
               return false;
             }
-            dprintf(fd, "    break;\n");
+            WRITE_TO_FILE(fd, "    break;\n");
             break;
           case CppType::Which::kUint64:
-            dprintf(fd, "  case %s::%s::Which::kUint64:\n",
-                    ToCamelCase(nested_type_scope).c_str(),
-                    ToCamelCase(cpp_type.name).c_str());
+            WRITE_TO_FILE(fd, "  case %s::%s::Which::kUint64:\n",
+                          ToCamelCase(nested_type_scope).c_str(),
+                          ToCamelCase(cpp_type.name).c_str());
             if (!WriteEncoder(fd, ToUnderscoreId(name + ".uint"), *union_member,
                               nested_type_scope, encoder_depth)) {
               return false;
             }
-            dprintf(fd, "    break;\n");
+            WRITE_TO_FILE(fd, "    break;\n");
             break;
           case CppType::Which::kString:
-            dprintf(fd, "  case %s::%s::Which::kString:\n",
-                    ToCamelCase(nested_type_scope).c_str(),
-                    ToCamelCase(cpp_type.name).c_str());
+            WRITE_TO_FILE(fd, "  case %s::%s::Which::kString:\n",
+                          ToCamelCase(nested_type_scope).c_str(),
+                          ToCamelCase(cpp_type.name).c_str());
             if (!WriteEncoder(fd, ToUnderscoreId(name + ".str"), *union_member,
                               nested_type_scope, encoder_depth)) {
               return false;
             }
-            dprintf(fd, "    break;\n");
+            WRITE_TO_FILE(fd, "    break;\n");
             break;
           case CppType::Which::kBytes:
-            dprintf(fd, "  case %s::%s::Which::kBytes:\n",
-                    ToCamelCase(nested_type_scope).c_str(),
-                    ToCamelCase(cpp_type.name).c_str());
+            WRITE_TO_FILE(fd, "  case %s::%s::Which::kBytes:\n",
+                          ToCamelCase(nested_type_scope).c_str(),
+                          ToCamelCase(cpp_type.name).c_str());
             if (!WriteEncoder(fd, ToUnderscoreId(name + ".bytes"),
                               *union_member, nested_type_scope,
                               encoder_depth)) {
               return false;
             }
-            dprintf(fd, "    break;\n");
+            WRITE_TO_FILE(fd, "    break;\n");
             break;
           default:
             return false;
         }
       }
-      dprintf(fd, "  case %s::%s::Which::kUninitialized:\n",
-              ToCamelCase(nested_type_scope).c_str(),
-              ToCamelCase(cpp_type.name).c_str());
-      dprintf(fd, "    return -CborUnknownError;\n");
+      WRITE_TO_FILE(fd, "  case %s::%s::Which::kUninitialized:\n",
+                    ToCamelCase(nested_type_scope).c_str(),
+                    ToCamelCase(cpp_type.name).c_str());
+      WRITE_TO_FILE(fd, "    return -CborUnknownError;\n");
       return true;
     }
     case CppType::Which::kTaggedType: {
-      dprintf(fd,
-              "  CBOR_RETURN_ON_ERROR(cbor_encode_tag(&encoder%d, %" PRIu64
-              "ull));\n",
-              encoder_depth, cpp_type.tagged_type.tag);
+      WRITE_TO_FILE(
+          fd,
+          "  CBOR_RETURN_ON_ERROR(cbor_encode_tag(&encoder%d, %" PRIu64
+          "ull));\n",
+          encoder_depth, cpp_type.tagged_type.tag);
       if (!WriteEncoder(fd, name, *cpp_type.tagged_type.real_type,
                         nested_type_scope, encoder_depth)) {
         return false;
@@ -811,11 +827,11 @@ MemberCountResult CountMemberTypes(
     if (x.type->which == CppType::Which::kOptional) {
       std::string x_id = ToUnderscoreId(x.name);
       if (num_optional == 0) {
-        dprintf(fd, "  int num_optionals_present = %s.has_%s;\n",
-                name_id.c_str(), x_id.c_str());
+        WRITE_TO_FILE(fd, "  int num_optionals_present = %s.has_%s;\n",
+                      name_id.c_str(), x_id.c_str());
       } else {
-        dprintf(fd, "  num_optionals_present += %s.has_%s;\n", name_id.c_str(),
-                x_id.c_str());
+        WRITE_TO_FILE(fd, "  num_optionals_present += %s.has_%s;\n",
+                      name_id.c_str(), x_id.c_str());
       }
       ++num_optional;
     } else {
@@ -837,20 +853,20 @@ bool WriteMapEncoder(int fd,
                      const std::string& nested_type_scope,
                      int encoder_depth) {
   std::string name_id = ToUnderscoreId(name);
-  dprintf(fd, "  {\n  CborEncoder encoder%d;\n", encoder_depth);
+  WRITE_TO_FILE(fd, "  CborEncoder encoder%d;\n", encoder_depth);
   MemberCountResult member_counts = CountMemberTypes(fd, name_id, members);
   if (member_counts.num_optional == 0) {
-    dprintf(fd,
-            "  CBOR_RETURN_ON_ERROR(cbor_encoder_create_map(&encoder%d, "
-            "&encoder%d, "
-            "%d));\n",
-            encoder_depth - 1, encoder_depth, member_counts.num_required);
+    WRITE_TO_FILE(fd,
+                  "  CBOR_RETURN_ON_ERROR(cbor_encoder_create_map(&encoder%d, "
+                  "&encoder%d, "
+                  "%d));\n",
+                  encoder_depth - 1, encoder_depth, member_counts.num_required);
   } else {
-    dprintf(fd,
-            "  CBOR_RETURN_ON_ERROR(cbor_encoder_create_map(&encoder%d, "
-            "&encoder%d, "
-            "%d + num_optionals_present));\n",
-            encoder_depth - 1, encoder_depth, member_counts.num_required);
+    WRITE_TO_FILE(fd,
+                  "  CBOR_RETURN_ON_ERROR(cbor_encoder_create_map(&encoder%d, "
+                  "&encoder%d, "
+                  "%d + num_optionals_present));\n",
+                  encoder_depth - 1, encoder_depth, member_counts.num_required);
   }
 
   for (const auto& x : members) {
@@ -860,24 +876,26 @@ bool WriteMapEncoder(int fd,
         x.type->struct_type.key_type != CppType::Struct::KeyType::kPlainGroup) {
       if (x.type->which == CppType::Which::kOptional) {
         member_type = x.type->optional_type;
-        dprintf(fd, "  if (%s.has_%s) {\n", name_id.c_str(),
-                ToUnderscoreId(x.name).c_str());
+        WRITE_TO_FILE(fd, "  if (%s.has_%s) {\n", name_id.c_str(),
+                      ToUnderscoreId(x.name).c_str());
       }
 
       if (x.integer_key.has_value()) {
-        dprintf(fd,
-                "  CBOR_RETURN_ON_ERROR(cbor_encode_uint(&encoder%d, %" PRIu64
-                "));\n",
-                encoder_depth, x.integer_key.value());
+        WRITE_TO_FILE(
+            fd,
+            "  CBOR_RETURN_ON_ERROR(cbor_encode_uint(&encoder%d, %" PRIu64
+            "));\n",
+            encoder_depth, x.integer_key.value());
       } else {
-        dprintf(fd,
-                "  CBOR_RETURN_ON_ERROR(cbor_encode_text_string(&encoder%d, "
-                "\"%s\", sizeof(\"%s\") - 1));\n",
-                encoder_depth, x.name.c_str(), x.name.c_str());
+        WRITE_TO_FILE(
+            fd,
+            "  CBOR_RETURN_ON_ERROR(cbor_encode_text_string(&encoder%d, "
+            "\"%s\", sizeof(\"%s\") - 1));\n",
+            encoder_depth, x.name.c_str(), x.name.c_str());
       }
       if (x.type->which == CppType::Which::kDiscriminatedUnion) {
-        dprintf(fd, "  switch (%s.%s.which) {\n", fullname.c_str(),
-                x.name.c_str());
+        WRITE_TO_FILE(fd, "  switch (%s.%s.which) {\n", fullname.c_str(),
+                      x.name.c_str());
       }
       fullname = fullname + "." + x.name;
     }
@@ -887,14 +905,15 @@ bool WriteMapEncoder(int fd,
     }
     if (x.type->which == CppType::Which::kOptional ||
         x.type->which == CppType::Which::kDiscriminatedUnion) {
-      dprintf(fd, "  }\n");
+      WRITE_TO_FILE(fd, "  }\n");
     }
   }
 
-  dprintf(fd,
-          "  CBOR_RETURN_ON_ERROR(cbor_encoder_close_container(&encoder%d, "
-          "&encoder%d));\n  }\n",
-          encoder_depth - 1, encoder_depth);
+  WRITE_TO_FILE(
+      fd,
+      "  CBOR_RETURN_ON_ERROR(cbor_encoder_close_container(&encoder%d, "
+      "&encoder%d));\n",
+      encoder_depth - 1, encoder_depth);
   return true;
 }
 
@@ -910,18 +929,20 @@ bool WriteArrayEncoder(int fd,
                        const std::string& nested_type_scope,
                        int encoder_depth) {
   std::string name_id = ToUnderscoreId(name);
-  dprintf(fd, "  {\n  CborEncoder encoder%d;\n", encoder_depth);
+  WRITE_TO_FILE(fd, "  CborEncoder encoder%d;\n", encoder_depth);
   MemberCountResult member_counts = CountMemberTypes(fd, name_id, members);
   if (member_counts.num_optional == 0) {
-    dprintf(fd,
-            "  CBOR_RETURN_ON_ERROR(cbor_encoder_create_array(&encoder%d, "
-            "&encoder%d, %d));\n",
-            encoder_depth - 1, encoder_depth, member_counts.num_required);
+    WRITE_TO_FILE(
+        fd,
+        "  CBOR_RETURN_ON_ERROR(cbor_encoder_create_array(&encoder%d, "
+        "&encoder%d, %d));\n",
+        encoder_depth - 1, encoder_depth, member_counts.num_required);
   } else {
-    dprintf(fd,
-            "  CBOR_RETURN_ON_ERROR(cbor_encoder_create_array(&encoder%d, "
-            "&encoder%d, %d + num_optionals_present));\n",
-            encoder_depth - 1, encoder_depth, member_counts.num_required);
+    WRITE_TO_FILE(
+        fd,
+        "  CBOR_RETURN_ON_ERROR(cbor_encoder_create_array(&encoder%d, "
+        "&encoder%d, %d + num_optionals_present));\n",
+        encoder_depth - 1, encoder_depth, member_counts.num_required);
   }
 
   for (const auto& x : members) {
@@ -931,12 +952,12 @@ bool WriteArrayEncoder(int fd,
         x.type->struct_type.key_type != CppType::Struct::KeyType::kPlainGroup) {
       if (x.type->which == CppType::Which::kOptional) {
         member_type = x.type->optional_type;
-        dprintf(fd, "  if (%s.has_%s) {\n", name_id.c_str(),
-                ToUnderscoreId(x.name).c_str());
+        WRITE_TO_FILE(fd, "  if (%s.has_%s) {\n", name_id.c_str(),
+                      ToUnderscoreId(x.name).c_str());
       }
       if (x.type->which == CppType::Which::kDiscriminatedUnion) {
-        dprintf(fd, "  switch (%s.%s.which) {\n", fullname.c_str(),
-                x.name.c_str());
+        WRITE_TO_FILE(fd, "  switch (%s.%s.which) {\n", fullname.c_str(),
+                      x.name.c_str());
       }
       fullname = fullname + "." + x.name;
     }
@@ -946,14 +967,15 @@ bool WriteArrayEncoder(int fd,
     }
     if (x.type->which == CppType::Which::kOptional ||
         x.type->which == CppType::Which::kDiscriminatedUnion) {
-      dprintf(fd, "  }\n");
+      WRITE_TO_FILE(fd, "  }\n");
     }
   }
 
-  dprintf(fd,
-          "  CBOR_RETURN_ON_ERROR(cbor_encoder_close_container(&encoder%d, "
-          "&encoder%d));\n  }\n",
-          encoder_depth - 1, encoder_depth);
+  WRITE_TO_FILE(
+      fd,
+      "  CBOR_RETURN_ON_ERROR(cbor_encoder_close_container(&encoder%d, "
+      "&encoder%d));\n",
+      encoder_depth - 1, encoder_depth);
   return true;
 }
 
@@ -1014,47 +1036,47 @@ bool WriteEncoders(int fd, CppSymbolTable* table) {
       if (x.type->which != CppType::Which::kDiscriminatedUnion)
         continue;
       std::string dunion_cpp_name = ToCamelCase(x.name);
-      dprintf(fd, "\n%s::%s::%s()\n", cpp_name.c_str(), dunion_cpp_name.c_str(),
-              dunion_cpp_name.c_str());
+      WRITE_TO_FILE(fd, "\n%s::%s::%s()\n", cpp_name.c_str(),
+                    dunion_cpp_name.c_str(), dunion_cpp_name.c_str());
       std::string cid = ToUnderscoreId(x.name);
       std::string type_name = ToCamelCase(x.name);
-      dprintf(fd,
-              "    : which(Which::kUninitialized), placeholder_(false) {}\n");
+      WRITE_TO_FILE(
+          fd, "    : which(Which::kUninitialized), placeholder_(false) {}\n");
 
-      dprintf(fd, "\n%s::%s::~%s() {\n", cpp_name.c_str(),
-              dunion_cpp_name.c_str(), dunion_cpp_name.c_str());
-      dprintf(fd, "  switch (which) {\n");
+      WRITE_TO_FILE(fd, "\n%s::%s::~%s() {\n", cpp_name.c_str(),
+                    dunion_cpp_name.c_str(), dunion_cpp_name.c_str());
+      WRITE_TO_FILE(fd, "  switch (which) {\n");
       for (const auto* y : x.type->discriminated_union.members) {
         switch (y->which) {
           case CppType::Which::kBool: {
-            dprintf(fd, "    case Which::kBool: break;\n");
+            WRITE_TO_FILE(fd, "    case Which::kBool: break;\n");
           } break;
           case CppType::Which::kFloat: {
-            dprintf(fd, "    case Which::kFloat: break;\n");
+            WRITE_TO_FILE(fd, "    case Which::kFloat: break;\n");
           } break;
           case CppType::Which::kInt64: {
-            dprintf(fd, "    case Which::kInt64: break;\n");
+            WRITE_TO_FILE(fd, "    case Which::kInt64: break;\n");
           } break;
           case CppType::Which::kUint64: {
-            dprintf(fd, "    case Which::kUint64: break;\n");
+            WRITE_TO_FILE(fd, "    case Which::kUint64: break;\n");
           } break;
           case CppType::Which::kString: {
-            dprintf(fd, "    case Which::kString:\n");
-            dprintf(fd, "      str.std::string::~basic_string();\n");
-            dprintf(fd, "      break;\n");
+            WRITE_TO_FILE(fd, "    case Which::kString:\n");
+            WRITE_TO_FILE(fd, "      str.std::string::~basic_string();\n");
+            WRITE_TO_FILE(fd, "      break;\n");
           } break;
           case CppType::Which::kBytes: {
-            dprintf(fd, "    case Which::kBytes:\n");
-            dprintf(fd, "      bytes.std::vector<uint8_t>::~vector();\n");
-            dprintf(fd, "      break;\n");
+            WRITE_TO_FILE(fd, "    case Which::kBytes:\n");
+            WRITE_TO_FILE(fd, "      bytes.std::vector<uint8_t>::~vector();\n");
+            WRITE_TO_FILE(fd, "      break;\n");
           } break;
           default:
             return false;
         }
       }
-      dprintf(fd, "    case Which::kUninitialized: break;\n");
-      dprintf(fd, "  }\n");
-      dprintf(fd, "}\n");
+      WRITE_TO_FILE(fd, "    case Which::kUninitialized: break;\n");
+      WRITE_TO_FILE(fd, "  }\n");
+      WRITE_TO_FILE(fd, "}\n");
     }
 
     static const char vector_encode_function[] =
@@ -1091,12 +1113,13 @@ bool Encode%1$s(
       return false;
     }
 
-    dprintf(fd, vector_encode_function, cpp_name.c_str(), encoded_id.c_str());
-    dprintf(fd, "\nssize_t Encode%s(\n", cpp_name.c_str());
-    dprintf(fd, "    const %s& data,\n", cpp_name.c_str());
-    dprintf(fd, "    uint8_t* buffer,\n    size_t length) {\n");
-    dprintf(fd, "  CborEncoder encoder0;\n");
-    dprintf(fd, "  cbor_encoder_init(&encoder0, buffer, length, 0);\n");
+    WRITE_TO_FILE(fd, vector_encode_function, cpp_name.c_str(),
+                  encoded_id.c_str());
+    WRITE_TO_FILE(fd, "\nssize_t Encode%s(\n", cpp_name.c_str());
+    WRITE_TO_FILE(fd, "    const %s& data,\n", cpp_name.c_str());
+    WRITE_TO_FILE(fd, "    uint8_t* buffer,\n    size_t length) {\n");
+    WRITE_TO_FILE(fd, "  CborEncoder encoder0;\n");
+    WRITE_TO_FILE(fd, "  cbor_encoder_init(&encoder0, buffer, length, 0);\n");
 
     if (real_type->struct_type.key_type == CppType::Struct::KeyType::kMap) {
       if (!WriteMapEncoder(fd, "data", real_type->struct_type.members, name))
@@ -1108,19 +1131,20 @@ bool Encode%1$s(
       }
     }
 
-    dprintf(fd,
-            "  size_t extra_bytes_needed = "
-            "cbor_encoder_get_extra_bytes_needed(&encoder0);\n");
-    dprintf(fd, "  if (extra_bytes_needed) {\n");
-    dprintf(fd,
-            "    return static_cast<ssize_t>(length + extra_bytes_needed);\n");
-    dprintf(fd, "  } else {\n");
-    dprintf(fd,
-            "    return "
-            "static_cast<ssize_t>(cbor_encoder_get_buffer_size(&encoder0, "
-            "buffer));\n");
-    dprintf(fd, "  }\n");
-    dprintf(fd, "}\n");
+    WRITE_TO_FILE(fd,
+                  "  size_t extra_bytes_needed = "
+                  "cbor_encoder_get_extra_bytes_needed(&encoder0);\n");
+    WRITE_TO_FILE(fd, "  if (extra_bytes_needed) {\n");
+    WRITE_TO_FILE(
+        fd, "    return static_cast<ssize_t>(length + extra_bytes_needed);\n");
+    WRITE_TO_FILE(fd, "  } else {\n");
+    WRITE_TO_FILE(
+        fd,
+        "    return "
+        "static_cast<ssize_t>(cbor_encoder_get_buffer_size(&encoder0, "
+        "buffer));\n");
+    WRITE_TO_FILE(fd, "  }\n");
+    WRITE_TO_FILE(fd, "}\n");
   }
   return true;
 }
@@ -1149,153 +1173,164 @@ bool WriteDecoder(int fd,
                   int* temporary_count) {
   switch (cpp_type.which) {
     case CppType::Which::kBool: {
-      dprintf(fd,
-              "  CBOR_RETURN_ON_ERROR(cbor_value_get_boolean(&it%d, &%s));\n",
-              decoder_depth, name.c_str());
-      dprintf(fd, "  CBOR_RETURN_ON_ERROR(cbor_value_advance_fixed(&it%d));\n",
-              decoder_depth);
+      WRITE_TO_FILE(
+          fd, "  CBOR_RETURN_ON_ERROR(cbor_value_get_boolean(&it%d, &%s));\n",
+          decoder_depth, name.c_str());
+      WRITE_TO_FILE(
+          fd, "  CBOR_RETURN_ON_ERROR(cbor_value_advance_fixed(&it%d));\n",
+          decoder_depth);
       return true;
     }
     case CppType::Which::kFloat: {
-      dprintf(fd, "  CBOR_RETURN_ON_ERROR(cbor_value_get_float(&it%d, &%s));\n",
-              decoder_depth, name.c_str());
-      dprintf(fd, "  CBOR_RETURN_ON_ERROR(cbor_value_advance_fixed(&it%d));\n",
-              decoder_depth);
+      WRITE_TO_FILE(
+          fd, "  CBOR_RETURN_ON_ERROR(cbor_value_get_float(&it%d, &%s));\n",
+          decoder_depth, name.c_str());
+      WRITE_TO_FILE(
+          fd, "  CBOR_RETURN_ON_ERROR(cbor_value_advance_fixed(&it%d));\n",
+          decoder_depth);
       return true;
     }
     case CppType::Which::kInt64: {
-      dprintf(fd, "  CBOR_RETURN_ON_ERROR(cbor_value_get_int64(&it%d, &%s));\n",
-              decoder_depth, name.c_str());
-      dprintf(fd, "  CBOR_RETURN_ON_ERROR(cbor_value_advance_fixed(&it%d));\n",
-              decoder_depth);
+      WRITE_TO_FILE(
+          fd, "  CBOR_RETURN_ON_ERROR(cbor_value_get_int64(&it%d, &%s));\n",
+          decoder_depth, name.c_str());
+      WRITE_TO_FILE(
+          fd, "  CBOR_RETURN_ON_ERROR(cbor_value_advance_fixed(&it%d));\n",
+          decoder_depth);
       return true;
     }
     case CppType::Which::kUint64: {
-      dprintf(fd,
-              "  CBOR_RETURN_ON_ERROR(cbor_value_get_uint64(&it%d, &%s));\n",
-              decoder_depth, name.c_str());
-      dprintf(fd, "  CBOR_RETURN_ON_ERROR(cbor_value_advance_fixed(&it%d));\n",
-              decoder_depth);
+      WRITE_TO_FILE(
+          fd, "  CBOR_RETURN_ON_ERROR(cbor_value_get_uint64(&it%d, &%s));\n",
+          decoder_depth, name.c_str());
+      WRITE_TO_FILE(
+          fd, "  CBOR_RETURN_ON_ERROR(cbor_value_advance_fixed(&it%d));\n",
+          decoder_depth);
       return true;
     }
     case CppType::Which::kString: {
       int temp_length = (*temporary_count)++;
-      dprintf(fd, "  size_t length%d = 0;\n", temp_length);
-      dprintf(fd,
-              "  CBOR_RETURN_ON_ERROR(cbor_value_validate(&it%d, "
-              "CborValidateUtf8));\n",
-              decoder_depth);
-      dprintf(fd, "  if (cbor_value_is_length_known(&it%d)) {\n",
-              decoder_depth);
-      dprintf(fd,
-              "    CBOR_RETURN_ON_ERROR(cbor_value_get_string_length(&it%d, "
-              "&length%d));\n",
-              decoder_depth, temp_length);
-      dprintf(fd, "  } else {\n");
-      dprintf(
+      WRITE_TO_FILE(fd, "  size_t length%d = 0;\n", temp_length);
+      WRITE_TO_FILE(fd,
+                    "  CBOR_RETURN_ON_ERROR(cbor_value_validate(&it%d, "
+                    "CborValidateUtf8));\n",
+                    decoder_depth);
+      WRITE_TO_FILE(fd, "  if (cbor_value_is_length_known(&it%d)) {\n",
+                    decoder_depth);
+      WRITE_TO_FILE(
+          fd,
+          "    CBOR_RETURN_ON_ERROR(cbor_value_get_string_length(&it%d, "
+          "&length%d));\n",
+          decoder_depth, temp_length);
+      WRITE_TO_FILE(fd, "  } else {\n");
+      WRITE_TO_FILE(
           fd,
           "    CBOR_RETURN_ON_ERROR(cbor_value_calculate_string_length(&it%d, "
           "&length%d));\n",
           decoder_depth, temp_length);
-      dprintf(fd, "  }\n");
-      dprintf(fd, "  %s.resize(length%d);\n", name.c_str(), temp_length);
-      dprintf(fd,
-              "  CBOR_RETURN_ON_ERROR(cbor_value_copy_text_string(&it%d, "
-              "const_cast<char*>(%s.data()), &length%d, nullptr));\n",
-              decoder_depth, name.c_str(), temp_length);
-      dprintf(fd, "  CBOR_RETURN_ON_ERROR(cbor_value_advance(&it%d));\n",
-              decoder_depth);
+      WRITE_TO_FILE(fd, "  }\n");
+      WRITE_TO_FILE(fd, "  %s.resize(length%d);\n", name.c_str(), temp_length);
+      WRITE_TO_FILE(fd,
+                    "  CBOR_RETURN_ON_ERROR(cbor_value_copy_text_string(&it%d, "
+                    "const_cast<char*>(%s.data()), &length%d, nullptr));\n",
+                    decoder_depth, name.c_str(), temp_length);
+      WRITE_TO_FILE(fd, "  CBOR_RETURN_ON_ERROR(cbor_value_advance(&it%d));\n",
+                    decoder_depth);
       return true;
     }
     case CppType::Which::kBytes: {
       int temp_length = (*temporary_count)++;
-      dprintf(fd, "  size_t length%d = 0;\n", temp_length);
-      dprintf(fd, "  if (cbor_value_is_length_known(&it%d)) {\n",
-              decoder_depth);
-      dprintf(fd,
-              "    CBOR_RETURN_ON_ERROR(cbor_value_get_string_length(&it%d, "
-              "&length%d));\n",
-              decoder_depth, temp_length);
-      dprintf(fd, "  } else {\n");
-      dprintf(
+      WRITE_TO_FILE(fd, "  size_t length%d = 0;\n", temp_length);
+      WRITE_TO_FILE(fd, "  if (cbor_value_is_length_known(&it%d)) {\n",
+                    decoder_depth);
+      WRITE_TO_FILE(
+          fd,
+          "    CBOR_RETURN_ON_ERROR(cbor_value_get_string_length(&it%d, "
+          "&length%d));\n",
+          decoder_depth, temp_length);
+      WRITE_TO_FILE(fd, "  } else {\n");
+      WRITE_TO_FILE(
           fd,
           "    CBOR_RETURN_ON_ERROR(cbor_value_calculate_string_length(&it%d, "
           "&length%d));\n",
           decoder_depth, temp_length);
-      dprintf(fd, "  }\n");
+      WRITE_TO_FILE(fd, "  }\n");
       if (!cpp_type.bytes_type.fixed_size) {
-        dprintf(fd, "  %s.resize(length%d);\n", name.c_str(), temp_length);
+        WRITE_TO_FILE(fd, "  %s.resize(length%d);\n", name.c_str(),
+                      temp_length);
       } else {
-        dprintf(fd, "  if (length%d < %d) {\n", temp_length,
-                static_cast<int>(cpp_type.bytes_type.fixed_size.value()));
-        dprintf(fd, "    return -CborErrorTooFewItems;\n");
-        dprintf(fd, "  } else if (length%d > %d) {\n", temp_length,
-                static_cast<int>(cpp_type.bytes_type.fixed_size.value()));
-        dprintf(fd, "    return -CborErrorTooManyItems;\n");
-        dprintf(fd, "  }\n");
+        WRITE_TO_FILE(fd, "  if (length%d < %d) {\n", temp_length,
+                      static_cast<int>(cpp_type.bytes_type.fixed_size.value()));
+        WRITE_TO_FILE(fd, "    return -CborErrorTooFewItems;\n");
+        WRITE_TO_FILE(fd, "  } else if (length%d > %d) {\n", temp_length,
+                      static_cast<int>(cpp_type.bytes_type.fixed_size.value()));
+        WRITE_TO_FILE(fd, "    return -CborErrorTooManyItems;\n");
+        WRITE_TO_FILE(fd, "  }\n");
       }
-      dprintf(fd,
-              "  CBOR_RETURN_ON_ERROR(cbor_value_copy_byte_string(&it%d, "
-              "const_cast<uint8_t*>(%s.data()), &length%d, nullptr));\n",
-              decoder_depth, name.c_str(), temp_length);
-      dprintf(fd, "  CBOR_RETURN_ON_ERROR(cbor_value_advance(&it%d));\n",
-              decoder_depth);
+      WRITE_TO_FILE(fd,
+                    "  CBOR_RETURN_ON_ERROR(cbor_value_copy_byte_string(&it%d, "
+                    "const_cast<uint8_t*>(%s.data()), &length%d, nullptr));\n",
+                    decoder_depth, name.c_str(), temp_length);
+      WRITE_TO_FILE(fd, "  CBOR_RETURN_ON_ERROR(cbor_value_advance(&it%d));\n",
+                    decoder_depth);
       return true;
     }
     case CppType::Which::kVector: {
-      dprintf(fd, "  if (cbor_value_get_type(&it%d) != CborArrayType) {\n",
-              decoder_depth);
-      dprintf(fd, "    return -1;\n");
-      dprintf(fd, "  }\n");
-      dprintf(fd, "  {\n");
-      dprintf(fd, "  CborValue it%d;\n", decoder_depth + 1);
-      dprintf(fd, "  size_t it%d_length = 0;\n", decoder_depth + 1);
-      dprintf(fd,
-              "  CBOR_RETURN_ON_ERROR(cbor_value_get_array_length(&it%d, "
-              "&it%d_length));\n",
-              decoder_depth, decoder_depth + 1);
+      WRITE_TO_FILE(fd,
+                    "  if (cbor_value_get_type(&it%d) != CborArrayType) {\n",
+                    decoder_depth);
+      WRITE_TO_FILE(fd, "    return -1;\n");
+      WRITE_TO_FILE(fd, "  }\n");
+      WRITE_TO_FILE(fd, "  {\n");
+      WRITE_TO_FILE(fd, "  CborValue it%d;\n", decoder_depth + 1);
+      WRITE_TO_FILE(fd, "  size_t it%d_length = 0;\n", decoder_depth + 1);
+      WRITE_TO_FILE(fd,
+                    "  CBOR_RETURN_ON_ERROR(cbor_value_get_array_length(&it%d, "
+                    "&it%d_length));\n",
+                    decoder_depth, decoder_depth + 1);
       if (cpp_type.vector_type.min_length !=
           CppType::Vector::kMinLengthUnbounded) {
-        dprintf(fd, "  if (it%d_length < %d) {\n", decoder_depth + 1,
-                cpp_type.vector_type.min_length);
-        dprintf(fd, "    return -CborErrorTooFewItems;\n");
-        dprintf(fd, "  }\n");
+        WRITE_TO_FILE(fd, "  if (it%d_length < %d) {\n", decoder_depth + 1,
+                      cpp_type.vector_type.min_length);
+        WRITE_TO_FILE(fd, "    return -CborErrorTooFewItems;\n");
+        WRITE_TO_FILE(fd, "  }\n");
       }
       if (cpp_type.vector_type.max_length !=
           CppType::Vector::kMaxLengthUnbounded) {
-        dprintf(fd, "  if (it%d_length > %d) {\n", decoder_depth + 1,
-                cpp_type.vector_type.max_length);
-        dprintf(fd, "    return -CborErrorTooManyItems;\n");
-        dprintf(fd, "  }\n");
+        WRITE_TO_FILE(fd, "  if (it%d_length > %d) {\n", decoder_depth + 1,
+                      cpp_type.vector_type.max_length);
+        WRITE_TO_FILE(fd, "    return -CborErrorTooManyItems;\n");
+        WRITE_TO_FILE(fd, "  }\n");
       }
-      dprintf(fd, "  %s.resize(it%d_length);\n", name.c_str(),
-              decoder_depth + 1);
-      dprintf(
+      WRITE_TO_FILE(fd, "  %s.resize(it%d_length);\n", name.c_str(),
+                    decoder_depth + 1);
+      WRITE_TO_FILE(
           fd,
           "  CBOR_RETURN_ON_ERROR(cbor_value_enter_container(&it%d, &it%d));\n",
           decoder_depth, decoder_depth + 1);
       std::string loop_variable = "x" + std::to_string(decoder_depth + 1);
-      dprintf(fd, "  for (auto& %s : %s) {\n", loop_variable.c_str(),
-              name.c_str());
+      WRITE_TO_FILE(fd, " for (auto& %s : %s) {\n", loop_variable.c_str(),
+                    name.c_str());
       if (!WriteDecoder(fd, loop_variable, *cpp_type.vector_type.element_type,
                         decoder_depth + 1, temporary_count)) {
         return false;
       }
-      dprintf(fd, "  }\n");
-      dprintf(
+      WRITE_TO_FILE(fd, "  }\n");
+      WRITE_TO_FILE(
           fd,
           "  CBOR_RETURN_ON_ERROR(cbor_value_leave_container(&it%d, &it%d));\n",
           decoder_depth, decoder_depth + 1);
-      dprintf(fd, "  }\n");
+      WRITE_TO_FILE(fd, "  }\n");
       return true;
     }
     case CppType::Which::kEnum: {
-      dprintf(fd,
-              "  CBOR_RETURN_ON_ERROR(cbor_value_get_uint64(&it%d, "
-              "reinterpret_cast<uint64_t*>(&%s)));\n",
-              decoder_depth, name.c_str());
-      dprintf(fd, "  CBOR_RETURN_ON_ERROR(cbor_value_advance_fixed(&it%d));\n",
-              decoder_depth);
+      WRITE_TO_FILE(fd,
+                    "  CBOR_RETURN_ON_ERROR(cbor_value_get_uint64(&it%d, "
+                    "reinterpret_cast<uint64_t*>(&%s)));\n",
+                    decoder_depth, name.c_str());
+      WRITE_TO_FILE(
+          fd, "  CBOR_RETURN_ON_ERROR(cbor_value_advance_fixed(&it%d));\n",
+          decoder_depth);
       // TODO(btolsch): Validate against enum members.
       return true;
     }
@@ -1311,78 +1346,79 @@ bool WriteDecoder(int fd,
     } break;
     case CppType::Which::kDiscriminatedUnion: {
       int temp_value_type = (*temporary_count)++;
-      dprintf(fd, "  CborType type%d = cbor_value_get_type(&it%d);\n",
-              temp_value_type, decoder_depth);
+      WRITE_TO_FILE(fd, "  CborType type%d = cbor_value_get_type(&it%d);\n",
+                    temp_value_type, decoder_depth);
       bool first = true;
       for (const auto* x : cpp_type.discriminated_union.members) {
         if (first)
           first = false;
         else
-          dprintf(fd, " else ");
+          WRITE_TO_FILE(fd, " else ");
         switch (x->which) {
           case CppType::Which::kBool:
-            dprintf(fd, "  if (type%d == CborBooleanType) {\n",
-                    temp_value_type);
-            dprintf(fd, "  %s.which = decltype(%s)::Which::kBool;\n",
-                    name.c_str(), name.c_str());
+            WRITE_TO_FILE(fd, "  if (type%d == CborBooleanType) {\n",
+                          temp_value_type);
+            WRITE_TO_FILE(fd, "  %s.which = decltype(%s)::Which::kBool;\n",
+                          name.c_str(), name.c_str());
             if (!WriteDecoder(fd, name + ".bool_var", *x, decoder_depth,
                               temporary_count)) {
               return false;
             }
             break;
           case CppType::Which::kFloat:
-            dprintf(fd, "  if (type%d == CborFloatType) {\n", temp_value_type);
-            dprintf(fd, "  %s.which = decltype(%s)::Which::kFloat;\n",
-                    name.c_str(), name.c_str());
+            WRITE_TO_FILE(fd, "  if (type%d == CborFloatType) {\n",
+                          temp_value_type);
+            WRITE_TO_FILE(fd, "  %s.which = decltype(%s)::Which::kFloat;\n",
+                          name.c_str(), name.c_str());
             if (!WriteDecoder(fd, name + ".float_var", *x, decoder_depth,
                               temporary_count)) {
               return false;
             }
             break;
           case CppType::Which::kInt64:
-            dprintf(fd,
-                    "  if (type%d == CborIntegerType && (it%d.flags & "
-                    "CborIteratorFlag_NegativeInteger) != 0) {\n",
-                    temp_value_type, decoder_depth);
-            dprintf(fd, "  %s.which = decltype(%s)::Which::kInt64;\n",
-                    name.c_str(), name.c_str());
+            WRITE_TO_FILE(fd,
+                          "  if (type%d == CborIntegerType && (it%d.flags & "
+                          "CborIteratorFlag_NegativeInteger) != 0) {\n",
+                          temp_value_type, decoder_depth);
+            WRITE_TO_FILE(fd, "  %s.which = decltype(%s)::Which::kInt64;\n",
+                          name.c_str(), name.c_str());
             if (!WriteDecoder(fd, name + ".int_var", *x, decoder_depth,
                               temporary_count)) {
               return false;
             }
             break;
           case CppType::Which::kUint64:
-            dprintf(fd,
-                    "  if (type%d == CborIntegerType && (it%d.flags & "
-                    "CborIteratorFlag_NegativeInteger) == 0) {\n",
-                    temp_value_type, decoder_depth);
-            dprintf(fd, "  %s.which = decltype(%s)::Which::kUint64;\n",
-                    name.c_str(), name.c_str());
+            WRITE_TO_FILE(fd,
+                          "  if (type%d == CborIntegerType && (it%d.flags & "
+                          "CborIteratorFlag_NegativeInteger) == 0) {\n",
+                          temp_value_type, decoder_depth);
+            WRITE_TO_FILE(fd, "  %s.which = decltype(%s)::Which::kUint64;\n",
+                          name.c_str(), name.c_str());
             if (!WriteDecoder(fd, name + ".uint", *x, decoder_depth,
                               temporary_count)) {
               return false;
             }
             break;
           case CppType::Which::kString: {
-            dprintf(fd, "  if (type%d == CborTextStringType) {\n",
-                    temp_value_type);
-            dprintf(fd, "  %s.which = decltype(%s)::Which::kString;\n",
-                    name.c_str(), name.c_str());
+            WRITE_TO_FILE(fd, "  if (type%d == CborTextStringType) {\n",
+                          temp_value_type);
+            WRITE_TO_FILE(fd, "  %s.which = decltype(%s)::Which::kString;\n",
+                          name.c_str(), name.c_str());
             std::string str_name = name + ".str";
-            dprintf(fd, "  new (&%s) std::string();\n", str_name.c_str());
+            WRITE_TO_FILE(fd, "  new (&%s) std::string();\n", str_name.c_str());
             if (!WriteDecoder(fd, str_name, *x, decoder_depth,
                               temporary_count)) {
               return false;
             }
           } break;
           case CppType::Which::kBytes: {
-            dprintf(fd, "  if (type%d == CborByteStringType) {\n",
-                    temp_value_type);
+            WRITE_TO_FILE(fd, "  if (type%d == CborByteStringType) {\n",
+                          temp_value_type);
             std::string bytes_name = name + ".bytes";
-            dprintf(fd, "  %s.which = decltype(%s)::Which::kBytes;\n",
-                    name.c_str(), name.c_str());
-            dprintf(fd, "  new (&%s) std::vector<uint8_t>();\n",
-                    bytes_name.c_str());
+            WRITE_TO_FILE(fd, "  %s.which = decltype(%s)::Which::kBytes;\n",
+                          name.c_str(), name.c_str());
+            WRITE_TO_FILE(fd, "  new (&%s) std::vector<uint8_t>();\n",
+                          bytes_name.c_str());
             if (!WriteDecoder(fd, bytes_name, *x, decoder_depth,
                               temporary_count)) {
               return false;
@@ -1391,22 +1427,23 @@ bool WriteDecoder(int fd,
           default:
             return false;
         }
-        dprintf(fd, "  }\n");
+        WRITE_TO_FILE(fd, "  }\n");
       }
-      dprintf(fd, " else { return -1; }\n");
+      WRITE_TO_FILE(fd, " else { return -1; }\n");
       return true;
     }
     case CppType::Which::kTaggedType: {
       int temp_tag = (*temporary_count)++;
-      dprintf(fd, "  uint64_t tag%d = 0;\n", temp_tag);
-      dprintf(fd, "  cbor_value_get_tag(&it%d, &tag%d);\n", decoder_depth,
-              temp_tag);
-      dprintf(fd, "  if (tag%d != %" PRIu64 "ull) {\n", temp_tag,
-              cpp_type.tagged_type.tag);
-      dprintf(fd, "    return -1;\n");
-      dprintf(fd, "  }\n");
-      dprintf(fd, "  CBOR_RETURN_ON_ERROR(cbor_value_advance_fixed(&it%d));\n",
-              decoder_depth);
+      WRITE_TO_FILE(fd, "  uint64_t tag%d = 0;\n", temp_tag);
+      WRITE_TO_FILE(fd, "  cbor_value_get_tag(&it%d, &tag%d);\n", decoder_depth,
+                    temp_tag);
+      WRITE_TO_FILE(fd, "  if (tag%d != %" PRIu64 "ull) {\n", temp_tag,
+                    cpp_type.tagged_type.tag);
+      WRITE_TO_FILE(fd, "    return -1;\n");
+      WRITE_TO_FILE(fd, "  }\n");
+      WRITE_TO_FILE(
+          fd, "  CBOR_RETURN_ON_ERROR(cbor_value_advance_fixed(&it%d));\n",
+          decoder_depth);
       if (!WriteDecoder(fd, name, *cpp_type.tagged_type.real_type,
                         decoder_depth, temporary_count)) {
         return false;
@@ -1430,35 +1467,34 @@ bool WriteMapDecoder(int fd,
                      const std::vector<CppType::Struct::CppMember>& members,
                      int decoder_depth,
                      int* temporary_count) {
-  dprintf(fd, "  if (cbor_value_get_type(&it%d) != CborMapType) {\n",
-          decoder_depth - 1);
-  dprintf(fd, "    return -1;\n");
-  dprintf(fd, "  }\n");
-  dprintf(fd, "  {\n");
-  dprintf(fd, "  CborValue it%d;\n", decoder_depth);
-  dprintf(fd, "  size_t it%d_length = 0;\n", decoder_depth);
-  dprintf(fd,
-          "  CBOR_RETURN_ON_ERROR(cbor_value_get_map_length(&it%d, "
-          "&it%d_length));\n",
-          decoder_depth - 1, decoder_depth);
+  WRITE_TO_FILE(fd, "  if (cbor_value_get_type(&it%d) != CborMapType) {\n",
+                decoder_depth - 1);
+  WRITE_TO_FILE(fd, "    return -1;\n");
+  WRITE_TO_FILE(fd, "  }\n");
+  WRITE_TO_FILE(fd, "  CborValue it%d;\n", decoder_depth);
+  WRITE_TO_FILE(fd, "  size_t it%d_length = 0;\n", decoder_depth);
+  WRITE_TO_FILE(fd,
+                "  CBOR_RETURN_ON_ERROR(cbor_value_get_map_length(&it%d, "
+                "&it%d_length));\n",
+                decoder_depth - 1, decoder_depth);
   int optional_members = 0;
   for (const auto& member : members) {
     if (member.type->which == CppType::Which::kOptional) {
       ++optional_members;
     }
   }
-  dprintf(fd, "  if (it%d_length != %d", decoder_depth,
-          static_cast<int>(members.size()));
+  WRITE_TO_FILE(fd, "  if (it%d_length != %d", decoder_depth,
+                static_cast<int>(members.size()));
   for (int i = 0; i < optional_members; ++i) {
-    dprintf(fd, " && it%d_length != %d", decoder_depth,
-            static_cast<int>(members.size()) - i - 1);
+    WRITE_TO_FILE(fd, " && it%d_length != %d", decoder_depth,
+                  static_cast<int>(members.size()) - i - 1);
   }
-  dprintf(fd, ") {\n");
-  dprintf(fd, "    return -1;\n");
-  dprintf(fd, "  }\n");
-  dprintf(fd,
-          "  CBOR_RETURN_ON_ERROR(cbor_value_enter_container(&it%d, &it%d));\n",
-          decoder_depth - 1, decoder_depth);
+  WRITE_TO_FILE(fd, ") {\n");
+  WRITE_TO_FILE(fd, "    return -1;\n");
+  WRITE_TO_FILE(fd, "  }\n");
+  WRITE_TO_FILE(
+      fd, "  CBOR_RETURN_ON_ERROR(cbor_value_enter_container(&it%d, &it%d));\n",
+      decoder_depth - 1, decoder_depth);
   int member_pos = 0;
   for (const auto& x : members) {
     std::string cid = ToUnderscoreId(x.name);
@@ -1466,36 +1502,39 @@ bool WriteMapDecoder(int fd,
     if (x.type->which == CppType::Which::kOptional) {
       // TODO(btolsch): This is wrong for the same reason as arrays, but will be
       // easier to handle when doing out-of-order keys.
-      dprintf(fd, "  if (it%d_length > %d) {\n", decoder_depth, member_pos);
+      WRITE_TO_FILE(fd, "  if (it%d_length > %d) {\n", decoder_depth,
+                    member_pos);
 
       if (x.integer_key.has_value()) {
-        dprintf(fd,
-                "  CBOR_RETURN_ON_ERROR(EXPECT_INT_KEY_CONSTANT(&it%d, %" PRIu64
-                "));\n",
-                decoder_depth, x.integer_key.value());
+        WRITE_TO_FILE(
+            fd,
+            "  CBOR_RETURN_ON_ERROR(EXPECT_INT_KEY_CONSTANT(&it%d, %" PRIu64
+            "));\n",
+            decoder_depth, x.integer_key.value());
       } else {
-        dprintf(fd,
-                "  CBOR_RETURN_ON_ERROR(EXPECT_KEY_CONSTANT(&it%d, \"%s\"));\n",
-                decoder_depth, x.name.c_str());
+        WRITE_TO_FILE(
+            fd, "  CBOR_RETURN_ON_ERROR(EXPECT_KEY_CONSTANT(&it%d, \"%s\"));\n",
+            decoder_depth, x.name.c_str());
       }
-      dprintf(fd, "    %s.has_%s = true;\n", name.c_str(), cid.c_str());
+      WRITE_TO_FILE(fd, "    %s.has_%s = true;\n", name.c_str(), cid.c_str());
       if (!WriteDecoder(fd, fullname, *x.type->optional_type, decoder_depth,
                         temporary_count)) {
         return false;
       }
-      dprintf(fd, "  } else {\n");
-      dprintf(fd, "    %s.has_%s = false;\n", name.c_str(), cid.c_str());
-      dprintf(fd, "  }\n");
+      WRITE_TO_FILE(fd, "  } else {\n");
+      WRITE_TO_FILE(fd, "    %s.has_%s = false;\n", name.c_str(), cid.c_str());
+      WRITE_TO_FILE(fd, "  }\n");
     } else {
       if (x.integer_key.has_value()) {
-        dprintf(fd,
-                "  CBOR_RETURN_ON_ERROR(EXPECT_INT_KEY_CONSTANT(&it%d, %" PRIu64
-                "));\n",
-                decoder_depth, x.integer_key.value());
+        WRITE_TO_FILE(
+            fd,
+            "  CBOR_RETURN_ON_ERROR(EXPECT_INT_KEY_CONSTANT(&it%d, %" PRIu64
+            "));\n",
+            decoder_depth, x.integer_key.value());
       } else {
-        dprintf(fd,
-                "  CBOR_RETURN_ON_ERROR(EXPECT_KEY_CONSTANT(&it%d, \"%s\"));\n",
-                decoder_depth, x.name.c_str());
+        WRITE_TO_FILE(
+            fd, "  CBOR_RETURN_ON_ERROR(EXPECT_KEY_CONSTANT(&it%d, \"%s\"));\n",
+            decoder_depth, x.name.c_str());
       }
       if (!WriteDecoder(fd, fullname, *x.type, decoder_depth,
                         temporary_count)) {
@@ -1504,10 +1543,9 @@ bool WriteMapDecoder(int fd,
     }
     ++member_pos;
   }
-  dprintf(fd,
-          "  CBOR_RETURN_ON_ERROR(cbor_value_leave_container(&it%d, &it%d));\n",
-          decoder_depth - 1, decoder_depth);
-  dprintf(fd, "  }\n");
+  WRITE_TO_FILE(
+      fd, "  CBOR_RETURN_ON_ERROR(cbor_value_leave_container(&it%d, &it%d));\n",
+      decoder_depth - 1, decoder_depth);
   return true;
 }
 
@@ -1522,35 +1560,34 @@ bool WriteArrayDecoder(int fd,
                        const std::vector<CppType::Struct::CppMember>& members,
                        int decoder_depth,
                        int* temporary_count) {
-  dprintf(fd, "  if (cbor_value_get_type(&it%d) != CborArrayType) {\n",
-          decoder_depth - 1);
-  dprintf(fd, "    return -1;\n");
-  dprintf(fd, "  }\n");
-  dprintf(fd, "  {\n");
-  dprintf(fd, "  CborValue it%d;\n", decoder_depth);
-  dprintf(fd, "  size_t it%d_length = 0;\n", decoder_depth);
-  dprintf(fd,
-          "  CBOR_RETURN_ON_ERROR(cbor_value_get_array_length(&it%d, "
-          "&it%d_length));\n",
-          decoder_depth - 1, decoder_depth);
+  WRITE_TO_FILE(fd, "  if (cbor_value_get_type(&it%d) != CborArrayType) {\n",
+                decoder_depth - 1);
+  WRITE_TO_FILE(fd, "    return -1;\n");
+  WRITE_TO_FILE(fd, "  }\n");
+  WRITE_TO_FILE(fd, "  CborValue it%d;\n", decoder_depth);
+  WRITE_TO_FILE(fd, "  size_t it%d_length = 0;\n", decoder_depth);
+  WRITE_TO_FILE(fd,
+                "  CBOR_RETURN_ON_ERROR(cbor_value_get_array_length(&it%d, "
+                "&it%d_length));\n",
+                decoder_depth - 1, decoder_depth);
   int optional_members = 0;
   for (const auto& member : members) {
     if (member.type->which == CppType::Which::kOptional) {
       ++optional_members;
     }
   }
-  dprintf(fd, "  if (it%d_length != %d", decoder_depth,
-          static_cast<int>(members.size()));
+  WRITE_TO_FILE(fd, "  if (it%d_length != %d", decoder_depth,
+                static_cast<int>(members.size()));
   for (int i = 0; i < optional_members; ++i) {
-    dprintf(fd, " && it%d_length != %d", decoder_depth,
-            static_cast<int>(members.size()) - i - 1);
+    WRITE_TO_FILE(fd, " && it%d_length != %d", decoder_depth,
+                  static_cast<int>(members.size()) - i - 1);
   }
-  dprintf(fd, ") {\n");
-  dprintf(fd, "    return -1;\n");
-  dprintf(fd, "  }\n");
-  dprintf(fd,
-          "  CBOR_RETURN_ON_ERROR(cbor_value_enter_container(&it%d, &it%d));\n",
-          decoder_depth - 1, decoder_depth);
+  WRITE_TO_FILE(fd, ") {\n");
+  WRITE_TO_FILE(fd, "    return -1;\n");
+  WRITE_TO_FILE(fd, "  }\n");
+  WRITE_TO_FILE(
+      fd, "  CBOR_RETURN_ON_ERROR(cbor_value_enter_container(&it%d, &it%d));\n",
+      decoder_depth - 1, decoder_depth);
   int member_pos = 0;
   for (const auto& x : members) {
     std::string cid = ToUnderscoreId(x.name);
@@ -1562,15 +1599,16 @@ bool WriteArrayDecoder(int fd,
       // for the foreseeable future.  The proper approach would be to have a set
       // of possible types for the next element and a map for the member to
       // which each corresponds.
-      dprintf(fd, "  if (it%d_length > %d) {\n", decoder_depth, member_pos);
-      dprintf(fd, "    %s.has_%s = true;\n", name.c_str(), cid.c_str());
+      WRITE_TO_FILE(fd, "  if (it%d_length > %d) {\n", decoder_depth,
+                    member_pos);
+      WRITE_TO_FILE(fd, "    %s.has_%s = true;\n", name.c_str(), cid.c_str());
       if (!WriteDecoder(fd, fullname, *x.type->optional_type, decoder_depth,
                         temporary_count)) {
         return false;
       }
-      dprintf(fd, "  } else {\n");
-      dprintf(fd, "    %s.has_%s = false;\n", name.c_str(), cid.c_str());
-      dprintf(fd, "  }\n");
+      WRITE_TO_FILE(fd, "  } else {\n");
+      WRITE_TO_FILE(fd, "    %s.has_%s = false;\n", name.c_str(), cid.c_str());
+      WRITE_TO_FILE(fd, "  }\n");
     } else {
       if (!WriteDecoder(fd, fullname, *x.type, decoder_depth,
                         temporary_count)) {
@@ -1579,10 +1617,9 @@ bool WriteArrayDecoder(int fd,
     }
     ++member_pos;
   }
-  dprintf(fd,
-          "  CBOR_RETURN_ON_ERROR(cbor_value_leave_container(&it%d, &it%d));\n",
-          decoder_depth - 1, decoder_depth);
-  dprintf(fd, "  }\n");
+  WRITE_TO_FILE(
+      fd, "  CBOR_RETURN_ON_ERROR(cbor_value_leave_container(&it%d, &it%d));\n",
+      decoder_depth - 1, decoder_depth);
   return true;
 }
 
@@ -1616,12 +1653,12 @@ bool WriteDecoders(int fd, CppSymbolTable* table) {
       continue;
     }
     std::string cpp_name = ToCamelCase(name);
-    dprintf(fd, "\nssize_t Decode%s(\n", cpp_name.c_str());
-    dprintf(fd, "    const uint8_t* buffer,\n    size_t length,\n");
-    dprintf(fd, "    %s& data) {\n", cpp_name.c_str());
-    dprintf(fd, "  CborParser parser;\n");
-    dprintf(fd, "  CborValue it0;\n");
-    dprintf(
+    WRITE_TO_FILE(fd, "\nssize_t Decode%s(\n", cpp_name.c_str());
+    WRITE_TO_FILE(fd, "    const uint8_t* buffer,\n    size_t length,\n");
+    WRITE_TO_FILE(fd, "    %s& data) {\n", cpp_name.c_str());
+    WRITE_TO_FILE(fd, "  CborParser parser;\n");
+    WRITE_TO_FILE(fd, "  CborValue it0;\n");
+    WRITE_TO_FILE(
         fd,
         "  CBOR_RETURN_ON_ERROR(cbor_parser_init(buffer, length, 0, &parser, "
         "&it0));\n");
@@ -1636,12 +1673,12 @@ bool WriteDecoders(int fd, CppSymbolTable* table) {
         return false;
       }
     }
-    dprintf(
+    WRITE_TO_FILE(
         fd,
         "  auto result = static_cast<ssize_t>(cbor_value_get_next_byte(&it0) - "
         "buffer);\n");
-    dprintf(fd, "  return result;\n");
-    dprintf(fd, "}\n");
+    WRITE_TO_FILE(fd, "  return result;\n");
+    WRITE_TO_FILE(fd, "}\n");
   }
   return true;
 }
@@ -1682,7 +1719,7 @@ enum CborErrors {
 class CborEncodeBuffer;
 )";
   std::string header_guard = ToHeaderGuard(header_filename);
-  dprintf(fd, prologue, header_guard.c_str(), header_guard.c_str());
+  WRITE_TO_FILE(fd, prologue, header_guard.c_str(), header_guard.c_str());
   return true;
 }
 
@@ -1724,7 +1761,7 @@ CborError ExpectKey(CborValue* it, const char* key, size_t key_length);
 }  // namespace openscreen::msgs
 #endif  // %s)";
   std::string header_guard = ToHeaderGuard(header_filename);
-  dprintf(fd, epilogue, header_guard.c_str());
+  WRITE_TO_FILE(fd, epilogue, header_guard.c_str());
   return true;
 }
 
@@ -1745,9 +1782,9 @@ namespace {
 #define CBOR_RETURN_WHAT_ON_ERROR(stmt, what)                           \
   {                                                                     \
     CborError error = stmt;                                             \
-    OSP_CHECK_NE(error, CborErrorTooFewItems);                         \
-    OSP_CHECK_NE(error, CborErrorTooManyItems);                        \
-    OSP_CHECK_NE(error, CborErrorDataTooLarge);                        \
+    OSP_DCHECK_NE(error, CborErrorTooFewItems);                         \
+    OSP_DCHECK_NE(error, CborErrorTooManyItems);                        \
+    OSP_DCHECK_NE(error, CborErrorDataTooLarge);                        \
     if (error != CborNoError && error != CborErrorOutOfMemory)          \
       return what;                                                      \
   }
@@ -1853,13 +1890,13 @@ bool IsError(ssize_t x) {
   return x < 0;
 }
 )";
-  dprintf(fd, prologue, header_filename.c_str());
+  WRITE_TO_FILE(fd, prologue, header_filename.c_str());
   return true;
 }
 
 bool WriteSourceEpilogue(int fd) {
   static const char epilogue[] = R"(
 }  // namespace openscreen::msgs)";
-  dprintf(fd, epilogue);
+  WRITE_TO_FILE(fd, epilogue);
   return true;
 }

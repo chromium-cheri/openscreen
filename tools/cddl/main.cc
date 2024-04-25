@@ -4,17 +4,23 @@
 
 #include <fcntl.h>
 #include <string.h>
-#include <unistd.h>
+#include <sys/stat.h>
 
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
 
+#if defined(_WIN32)
+#include <io.h>
+#endif
+
 #include "tools/cddl/codegen.h"
 #include "tools/cddl/logging.h"
 #include "tools/cddl/parse.h"
 #include "tools/cddl/sema.h"
+
+namespace {
 
 std::string ReadEntireFile(const std::string& filename) {
   std::ifstream input(filename);
@@ -100,6 +106,27 @@ CommandLineArguments ParseCommandLineArguments(int argc, char** argv) {
   return result;
 }
 
+int open_file(const char* filename) {
+#if defined(__unix__) || (defined(__APPLE__) && defined(__MACH__))
+  return open(filename, O_CREAT | O_TRUNC | O_WRONLY,
+              S_IRUSR | S_IWUSR | S_IRGRP);
+#elif defined(_WIN32)
+  int fd = -1;
+  _sopen_s(&fd, filename, O_CREAT | O_TRUNC | O_WRONLY, _SH_DENYNO,
+           _S_IREAD | _S_IWRITE);
+  return fd;
+#endif
+}
+
+void close_file(int fd) {
+#if defined(__unix__) || (defined(__APPLE__) && defined(__MACH__))
+  close(fd);
+#elif defined(_WIN32)
+  _close(fd);
+#endif
+}
+}  // namespace
+
 int main(int argc, char** argv) {
   // Parse and validate all cmdline arguments.
   CommandLineArguments args = ParseCommandLineArguments(argc, argv);
@@ -123,8 +150,7 @@ int main(int argc, char** argv) {
 
   // Validate and open the provided header file.
   std::string header_filename = args.gen_dir + "/" + args.header_filename;
-  int header_fd = open(header_filename.c_str(), O_CREAT | O_TRUNC | O_WRONLY,
-                       S_IRUSR | S_IWUSR | S_IRGRP);
+  const int header_fd = open_file(header_filename.c_str());
   if (header_fd == -1) {
     std::cerr << "failed to open " << args.header_filename << std::endl;
     return 1;
@@ -132,8 +158,7 @@ int main(int argc, char** argv) {
 
   // Validate and open the provided output source file.
   std::string cc_filename = args.gen_dir + "/" + args.cc_filename;
-  int cc_fd = open(cc_filename.c_str(), O_CREAT | O_TRUNC | O_WRONLY,
-                   S_IRUSR | S_IWUSR | S_IRGRP);
+  const int cc_fd = open_file(cc_filename.c_str());
   if (cc_fd == -1) {
     std::cerr << "failed to open " << args.cc_filename << std::endl;
     return 1;
@@ -245,8 +270,8 @@ int main(int argc, char** argv) {
   }
   Logger::Log("Successfully wrote source epilogue!");
 
-  close(header_fd);
-  close(cc_fd);
+  close_file(header_fd);
+  close_file(cc_fd);
   Logger::Log("SUCCESSFULLY COMPLETED ALL OPERATIONS");
 
   return 0;
