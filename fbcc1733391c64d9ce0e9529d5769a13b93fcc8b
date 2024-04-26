@@ -246,6 +246,24 @@
       "parentUuid": "3acfa480_e7757fb8",
       "revId": "fbcc1733391c64d9ce0e9529d5769a13b93fcc8b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55de9104_893c77ba",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-04-26T18:10:49Z",
+      "side": 1,
+      "message": "I took a look at this.  Most of the issues with the task runner and PlatformClientPosix look like they come from the main.cc of the standalone receiver.  I don\u0027t think it makes sense to fix the library\u0027s main.cc to run when linked with Chromium, but instead to write a new main.cc in Chromium that:\n\n1. Initializes the Chromium openscreen platform as needed (network service, etc.)\n2. Parses the commandline using Chromium\u0027s command line API to configure the receiver however you want\n3. Creates the receiver object and starts it (CastReceiver)\n3. Handles the strategy for terminating the receiver process.  Right now it waits for SIGINT, i.e. someone hitting Ctrl-C from the keyboard.  How do you want to shut down the receiver in your tests?\n\nI can work to factor out remaining code from the main.cc so that it will be easy to initialize and terminate the receiver from the new main.cc in Chromium.\n\nWDYT?",
+      "parentUuid": "21d9dd5a_ac890301",
+      "revId": "fbcc1733391c64d9ce0e9529d5769a13b93fcc8b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
