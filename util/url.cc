@@ -39,13 +39,11 @@ Url::Url(const std::string& source) {
   url::Parsed parsed;
   url::Component scheme;
   const char* url = source.c_str();
-  size_t length = source.size();
-  if (length > INT_MAX) {
+  if (source.size() > INT_MAX) {
     return;
   }
-  int url_length = static_cast<int>(length);
 
-  if (!url::ExtractScheme(url, url_length, &scheme)) {
+  if (!url::ExtractScheme(source, &scheme)) {
     return;
   }
 
@@ -55,12 +53,12 @@ Url::Url(const std::string& source) {
     // NOTE: Special schemes that are unsupported.
     return;
   } else if (url::IsStandard(url, scheme)) {
-    url::ParseStandardURL(url, url_length, &parsed);
+    parsed = url::ParseStandardURL(source);
     if (!parsed.host.is_valid()) {
       return;
     }
   } else {
-    url::ParsePathURL(url, url_length, true, &parsed);
+    parsed = url::ParsePathURL(source, /*trim_path_end=*/true);
   }
 
   if (!parsed.scheme.is_nonempty()) {
