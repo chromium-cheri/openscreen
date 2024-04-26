@@ -210,6 +210,24 @@
       "parentUuid": "c07d7dc5_49a1c64c",
       "revId": "fbcc1733391c64d9ce0e9529d5769a13b93fcc8b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3acfa480_e7757fb8",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-04-26T00:19:09Z",
+      "side": 1,
+      "message": "\u003e openscreen::TextTraceLoggingPlatform::TextTraceLoggingPlatform()\n\u003e \nMake sure you are linking with both :openscreen_platform and :openscreen_platform_without_sockets like is done here:\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:components/cast_streaming/test/BUILD.gn;drc\u003d821de11ab399e78d0b8d4894ec07fe6d306cd896;l\u003d12\n\nThe targets here are complicated for reasons I can\u0027t even begin to explain.\n\n\u003e openscreen::SetLogLevel()\n\u003e openscreen::GetNetworkInterfaces()\n\nThese need to be implemented in Chromium.  If you can send a CL for this it would be great.\n\n\u003e openscreen::TaskRunnerImpl::TaskRunnerImpl(), etc.\n\nThis needs to be fixed in the library.  It is using private interfaces for the library\u0027s task runner that are not available to Chromium.\n\n\u003e openscreen::PlatformClientPosix::Create() and\n\u003e openscreen::PlatformClientPosix::ShutDown()\n\nThis is initializing some singletons in private library code, like a networking thread.  This also needs to be fixed in the library.  I can work on this along with the task runner issues.",
+      "parentUuid": "2dbaafb0_62278161",
+      "revId": "fbcc1733391c64d9ce0e9529d5769a13b93fcc8b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
