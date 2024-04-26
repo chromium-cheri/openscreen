@@ -652,7 +652,7 @@ ErrorOr<size_t> Controller::TerminationListener::OnStreamMessage(
   OSP_CHECK_EQ(static_cast<int>(msgs::Type::kPresentationTerminationEvent),
                static_cast<int>(message_type));
   msgs::PresentationTerminationEvent event;
-  ssize_t result =
+  size_t result =
       msgs::DecodePresentationTerminationEvent(buffer, buffer_size, event);
   if (result < 0) {
     OSP_LOG_WARN << "decode presentation-termination-event error: " << result;
