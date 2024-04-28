@@ -133,6 +133,7 @@ class UrlAvailabilityRequesterTest : public Test {
   std::string url2_{"https://example.com/bar.html"};
   std::string service_id_{"asdf"};
   std::string friendly_name_{"turtle"};
+  std::string fingerprint_{""};
   ServiceInfo info1_;
 };
 

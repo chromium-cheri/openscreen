@@ -50,9 +50,23 @@ class QuicClient final : public ProtocolConnectionClient,
              TaskRunner& task_runner);
   ~QuicClient() override;
 
+  // ServiceListener::Observer overrides.
+  void OnStarted() override;
+  void OnStopped() override;
+  void OnSuspended() override;
+  void OnSearching() override;
+  void OnReceiverAdded(const ServiceInfo& info) override;
+  void OnReceiverChanged(const ServiceInfo& info) override;
+  void OnReceiverRemoved(const ServiceInfo& info) override;
+  void OnAllReceiversRemoved() override;
+  void OnError(const Error& error) override;
+  void OnMetrics(ServiceListener::Metrics) override;
+
   // ProtocolConnectionClient overrides.
   bool Start() override;
   bool Stop() override;
+  void UpdateFingerprint(const IPEndpoint& endpoint,
+                         const std::string& fingerprint) override;
   ConnectRequest Connect(const IPEndpoint& endpoint,
                          ConnectionRequestCallback* request) override;
   std::unique_ptr<ProtocolConnection> CreateProtocolConnection(
@@ -128,6 +142,8 @@ class QuicClient final : public ProtocolConnectionClient,
   // Maps endpoint IDs to data about connections that have successfully
   // completed the QUIC handshake.
   std::map<uint64_t, ServiceConnectionData> connections_;
+
+  std::map<IPEndpoint, std::string> fingerprints_;
 
   // Connections (endpoint IDs) that need to be destroyed, but have to wait for
   // the next event loop due to the underlying QUIC implementation's way of

@@ -30,6 +30,34 @@ QuicClient::~QuicClient() {
   CloseAllConnections();
 }
 
+void QuicClient::OnStarted() {}
+void QuicClient::OnStopped() {}
+void QuicClient::OnSuspended() {}
+void QuicClient::OnSearching() {}
+
+void QuicClient::OnReceiverAdded(const ServiceInfo& info) {
+  fingerprints_.emplace(
+      info.v4_endpoint.port ? info.v4_endpoint : info.v6_endpoint,
+      info.fingerprint);
+}
+
+void QuicClient::OnReceiverChanged(const ServiceInfo& info) {
+  fingerprints_[info.v4_endpoint.port ? info.v4_endpoint : info.v6_endpoint] =
+      info.fingerprint;
+}
+
+void QuicClient::OnReceiverRemoved(const ServiceInfo& info) {
+  fingerprints_.erase(info.v4_endpoint.port ? info.v4_endpoint
+                                            : info.v6_endpoint);
+}
+
+void QuicClient::OnAllReceiversRemoved() {
+  fingerprints_.clear();
+}
+
+void QuicClient::OnError(const Error&) {}
+void QuicClient::OnMetrics(ServiceListener::Metrics) {}
+
 bool QuicClient::Start() {
   if (state_ == State::kRunning)
     return false;
@@ -67,6 +95,15 @@ void QuicClient::Cleanup() {
   constexpr Clock::duration kQuicCleanupPeriod = std::chrono::milliseconds(500);
   if (state_ != State::kStopped) {
     cleanup_alarm_.ScheduleFromNow([this] { Cleanup(); }, kQuicCleanupPeriod);
+  }
+}
+
+void QuicClient::UpdateFingerprint(const IPEndpoint& endpoint,
+                                   const std::string& fingerprint) {
+  if (fingerprint.empty()) {
+    fingerprints_.erase(endpoint);
+  } else {
+    fingerprints_[endpoint] = fingerprint;
   }
 }
 
@@ -191,10 +228,18 @@ QuicClient::ConnectRequest QuicClient::CreatePendingConnection(
 uint64_t QuicClient::StartConnectionRequest(
     const IPEndpoint& endpoint,
     ConnectionRequestCallback* request) {
+  auto fingerprint_entry = fingerprints_.find(endpoint);
+  if (fingerprint_entry == fingerprints_.end()) {
+    request->OnConnectionFailed(0);
+    OSP_LOG_ERROR
+        << "QuicClient connect failed: can't find usable fingerprint.";
+    return 0;
+  }
+
   auto delegate = std::make_unique<ServiceConnectionDelegate>(*this, endpoint);
   ErrorOr<std::unique_ptr<QuicConnection>> connection =
       connection_factory_->Connect(connection_endpoints_[0], endpoint,
-                                   delegate.get());
+                                   fingerprint_entry->second, delegate.get());
   if (!connection) {
     request->OnConnectionFailed(0);
     OSP_LOG_ERROR << "Factory connect failed: " << connection.error();

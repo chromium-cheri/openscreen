@@ -64,6 +64,9 @@ class ProtocolConnectionServer {
   // connections.
   virtual bool Resume() = 0;
 
+  // Gets the agent fingerprint and it is included in DNS TXT records.
+  virtual std::string GetFingerprint() = 0;
+
   // Synchronously open a new connection to an endpoint identified by
   // |endpoint_id|.  Returns nullptr if it can't be completed synchronously
   // (e.g. there are no existing open connections to that endpoint).
