@@ -20,6 +20,7 @@ using State = ServicePublisher::State;
 
 namespace {
 
+constexpr char kFingerPrint[] = "fp";
 constexpr char kFriendlyNameTxtKey[] = "fn";
 constexpr char kDnsSdDomainId[] = "local";
 
@@ -27,7 +28,8 @@ discovery::DnsSdInstance ServiceConfigToDnsSdInstance(
     const ServicePublisher::Config& config) {
   discovery::DnsSdTxtRecord txt;
   const bool did_set_everything =
-      txt.SetValue(kFriendlyNameTxtKey, config.friendly_name).ok();
+      txt.SetValue(kFriendlyNameTxtKey, config.friendly_name).ok() &&
+      txt.SetValue(kFingerPrint, config.fingerprint).ok();
   OSP_CHECK(did_set_everything);
 
   // NOTE: Not totally clear how we should be using config.hostname, which in
