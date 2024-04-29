@@ -5,7 +5,10 @@
 #ifndef OSP_IMPL_QUIC_OPEN_SCREEN_SESSION_BASE_H_
 #define OSP_IMPL_QUIC_OPEN_SCREEN_SESSION_BASE_H_
 
+#include <limits>
 #include <memory>
+#include <string>
+#include <vector>
 
 #include "osp/impl/quic/quic_connection.h"
 #include "osp/impl/quic/quic_stream.h"
@@ -40,6 +43,11 @@ class OpenScreenSessionBase : public quic::QuicSession {
   void Initialize() override;
   // This will inform Visitor that Handshake is done.
   void OnTlsHandshakeComplete() override;
+
+  // Override the ALPN
+  std::vector<std::string> GetAlpnsToOffer() const override;
+  std::vector<absl::string_view>::const_iterator SelectAlpn(
+      const std::vector<absl::string_view>& alpns) const override;
 
   QuicStream* CreateOutgoingStream(QuicStream::Delegate* delegate);
 

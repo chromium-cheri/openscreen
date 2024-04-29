@@ -5,7 +5,9 @@
 #include "osp/impl/quic/open_screen_session_base.h"
 
 #include <limits>
+#include <string>
 #include <utility>
+#include <vector>
 
 #include "osp/impl/quic/quic_connection_impl.h"
 #include "osp/impl/quic/quic_stream_impl.h"
@@ -45,6 +47,17 @@ void OpenScreenSessionBase::Initialize() {
 void OpenScreenSessionBase::OnTlsHandshakeComplete() {
   QuicSession::OnTlsHandshakeComplete();
   visitor_.OnCryptoHandshakeComplete();
+}
+
+std::vector<std::string> OpenScreenSessionBase::GetAlpnsToOffer() const {
+  return std::vector<std::string>({"osp"});
+}
+
+std::vector<absl::string_view>::const_iterator
+OpenScreenSessionBase::SelectAlpn(
+    const std::vector<absl::string_view>& alpns) const {
+  const std::string alpn = "osp";
+  return std::find(alpns.cbegin(), alpns.cend(), alpn);
 }
 
 QuicStream* OpenScreenSessionBase::CreateOutgoingStream(
