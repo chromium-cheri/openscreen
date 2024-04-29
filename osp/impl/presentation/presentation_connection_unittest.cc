@@ -60,7 +60,10 @@ class ConnectionTest : public ::testing::Test {
         task_runner_(fake_clock_),
         quic_bridge_(task_runner_, FakeClock::now),
         controller_connection_manager_(quic_bridge_.controller_demuxer.get()),
-        receiver_connection_manager_(quic_bridge_.receiver_demuxer.get()) {}
+        receiver_connection_manager_(quic_bridge_.receiver_demuxer.get()) {
+    quic_bridge_.quic_client->fingerprints().emplace(
+        quic_bridge_.kReceiverEndpoint, "fingerprint1");
+  }
 
  protected:
   void SetUp() override {
