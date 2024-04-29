@@ -22,6 +22,7 @@ using State = ServiceListener::State;
 
 namespace {
 
+constexpr char kFingerPrint[] = "fp";
 constexpr char kFriendlyNameTxtKey[] = "fn";
 
 ErrorOr<ServiceInfo> DnsSdInstanceEndpointToServiceInfo(
@@ -38,8 +39,14 @@ ErrorOr<ServiceInfo> DnsSdInstanceEndpointToServiceInfo(
     return {Error::Code::kParameterInvalid,
             "Missing receiver friendly name in record."};
   }
+  std::string fingerprint =
+      endpoint.txt().GetStringValue(kFingerPrint).value("");
+  if (fingerprint.empty()) {
+    return {Error::Code::kParameterInvalid,
+            "Missing agent fingerprint in record."};
+  }
 
-  ServiceInfo service_info{endpoint.service_id(), friendly_name,
+  ServiceInfo service_info{endpoint.service_id(), friendly_name, fingerprint,
                            endpoint.network_interface()};
   for (const IPEndpoint& record : endpoint.endpoints()) {
     if (!service_info.v4_endpoint && record.address.IsV4()) {

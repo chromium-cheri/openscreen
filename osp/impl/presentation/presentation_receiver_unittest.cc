@@ -67,7 +67,10 @@ class PresentationReceiverTest : public ::testing::Test {
   PresentationReceiverTest()
       : fake_clock_(Clock::time_point(std::chrono::milliseconds(1298424))),
         task_runner_(fake_clock_),
-        quic_bridge_(task_runner_, FakeClock::now) {}
+        quic_bridge_(task_runner_, FakeClock::now) {
+    quic_bridge_.quic_client->fingerprints().emplace(
+        quic_bridge_.kReceiverEndpoint, "fingerprint1");
+  }
 
  protected:
   std::unique_ptr<ProtocolConnection> MakeClientStream() {
