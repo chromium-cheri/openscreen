@@ -16,6 +16,57 @@
       "message": "Hi Mark, Wei. I added the spec ALPN as a step towards compatibility with my Go implementation over at https://github.com/backkem/go-lp2p.",
       "revId": "6f195439c01841ca613f20275a64c8c0f9920dde",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14539d43_44ee98cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-04-30T01:35:18Z",
+      "side": 1,
+      "message": "Hi, Michiel. Thanks for the contribution. LGTM.",
+      "revId": "6f195439c01841ca613f20275a64c8c0f9920dde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cca617e_763ebd8a",
+        "filename": "osp/impl/quic/open_screen_session_base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-04-30T01:35:18Z",
+      "side": 1,
+      "message": "I think this empty line can be removed because all these functions are “QuicSession overrides”.",
+      "revId": "6f195439c01841ca613f20275a64c8c0f9920dde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "198463b1_96e2c1ac",
+        "filename": "osp/impl/quic/quic_version_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-04-30T01:35:18Z",
+      "side": 1,
+      "message": "According to coding style: https://google.github.io/styleguide/cppguide.html#Copyable_Movable_Types, it is better to make clear whether the class is copyable, move-only, or neither copyable nor movable. @mfoltz@chromium.org We also follow this requirement here, right? If so, it is better to add:\n```\nQuicVersionManager(const QuicVersionManager\u0026) \u003d delete;\nQuicVersionManager\u0026 operator\u003d(const QuicVersionManager\u0026) \u003d delete;\n```\n\nWe also notice that many existing classes do not meet this requirement. We can gradually change them if necessary.",
+      "revId": "6f195439c01841ca613f20275a64c8c0f9920dde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
