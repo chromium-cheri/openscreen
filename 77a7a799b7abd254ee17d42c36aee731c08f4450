@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c726ac59_b6fb83ad",
+        "filename": "discovery/mdns/impl/mdns_querier.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-04-30T01:58:36Z",
+      "side": 1,
+      "message": "Sorry, I don\u0027t quite understand. I use `const \u0026` here, so no need to use `std::move`.\n\nIf you means changing `const Config\u0026 config` to `Config config`, and use `std::move`. Then I think `const Config\u0026 config` is better, because it only needs to execute the constructor once, while the other needs to execute the constructor once and the move constructor once.",
+      "parentUuid": "dcf97866_81f2dd52",
+      "revId": "77a7a799b7abd254ee17d42c36aee731c08f4450",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "41d4d04d_fe749278",
         "filename": "discovery/mdns/impl/mdns_querier.h",
         "patchSetId": 4
@@ -84,6 +102,24 @@
       "writtenOn": "2024-04-29T18:29:07Z",
       "side": 1,
       "message": "Update to make a copy of Config.",
+      "revId": "77a7a799b7abd254ee17d42c36aee731c08f4450",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6793689_36152933",
+        "filename": "discovery/mdns/impl/mdns_querier.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-04-30T01:58:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41d4d04d_fe749278",
       "revId": "77a7a799b7abd254ee17d42c36aee731c08f4450",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
