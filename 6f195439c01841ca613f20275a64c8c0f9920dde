@@ -37,6 +37,74 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d39a4590_8b65aea9",
+        "filename": "osp/impl/quic/open_screen_session_base.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-04-30T20:25:19Z",
+      "side": 1,
+      "message": "Please define a file-level constant for the \"osp\" string, like kOpenScreenProtocolALPN",
+      "revId": "6f195439c01841ca613f20275a64c8c0f9920dde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28daa05e_6efb242f",
+        "filename": "osp/impl/quic/open_screen_session_base.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-04-30T20:25:19Z",
+      "side": 1,
+      "message": "absl::string_view can be constructed directly from char*, so you don\u0027t need to declare a string first.",
+      "revId": "6f195439c01841ca613f20275a64c8c0f9920dde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6c18833_86b14da9",
+        "filename": "osp/impl/quic/open_screen_session_base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-04-30T20:25:19Z",
+      "side": 1,
+      "message": "Is this include needed?",
+      "revId": "6f195439c01841ca613f20275a64c8c0f9920dde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69162616_e7243c76",
+        "filename": "osp/impl/quic/open_screen_session_base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-04-30T20:25:19Z",
+      "side": 1,
+      "message": "Strictly speaking you don\u0027t need these includes because they are for methods that are declared in quic::QuicSession and you are overriding here.  Since this must include quic_session.h you will always get these includes already.",
+      "revId": "6f195439c01841ca613f20275a64c8c0f9920dde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7cca617e_763ebd8a",
         "filename": "osp/impl/quic/open_screen_session_base.h",
         "patchSetId": 2
@@ -54,6 +122,57 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c29d72b6_f2c8b681",
+        "filename": "osp/impl/quic/quic_version_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-04-30T20:25:19Z",
+      "side": 1,
+      "message": "You should declare the \"osp\" constant in a file that can be included here, maybe start a new file like quic_constants.h",
+      "revId": "6f195439c01841ca613f20275a64c8c0f9920dde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9ff71a3_3c944e66",
+        "filename": "osp/impl/quic/quic_version_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-04-30T20:25:19Z",
+      "side": 1,
+      "message": "This is not used.",
+      "revId": "6f195439c01841ca613f20275a64c8c0f9920dde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3796e9f_79838947",
+        "filename": "osp/impl/quic/quic_version_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-04-30T20:25:19Z",
+      "side": 1,
+      "message": "Please #include \"quiche/quic/core/quic_versions.h\" which defines quic::ParsedQuicVersionVector",
+      "revId": "6f195439c01841ca613f20275a64c8c0f9920dde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "198463b1_96e2c1ac",
         "filename": "osp/impl/quic/quic_version_manager.h",
         "patchSetId": 2
@@ -65,6 +184,24 @@
       "writtenOn": "2024-04-30T01:35:18Z",
       "side": 1,
       "message": "According to coding style: https://google.github.io/styleguide/cppguide.html#Copyable_Movable_Types, it is better to make clear whether the class is copyable, move-only, or neither copyable nor movable. @mfoltz@chromium.org We also follow this requirement here, right? If so, it is better to add:\n```\nQuicVersionManager(const QuicVersionManager\u0026) \u003d delete;\nQuicVersionManager\u0026 operator\u003d(const QuicVersionManager\u0026) \u003d delete;\n```\n\nWe also notice that many existing classes do not meet this requirement. We can gradually change them if necessary.",
+      "revId": "6f195439c01841ca613f20275a64c8c0f9920dde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b35bdf54_445fe2ef",
+        "filename": "osp/impl/quic/quic_version_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-04-30T20:25:19Z",
+      "side": 1,
+      "message": "Yes, please define or delete move and copy operators.\nFor this, probably defining all of them is fine.\nWe don\u0027t enforce it in the library, but should do it for new code.",
+      "parentUuid": "198463b1_96e2c1ac",
       "revId": "6f195439c01841ca613f20275a64c8c0f9920dde",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
