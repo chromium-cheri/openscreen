@@ -300,6 +300,24 @@
       "parentUuid": "eba6ef90_189c5b27",
       "revId": "fbcc1733391c64d9ce0e9529d5769a13b93fcc8b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e8db8ea_7be3f312",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1498402
+      },
+      "writtenOn": "2024-05-01T17:24:01Z",
+      "side": 1,
+      "message": "I\u0027ve been looking at this. Doing network interface listing with Chrome code is problematic since Chrome\u0027s network interface listing function `base::GetNetworkList()` [link](https://source.chromium.org/chromium/chromium/src/+/main:net/base/network_interfaces.h;l\u003d90-95;drc\u003d93f8e3b6e39e23935c31d7775d88312318fe34ba) strips out loopback adapters.\n\nI think the options are:\n1. Add a function to Chrome\u0027s net directory to allow enumeration including loopback adapters.\n2. Copy-paste platform specific enumeration code to get loopback adapters.",
+      "parentUuid": "9f3ebc5f_14a80dcf",
+      "revId": "fbcc1733391c64d9ce0e9529d5769a13b93fcc8b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
