@@ -318,6 +318,24 @@
       "parentUuid": "9f3ebc5f_14a80dcf",
       "revId": "fbcc1733391c64d9ce0e9529d5769a13b93fcc8b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4034fcb0_d0154f6c",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-02T16:47:20Z",
+      "side": 1,
+      "message": "for #1: I would ask the //net OWNERS.  I don\u0027t know why they would exclude loopback adapters or if they would be willing to add a flag to include them to the network service API.  It might take some back and forth though, don\u0027t know how long it would take to make a change like that.\n\nfor #2: I don\u0027t think you need platform specific code.  Just add the loopback interface to the list returned by the network service with the hard coded loopback name and IP address.\n\nOption 3 would be to refactor the Cast receiver to make the interface optional and only take an IP address to bind.  You won\u0027t be able to run mDNS without the interface, but maybe that\u0027s not needed for your use case and lets you punt on figuring out the loopback interface issue.",
+      "parentUuid": "9e8db8ea_7be3f312",
+      "revId": "fbcc1733391c64d9ce0e9529d5769a13b93fcc8b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
