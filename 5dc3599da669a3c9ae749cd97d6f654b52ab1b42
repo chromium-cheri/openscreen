@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3167bf0f_b6f900ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3414704
+      },
+      "writtenOn": "2024-05-06T15:22:06Z",
+      "side": 1,
+      "message": "According to the quic spec[1] a client has to open with a unpredictable Destination Connection ID as long as it didn\u0027t receive one from the server. Once the server replies with its zero-length connection ID the client takes this over. I validated that this works with Wireshark. The resulting behavior still seems compliant with the zero-lenght Connection ID requirement mentioned in the OSP spec.\n\nThis is another compatibility fix with quic-go as it strictly enforced this rule. I opened a ticket on the OSP spec repo[2] to consider highlighting behavior this in the spec as it\u0027s a bit quirky. I also opened a ticket on the quiche repo[3] to consider documenting or enforcing this behavior.\n\n[2] https://github.com/w3c/openscreenprotocol/issues/331\n[3] https://github.com/google/quiche/issues/70",
+      "revId": "5dc3599da669a3c9ae749cd97d6f654b52ab1b42",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
