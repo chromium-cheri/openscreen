@@ -85,13 +85,16 @@ ErrorOr<std::unique_ptr<QuicConnection>> QuicConnectionFactoryClient::Connect(
 
   auto connection_impl = std::make_unique<QuicConnectionImpl>(
       *this, *connection_delegate, *helper_->GetClock());
-  // NOTE: Ask the QUICHE authors what quic::QuicServerId to use here for
-  // clients that aren't connecting to Internet hosts with a hostname.
+  // NOTE: Switch to `._openscreen._udp` when QUICHE supports. Currently, QUICHE
+  // doesn't support the last component starting with `_`. Check the link below
+  // for details:
+  // https://source.chromium.org/chromium/chromium/src/+/main:net/third_party/quiche/src/quiche/common/platform/api/quiche_hostname_utils.cc;l=77
+  std::string host_name = fingerprint + "._openscreen.udp";
+  host_name.erase(std::remove(host_name.begin(), host_name.end(), ':'),
+                  host_name.end());
   OpenScreenSessionBase* session = new OpenScreenClientSession(
       std::move(connection), *crypto_client_config_, *connection_impl, config_,
-      quic::QuicServerId(ToQuicIpAddress(remote_endpoint.address).ToString(),
-                         remote_endpoint.port),
-      supported_versions_);
+      quic::QuicServerId(host_name, remote_endpoint.port), supported_versions_);
   connection_impl->set_session(session, /*owns_session=*/true);
 
   // TODO(btolsch): This presents a problem for multihomed receivers, which may
