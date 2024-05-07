@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2e272bee_9f585125",
+        "filename": "discovery/mdns/impl/mdns_probe_manager.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-05-07T06:21:59Z",
+      "side": 1,
+      "message": "Yes, `std::move` is just a suggestion for the compiler and the compiler may not move the values. However, `OnDomainFound` takes const\u0026, so the `std::move` here is meaningless.",
+      "parentUuid": "425767a6_c809d3bd",
+      "revId": "d35f5ade03c6756c6104f07019c2ead99ba5ec04",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2046904e_e2c9558b",
         "filename": "osp/impl/dns_sd_publisher_client.cc",
         "patchSetId": 6
@@ -65,6 +83,24 @@
       "writtenOn": "2024-05-07T05:00:01Z",
       "side": 1,
       "message": "Nit: kFingerprint",
+      "revId": "d35f5ade03c6756c6104f07019c2ead99ba5ec04",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "caa5e8a4_62ac7503",
+        "filename": "osp/impl/dns_sd_publisher_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-05-07T06:21:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2046904e_e2c9558b",
       "revId": "d35f5ade03c6756c6104f07019c2ead99ba5ec04",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -86,6 +122,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98a2833a_64465f0a",
+        "filename": "osp/impl/dns_sd_watcher_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-05-07T06:21:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2df94bd_7ff35e5f",
+      "revId": "d35f5ade03c6756c6104f07019c2ead99ba5ec04",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "760a90b2_061fb635",
@@ -99,6 +153,24 @@
       "writtenOn": "2024-05-07T05:00:01Z",
       "side": 1,
       "message": "Side comment: These TXT key names should be defined in a shared constants file.",
+      "revId": "d35f5ade03c6756c6104f07019c2ead99ba5ec04",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f729667f_5a0183f6",
+        "filename": "osp/impl/dns_sd_watcher_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-05-07T06:21:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "760a90b2_061fb635",
       "revId": "d35f5ade03c6756c6104f07019c2ead99ba5ec04",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -120,6 +192,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "829b0a9f_172427e2",
+        "filename": "osp/impl/dns_sd_watcher_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-05-07T06:21:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "402134c6_91e742a2",
+      "revId": "d35f5ade03c6756c6104f07019c2ead99ba5ec04",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b87eafcd_ff3b1d50",
@@ -133,6 +223,24 @@
       "writtenOn": "2024-05-07T05:00:01Z",
       "side": 1,
       "message": "The fingerprint is actually a property of the currently active agent certificate, not the server.\n\nIn the future, we will likely need to discard and/or rotate certificates, so the server should be attached to an object that vends the current certificate (instead of copying properties of the current one).\n\nThen a call to get the FP would look something like:\n\nQuicServer::GetAgentCertificate().GetFingerprint()\n\n\n- What object do you see owning the agent certificate?\n- Fine to refactor this later as well as we only care about the FP for now.",
+      "revId": "d35f5ade03c6756c6104f07019c2ead99ba5ec04",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5a51692_ffaf1c5b",
+        "filename": "osp/impl/quic/quic_server.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-05-07T06:21:59Z",
+      "side": 1,
+      "message": "It makes senses to me. I think we can refactor this in the CL for switching to OSP certificate generation.",
+      "parentUuid": "b87eafcd_ff3b1d50",
       "revId": "d35f5ade03c6756c6104f07019c2ead99ba5ec04",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }

@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8efd53ab_ca2f449d",
+        "filename": "osp/impl/quic/quic_client.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-05-07T06:21:59Z",
+      "side": 1,
+      "message": "It makes sense to me.\n\nI implemented it this way because I borrowed from PresentationController: https://source.chromium.org/chromium/chromium/src/+/main:third_party/openscreen/src/osp/impl/presentation/presentation_controller.cc;l\u003d758.\n\nThere are many other places using endpoint as the key to maintain data, like pending_connections_ in QuicClient. We can use fingerprint instand of endpoint, right? It seems a huge change, can we change it in another CL?",
+      "parentUuid": "82b64bf2_92ce2aed",
+      "revId": "2d941c24db2c648a3e326393ecb05a6d7ccd7fa8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "74b03f33_38438f47",
         "filename": "osp/impl/quic/quic_client.h",
         "patchSetId": 7
@@ -31,6 +49,24 @@
       "writtenOn": "2024-05-07T05:00:01Z",
       "side": 1,
       "message": "Please override these in the private: block as we don\u0027t want them as part of the public API.",
+      "revId": "2d941c24db2c648a3e326393ecb05a6d7ccd7fa8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2949377e_4553735c",
+        "filename": "osp/impl/quic/quic_client.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-05-07T06:21:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74b03f33_38438f47",
       "revId": "2d941c24db2c648a3e326393ecb05a6d7ccd7fa8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
