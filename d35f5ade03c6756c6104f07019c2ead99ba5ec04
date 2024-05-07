@@ -33,6 +33,108 @@
       "message": "Hi, mark. Do you have time reviewing this? Thanks.",
       "revId": "d35f5ade03c6756c6104f07019c2ead99ba5ec04",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "425767a6_c809d3bd",
+        "filename": "discovery/mdns/impl/mdns_probe_manager.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-07T05:00:01Z",
+      "side": 1,
+      "message": "This isn\u0027t a return value so the compiler won\u0027t always automatically move these values.",
+      "revId": "d35f5ade03c6756c6104f07019c2ead99ba5ec04",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2046904e_e2c9558b",
+        "filename": "osp/impl/dns_sd_publisher_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-07T05:00:01Z",
+      "side": 1,
+      "message": "Nit: kFingerprint",
+      "revId": "d35f5ade03c6756c6104f07019c2ead99ba5ec04",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2df94bd_7ff35e5f",
+        "filename": "osp/impl/dns_sd_watcher_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-07T05:00:01Z",
+      "side": 1,
+      "message": "kFingerprint",
+      "revId": "d35f5ade03c6756c6104f07019c2ead99ba5ec04",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "760a90b2_061fb635",
+        "filename": "osp/impl/dns_sd_watcher_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-07T05:00:01Z",
+      "side": 1,
+      "message": "Side comment: These TXT key names should be defined in a shared constants file.",
+      "revId": "d35f5ade03c6756c6104f07019c2ead99ba5ec04",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "402134c6_91e742a2",
+        "filename": "osp/impl/dns_sd_watcher_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-07T05:00:01Z",
+      "side": 1,
+      "message": "There\u0027s a specific format for the fingerprint defined by the spec.\n\nhttps://w3c.github.io/openscreenprotocol/#agent-fingerprint\n\n\nCan you add a TODO to add additional validation as it would probably be better to check early and discard records with invalid FPs.",
+      "revId": "d35f5ade03c6756c6104f07019c2ead99ba5ec04",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b87eafcd_ff3b1d50",
+        "filename": "osp/impl/quic/quic_server.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-07T05:00:01Z",
+      "side": 1,
+      "message": "The fingerprint is actually a property of the currently active agent certificate, not the server.\n\nIn the future, we will likely need to discard and/or rotate certificates, so the server should be attached to an object that vends the current certificate (instead of copying properties of the current one).\n\nThen a call to get the FP would look something like:\n\nQuicServer::GetAgentCertificate().GetFingerprint()\n\n\n- What object do you see owning the agent certificate?\n- Fine to refactor this later as well as we only care about the FP for now.",
+      "revId": "d35f5ade03c6756c6104f07019c2ead99ba5ec04",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }

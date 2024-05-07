@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82b64bf2_92ce2aed",
+        "filename": "osp/impl/quic/quic_client.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-07T05:00:01Z",
+      "side": 1,
+      "message": "Ideally we actually want the mapping to go from fingerprint to a struct that has either an IPv4 endpoint, an IPv6 endpoint, or both.  The reason is that the IP endpoints may change over time but the FP should remain the same.\n\n\nThe API for ProtocolConnectionClient::Connect() should take an agent fingerprint and then the QuicClient would look up the current endpoint from the information obtained by the service listener.\n\nDoes that make sense?",
+      "revId": "2d941c24db2c648a3e326393ecb05a6d7ccd7fa8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74b03f33_38438f47",
+        "filename": "osp/impl/quic/quic_client.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-07T05:00:01Z",
+      "side": 1,
+      "message": "Please override these in the private: block as we don\u0027t want them as part of the public API.",
+      "revId": "2d941c24db2c648a3e326393ecb05a6d7ccd7fa8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
