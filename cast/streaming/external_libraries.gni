@@ -12,6 +12,10 @@ declare_args() {
     "avformat",
     "avutil",
     "swresample",
+
+    # The following two libraries are required by libavformat
+    "xml2",
+    "chromaprint",
   ]
   ffmpeg_include_dirs = []
   ffmpeg_lib_dirs = []
