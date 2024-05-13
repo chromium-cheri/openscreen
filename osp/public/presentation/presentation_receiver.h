@@ -93,7 +93,7 @@ class Receiver final : public MessageDemuxer::MessageCallback,
   void OnConnectionDestroyed(Connection* connection) override;
 
   // MessageDemuxer::MessageCallback overrides.
-  ErrorOr<size_t> OnStreamMessage(uint64_t endpoint_id,
+  ErrorOr<size_t> OnStreamMessage(uint64_t instance_number,
                                   uint64_t connection_id,
                                   msgs::Type message_type,
                                   const uint8_t* buffer,
@@ -107,11 +107,11 @@ class Receiver final : public MessageDemuxer::MessageCallback,
     Type type;
     uint64_t request_id;
     uint64_t connection_id;
-    uint64_t endpoint_id;
+    uint64_t instance_number;
   };
 
   struct Presentation {
-    uint64_t endpoint_id;
+    uint64_t instance_number;
     MessageDemuxer::MessageWatch terminate_watch;
     uint64_t terminate_request_id;
     std::vector<Connection*> connections;
