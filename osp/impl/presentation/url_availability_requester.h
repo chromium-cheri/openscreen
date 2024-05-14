@@ -78,8 +78,7 @@ class UrlAvailabilityRequester {
         public MessageDemuxer::MessageCallback {
    public:
     ReceiverRequester(UrlAvailabilityRequester& listener,
-                      const std::string& instance_id,
-                      const IPEndpoint& endpoint);
+                      const std::string& instance_id);
     ~ReceiverRequester() override;
 
     void GetOrRequestAvailabilities(
@@ -103,7 +102,7 @@ class UrlAvailabilityRequester {
     void OnConnectionFailed(uint64_t request_id) override;
 
     // MessageDemuxer::MessageCallback overrides.
-    ErrorOr<size_t> OnStreamMessage(uint64_t endpoint_id,
+    ErrorOr<size_t> OnStreamMessage(uint64_t instance_number,
                                     uint64_t connection_id,
                                     msgs::Type message_type,
                                     const uint8_t* buffer,
@@ -130,7 +129,7 @@ class UrlAvailabilityRequester {
     uint64_t next_watch_id_ = 1;
 
     const std::string instance_id_;
-    uint64_t endpoint_id_{0};
+    uint64_t instance_number_{0};
 
     ProtocolConnectionClient::ConnectRequest connect_request_;
     // TODO(btolsch): Observe connection and restart all the things on close.
