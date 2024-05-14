@@ -74,26 +74,26 @@ class Controller::MessageGroupStreams final
   void CancelStartRequest(uint64_t request_id);
   void OnMatchedResponse(StartRequest* request,
                          msgs::PresentationStartResponse* response,
-                         uint64_t endpoint_id) override;
+                         uint64_t instance_number) override;
   void OnError(StartRequest* request, const Error& error) override;
 
   uint64_t SendConnectionOpenRequest(ConnectionOpenRequest request);
   void CancelConnectionOpenRequest(uint64_t request_id);
   void OnMatchedResponse(ConnectionOpenRequest* request,
                          msgs::PresentationConnectionOpenResponse* response,
-                         uint64_t endpoint_id) override;
+                         uint64_t instance_number) override;
   void OnError(ConnectionOpenRequest* request, const Error& error) override;
 
   void SendConnectionCloseRequest(ConnectionCloseRequest request);
   void OnMatchedResponse(ConnectionCloseRequest* request,
                          msgs::PresentationConnectionCloseResponse* response,
-                         uint64_t endpoint_id) override;
+                         uint64_t instance_number) override;
   void OnError(ConnectionCloseRequest* request, const Error& error) override;
 
   void SendTerminationRequest(TerminationRequest request);
   void OnMatchedResponse(TerminationRequest* request,
                          msgs::PresentationTerminationResponse* response,
-                         uint64_t endpoint_id) override;
+                         uint64_t instance_number) override;
   void OnError(TerminationRequest* request, const Error& error) override;
 
   // ProtocolConnectionClient::ConnectionRequestCallback overrides.
@@ -146,7 +146,7 @@ uint64_t Controller::MessageGroupStreams::SendStartRequest(
     initiation_connect_request_stack_ = true;
     initiation_connect_request_ =
         NetworkServiceManager::Get()->GetProtocolConnectionClient()->Connect(
-            controller_->receiver_endpoints_[instance_id_], this);
+            instance_id_, this);
     initiation_connect_request_stack_ = false;
   }
   initiation_handler_.WriteMessage(request_id, std::move(request));
@@ -162,7 +162,7 @@ void Controller::MessageGroupStreams::CancelStartRequest(uint64_t request_id) {
 void Controller::MessageGroupStreams::OnMatchedResponse(
     StartRequest* request,
     msgs::PresentationStartResponse* response,
-    uint64_t endpoint_id) {
+    uint64_t instance_number) {
   if (response->result != msgs::PresentationStartResponse_result::kSuccess) {
     std::stringstream ss;
     ss << "presentation-start-response for " << request->request.url
@@ -181,12 +181,12 @@ void Controller::MessageGroupStreams::OnMatchedResponse(
       Connection::PresentationInfo{request->request.presentation_id,
                                    request->request.url},
       request->presentation_connection_delegate, controller_);
-  controller_->OpenConnection(response->connection_id, endpoint_id,
+  controller_->OpenConnection(response->connection_id, instance_number,
                               instance_id_, request->delegate,
                               std::move(connection),
                               NetworkServiceManager::Get()
                                   ->GetProtocolConnectionClient()
-                                  ->CreateProtocolConnection(endpoint_id));
+                                  ->CreateProtocolConnection(instance_number));
 }
 
 void Controller::MessageGroupStreams::OnError(StartRequest* request,
@@ -201,7 +201,7 @@ uint64_t Controller::MessageGroupStreams::SendConnectionOpenRequest(
     connection_connect_request_stack_ = true;
     connection_connect_request_ =
         NetworkServiceManager::Get()->GetProtocolConnectionClient()->Connect(
-            controller_->receiver_endpoints_[instance_id_], this);
+            instance_id_, this);
     connection_connect_request_stack_ = false;
   }
   connection_open_handler_.WriteMessage(request_id, std::move(request));
@@ -216,7 +216,7 @@ void Controller::MessageGroupStreams::CancelConnectionOpenRequest(
 void Controller::MessageGroupStreams::OnMatchedResponse(
     ConnectionOpenRequest* request,
     msgs::PresentationConnectionOpenResponse* response,
-    uint64_t endpoint_id) {
+    uint64_t instance_number) {
   if (response->result !=
       msgs::PresentationConnectionOpenResponse_result::kSuccess) {
     std::stringstream ss;
@@ -238,8 +238,8 @@ void Controller::MessageGroupStreams::OnMatchedResponse(
   std::unique_ptr<ProtocolConnection> protocol_connection =
       NetworkServiceManager::Get()
           ->GetProtocolConnectionClient()
-          ->CreateProtocolConnection(endpoint_id);
-  request->connection->OnConnected(response->connection_id, endpoint_id,
+          ->CreateProtocolConnection(instance_number);
+  request->connection->OnConnected(response->connection_id, instance_number,
                                    std::move(protocol_connection));
   controller_->AddConnection(request->connection.get());
   request->delegate->OnConnection(std::move(request->connection));
@@ -256,7 +256,7 @@ void Controller::MessageGroupStreams::SendConnectionCloseRequest(
     connection_connect_request_stack_ = true;
     connection_connect_request_ =
         NetworkServiceManager::Get()->GetProtocolConnectionClient()->Connect(
-            controller_->receiver_endpoints_[instance_id_], this);
+            instance_id_, this);
     connection_connect_request_stack_ = false;
   }
   connection_close_handler_.WriteMessage(std::move(request));
@@ -265,7 +265,7 @@ void Controller::MessageGroupStreams::SendConnectionCloseRequest(
 void Controller::MessageGroupStreams::OnMatchedResponse(
     ConnectionCloseRequest* request,
     msgs::PresentationConnectionCloseResponse* response,
-    uint64_t endpoint_id) {
+    uint64_t instance_number) {
   OSP_LOG_IF(INFO,
              response->result !=
                  msgs::PresentationConnectionCloseResponse_result::kSuccess)
@@ -284,7 +284,7 @@ void Controller::MessageGroupStreams::SendTerminationRequest(
   if (!initiation_protocol_connection_ && !initiation_connect_request_) {
     initiation_connect_request_ =
         NetworkServiceManager::Get()->GetProtocolConnectionClient()->Connect(
-            controller_->receiver_endpoints_[instance_id_], this);
+            instance_id_, this);
   }
   termination_handler_.WriteMessage(std::move(request));
 }
@@ -292,7 +292,7 @@ void Controller::MessageGroupStreams::SendTerminationRequest(
 void Controller::MessageGroupStreams::OnMatchedResponse(
     TerminationRequest* request,
     msgs::PresentationTerminationResponse* response,
-    uint64_t endpoint_id) {
+    uint64_t instance_number) {
   OSP_VLOG << "got presentation-termination-response for "
            << request->request.presentation_id << " with result "
            << static_cast<int>(response->result);
@@ -429,15 +429,9 @@ Controller::Controller(ClockNowFunctionPtr now_function) {
   const std::vector<ServiceInfo>& receivers =
       NetworkServiceManager::Get()->GetServiceListener()->GetReceivers();
   for (const auto& info : receivers) {
-    // TODO(issuetracker.google.com/155337369): Need a consistent way of
-    // referring to an endpoint that is tied to authentication.
-    receiver_endpoints_.emplace(info.instance_id, info.v4_endpoint.port
-                                                      ? info.v4_endpoint
-                                                      : info.v6_endpoint);
     availability_requester_->AddReceiver(info);
   }
-  // TODO(btolsch): This is for |receiver_endpoints_|, but this should really be
-  // tracked elsewhere so it's available to other protocols as well.
+
   NetworkServiceManager::Get()->GetServiceListener()->AddObserver(*this);
 }
 
@@ -610,11 +604,11 @@ class Controller::TerminationListener final
  public:
   TerminationListener(Controller* controller,
                       const std::string& presentation_id,
-                      uint64_t endpoint_id);
+                      uint64_t instance_number);
   ~TerminationListener() override;
 
   // MessageDemuxer::MessageCallback overrides.
-  ErrorOr<size_t> OnStreamMessage(uint64_t endpoint_id,
+  ErrorOr<size_t> OnStreamMessage(uint64_t instance_number,
                                   uint64_t connection_id,
                                   msgs::Type message_type,
                                   const uint8_t* buffer,
@@ -630,20 +624,20 @@ class Controller::TerminationListener final
 Controller::TerminationListener::TerminationListener(
     Controller* controller,
     const std::string& presentation_id,
-    uint64_t endpoint_id)
+    uint64_t instance_number)
     : controller_(controller), presentation_id_(presentation_id) {
   event_watch_ =
       NetworkServiceManager::Get()
           ->GetProtocolConnectionClient()
           ->message_demuxer()
-          ->WatchMessageType(endpoint_id,
+          ->WatchMessageType(instance_number,
                              msgs::Type::kPresentationTerminationEvent, this);
 }
 
 Controller::TerminationListener::~TerminationListener() = default;
 
 ErrorOr<size_t> Controller::TerminationListener::OnStreamMessage(
-    uint64_t endpoint_id,
+    uint64_t instance_number,
     uint64_t connection_id,
     msgs::Type message_type,
     const uint8_t* buffer,
@@ -692,12 +686,12 @@ void Controller::AddConnection(Connection* connection) {
 
 void Controller::OpenConnection(
     uint64_t connection_id,
-    uint64_t endpoint_id,
+    uint64_t instance_number,
     const std::string& instance_id,
     RequestDelegate* request_delegate,
     std::unique_ptr<Connection>&& connection,
     std::unique_ptr<ProtocolConnection>&& protocol_connection) {
-  connection->OnConnected(connection_id, endpoint_id,
+  connection->OnConnected(connection_id, instance_number,
                           std::move(protocol_connection));
   const std::string& presentation_id = connection->presentation_info().id;
   auto presentation_entry = presentations_.find(presentation_id);
@@ -716,7 +710,7 @@ void Controller::OpenConnection(
   if (terminate_entry == termination_listener_by_id_.end()) {
     termination_listener_by_id_.emplace(
         presentation_id, std::make_unique<TerminationListener>(
-                             this, presentation_id, endpoint_id));
+                             this, presentation_id, instance_number));
   }
   request_delegate->OnConnection(std::move(connection));
 }
@@ -755,9 +749,6 @@ void Controller::OnSuspended() {}
 void Controller::OnSearching() {}
 
 void Controller::OnReceiverAdded(const ServiceInfo& info) {
-  receiver_endpoints_.emplace(info.instance_id, info.v4_endpoint.port
-                                                    ? info.v4_endpoint
-                                                    : info.v6_endpoint);
   auto group_streams =
       std::make_unique<MessageGroupStreams>(this, info.instance_id);
   group_streams_[info.instance_id] = std::move(group_streams);
@@ -765,19 +756,16 @@ void Controller::OnReceiverAdded(const ServiceInfo& info) {
 }
 
 void Controller::OnReceiverChanged(const ServiceInfo& info) {
-  receiver_endpoints_[info.instance_id] =
-      info.v4_endpoint.port ? info.v4_endpoint : info.v6_endpoint;
   availability_requester_->ChangeReceiver(info);
 }
 
 void Controller::OnReceiverRemoved(const ServiceInfo& info) {
-  receiver_endpoints_.erase(info.instance_id);
   group_streams_.erase(info.instance_id);
   availability_requester_->RemoveReceiver(info);
 }
 
 void Controller::OnAllReceiversRemoved() {
-  receiver_endpoints_.clear();
+  group_streams_.clear();
   availability_requester_->RemoveAllReceivers();
 }
 

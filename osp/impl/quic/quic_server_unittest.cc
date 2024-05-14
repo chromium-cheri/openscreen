@@ -60,7 +60,7 @@ class QuicServerTest : public Test {
     MockConnectRequest mock_connect_request;
     connect_request_ =
         NetworkServiceManager::Get()->GetProtocolConnectionClient()->Connect(
-            quic_bridge_.kReceiverEndpoint, &mock_connect_request);
+            quic_bridge_.kInstanceID, &mock_connect_request);
     std::unique_ptr<ProtocolConnection> stream;
     EXPECT_CALL(mock_connect_request, OnConnectionOpenedMock());
     EXPECT_CALL(quic_bridge_.mock_server_observer, OnIncomingConnectionMock(_))
@@ -106,7 +106,7 @@ class QuicServerTest : public Test {
                 OnStreamMessage(
                     0, _, msgs::Type::kPresentationConnectionMessage, _, _, _))
         .WillOnce(Invoke([&decode_result, &received_message](
-                             uint64_t endpoint_id, uint64_t connection_id,
+                             uint64_t instance_number, uint64_t connection_id,
                              msgs::Type message_type, const uint8_t* buf,
                              size_t buffer_size, Clock::time_point now) {
           decode_result = msgs::DecodePresentationConnectionMessage(
@@ -150,7 +150,7 @@ TEST_F(QuicServerTest, OpenImmediate) {
   ASSERT_TRUE(connection1);
 
   std::unique_ptr<ProtocolConnection> connection2 =
-      server_->CreateProtocolConnection(connection1->endpoint_id());
+      server_->CreateProtocolConnection(connection1->instance_number());
 
   SendTestMessage(connection2.get());
 
@@ -197,17 +197,21 @@ TEST_F(QuicServerTest, RequestIds) {
   std::unique_ptr<ProtocolConnection> connection = ExpectIncomingConnection();
   ASSERT_TRUE(connection);
 
-  uint64_t endpoint_id = connection->endpoint_id();
-  EXPECT_EQ(1u, server_->endpoint_request_ids()->GetNextRequestId(endpoint_id));
-  EXPECT_EQ(3u, server_->endpoint_request_ids()->GetNextRequestId(endpoint_id));
+  uint64_t instance_number = connection->instance_number();
+  EXPECT_EQ(1u,
+            server_->instance_request_ids()->GetNextRequestId(instance_number));
+  EXPECT_EQ(3u,
+            server_->instance_request_ids()->GetNextRequestId(instance_number));
 
   connection->CloseWriteEnd();
   connection.reset();
   quic_bridge_.RunTasksUntilIdle();
-  EXPECT_EQ(5u, server_->endpoint_request_ids()->GetNextRequestId(endpoint_id));
+  EXPECT_EQ(5u,
+            server_->instance_request_ids()->GetNextRequestId(instance_number));
 
   server_->Stop();
-  EXPECT_EQ(1u, server_->endpoint_request_ids()->GetNextRequestId(endpoint_id));
+  EXPECT_EQ(1u,
+            server_->instance_request_ids()->GetNextRequestId(instance_number));
 }
 
 }  // namespace openscreen::osp
