@@ -80,8 +80,9 @@ class ProtocolConnectionClient : public ServiceListener::Observer {
   // Open a new connection to |instance_id|.  This may succeed synchronously if
   // there are already connections open to |instance_id|, otherwise it will be
   // asynchronous.
-  virtual ConnectRequest Connect(const std::string& instance_id,
-                                 ConnectionRequestCallback* request) = 0;
+  virtual bool Connect(const std::string& instance_id,
+                       ConnectRequest& request,
+                       ConnectionRequestCallback* request_callback) = 0;
 
   // Synchronously open a new connection to an instance identified by
   // |instance_number|.  Returns nullptr if it can't be completed synchronously

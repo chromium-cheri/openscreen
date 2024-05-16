@@ -162,12 +162,10 @@ Clock::time_point UrlAvailabilityRequester::RefreshWatches() {
 UrlAvailabilityRequester::ReceiverRequester::ReceiverRequester(
     UrlAvailabilityRequester& listener,
     const std::string& instance_id)
-    : listener_(listener),
-      instance_id_(instance_id),
-      connect_request_(
-          NetworkServiceManager::Get()->GetProtocolConnectionClient()->Connect(
-              instance_id,
-              this)) {}
+    : listener_(listener), instance_id_(instance_id) {
+  NetworkServiceManager::Get()->GetProtocolConnectionClient()->Connect(
+      instance_id, connect_request_, this);
+}
 
 UrlAvailabilityRequester::ReceiverRequester::~ReceiverRequester() = default;
 
