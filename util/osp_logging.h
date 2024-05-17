@@ -50,8 +50,9 @@ class Voidify {
 
 #define OSP_LAZY_STREAM(condition, stream) \
   !(condition) ? (void)0 : openscreen::internal::Voidify() & (stream)
-#define OSP_LOG_IS_ON(level_enum) \
-  openscreen::IsLoggingOn(openscreen::LogLevel::level_enum, __FILE__)
+#define OSP_LOG_IS_ON(level_enum)                                     \
+  openscreen::IsLoggingOn(openscreen::LogLevel::level_enum, __FILE__, \
+                          std::size(__FILE__))
 #define OSP_LOG_STREAM(level_enum)                                             \
   openscreen::internal::LogMessage(openscreen::LogLevel::level_enum, __FILE__, \
                                    __LINE__)                                   \
