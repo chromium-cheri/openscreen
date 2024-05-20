@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "db4e9e03_54074093",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000623
+      },
+      "writtenOn": "2024-05-20T07:13:29Z",
+      "side": 1,
+      "message": "I\u0027m not sure what a follow change is? Follow-up change?\n\nThe bug has one line description. Let\u0027s add some relevant comment here",
+      "range": {
+        "startLine": 9,
+        "startChar": 10,
+        "endLine": 9,
+        "endChar": 23
+      },
+      "revId": "e05d0187842d93d86e0207cdc0dca967f46bd9ec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a26fe609_aa9ced3f",
@@ -14,6 +37,47 @@
       "writtenOn": "2024-05-17T23:49:18Z",
       "side": 1,
       "message": "PTAL, thanks!",
+      "revId": "e05d0187842d93d86e0207cdc0dca967f46bd9ec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "beb708ac_993f7d08",
+        "filename": "platform/api/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000623
+      },
+      "writtenOn": "2024-05-20T07:13:29Z",
+      "side": 1,
+      "message": "shouldn\u0027t this be std::size_t?",
+      "range": {
+        "startLine": 38,
+        "startChar": 51,
+        "endLine": 38,
+        "endChar": 54
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "ac949a91_f8532919",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "platform/api/logging.h",
+              "range": {
+                "startLine": 38,
+                "startChar": 0,
+                "endLine": 39,
+                "endChar": 0
+              },
+              "replacement": "bool IsLoggingOn(LogLevel level, const char* file, std::size_t size);\n"
+            }
+          ]
+        }
+      ],
       "revId": "e05d0187842d93d86e0207cdc0dca967f46bd9ec",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
