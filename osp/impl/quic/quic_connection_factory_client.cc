@@ -12,6 +12,7 @@
 #include "osp/impl/quic/quic_utils.h"
 #include "quiche/quic/core/crypto/web_transport_fingerprint_proof_verifier.h"
 #include "quiche/quic/core/quic_utils.h"
+#include "util/base64.h"
 #include "util/osp_logging.h"
 #include "util/std_util.h"
 #include "util/trace_logging.h"
@@ -73,9 +74,12 @@ ErrorOr<std::unique_ptr<QuicConnection>> QuicConnectionFactoryClient::Connect(
     auto proof_verifier =
         std::make_unique<quic::WebTransportFingerprintProofVerifier>(
             helper_->GetClock(), /*max_validity_days=*/3650);
-    const bool success =
-        proof_verifier->AddFingerprint(quic::CertificateFingerprint{
-            quic::CertificateFingerprint::kSha256, fingerprint});
+    std::vector<uint8_t> decode_fingerprint;
+    base64::Decode(fingerprint, &decode_fingerprint);
+    std::string fingerprint_value{decode_fingerprint.begin(),
+                                  decode_fingerprint.end()};
+    const bool success = proof_verifier->AddFingerprint(quic::WebTransportHash{
+        quic::WebTransportHash::kSha256, std::move(fingerprint_value)});
     if (!success) {
       return Error::Code::kSha256HashFailure;
     }
