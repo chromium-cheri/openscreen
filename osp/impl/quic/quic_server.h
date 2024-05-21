@@ -12,6 +12,7 @@
 #include <utility>
 #include <vector>
 
+#include "osp/impl/quic/agent_certificate.h"
 #include "osp/impl/quic/quic_connection_factory_server.h"
 #include "osp/impl/quic/quic_service_common.h"
 #include "osp/public/endpoint_config.h"
@@ -36,6 +37,8 @@ class QuicServer final : public ProtocolConnectionServer,
                          public QuicConnectionFactoryServer::ServerDelegate,
                          public ServiceConnectionDelegate::ServiceDelegate {
  public:
+  static AgentCertificate& GetAgentCertificate();
+
   QuicServer(const EndpointConfig& config,
              MessageDemuxer& demuxer,
              std::unique_ptr<QuicConnectionFactoryServer> connection_factory,
