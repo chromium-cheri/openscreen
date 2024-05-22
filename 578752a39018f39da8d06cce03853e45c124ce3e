@@ -16,6 +16,74 @@
       "message": "Hi, mark. PTAL, thanks.",
       "revId": "578752a39018f39da8d06cce03853e45c124ce3e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "641d64d5_51c21ecf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-22T20:35:37Z",
+      "side": 1,
+      "message": "Sorry for the delays, been busy with other projects.  LGTM overall, this is a good change.  I agree that the OSP code does not need to know about IP endpoints and those can be managed inside the code that talks to QUIC.\n\nI am suprised at the number of places that need to know about the instance_id in the OSP code.  It seems like most of these objects should only belong to one agent (instance) so they do not need to track information for multiple instances.  Refactoring to fix this is a project for another day.\n\nFrom a naming point of view, there should be only one instance_id / instance_number per agent.  The string identifier for an agent could be its agent fingerprint; the only time this would change is if we implement certificate rotation, which is not currently part of the spec.\n\nSo I would propose changing the names to agent_id / agent_number in this CL, and later changing agent_id to agent_fingerprint once certificates are available.\n\nWDYT?",
+      "revId": "578752a39018f39da8d06cce03853e45c124ce3e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2966b904_c103d719",
+        "filename": "osp/impl/quic/quic_client.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-22T20:35:37Z",
+      "side": 1,
+      "message": "Nit: Typo in \"identified\" (twice)",
+      "revId": "578752a39018f39da8d06cce03853e45c124ce3e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6275e31_aeb71017",
+        "filename": "osp/impl/quic/quic_server.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-22T20:35:37Z",
+      "side": 1,
+      "message": "Typo (twice) in \"identified\"",
+      "revId": "578752a39018f39da8d06cce03853e45c124ce3e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4dd47c5_e48b04a6",
+        "filename": "osp/public/instance_request_ids.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-22T20:35:37Z",
+      "side": 1,
+      "message": "This macro is deprecated, can you explicitly delete the copy and move operators?  Thanks.",
+      "revId": "578752a39018f39da8d06cce03853e45c124ce3e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
