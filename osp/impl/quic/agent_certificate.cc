@@ -6,6 +6,8 @@
 
 #include <utility>
 
+#include "quiche/quic/core/quic_utils.h"
+#include "util/base64.h"
 #include "util/crypto/pem_helpers.h"
 #include "util/osp_logging.h"
 #include "util/read_file.h"
@@ -17,9 +19,6 @@ namespace {
 constexpr char kCertificatesPath[] =
     "osp/impl/quic/certificates/openscreen.pem";
 constexpr char kPrivateKeyPath[] = "osp/impl/quic/certificates/openscreen.key";
-constexpr char kFingerPrint[] =
-    "50:87:8D:CA:1B:9B:67:76:CB:87:88:1C:43:20:82:7A:91:F5:9B:74:4D:85:95:D0:"
-    "76:E6:0B:50:7F:D3:29:D9";
 
 }  // namespace
 
@@ -49,10 +48,13 @@ std::unique_ptr<quic::ProofSource> AgentCertificate::CreateProofSource() {
   return quic::ProofSourceX509::Create(std::move(chain), std::move(*key));
 }
 
-// TODO(issuetracker.google.com/300236996): Replace with OSP certificate
-// generation.
+// https://w3c.github.io/openscreenprotocol/#computing-agent-fingerprint
 std::string AgentCertificate::GetFingerprint() {
-  return kFingerPrint;
+  if (certificates_.empty()) {
+    certificates_ = ReadCertificatesFromPemFile(kCertificatesPath);
+  }
+  const std::string fingerprint = quic::RawSha256(certificates_[0]);
+  return base64::Encode(fingerprint);
 }
 
 }  // namespace openscreen::osp
