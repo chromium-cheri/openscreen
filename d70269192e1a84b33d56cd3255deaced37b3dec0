@@ -16,6 +16,159 @@
       "message": "Hi, mark. PTAL, thanks.",
       "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4b8bc73_ffb36016",
+        "filename": "osp/impl/quic/agent_certificate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-22T22:09:52Z",
+      "side": 1,
+      "message": "These hard coded certificates are only for testing, correct?\n\nCan they be placed in osp/impl/quic/testing/certificates?",
+      "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07517096_52f68254",
+        "filename": "osp/impl/quic/agent_certificate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-22T22:09:52Z",
+      "side": 1,
+      "message": "It\u0027s definitely useful to have a way to read a certificate from a file, especially for testing.  Maybe this implementation could move to a test-only utility function once the certificate generation is landed.",
+      "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9a02932_e9632537",
+        "filename": "osp/impl/quic/agent_certificate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-22T22:09:52Z",
+      "side": 1,
+      "message": "There are a number of validations that are required for a certificate to be an OSP agent certificate (correct key usage, signature algorithms, ciphers, etc.)\n\nThe routines for validity checking will need to pass before code should be able to pass a AgentCertificate to other code.",
+      "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba0ceeb5_12f6d2c7",
+        "filename": "osp/impl/quic/agent_certificate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-22T22:09:52Z",
+      "side": 1,
+      "message": "AgentCertificate should be defined as a pure virtual interface in osp/public.  This class would be the implementation of that interface using the QUIC crypo routines, so:\n\n`QuicAgentCertificate final : public AgentCertificate`",
+      "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0eae361_9b04e5bc",
+        "filename": "osp/impl/quic/agent_certificate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-22T22:09:52Z",
+      "side": 1,
+      "message": "The comment makes it sound like this is returning an object that already exists; but the API implies it is creating a new object each time it is called.",
+      "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33a0a23a_37e3ebce",
+        "filename": "osp/impl/quic/agent_certificate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-22T22:09:52Z",
+      "side": 1,
+      "message": "I don\u0027t think we should expose the raw certificate to the client.  This API should wrap the details of how the certificate is represented internally.",
+      "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2ecbc06_ab508cdc",
+        "filename": "osp/impl/quic/agent_certificate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-22T22:09:52Z",
+      "side": 1,
+      "message": "Let\u0027s use a typedef to hide the fact this is a string.  We might want this to be an object/struct in the future.\n\ntypedef std::string AgentFingerprint;",
+      "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fec0e228_b22ecacb",
+        "filename": "osp/impl/quic/agent_certificate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-22T22:09:52Z",
+      "side": 1,
+      "message": "It looks like we only need to keep one certificate.",
+      "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ec2ff17_91ac27f0",
+        "filename": "osp/impl/quic/quic_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-22T22:09:52Z",
+      "side": 1,
+      "message": "Does this need to read the content from a file first?",
+      "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
