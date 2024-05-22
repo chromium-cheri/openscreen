@@ -534,7 +534,8 @@ void PublisherDemo(std::string_view friendly_name) {
       .service_instance_name = "deadbeef",
       .connection_server_port = server_port};
 
-  EndpointConfig server_config;
+  EndpointConfig server_config = {.instance_name =
+                                      publisher_config.service_instance_name};
   for (const InterfaceInfo& interface : GetNetworkInterfaces()) {
     OSP_VLOG << "Found interface: " << interface;
     if (!interface.addresses.empty() &&

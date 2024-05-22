@@ -28,6 +28,7 @@ QuicServer::QuicServer(
     TaskRunner& task_runner)
     : ProtocolConnectionServer(demuxer, observer),
       connection_endpoints_(config.connection_endpoints),
+      instance_id_(config.instance_name),
       connection_factory_(std::move(connection_factory)),
       cleanup_alarm_(now_function, task_runner) {}
 
