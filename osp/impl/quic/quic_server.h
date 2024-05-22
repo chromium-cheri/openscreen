@@ -70,6 +70,8 @@ class QuicServer final : public ProtocolConnectionServer,
                       uint64_t protocol_connection_id,
                       const ByteView& bytes) override;
 
+  const std::string& instance_id() const { return instance_id_; }
+
  private:
   void CloseAllConnections();
 
@@ -85,6 +87,8 @@ class QuicServer final : public ProtocolConnectionServer,
 
   // IPEndpoints used by this server to build connection.
   const std::vector<IPEndpoint> connection_endpoints_;
+  // This is used for server name indication check.
+  const std::string instance_id_;
 
   std::unique_ptr<QuicConnectionFactoryServer> connection_factory_;
   std::unique_ptr<ServiceConnectionDelegate> pending_connection_delegate_;

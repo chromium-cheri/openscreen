@@ -5,6 +5,7 @@
 #ifndef OSP_PUBLIC_ENDPOINT_CONFIG_H_
 #define OSP_PUBLIC_ENDPOINT_CONFIG_H_
 
+#include <string>
 #include <vector>
 
 #include "platform/base/ip_address.h"
@@ -15,6 +16,9 @@ struct EndpointConfig {
   // The list of connection endpoints that are advertised for Open Screen
   // protocol connections.
   std::vector<IPEndpoint> connection_endpoints;
+
+  // This is empty for QuicClient and is only used by QuicServer.
+  std::string instance_name;
 };
 
 }  // namespace openscreen::osp
