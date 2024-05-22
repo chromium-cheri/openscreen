@@ -16,6 +16,91 @@
       "message": "Hi, mark. PTAL, thanks.",
       "revId": "f58282cddb889a185a86c3ae2ffd7a59a3a08587",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "371a7e9f_b48c70de",
+        "filename": "osp/impl/quic/agent_certificate.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-22T22:40:59Z",
+      "side": 1,
+      "message": "1.  This should be a getter and not have the side effect of loading a certificate.  The certificate should already loaded and parsed by the time the caller has an AgentCertificate object.\n\n2. The fingerprint can be computed in the ctor and stored as a class member instead of being recomputed each time.",
+      "revId": "f58282cddb889a185a86c3ae2ffd7a59a3a08587",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abaa53b5_e3b2a4ee",
+        "filename": "osp/impl/quic/quic_connection_factory_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-22T22:40:59Z",
+      "side": 1,
+      "message": "This is fine for now, I need to digest all of the feedback in that issue before replying.",
+      "revId": "f58282cddb889a185a86c3ae2ffd7a59a3a08587",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "885cf6cd_2314d15c",
+        "filename": "osp/impl/quic/quic_connection_factory_client.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-22T22:40:59Z",
+      "side": 1,
+      "message": "See my comment in the other CL.  Until we are rotating certificates (so that an agent could have more than one fingerprint), it should be sufficient to use the FP to identify an agent.\n\nEven if we do rotate certificates, only one FP will be used at any one time for a given QUIC connection.",
+      "revId": "f58282cddb889a185a86c3ae2ffd7a59a3a08587",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98e09d47_6cca18e4",
+        "filename": "osp/impl/quic/quic_dispatcher_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-22T22:40:59Z",
+      "side": 1,
+      "message": "Can you add another comment with a link to the github issue for SNI here?",
+      "revId": "f58282cddb889a185a86c3ae2ffd7a59a3a08587",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b747579_bfc9d1d7",
+        "filename": "osp/public/osp_constants.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-22T22:40:59Z",
+      "side": 1,
+      "message": "Why is this file being moved?",
+      "revId": "f58282cddb889a185a86c3ae2ffd7a59a3a08587",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
