@@ -8,6 +8,7 @@
 #include <string>
 #include <utility>
 
+#include "osp/impl/osp_constants.h"
 #include "osp/impl/quic/open_screen_server_session.h"
 #include "osp/impl/quic/quic_connection_impl.h"
 #include "osp/impl/quic/quic_packet_writer_impl.h"
@@ -84,11 +85,21 @@ std::unique_ptr<quic::QuicSession> QuicDispatcherImpl::CreateQuicSession(
 
 quic::QuicDispatcher::QuicPacketFate
 QuicDispatcherImpl::ValidityChecksOnFullChlo(
-    const quic::ReceivedPacketInfo& /*packet_info*/,
+    const quic::ReceivedPacketInfo& packet_info,
     const quic::ParsedClientHello& parsed_chlo) const {
-  std::string sni =
-      QuicServer::GetAgentCertificate().GetFingerprint() + "._openscreen.udp";
-  sni.erase(std::remove(sni.begin(), sni.end(), ':'), sni.end());
+  IPEndpoint endpoint = ToIPEndpoint(packet_info.peer_address);
+  auto connection_entry = parent_factory_.connection().find(endpoint);
+  if (connection_entry == parent_factory_.connection().end()) {
+    return kFateDrop;
+  }
+
+  auto& connection_delegate =
+      static_cast<QuicConnectionImpl*>(connection_entry->second.connection)
+          ->GetConnectionDelegate();
+  std::string instance_id =
+      static_cast<ServiceConnectionDelegate&>(connection_delegate)
+          .instance_id();
+  std::string sni = instance_id + "." + kDnsSdDomainId;
   if (sni != parsed_chlo.sni) {
     return kFateDrop;
   }
