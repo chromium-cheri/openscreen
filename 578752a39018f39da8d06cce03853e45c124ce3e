@@ -35,6 +35,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48aa570b_54183120",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-05-23T02:27:46Z",
+      "side": 1,
+      "message": "Hi, mark. Thanks for the review.\n\nFrom a naming point of view, instance_id and fingerprint are both unique and can be used to identify the agent. so why fingerprint is perfered? I think the main difference between them is that instance_id is unchanged while fingerprint can be changed if we implement certificate rotation. Use the variable fingerprint is more complex, isn\u0027t it? Another consideration is that instance_id is often shorter than fingerprints. So maybe using instance_id will be more efficient??\n\nIf we agree with using instance_id, I think rename instance_id to instance_name and rename instance_number to instance_id is clearer. WDYT？",
+      "parentUuid": "641d64d5_51c21ecf",
+      "revId": "578752a39018f39da8d06cce03853e45c124ce3e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2966b904_c103d719",
@@ -48,6 +66,24 @@
       "writtenOn": "2024-05-22T20:35:37Z",
       "side": 1,
       "message": "Nit: Typo in \"identified\" (twice)",
+      "revId": "578752a39018f39da8d06cce03853e45c124ce3e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81cb6d8d_f2b6d8fb",
+        "filename": "osp/impl/quic/quic_client.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-05-23T02:27:46Z",
+      "side": 1,
+      "message": "Thanks. done.",
+      "parentUuid": "2966b904_c103d719",
       "revId": "578752a39018f39da8d06cce03853e45c124ce3e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -69,6 +105,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0487dc24_74f3cea5",
+        "filename": "osp/impl/quic/quic_server.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-05-23T02:27:46Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "b6275e31_aeb71017",
+      "revId": "578752a39018f39da8d06cce03853e45c124ce3e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4dd47c5_e48b04a6",
@@ -82,6 +136,24 @@
       "writtenOn": "2024-05-22T20:35:37Z",
       "side": 1,
       "message": "This macro is deprecated, can you explicitly delete the copy and move operators?  Thanks.",
+      "revId": "578752a39018f39da8d06cce03853e45c124ce3e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8c12ff6_cad3b64b",
+        "filename": "osp/public/instance_request_ids.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-05-23T02:27:46Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "a4dd47c5_e48b04a6",
       "revId": "578752a39018f39da8d06cce03853e45c124ce3e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
