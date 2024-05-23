@@ -13,6 +13,7 @@
 #include "osp/impl/quic/quic_packet_writer_impl.h"
 #include "osp/impl/quic/quic_server.h"
 #include "osp/impl/quic/quic_utils.h"
+#include "osp/public/osp_constants.h"
 #include "quiche/quic/core/crypto/quic_compressed_certs_cache.h"
 #include "quiche/quic/core/crypto/quic_crypto_server_config.h"
 #include "quiche/quic/core/quic_versions.h"
@@ -86,9 +87,12 @@ quic::QuicDispatcher::QuicPacketFate
 QuicDispatcherImpl::ValidityChecksOnFullChlo(
     const quic::ReceivedPacketInfo& /*packet_info*/,
     const quic::ParsedClientHello& parsed_chlo) const {
-  std::string sni = QuicServer::GetAgentCertificate().GetAgentFingerprint() +
-                    "._openscreen.udp";
-  sni.erase(std::remove(sni.begin(), sni.end(), ':'), sni.end());
+  QuicServer* server =
+      static_cast<QuicServer*>(parent_factory_.server_delegate());
+  // NOTE: Use instance id + domain temporarily to prevent blocking the project.
+  // There is an ongoing discussion about this, see blow link：
+  // https://github.com/w3c/openscreenprotocol/issues/275
+  std::string sni = server->instance_id() + "." + kDnsSdDomainId;
   if (sni != parsed_chlo.sni) {
     return kFateDrop;
   }
