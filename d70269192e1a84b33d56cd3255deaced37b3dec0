@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8705216f_d1ed1b29",
+        "filename": "osp/impl/quic/agent_certificate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-05-23T05:55:55Z",
+      "side": 1,
+      "message": "This is needed for running osp_demo and not for testing. We used fixed certificate now because we don\u0027t implement OSP certificate generation yet. We can delete these and switch to generated certificate once it is done.",
+      "parentUuid": "d4b8bc73_ffb36016",
+      "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "07517096_52f68254",
         "filename": "osp/impl/quic/agent_certificate.cc",
         "patchSetId": 3
@@ -48,6 +66,24 @@
       "writtenOn": "2024-05-22T22:09:52Z",
       "side": 1,
       "message": "It\u0027s definitely useful to have a way to read a certificate from a file, especially for testing.  Maybe this implementation could move to a test-only utility function once the certificate generation is landed.",
+      "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "750d535d_5f21ad1e",
+        "filename": "osp/impl/quic/agent_certificate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-05-23T05:55:55Z",
+      "side": 1,
+      "message": "I have added some interfaces, please take a look if they are reasonable.",
+      "parentUuid": "07517096_52f68254",
       "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -71,6 +107,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dfb4d346_dd29a757",
+        "filename": "osp/impl/quic/agent_certificate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-05-23T05:55:55Z",
+      "side": 1,
+      "message": "Yes, we do need validations. However, there are sitll some spec issuues about certificate uder discussion. I have added comments for this and can we add validations later?",
+      "parentUuid": "f9a02932_e9632537",
+      "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ba0ceeb5_12f6d2c7",
         "filename": "osp/impl/quic/agent_certificate.h",
         "patchSetId": 3
@@ -82,6 +136,24 @@
       "writtenOn": "2024-05-22T22:09:52Z",
       "side": 1,
       "message": "AgentCertificate should be defined as a pure virtual interface in osp/public.  This class would be the implementation of that interface using the QUIC crypo routines, so:\n\n`QuicAgentCertificate final : public AgentCertificate`",
+      "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45b662c6_196f6da3",
+        "filename": "osp/impl/quic/agent_certificate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-05-23T05:55:55Z",
+      "side": 1,
+      "message": "Thanks, done. Please take a look at AgentCertificate if its interface is reasonal.",
+      "parentUuid": "ba0ceeb5_12f6d2c7",
       "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -99,6 +171,24 @@
       "writtenOn": "2024-05-22T22:09:52Z",
       "side": 1,
       "message": "The comment makes it sound like this is returning an object that already exists; but the API implies it is creating a new object each time it is called.",
+      "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41ed3808_066be53d",
+        "filename": "osp/impl/quic/agent_certificate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-05-23T05:55:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0eae361_9b04e5bc",
       "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -122,6 +212,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cdd9305e_4ec604ff",
+        "filename": "osp/impl/quic/agent_certificate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-05-23T05:55:55Z",
+      "side": 1,
+      "message": "Sorry, I don\u0027t quite understand this. quic::ProofSource is needed by quic::QuicCryptoServerConfig which contains the crypto configuration of a QUIC server.",
+      "parentUuid": "33a0a23a_37e3ebce",
+      "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a2ecbc06_ab508cdc",
         "filename": "osp/impl/quic/agent_certificate.h",
         "patchSetId": 3
@@ -133,6 +241,24 @@
       "writtenOn": "2024-05-22T22:09:52Z",
       "side": 1,
       "message": "Let\u0027s use a typedef to hide the fact this is a string.  We might want this to be an object/struct in the future.\n\ntypedef std::string AgentFingerprint;",
+      "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e6de4c8_01bfdae8",
+        "filename": "osp/impl/quic/agent_certificate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-05-23T05:55:55Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "a2ecbc06_ab508cdc",
       "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -156,6 +282,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6dba3f13_823aae31",
+        "filename": "osp/impl/quic/agent_certificate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-05-23T05:55:55Z",
+      "side": 1,
+      "message": "I think we should keep all certificates if the file contains certificate chain, because quic::ProofSource::Chain takes a vector of certificates,",
+      "parentUuid": "fec0e228_b22ecacb",
+      "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2ec2ff17_91ac27f0",
         "filename": "osp/impl/quic/quic_server.cc",
         "patchSetId": 3
@@ -167,6 +311,24 @@
       "writtenOn": "2024-05-22T22:09:52Z",
       "side": 1,
       "message": "Does this need to read the content from a file first?",
+      "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b22009df_100e100a",
+        "filename": "osp/impl/quic/quic_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-05-23T05:55:55Z",
+      "side": 1,
+      "message": "Thanks, I have changed the constructor to read file when this class is constructed.",
+      "parentUuid": "2ec2ff17_91ac27f0",
       "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
