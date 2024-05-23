@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef OSP_IMPL_OSP_CONSTANTS_H_
-#define OSP_IMPL_OSP_CONSTANTS_H_
+#ifndef OSP_PUBLIC_OSP_CONSTANTS_H_
+#define OSP_PUBLIC_OSP_CONSTANTS_H_
 
 namespace openscreen::osp {
 
@@ -20,4 +20,4 @@ constexpr char kFriendlyNameTxtKey[] = "fn";
 
 }  // namespace openscreen::osp
 
-#endif  // OSP_IMPL_OSP_CONSTANTS_H_
+#endif  // OSP_PUBLIC_OSP_CONSTANTS_H_
