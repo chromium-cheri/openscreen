@@ -37,6 +37,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b668c7d3_5fbf786a",
+        "filename": "osp/impl/quic/agent_certificate.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-05-23T06:49:22Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "371a7e9f_b48c70de",
+      "revId": "f58282cddb889a185a86c3ae2ffd7a59a3a08587",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "abaa53b5_e3b2a4ee",
         "filename": "osp/impl/quic/quic_connection_factory_client.cc",
         "patchSetId": 6
@@ -71,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cfc54702_c1e7ffe1",
+        "filename": "osp/impl/quic/quic_connection_factory_client.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-05-23T06:49:22Z",
+      "side": 1,
+      "message": "instance_id is used as the identifier for a service in embedder (like presentation), so I think it is also better to use instance_id than FP in OSP to keep consistent.\n\nHere instance_id and fingerprint are all needed to build connection, so we should pass them both to connect method.",
+      "parentUuid": "885cf6cd_2314d15c",
+      "revId": "f58282cddb889a185a86c3ae2ffd7a59a3a08587",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "98e09d47_6cca18e4",
         "filename": "osp/impl/quic/quic_dispatcher_impl.cc",
         "patchSetId": 6
@@ -82,6 +118,24 @@
       "writtenOn": "2024-05-22T22:40:59Z",
       "side": 1,
       "message": "Can you add another comment with a link to the github issue for SNI here?",
+      "revId": "f58282cddb889a185a86c3ae2ffd7a59a3a08587",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7aab2dfd_d6f15c8e",
+        "filename": "osp/impl/quic/quic_dispatcher_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-05-23T06:49:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98e09d47_6cca18e4",
       "revId": "f58282cddb889a185a86c3ae2ffd7a59a3a08587",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -99,6 +153,24 @@
       "writtenOn": "2024-05-22T22:40:59Z",
       "side": 1,
       "message": "Why is this file being moved?",
+      "revId": "f58282cddb889a185a86c3ae2ffd7a59a3a08587",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b8fc9c4_522cff3b",
+        "filename": "osp/public/osp_constants.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-05-23T06:49:22Z",
+      "side": 1,
+      "message": "Because this file is inclued in quic_connection_factory_client.cc now. source set \"quic\" only deps \"public\", so this file should in source set \"public\".",
+      "parentUuid": "0b747579_bfc9d1d7",
       "revId": "f58282cddb889a185a86c3ae2ffd7a59a3a08587",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
