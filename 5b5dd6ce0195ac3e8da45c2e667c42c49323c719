@@ -1,0 +1,305 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cec706e_3374c5c0",
+        "filename": "cast/streaming/sender_stats.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 3291415
+      },
+      "writtenOn": "2024-05-28T20:52:01Z",
+      "side": 1,
+      "message": "best practice for proto enum is starting with TYPE_UNSPECIFIED \u003d 0;\nSame for other enums.\n\ngo/protodosdonts#unspecified-enum",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 20
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "36c3cda7_2058b447",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 29,
+                "startChar": 0,
+                "endLine": 29,
+                "endChar": 0
+              },
+              "replacement": "    TYPE_UNSPECIFIED \u003d 0;\n\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 30,
+                "startChar": 0,
+                "endLine": 31,
+                "endChar": 0
+              },
+              "replacement": "    ENQUEUE_FPS \u003d 1;\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 33,
+                "startChar": 0,
+                "endLine": 34,
+                "endChar": 0
+              },
+              "replacement": "    AVG_CAPTURE_LATENCY_MS \u003d 2;\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 36,
+                "startChar": 0,
+                "endLine": 37,
+                "endChar": 0
+              },
+              "replacement": "    AVG_ENCODE_TIME_MS \u003d 3;\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 40,
+                "startChar": 0,
+                "endLine": 41,
+                "endChar": 0
+              },
+              "replacement": "    AVG_QUEUEING_LATENCY_MS \u003d 4;\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 44,
+                "startChar": 0,
+                "endLine": 45,
+                "endChar": 0
+              },
+              "replacement": "    AVG_NETWORK_LATENCY_MS \u003d 5;\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 48,
+                "startChar": 0,
+                "endLine": 49,
+                "endChar": 0
+              },
+              "replacement": "    AVG_PACKET_LATENCY_MS \u003d 6;\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 52,
+                "startChar": 0,
+                "endLine": 53,
+                "endChar": 0
+              },
+              "replacement": "    AVG_FRAME_LATENCY_MS \u003d 7;\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 55,
+                "startChar": 0,
+                "endLine": 56,
+                "endChar": 0
+              },
+              "replacement": "    AVG_END_TO_END_LATENCY_MS \u003d 8;\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 58,
+                "startChar": 0,
+                "endLine": 59,
+                "endChar": 0
+              },
+              "replacement": "    ENCODE_RATE_KBPS \u003d 9;\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 61,
+                "startChar": 0,
+                "endLine": 62,
+                "endChar": 0
+              },
+              "replacement": "    PACKET_TRANSMISSION_RATE_KBPS \u003d 10;\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 65,
+                "startChar": 0,
+                "endLine": 66,
+                "endChar": 0
+              },
+              "replacement": "    TIME_SINCE_LAST_RECEIVER_RESPONSE_MS \u003d 11;\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 68,
+                "startChar": 0,
+                "endLine": 69,
+                "endChar": 0
+              },
+              "replacement": "    NUM_FRAMES_CAPTURED \u003d 12;\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 71,
+                "startChar": 0,
+                "endLine": 72,
+                "endChar": 0
+              },
+              "replacement": "    NUM_FRAMES_DROPPED_BY_ENCODER \u003d 13;\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 74,
+                "startChar": 0,
+                "endLine": 75,
+                "endChar": 0
+              },
+              "replacement": "    NUM_LATE_FRAMES \u003d 14;\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 77,
+                "startChar": 0,
+                "endLine": 78,
+                "endChar": 0
+              },
+              "replacement": "    NUM_PACKETS_SENT \u003d 15;\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 80,
+                "startChar": 0,
+                "endLine": 81,
+                "endChar": 0
+              },
+              "replacement": "    NUM_PACKETS_RECEIVED \u003d 16;\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 83,
+                "startChar": 0,
+                "endLine": 84,
+                "endChar": 0
+              },
+              "replacement": "    FIRST_EVENT_TIME_MS \u003d 17;\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 86,
+                "startChar": 0,
+                "endLine": 87,
+                "endChar": 0
+              },
+              "replacement": "    LAST_EVENT_TIME_MS \u003d 18;\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 94,
+                "startChar": 0,
+                "endLine": 94,
+                "endChar": 0
+              },
+              "replacement": "    TYPE_UNSPECIFIED \u003d 0;\n\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 95,
+                "startChar": 0,
+                "endLine": 96,
+                "endChar": 0
+              },
+              "replacement": "    CAPTURE_LATENCY_MS \u003d 1;\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 98,
+                "startChar": 0,
+                "endLine": 99,
+                "endChar": 0
+              },
+              "replacement": "    ENCODE_TIME_MS \u003d 2;\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 101,
+                "startChar": 0,
+                "endLine": 102,
+                "endChar": 0
+              },
+              "replacement": "    QUEUEING_LATENCY_MS \u003d 3;\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 104,
+                "startChar": 0,
+                "endLine": 105,
+                "endChar": 0
+              },
+              "replacement": "    NETWORK_LATENCY_MS \u003d 4;\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 107,
+                "startChar": 0,
+                "endLine": 108,
+                "endChar": 0
+              },
+              "replacement": "    PACKET_LATENCY_MS \u003d 5;\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 110,
+                "startChar": 0,
+                "endLine": 111,
+                "endChar": 0
+              },
+              "replacement": "    END_TO_END_LATENCY_MS \u003d 6;\n"
+            },
+            {
+              "path": "cast/streaming/sender_stats.proto",
+              "range": {
+                "startLine": 113,
+                "startChar": 0,
+                "endLine": 114,
+                "endChar": 0
+              },
+              "replacement": "    FRAME_LATENESS_MS \u003d 7;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "5b5dd6ce0195ac3e8da45c2e667c42c49323c719",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
