@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "27924a45_618601c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1528430
+      },
+      "writtenOn": "2024-05-29T23:39:22Z",
+      "side": 1,
+      "message": "@taesuny@google.com can you give mark access to the Buganizer component?",
+      "parentUuid": "937fd83e_2611e4b3",
+      "revId": "b28d21942c5f9281827171b53e318a4ed8635930",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "19286fbd_8a57d7cf",
         "filename": "cast/streaming/sender_stats.proto",
         "patchSetId": 3
@@ -31,6 +49,24 @@
       "writtenOn": "2024-05-29T22:57:37Z",
       "side": 1,
       "message": "Can you provide some more details on how this will be used?  What is the code that will populate it and what is the API for clients to access it?\n\nFor sender stats, we don\u0027t use protocol messages, but populate structs defined in statistics_defined.h, collect and analyze them, and pass them back results to clients via StatisticsAnalyzer.",
+      "revId": "b28d21942c5f9281827171b53e318a4ed8635930",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8f65cb2_dfec0745",
+        "filename": "cast/streaming/sender_stats.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1528430
+      },
+      "writtenOn": "2024-05-29T23:39:22Z",
+      "side": 1,
+      "message": "This file is meant to contain a proto version of the sender stats structs defined in the .h files. We plan to use this version in google3 (OpenScreen is now in google3) to collect similar statistics in the Android native client.\n\ncontext: go/cast-mirroring-telemetry-design",
+      "parentUuid": "19286fbd_8a57d7cf",
       "revId": "b28d21942c5f9281827171b53e318a4ed8635930",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
