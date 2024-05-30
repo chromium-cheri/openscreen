@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "3fbcbe47_98fa6718",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1161379
+      },
+      "writtenOn": "2024-05-30T05:30:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1af64462_98f95eb7",
+      "revId": "c78f9051786810f8fe3012b1056cb5c868670562",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e93873b9_b39c6cff",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -191,6 +209,24 @@
       "side": 1,
       "message": "Takuto, can this be removed?",
       "parentUuid": "a87b9dac_74feb0a7",
+      "revId": "c78f9051786810f8fe3012b1056cb5c868670562",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4695a50b_b6f41c60",
+        "filename": "DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1161379
+      },
+      "writtenOn": "2024-05-30T05:30:51Z",
+      "side": 1,
+      "message": "No. Without this variable, we see the following error from `gclient sync`\n```\n$ gclient sync\nSyncing projects: 100% (23/23) openscreen/third_party/zlib/src                                                                                       \nopenscreen/third_party/instrumented_libs (ERROR)                                                         \n----------------------------------------                                                                 \n[0:00:01] Started.                                                                                       \n----------------------------------------      \nTraceback (most recent call last):\n  File \"/usr/local/google/home/tikuta/depot_tools/metrics.py\", line 289, in print_notice_and_exit\n    yield\n  File \"/usr/local/google/home/tikuta/depot_tools/gclient.py\", line 4600, in \u003cmodule\u003e\n    sys.exit(main(sys.argv[1:]))\n             ^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/google/home/tikuta/depot_tools/gclient.py\", line 4586, in main\n    return dispatcher.execute(OptionParser(), argv)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/google/home/tikuta/depot_tools/subcommand.py\", line 254, in execute\n    return command(parser, args[1:])\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/google/home/tikuta/depot_tools/metrics.py\", line 270, in _inner\n    return self._collect_metrics(func, command_name, *args,\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/google/home/tikuta/depot_tools/metrics.py\", line 255, in _collect_metrics\n    gclient_utils.reraise(exception[0], exception[1], exception[2])\n  File \"/usr/local/google/home/tikuta/depot_tools/gclient_utils.py\", line 53, in reraise\n    raise value\n  File \"/usr/local/google/home/tikuta/depot_tools/metrics.py\", line 224, in _collect_metrics\n    result \u003d func(*args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/google/home/tikuta/depot_tools/gclient.py\", line 3939, in CMDsync\n    ret \u003d client.RunOnDeps(\u0027update\u0027, args)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/google/home/tikuta/depot_tools/gclient.py\", line 2422, in RunOnDeps\n    work_queue.flush(revision_overrides,\n  File \"/usr/local/google/home/tikuta/depot_tools/gclient_utils.py\", line 1026, in flush\n    reraise(e[0], e[1], e[2])\n  File \"/usr/local/google/home/tikuta/depot_tools/gclient_utils.py\", line 53, in reraise\n    raise value\n  File \"/usr/local/google/home/tikuta/depot_tools/gclient_utils.py\", line 1105, in run\n    self.item.run(*self.args, **self.kwargs)\n  File \"/usr/local/google/home/tikuta/depot_tools/gclient.py\", line 1305, in run\n    self.ParseDepsFile()\n  File \"/usr/local/google/home/tikuta/depot_tools/gclient.py\", line 996, in ParseDepsFile\n    deps_to_add \u003d self._deps_to_objects(\n                  ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/google/home/tikuta/depot_tools/gclient.py\", line 772, in _deps_to_objects\n    should_process \u003d should_process and _should_process(condition)\n                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/google/home/tikuta/depot_tools/gclient.py\", line 759, in _should_process\n    cached_conditions[condition] \u003d gclient_eval.EvaluateCondition(\n                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/google/home/tikuta/depot_tools/gclient_eval.py\", line 681, in EvaluateCondition\n    return _convert(main_node)\n           ^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/google/home/tikuta/depot_tools/gclient_eval.py\", line 641, in _convert\n    bool_values.append(_convert(value))\n                       ^^^^^^^^^^^^^^^\n  File \"/usr/local/google/home/tikuta/depot_tools/gclient_eval.py\", line 643, in _convert\n    raise ValueError(\u0027invalid \"and\" operand %r (inside %r)\u0027 %\nValueError: invalid \"and\" operand \u0027non_git_source\u0027 (inside \u0027(checkout_instrumented_libraries and non_git_source) and (not build_with_chromium)\u0027)\n\n```",
+      "parentUuid": "68b52095_5b7903be",
       "revId": "c78f9051786810f8fe3012b1056cb5c868670562",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
