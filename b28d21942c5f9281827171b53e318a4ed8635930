@@ -38,6 +38,58 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "783b9f28_8b1ee4ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-31T22:36:10Z",
+      "side": 1,
+      "message": "If this is a bug in the internal tracker, then it should use the format b/XXX; Gerrit auto-links bug IDs to our public tracker (issues.chromium.org/XXX).",
+      "parentUuid": "27924a45_618601c9",
+      "revId": "b28d21942c5f9281827171b53e318a4ed8635930",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f6b8839_685ecd8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-31T22:36:10Z",
+      "side": 1,
+      "message": "Please add a BUILD rule to for the .proto and a depedency from the top-level :gn_all target so we get compilation coverage for this .proto.\n\nBut, don\u0027t add any dependencies from the main streaming library yet to keep binary size small (.proto generates a lot of code).  We can figure out how clients can opt-in to this once I understand the design better.",
+      "revId": "b28d21942c5f9281827171b53e318a4ed8635930",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "822e81c7_e3a369db",
+        "filename": "cast/streaming/sender_stats.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-31T22:36:10Z",
+      "side": 1,
+      "message": "Please add a block comment explaining that this must be kept in sync with the definitions in statistics.h\n\nAnd update statistics.h with a similar block comment for the reverse (i.e update the proto when the .h changes).",
+      "revId": "b28d21942c5f9281827171b53e318a4ed8635930",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "19286fbd_8a57d7cf",
         "filename": "cast/streaming/sender_stats.proto",
         "patchSetId": 3
@@ -67,6 +119,24 @@
       "side": 1,
       "message": "This file is meant to contain a proto version of the sender stats structs defined in the .h files. We plan to use this version in google3 (OpenScreen is now in google3) to collect similar statistics in the Android native client.\n\ncontext: go/cast-mirroring-telemetry-design",
       "parentUuid": "19286fbd_8a57d7cf",
+      "revId": "b28d21942c5f9281827171b53e318a4ed8635930",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb916c14_538188ed",
+        "filename": "cast/streaming/sender_stats.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-05-31T22:36:10Z",
+      "side": 1,
+      "message": "I read over the doc and it wasn\u0027t clear if the intention is:\n\n1. Populate this protocol message with the contents of openscreen::SenderStats with code added to openscreen in a future CL\n\n2. Populate it with statistics computed by code downstream in the Android sender\n\n3. Something else?\n\nIf the goal is #1, then I agree it makes sense to check it into openscreen.\n\nNote, if you want to add stats specific to Android in the future, then you may want to keep this in google3, or maybe wrap this in a different protocol definition in google3.",
+      "parentUuid": "d8f65cb2_dfec0745",
       "revId": "b28d21942c5f9281827171b53e318a4ed8635930",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
