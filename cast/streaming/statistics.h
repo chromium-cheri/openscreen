@@ -1,6 +1,7 @@
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+// This file must be updated whenever sender_stats.proto is updated.
 
 #ifndef CAST_STREAMING_STATISTICS_H_
 #define CAST_STREAMING_STATISTICS_H_
