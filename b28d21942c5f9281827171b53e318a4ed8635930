@@ -54,6 +54,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24ca4f82_0062f298",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1528430
+      },
+      "writtenOn": "2024-06-04T04:18:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "783b9f28_8b1ee4ac",
+      "revId": "b28d21942c5f9281827171b53e318a4ed8635930",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f6b8839_685ecd8a",
@@ -71,6 +89,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fc59c3a_2e76695b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1528430
+      },
+      "writtenOn": "2024-06-04T04:18:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f6b8839_685ecd8a",
+      "revId": "b28d21942c5f9281827171b53e318a4ed8635930",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "822e81c7_e3a369db",
@@ -84,6 +120,24 @@
       "writtenOn": "2024-05-31T22:36:10Z",
       "side": 1,
       "message": "Please add a block comment explaining that this must be kept in sync with the definitions in statistics.h\n\nAnd update statistics.h with a similar block comment for the reverse (i.e update the proto when the .h changes).",
+      "revId": "b28d21942c5f9281827171b53e318a4ed8635930",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2c86212_b676cffd",
+        "filename": "cast/streaming/sender_stats.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1528430
+      },
+      "writtenOn": "2024-06-04T04:18:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "822e81c7_e3a369db",
       "revId": "b28d21942c5f9281827171b53e318a4ed8635930",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -137,6 +191,24 @@
       "side": 1,
       "message": "I read over the doc and it wasn\u0027t clear if the intention is:\n\n1. Populate this protocol message with the contents of openscreen::SenderStats with code added to openscreen in a future CL\n\n2. Populate it with statistics computed by code downstream in the Android sender\n\n3. Something else?\n\nIf the goal is #1, then I agree it makes sense to check it into openscreen.\n\nNote, if you want to add stats specific to Android in the future, then you may want to keep this in google3, or maybe wrap this in a different protocol definition in google3.",
       "parentUuid": "d8f65cb2_dfec0745",
+      "revId": "b28d21942c5f9281827171b53e318a4ed8635930",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b3ed94f_e3cc2f5a",
+        "filename": "cast/streaming/sender_stats.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1528430
+      },
+      "writtenOn": "2024-06-04T04:18:28Z",
+      "side": 1,
+      "message": "We are planning to do #2. Since this codebase is now mirrored in google3, we thought it best to define the proto here as it will then subsequently be added to google3 where we can define a google3 Blaze build rule for it.\n\nThe proto is then included as part of a larger log message with more Android specific fields",
+      "parentUuid": "cb916c14_538188ed",
       "revId": "b28d21942c5f9281827171b53e318a4ed8635930",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
