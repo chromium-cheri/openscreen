@@ -64,10 +64,10 @@ class ProtocolConnectionServer {
   // connections.
   virtual bool Resume() = 0;
 
-  // Returns the fingerprint of the server's certificate. The fingerprint is
-  // sent to the client as a DNS TXT record. Client uses the fingerprint to
-  // verify server's certificate.
-  virtual std::string GetFingerprint() = 0;
+  // Returns the fingerprint of the currently active agent certificate. The
+  // fingerprint is sent to the client as a DNS TXT record. Client uses the
+  // fingerprint to verify agent certificate.
+  virtual std::string GetAgentFingerprint() = 0;
 
   // Synchronously open a new connection to an instance identified by
   // |instance_number|.  Returns nullptr if it can't be completed synchronously
