@@ -55,6 +55,9 @@ vars = {
   # This can be overridden, e.g. with custom_vars, to build clang from HEAD
   # instead of downloading the prebuilt pinned revision.
   'llvm_force_head_revision': False,
+
+  # condition to allowlist deps for non-git-source processing.
+  'non_git_source': 'True',
 }
 
 deps = {
@@ -84,7 +87,7 @@ deps = {
       }
     ],
     'dep_type': 'cipd',
-    'condition': 'host_os == "linux" and not build_with_chromium',
+    'condition': 'host_os == "linux" and not build_with_chromium and non_git_source',
   },
   'buildtools/mac': {
     'packages': [
@@ -94,7 +97,7 @@ deps = {
       }
     ],
     'dep_type': 'cipd',
-    'condition': 'host_os == "mac" and not build_with_chromium',
+    'condition': 'host_os == "mac" and not build_with_chromium and non_git_source',
   },
   'buildtools/win': {
     'packages': [
