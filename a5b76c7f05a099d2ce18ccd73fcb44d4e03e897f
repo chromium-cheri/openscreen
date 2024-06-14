@@ -16,6 +16,125 @@
       "message": "Hi, mark. It\u0027s been a while, is there any update on this?",
       "revId": "a5b76c7f05a099d2ce18ccd73fcb44d4e03e897f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e36968a1_499ea6e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-06-14T23:04:55Z",
+      "side": 1,
+      "message": "This is an improvement by replacing the use of the IPEndpoint in some of the code by an instance number.  However the use of the DNS-SD instance name is problematic as it\u0027s not guaranteed to be a unique and stable identifier for the agent.  So that will have to be replaced later.",
+      "revId": "a5b76c7f05a099d2ce18ccd73fcb44d4e03e897f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d03098f7_eaecdb33",
+        "filename": "osp/impl/presentation/presentation_controller.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-06-14T23:04:55Z",
+      "side": 1,
+      "message": "Please add here:\n\n// TODO(crbug.com/347268871): Replace instance_id as an agent identifier\n\n(Or you can add it where group_streams_by_instance_id_ is declared).",
+      "revId": "a5b76c7f05a099d2ce18ccd73fcb44d4e03e897f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d88e816e_c0c8be71",
+        "filename": "osp/impl/quic/quic_client.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-06-14T23:04:55Z",
+      "side": 1,
+      "message": "Please add:\n\n// TODO(crbug.com/347268871): Replace instance_id as an agent identifier",
+      "revId": "a5b76c7f05a099d2ce18ccd73fcb44d4e03e897f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c2929f9_6ffda385",
+        "filename": "osp/impl/quic/quic_server.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-06-14T23:04:55Z",
+      "side": 1,
+      "message": "Please add:\n\n// TODO(crbug.com/347268871): Replace instance_id as an agent identifier",
+      "revId": "a5b76c7f05a099d2ce18ccd73fcb44d4e03e897f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff9deaca_a6f71f48",
+        "filename": "osp/public/protocol_connection_client.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-06-14T23:04:55Z",
+      "side": 1,
+      "message": "Nit: backticks (`) are preferred to |, as the backtick-ed symbols can be indexed by codesearch.",
+      "revId": "a5b76c7f05a099d2ce18ccd73fcb44d4e03e897f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bfc498e_0718eb11",
+        "filename": "osp/public/protocol_connection_client.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-06-14T23:04:55Z",
+      "side": 1,
+      "message": "I finally figured out where `instance_id` comes from.  It\u0027s the DNS-SD service instance name, which is based on the friendly name of the agent.  It\u0027s not guaranteed to be unique, as another agent could respond to a query with an identical record except for a different IP endpoint, at which point the behavior depends on how the discovery implementation handles the de-duplication.\n\nThis is another place where we need to convert to use a certificate fingerprint or other unique and persistent identifier like MAC address.\n\nHowever, this can be fixed in a subsequent CL (noted in the bug below).",
+      "revId": "a5b76c7f05a099d2ce18ccd73fcb44d4e03e897f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5ba362e_5f00feac",
+        "filename": "osp/public/protocol_connection_client.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-06-14T23:04:55Z",
+      "side": 1,
+      "message": "Can you add:\n\n// TODO(crbug.com/347197917): Improve this API\n\nThanks.",
+      "revId": "a5b76c7f05a099d2ce18ccd73fcb44d4e03e897f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
