@@ -52,6 +52,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cd98c9c_d3deee83",
+        "filename": "osp/impl/presentation/presentation_controller.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-06-17T03:28:27Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "d03098f7_eaecdb33",
+      "revId": "a5b76c7f05a099d2ce18ccd73fcb44d4e03e897f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d88e816e_c0c8be71",
@@ -69,6 +87,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07563232_8ada8944",
+        "filename": "osp/impl/quic/quic_client.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-06-17T03:28:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d88e816e_c0c8be71",
+      "revId": "a5b76c7f05a099d2ce18ccd73fcb44d4e03e897f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c2929f9_6ffda385",
@@ -82,6 +118,24 @@
       "writtenOn": "2024-06-14T23:04:55Z",
       "side": 1,
       "message": "Please add:\n\n// TODO(crbug.com/347268871): Replace instance_id as an agent identifier",
+      "revId": "a5b76c7f05a099d2ce18ccd73fcb44d4e03e897f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88e70e17_0ee36339",
+        "filename": "osp/impl/quic/quic_server.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-06-17T03:28:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c2929f9_6ffda385",
       "revId": "a5b76c7f05a099d2ce18ccd73fcb44d4e03e897f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -105,6 +159,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "65648ba0_f14885dd",
+        "filename": "osp/public/protocol_connection_client.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-06-17T03:28:27Z",
+      "side": 1,
+      "message": "Thanks, I have changed some one and will change gradually when found.",
+      "parentUuid": "ff9deaca_a6f71f48",
+      "revId": "a5b76c7f05a099d2ce18ccd73fcb44d4e03e897f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4bfc498e_0718eb11",
         "filename": "osp/public/protocol_connection_client.h",
         "patchSetId": 8
@@ -116,6 +188,24 @@
       "writtenOn": "2024-06-14T23:04:55Z",
       "side": 1,
       "message": "I finally figured out where `instance_id` comes from.  It\u0027s the DNS-SD service instance name, which is based on the friendly name of the agent.  It\u0027s not guaranteed to be unique, as another agent could respond to a query with an identical record except for a different IP endpoint, at which point the behavior depends on how the discovery implementation handles the de-duplication.\n\nThis is another place where we need to convert to use a certificate fingerprint or other unique and persistent identifier like MAC address.\n\nHowever, this can be fixed in a subsequent CL (noted in the bug below).",
+      "revId": "a5b76c7f05a099d2ce18ccd73fcb44d4e03e897f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "031c6d8c_53e7a2e5",
+        "filename": "osp/public/protocol_connection_client.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-06-17T03:28:27Z",
+      "side": 1,
+      "message": "Thanks, I will rename `instance id` to `instance name` and `instance number` to `instance id` uniformly in an other CL to make it clearer.\n\nAs far as I can see, in current chromuim, if an instance name is already used, a sequence number will be added to the instance name to form a new instance name (https://source.chromium.org/chromium/chromium/src/+/main:third_party/openscreen/src/discovery/mdns/impl/mdns_probe_manager.cc;l\u003d23). so the instance name should be unique, isn\u0027t it? If I understand incorrectly, we do need to fix this in a  subsequent CL.",
+      "parentUuid": "4bfc498e_0718eb11",
       "revId": "a5b76c7f05a099d2ce18ccd73fcb44d4e03e897f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -133,6 +223,24 @@
       "writtenOn": "2024-06-14T23:04:55Z",
       "side": 1,
       "message": "Can you add:\n\n// TODO(crbug.com/347197917): Improve this API\n\nThanks.",
+      "revId": "a5b76c7f05a099d2ce18ccd73fcb44d4e03e897f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fc16c90_f0a797d7",
+        "filename": "osp/public/protocol_connection_client.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-06-17T03:28:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5ba362e_5f00feac",
       "revId": "a5b76c7f05a099d2ce18ccd73fcb44d4e03e897f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
