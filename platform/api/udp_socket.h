@@ -108,11 +108,6 @@ class UdpSocket {
   virtual void JoinMulticastGroup(const IPAddress& address,
                                   NetworkInterfaceIndex ifindex) = 0;
 
-  // DEPRECATED.  Use the overload that takes a ByteView.
-  virtual void SendMessage(const void* data,
-                           size_t length,
-                           const IPEndpoint& dest);
-
   // Sends a message. If the message is not sent, Client::OnSendError() will be
   // called to indicate this. Error::Code::kAgain indicates the operation would
   // block, which can be expected during normal operation.
