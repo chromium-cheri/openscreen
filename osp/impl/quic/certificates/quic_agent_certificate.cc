@@ -7,6 +7,7 @@
 #include <chrono>
 #include <utility>
 
+#include "quiche/quic/core/crypto/proof_source_x509.h"
 #include "quiche/quic/core/quic_utils.h"
 #include "util/base64.h"
 #include "util/crypto/certificate_utils.h"
@@ -92,7 +93,8 @@ AgentFingerprint QuicAgentCertificate::GetAgentFingerprint() {
   return agent_fingerprint_;
 }
 
-std::unique_ptr<quic::ProofSource> QuicAgentCertificate::CreateProofSource() {
+std::unique_ptr<quic::ProofSource>
+QuicAgentCertificate::CreateServerProofSource() {
   if (certificates_.empty() || !key_ || agent_fingerprint_.empty()) {
     return nullptr;
   }
@@ -103,6 +105,26 @@ std::unique_ptr<quic::ProofSource> QuicAgentCertificate::CreateProofSource() {
 
   quic::CertificatePrivateKey key{std::move(key_)};
   return quic::ProofSourceX509::Create(std::move(chain), std::move(key));
+}
+
+std::unique_ptr<quic::ClientProofSource>
+QuicAgentCertificate::CreateClientProofSource(
+    std::string_view server_hostname) {
+  if (certificates_.empty() || !key_ || agent_fingerprint_.empty()) {
+    return nullptr;
+  }
+
+  auto chain = quiche::QuicheReferenceCountedPointer<quic::ProofSource::Chain>(
+      new quic::ProofSource::Chain(certificates_));
+  OSP_CHECK(chain) << "Failed to create the quic::ProofSource::Chain.";
+
+  quic::CertificatePrivateKey key{std::move(key_)};
+
+  auto client_proof_source = std::make_unique<quic::DefaultClientProofSource>();
+  client_proof_source->AddCertAndKey(
+      std::vector<std::string>{std::string{server_hostname}}, std::move(chain),
+      std::move(key));
+  return client_proof_source;
 }
 
 void QuicAgentCertificate::ResetCredentials() {

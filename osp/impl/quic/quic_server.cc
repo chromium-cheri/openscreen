@@ -9,6 +9,8 @@
 
 #include "platform/api/task_runner.h"
 #include "platform/api/time.h"
+#include "quiche/quic/core/quic_utils.h"
+#include "util/base64.h"
 #include "util/osp_logging.h"
 
 namespace openscreen::osp {
@@ -123,7 +125,7 @@ void QuicServer::OnConnectionDestroyed(QuicProtocolConnection* connection) {
 
 uint64_t QuicServer::OnCryptoHandshakeComplete(
     ServiceConnectionDelegate* delegate,
-    std::string connection_id) {
+    const std::string& /*connection_id*/) {
   OSP_CHECK_EQ(state_, State::kRunning);
   const std::string& instance_name = delegate->instance_name();
   auto pending_entry = pending_connections_.find(instance_name);
@@ -144,7 +146,7 @@ void QuicServer::OnIncomingStream(
 }
 
 void QuicServer::OnConnectionClosed(uint64_t instance_id,
-                                    std::string connection_id) {
+                                    const std::string& /*connection_id*/) {
   OSP_CHECK_EQ(state_, State::kRunning);
   auto connection_entry = connections_.find(instance_id);
   if (connection_entry == connections_.end())
@@ -162,6 +164,11 @@ void QuicServer::OnDataReceived(uint64_t instance_id,
                         bytes.size());
 }
 
+void QuicServer::OnClientCertificates(const std::vector<std::string>& certs,
+                                      const std::string& instance_name) {
+  fingerprint_map_[instance_name] = base64::Encode(quic::RawSha256(certs[0]));
+}
+
 void QuicServer::CloseAllConnections() {
   for (auto& conn : pending_connections_) {
     conn.second.connection->Close();
@@ -174,6 +181,7 @@ void QuicServer::CloseAllConnections() {
   connections_.clear();
 
   instance_map_.clear();
+  fingerprint_map_.clear();
   next_instance_id_ = 1u;
   instance_request_ids_.Reset();
 }

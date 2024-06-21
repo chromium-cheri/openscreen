@@ -8,6 +8,7 @@
 #include <memory>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include "osp/impl/quic/open_screen_session_base.h"
 #include "osp/impl/quic/quic_connection.h"
@@ -58,6 +59,7 @@ class QuicConnectionImpl final : public QuicConnection,
   void OnCryptoHandshakeComplete() override;
   void OnIncomingStream(QuicStream* QuicStream) override;
   Delegate& GetConnectionDelegate() override { return delegate_; }
+  void OnClientCertificates(const std::vector<std::string>& certs) override;
 
   void set_dispacher(QuicDispatcherImpl* dispatcher) {
     dispatcher_ = dispatcher;

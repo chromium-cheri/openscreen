@@ -69,14 +69,16 @@ class ServiceConnectionDelegate final : public QuicConnection::Delegate,
 
     virtual uint64_t OnCryptoHandshakeComplete(
         ServiceConnectionDelegate* delegate,
-        std::string connection_id) = 0;
+        const std::string& connection_id) = 0;
     virtual void OnIncomingStream(
         std::unique_ptr<QuicProtocolConnection> connection) = 0;
     virtual void OnConnectionClosed(uint64_t instance_id,
-                                    std::string connection_id) = 0;
+                                    const std::string& connection_id) = 0;
     virtual void OnDataReceived(uint64_t instance_id,
                                 uint64_t protocol_connection_id,
                                 const ByteView& bytes) = 0;
+    virtual void OnClientCertificates(const std::vector<std::string>& certs,
+                                      const std::string& instance_name) = 0;
   };
 
   ServiceConnectionDelegate(ServiceDelegate& parent,
@@ -102,6 +104,7 @@ class ServiceConnectionDelegate final : public QuicConnection::Delegate,
   void OnConnectionClosed(const std::string& connection_id) override;
   QuicStream::Delegate& NextStreamDelegate(const std::string& connection_id,
                                            uint64_t stream_id) override;
+  void OnClientCertificates(const std::vector<std::string>& certs) override;
 
   // QuicStream::Delegate overrides.
   void OnReceived(QuicStream* stream, const ByteView& bytes) override;

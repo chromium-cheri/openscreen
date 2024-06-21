@@ -14,6 +14,12 @@
 
 namespace openscreen::osp {
 
+// static
+QuicAgentCertificate& QuicClient::GetAgentCertificate() {
+  static QuicAgentCertificate agent_certificate;
+  return agent_certificate;
+}
+
 QuicClient::QuicClient(
     const ServiceConfig& config,
     MessageDemuxer& demuxer,
@@ -117,7 +123,7 @@ void QuicClient::OnConnectionDestroyed(QuicProtocolConnection* connection) {
 
 uint64_t QuicClient::OnCryptoHandshakeComplete(
     ServiceConnectionDelegate* delegate,
-    std::string connection_id) {
+    const std::string& /*connection_id*/) {
   const std::string& instance_name = delegate->instance_name();
   auto pending_entry = pending_connections_.find(instance_name);
   if (pending_entry == pending_connections_.end())
@@ -146,7 +152,7 @@ void QuicClient::OnIncomingStream(
 }
 
 void QuicClient::OnConnectionClosed(uint64_t instance_id,
-                                    std::string connection_id) {
+                                    const std::string& /*connection_id*/) {
   // TODO(btolsch): Is this how handshake failure is communicated to the
   // delegate?
   auto connection_entry = connections_.find(instance_id);
@@ -162,6 +168,11 @@ void QuicClient::OnDataReceived(uint64_t instance_id,
                                 const ByteView& bytes) {
   demuxer_.OnStreamData(instance_id, protocol_connection_id, bytes.data(),
                         bytes.size());
+}
+
+void QuicClient::OnClientCertificates(const std::vector<std::string>& /*certs*/,
+                                      const std::string& /*instance_id*/) {
+  OSP_NOTREACHED();
 }
 
 QuicClient::PendingConnectionData::PendingConnectionData(

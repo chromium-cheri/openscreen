@@ -127,4 +127,9 @@ void QuicConnectionImpl::OnIncomingStream(QuicStream* stream) {
   delegate_.OnIncomingStream(session_->connection_id().ToString(), stream);
 }
 
+void QuicConnectionImpl::OnClientCertificates(
+    const std::vector<std::string>& certs) {
+  delegate_.OnClientCertificates(certs);
+}
+
 }  // namespace openscreen::osp

@@ -6,6 +6,7 @@
 #define OSP_IMPL_QUIC_QUIC_CONNECTION_H_
 
 #include <string>
+#include <vector>
 
 #include "osp/impl/quic/quic_stream.h"
 #include "platform/base/udp_packet.h"
@@ -38,6 +39,10 @@ class QuicConnection {
     virtual QuicStream::Delegate& NextStreamDelegate(
         const std::string& connection_id,
         uint64_t stream_id) = 0;
+
+    // This is used to propagate client certificate to QuicServer.
+    virtual void OnClientCertificates(
+        const std::vector<std::string>& certs) = 0;
 
    protected:
     virtual ~Delegate() = default;

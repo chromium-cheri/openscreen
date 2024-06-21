@@ -124,6 +124,13 @@ void ServiceConnectionDelegate::OnReceived(QuicStream* stream,
                          bytes);
 }
 
+void ServiceConnectionDelegate::OnClientCertificates(
+    const std::vector<std::string>& certs) {
+  OSP_VLOG << "QUIC connection received client certificates from instance "
+           << instance_name_;
+  parent_.OnClientCertificates(certs, instance_name_);
+}
+
 void ServiceConnectionDelegate::OnClose(uint64_t stream_id) {
   OSP_VLOG << "QUIC stream closed for instance " << instance_id_;
   auto stream_entry = streams_.find(stream_id);

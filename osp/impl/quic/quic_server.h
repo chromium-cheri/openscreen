@@ -61,14 +61,16 @@ class QuicServer final : public ProtocolConnectionServer,
 
   // ServiceConnectionDelegate::ServiceDelegate overrides.
   uint64_t OnCryptoHandshakeComplete(ServiceConnectionDelegate* delegate,
-                                     std::string connection_id) override;
+                                     const std::string& connection_id) override;
   void OnIncomingStream(
       std::unique_ptr<QuicProtocolConnection> connection) override;
   void OnConnectionClosed(uint64_t instance_id,
-                          std::string connection_id) override;
+                          const std::string& connection_id) override;
   void OnDataReceived(uint64_t instance_id,
                       uint64_t protocol_connection_id,
                       const ByteView& bytes) override;
+  void OnClientCertificates(const std::vector<std::string>& certs,
+                            const std::string& instance_name) override;
 
   const std::string& instance_name() const { return instance_name_; }
 
@@ -101,6 +103,10 @@ class QuicServer final : public ProtocolConnectionServer,
   //
   // TODO(crbug.com/347268871): Replace instance_name as an agent identifier.
   std::map<std::string, uint64_t> instance_map_;
+
+  // Maps an instance name to the fingerprint of the instance's active agent
+  // certificate.
+  std::map<std::string, std::string> fingerprint_map_;
 
   // Value that will be used for the next new instance in a Connect call.
   uint64_t next_instance_id_ = 1u;
