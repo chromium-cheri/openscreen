@@ -33,6 +33,24 @@
       "message": "Looks like there\u0027s still a trybot failure though?",
       "revId": "e54d58f297d31b1fa1fb0d58fc77c5d2963b337a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4e97188_9d30b272",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-06-25T16:35:17Z",
+      "side": 1,
+      "message": "Yeah, when you submit a CL that changes the builder configuration the CI doesn\u0027t pick up the new config right away.  Usually it takes effect at the next CI/CQ cycle.  I don\u0027t know if there\u0027s a way to force LUCI to use a top-of-tree config.\n\nOne thing that would really improve quality of life is to have the LUCI configuration generate the GN args, intead of setting builder properties in the builder config and having the recipe generate the GN args.  Right now any changes to GN args require two changes across the two repos and things are semi-broken until both changes land.",
+      "parentUuid": "a8b15c02_2a3dd230",
+      "revId": "e54d58f297d31b1fa1fb0d58fc77c5d2963b337a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ],
   "submitRequirementResults": [
