@@ -163,8 +163,8 @@ def get_properties(
             "server": "https://chromium-swarm.appspot.com",
         },
     }
-    if not is_release:
-        properties["is_debug"] = True
+    if is_release:
+        properties["is_debug"] = False
     if is_gcc:
         properties["is_clang"] = False
         properties["use_custom_libcxx"] = False
