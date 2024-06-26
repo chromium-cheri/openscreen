@@ -161,11 +161,13 @@ std::vector<InterfaceInfo> GetLinkInfo() {
       struct ifinfomsg msg;
     } request;
 
+    request.header = {};
     request.header.nlmsg_len = sizeof(request);
     request.header.nlmsg_type = RTM_GETLINK;
     request.header.nlmsg_flags = NLM_F_REQUEST | NLM_F_ROOT;
     request.header.nlmsg_seq = 0;
     request.header.nlmsg_pid = 0;
+    request.msg = {};
     request.msg.ifi_family = AF_UNSPEC;
     struct iovec iov = {&request, request.header.nlmsg_len};
     struct msghdr msg = {};
@@ -265,11 +267,13 @@ void PopulateSubnetsOrClearList(std::vector<InterfaceInfo>* info_list) {
       struct ifaddrmsg msg;
     } request;
 
+    request.header = {};
     request.header.nlmsg_len = sizeof(request);
     request.header.nlmsg_type = RTM_GETADDR;
     request.header.nlmsg_flags = NLM_F_REQUEST | NLM_F_ROOT;
     request.header.nlmsg_seq = 1;
     request.header.nlmsg_pid = 0;
+    request.msg = {};
     request.msg.ifa_family = AF_UNSPEC;
     struct iovec iov = {&request, request.header.nlmsg_len};
     struct msghdr msg = {};
