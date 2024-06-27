@@ -8,7 +8,9 @@
 #include <memory>
 
 #include "osp/public/endpoint_config.h"
+#include "osp/public/message_demuxer.h"
 #include "osp/public/protocol_connection_server.h"
+#include "osp/public/protocol_connection_service_observer.h"
 
 namespace openscreen {
 
