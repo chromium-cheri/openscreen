@@ -16,6 +16,74 @@
       "message": "Hi, mark. PTAL, thanks.",
       "revId": "c7a4349b7a79c77e40683d974e51c97a9a6a0969",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bc4387d_37a8c780",
+        "filename": "osp/impl/quic/certificates/quic_agent_certificate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-06-27T03:50:46Z",
+      "side": 1,
+      "message": "This is the wrong key type for OSP as the spec requires P256 ECDSA keys.  \n\nhttps://w3c.github.io/openscreenprotocol/#certificates\n\nThe code would look something like this:\n\nhttps://stackoverflow.com/questions/56954187/using-only-1-evp-pkey-while-generating-ec-keys-using-openssl-1-1/57008493#57008493\n\nboringssl hopefully has similar APIs to the EVP_PKEY ones in openssl.",
+      "revId": "c7a4349b7a79c77e40683d974e51c97a9a6a0969",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23482912_8d538c37",
+        "filename": "osp/impl/quic/certificates/quic_agent_certificate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-06-27T03:50:46Z",
+      "side": 1,
+      "message": "Can you use the function in util/ to read a file to a string, and then use that to construct the EVP_PKEY?",
+      "revId": "c7a4349b7a79c77e40683d974e51c97a9a6a0969",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed75c347_b60e507a",
+        "filename": "osp/impl/quic/certificates/quic_agent_certificate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-06-27T03:50:46Z",
+      "side": 1,
+      "message": "Optional: A utility function to write to a file would be nice to add to util/",
+      "revId": "c7a4349b7a79c77e40683d974e51c97a9a6a0969",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7576e85e_f08b9b0c",
+        "filename": "osp/impl/quic/certificates/quic_agent_certificate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-06-27T03:50:46Z",
+      "side": 1,
+      "message": "Please add #includes for this.",
+      "revId": "c7a4349b7a79c77e40683d974e51c97a9a6a0969",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
