@@ -105,6 +105,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec828354_84974fc6",
+        "filename": "osp/impl/quic/quic_connection_factory_client.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-06-27T03:38:33Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "cfc54702_c1e7ffe1",
+      "revId": "f58282cddb889a185a86c3ae2ffd7a59a3a08587",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98e09d47_6cca18e4",
@@ -171,6 +189,24 @@
       "side": 1,
       "message": "Because this file is inclued in quic_connection_factory_client.cc now. source set \"quic\" only deps \"public\", so this file should in source set \"public\".",
       "parentUuid": "0b747579_bfc9d1d7",
+      "revId": "f58282cddb889a185a86c3ae2ffd7a59a3a08587",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf9d92f9_4e2f715b",
+        "filename": "osp/public/osp_constants.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-06-27T03:38:33Z",
+      "side": 1,
+      "message": "I think the usage may be temporary depending on how the spec issue is resolved.\n\nI would be okay hard-coding `.local` in quic_connection_factory_client.cc so we don\u0027t have to move this to the public API.",
+      "parentUuid": "8b8fc9c4_522cff3b",
       "revId": "f58282cddb889a185a86c3ae2ffd7a59a3a08587",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
