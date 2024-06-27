@@ -20,13 +20,13 @@ std::unique_ptr<ProtocolConnection> GetProtocolConnection(
 MessageDemuxer* GetServerDemuxer() {
   return NetworkServiceManager::Get()
       ->GetProtocolConnectionServer()
-      ->message_demuxer();
+      ->GetMessageDemuxer();
 }
 
 MessageDemuxer* GetClientDemuxer() {
   return NetworkServiceManager::Get()
       ->GetProtocolConnectionClient()
-      ->message_demuxer();
+      ->GetMessageDemuxer();
 }
 
 PresentationID::PresentationID(std::string presentation_id)

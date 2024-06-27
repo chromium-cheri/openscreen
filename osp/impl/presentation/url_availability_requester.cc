@@ -43,7 +43,7 @@ void MoveVectorSegment(std::vector<std::string>::iterator first,
 uint64_t GetNextRequestId(const uint64_t instance_id) {
   return NetworkServiceManager::Get()
       ->GetProtocolConnectionClient()
-      ->instance_request_ids()
+      ->GetInstanceRequestIds()
       ->GetNextRequestId(instance_id);
 }
 
