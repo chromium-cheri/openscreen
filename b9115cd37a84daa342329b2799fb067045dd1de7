@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c48c65a1_0046a761",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-06-27T03:33:50Z",
+      "side": 1,
+      "message": "Thanks for your patience.  I am going OOO but will review as much as I can before I go.\n\nThis one LGTM with a few optional fixes before landing.",
+      "revId": "b9115cd37a84daa342329b2799fb067045dd1de7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9e83b8c_7444817b",
+        "filename": "osp/impl/quic/certificates/quic_agent_certificate.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-06-27T03:33:50Z",
+      "side": 1,
+      "message": "Nit: Extra whitespace",
+      "revId": "b9115cd37a84daa342329b2799fb067045dd1de7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94ad7092_4f0230b2",
+        "filename": "osp/impl/quic/certificates/quic_agent_certificate.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-06-27T03:33:50Z",
+      "side": 1,
+      "message": "I would prefer OSP_NOTREACHED() as this should not be called until implemented.",
+      "revId": "b9115cd37a84daa342329b2799fb067045dd1de7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c852cb17_c4f55072",
+        "filename": "osp/impl/quic/quic_server.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-06-27T03:33:50Z",
+      "side": 1,
+      "message": "This won\u0027t be static once we implement certificate generation, but this is fine for now.",
+      "revId": "b9115cd37a84daa342329b2799fb067045dd1de7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25f37289_194f6712",
+        "filename": "osp/public/agent_certificate.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-06-27T03:33:50Z",
+      "side": 1,
+      "message": "I like this API, nice design, although once we have certificate generation may move loading methods to a different API and have this not be specific to where the certificate came from.",
+      "revId": "b9115cd37a84daa342329b2799fb067045dd1de7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

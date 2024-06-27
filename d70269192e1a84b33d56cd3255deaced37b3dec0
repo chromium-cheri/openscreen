@@ -53,6 +53,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec9d3b2a_26905923",
+        "filename": "osp/impl/quic/agent_certificate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-06-27T03:33:50Z",
+      "side": 1,
+      "message": "That\u0027s fine for now.  In the future when we have certificate generation, we there will multiple certificate sources, one of which is loading from a file.\n\nBut a comment that this should not be used for any end-user software would be good, as the private key is obviously not private.",
+      "parentUuid": "8705216f_d1ed1b29",
+      "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07517096_52f68254",
@@ -88,6 +106,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cba1af3_420751e9",
+        "filename": "osp/impl/quic/agent_certificate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-06-27T03:33:50Z",
+      "side": 1,
+      "message": "LGTM",
+      "parentUuid": "750d535d_5f21ad1e",
+      "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f9a02932_e9632537",
@@ -119,6 +155,24 @@
       "side": 1,
       "message": "Yes, we do need validations. However, there are sitll some spec issuues about certificate uder discussion. I have added comments for this and can we add validations later?",
       "parentUuid": "f9a02932_e9632537",
+      "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e77941e6_cb75d49f",
+        "filename": "osp/impl/quic/agent_certificate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-06-27T03:33:50Z",
+      "side": 1,
+      "message": "Makes sense.",
+      "parentUuid": "dfb4d346_dd29a757",
       "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -228,6 +282,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00c306fe_7bd97647",
+        "filename": "osp/impl/quic/agent_certificate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-06-27T03:33:50Z",
+      "side": 1,
+      "message": "Moving to the QUIC-specific subclass of AgentCertificate LGTM.",
+      "parentUuid": "cdd9305e_4ec604ff",
+      "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a2ecbc06_ab508cdc",
@@ -294,6 +366,24 @@
       "side": 1,
       "message": "I think we should keep all certificates if the file contains certificate chain, because quic::ProofSource::Chain takes a vector of certificates,",
       "parentUuid": "fec0e228_b22ecacb",
+      "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7a225e8_90183a28",
+        "filename": "osp/impl/quic/agent_certificate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-06-27T03:33:50Z",
+      "side": 1,
+      "message": "Okay, makes sense.",
+      "parentUuid": "6dba3f13_823aae31",
       "revId": "d70269192e1a84b33d56cd3255deaced37b3dec0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
