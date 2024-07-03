@@ -22,6 +22,30 @@ QuicServiceBase::QuicServiceBase(const ServiceConfig& config,
 
 QuicServiceBase::~QuicServiceBase() = default;
 
+void QuicServiceBase::OnIncomingStream(uint64_t instance_id,
+                                       QuicStream* stream) {
+  OSP_CHECK_EQ(state_, ProtocolConnectionEndpoint::State::kRunning);
+
+  auto connection_entry = connections_.find(instance_id);
+  if (connection_entry == connections_.end()) {
+    return;
+  }
+
+  std::unique_ptr<QuicProtocolConnection> connection =
+      connection_entry->second.stream_manager->OnIncomingStream(stream);
+  observer_.OnIncomingConnection(std::move(connection));
+}
+
+QuicStream::Delegate& QuicServiceBase::GetStreamDelegate(uint64_t instance_id,
+                                                         uint64_t stream_id) {
+  auto connection_entry = connections_.find(instance_id);
+  OSP_CHECK(connection_entry != connections_.end());
+
+  auto& stream_manager = *(connection_entry->second.stream_manager);
+  stream_manager.CreateProtocolConnection(stream_id);
+  return stream_manager;
+}
+
 void QuicServiceBase::OnConnectionDestroyed(
     QuicProtocolConnection* connection) {
   if (!connection->stream()) {
@@ -33,14 +57,7 @@ void QuicServiceBase::OnConnectionDestroyed(
     return;
   }
 
-  connection_entry->second.delegate->DropProtocolConnection(connection);
-}
-
-void QuicServiceBase::OnIncomingStream(
-    std::unique_ptr<QuicProtocolConnection> connection) {
-  OSP_CHECK_EQ(state_, ProtocolConnectionEndpoint::State::kRunning);
-
-  observer_.OnIncomingConnection(std::move(connection));
+  connection_entry->second.stream_manager->DropProtocolConnection(connection);
 }
 
 void QuicServiceBase::OnDataReceived(uint64_t instance_id,
@@ -54,8 +71,8 @@ void QuicServiceBase::OnDataReceived(uint64_t instance_id,
 
 QuicServiceBase::ServiceConnectionData::ServiceConnectionData(
     std::unique_ptr<QuicConnection> connection,
-    std::unique_ptr<ServiceConnectionDelegate> delegate)
-    : connection(std::move(connection)), delegate(std::move(delegate)) {}
+    std::unique_ptr<QuicStreamManager> manager)
+    : connection(std::move(connection)), stream_manager(std::move(manager)) {}
 
 QuicServiceBase::ServiceConnectionData::ServiceConnectionData(
     ServiceConnectionData&&) noexcept = default;
@@ -124,12 +141,12 @@ QuicServiceBase::CreateProtocolConnectionImpl(uint64_t instance_id) {
 
   return QuicProtocolConnection::FromExisting(
       *this, connection_entry->second.connection.get(),
-      connection_entry->second.delegate.get(), instance_id);
+      connection_entry->second.stream_manager.get(), instance_id);
 }
 
 void QuicServiceBase::Cleanup() {
   for (auto& entry : connections_) {
-    entry.second.delegate->DestroyClosedStreams();
+    entry.second.stream_manager->DestroyClosedStreams();
   }
 
   for (uint64_t instance_id : delete_connections_) {
