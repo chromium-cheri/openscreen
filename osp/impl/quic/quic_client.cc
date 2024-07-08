@@ -87,8 +87,9 @@ bool QuicClient::Connect(const std::string& instance_name,
 }
 
 uint64_t QuicClient::OnCryptoHandshakeComplete(
-    ServiceConnectionDelegate* delegate) {
-  const std::string& instance_name = delegate->instance_name();
+    const std::string& instance_name) {
+  OSP_CHECK_EQ(state_, ProtocolConnectionEndpoint::State::kRunning);
+
   auto pending_entry = pending_connections_.find(instance_name);
   if (pending_entry == pending_connections_.end()) {
     return 0;
@@ -96,13 +97,15 @@ uint64_t QuicClient::OnCryptoHandshakeComplete(
 
   ServiceConnectionData connection_data = std::move(pending_entry->second.data);
   auto* connection = connection_data.connection.get();
+  auto* stream_manager = connection_data.stream_manager.get();
   uint64_t instance_id = next_instance_id_++;
   instance_map_[instance_name] = instance_id;
+  stream_manager->set_instance_id(instance_id);
   connections_.emplace(instance_id, std::move(connection_data));
 
   for (auto& request : pending_entry->second.callbacks) {
     std::unique_ptr<QuicProtocolConnection> pc =
-        QuicProtocolConnection::FromExisting(*this, connection, delegate,
+        QuicProtocolConnection::FromExisting(*this, connection, stream_manager,
                                              instance_id);
     request.second->OnConnectionOpened(request.first, std::move(pc));
   }
@@ -217,8 +220,6 @@ uint64_t QuicClient::StartConnectionRequest(
     return 0;
   }
 
-  auto delegate =
-      std::make_unique<ServiceConnectionDelegate>(*this, instance_name);
   IPEndpoint endpoint = instance_entry->second.v4_endpoint
                             ? instance_entry->second.v4_endpoint
                             : instance_entry->second.v6_endpoint;
@@ -227,15 +228,18 @@ uint64_t QuicClient::StartConnectionRequest(
       .fingerprint = instance_entry->second.fingerprint};
   ErrorOr<std::unique_ptr<QuicConnection>> connection =
       connection_factory_->Connect(connection_endpoints_[0], endpoint,
-                                   connect_data, delegate.get());
+                                   connect_data, this);
   if (!connection) {
     request_callback->OnConnectionFailed(0);
     OSP_LOG_ERROR << "Factory connect failed: " << connection.error();
     return 0;
   }
+
   auto pending_result = pending_connections_.emplace(
-      instance_name, PendingConnectionData(ServiceConnectionData(
-                         std::move(connection.value()), std::move(delegate))));
+      instance_name,
+      PendingConnectionData(ServiceConnectionData(
+          std::move(connection.value()),
+          std::make_unique<QuicStreamManager>(*this, instance_name))));
   uint64_t request_id = next_request_id_++;
   pending_result.first->second.callbacks.emplace_back(request_id,
                                                       request_callback);

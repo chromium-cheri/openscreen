@@ -65,8 +65,7 @@ class QuicClient final : public ProtocolConnectionClient,
                ConnectionRequestCallback* request_callback) override;
 
   // QuicServiceBase overrides.
-  uint64_t OnCryptoHandshakeComplete(
-      ServiceConnectionDelegate* delegate) override;
+  uint64_t OnCryptoHandshakeComplete(const std::string& instance_name) override;
   void OnConnectionClosed(uint64_t instance_id) override;
 
  private:
