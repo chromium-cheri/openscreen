@@ -11,7 +11,7 @@
 #include <string>
 #include <vector>
 
-#include "osp/impl/quic/quic_service_common.h"
+#include "osp/impl/quic/quic_stream_manager.h"
 #include "osp/public/message_demuxer.h"
 #include "osp/public/protocol_connection_endpoint.h"
 #include "osp/public/protocol_connection_service_observer.h"
@@ -26,7 +26,8 @@ namespace openscreen::osp {
 // There are two kinds of QUIC services: QuicServer and QuicClient. They differ
 // in the connection establishment process, but they share much of the same
 // logic. This class holds common codes for the two classes.
-class QuicServiceBase : public ServiceConnectionDelegate::ServiceDelegate {
+class QuicServiceBase : public QuicConnection::Delegate,
+                        public QuicStreamManager::Delegate {
  public:
   QuicServiceBase(const ServiceConfig& config,
                   MessageDemuxer& demuxer,
@@ -39,12 +40,12 @@ class QuicServiceBase : public ServiceConnectionDelegate::ServiceDelegate {
   QuicServiceBase& operator=(QuicServiceBase&&) noexcept = delete;
   virtual ~QuicServiceBase();
 
-  // QuicProtocolConnection::Owner overrides.
-  void OnConnectionDestroyed(QuicProtocolConnection* connection) override;
+  // QuicConnection::Delegate overrides.
+  void OnIncomingStream(uint64_t instance_id, QuicStream* stream) override;
+  QuicStream::Delegate& GetStreamDelegate(uint64_t instance_id) override;
 
-  // ServiceConnectionDelegate::ServiceDelegate overrides.
-  void OnIncomingStream(
-      std::unique_ptr<QuicProtocolConnection> connection) override;
+  // QuicStreamManager::Delegate overrides.
+  void OnConnectionDestroyed(QuicProtocolConnection* connection) override;
   void OnDataReceived(uint64_t instance_id,
                       uint64_t protocol_connection_id,
                       const ByteView& bytes) override;
@@ -52,7 +53,7 @@ class QuicServiceBase : public ServiceConnectionDelegate::ServiceDelegate {
  protected:
   struct ServiceConnectionData {
     ServiceConnectionData(std::unique_ptr<QuicConnection> connection,
-                          std::unique_ptr<ServiceConnectionDelegate> delegate);
+                          std::unique_ptr<QuicStreamManager> manager);
     ServiceConnectionData(const ServiceConnectionData&) = delete;
     ServiceConnectionData& operator=(const ServiceConnectionData&) = delete;
     ServiceConnectionData(ServiceConnectionData&&) noexcept;
@@ -60,7 +61,7 @@ class QuicServiceBase : public ServiceConnectionDelegate::ServiceDelegate {
     ~ServiceConnectionData();
 
     std::unique_ptr<QuicConnection> connection;
-    std::unique_ptr<ServiceConnectionDelegate> delegate;
+    std::unique_ptr<QuicStreamManager> stream_manager;
   };
 
   virtual void CloseAllConnections() = 0;

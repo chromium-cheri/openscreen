@@ -59,8 +59,7 @@ class QuicServer final : public ProtocolConnectionServer,
   std::string GetAgentFingerprint() override;
 
   // QuicServiceBase overrides.
-  uint64_t OnCryptoHandshakeComplete(
-      ServiceConnectionDelegate* delegate) override;
+  uint64_t OnCryptoHandshakeComplete(const std::string& instance_name) override;
   void OnConnectionClosed(uint64_t instance_id) override;
 
   const std::string& instance_name() const { return instance_name_; }
@@ -70,8 +69,7 @@ class QuicServer final : public ProtocolConnectionServer,
   void CloseAllConnections() override;
 
   // QuicConnectionFactoryServer::ServerDelegate overrides.
-  QuicConnection::Delegate* NextConnectionDelegate(
-      const IPEndpoint& source) override;
+  QuicConnection::Delegate& GetConnectionDelegate() override { return *this; }
   void OnIncomingConnection(
       std::unique_ptr<QuicConnection> connection) override;
 
@@ -80,7 +78,6 @@ class QuicServer final : public ProtocolConnectionServer,
 
   InstanceRequestIds instance_request_ids_;
   std::unique_ptr<QuicConnectionFactoryServer> connection_factory_;
-  std::unique_ptr<ServiceConnectionDelegate> pending_connection_delegate_;
 
   // Maps an instance name to data about connections that haven't successfully
   // completed the QUIC handshake.

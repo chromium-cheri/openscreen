@@ -26,6 +26,7 @@ class OpenScreenSessionBase : public quic::QuicSession {
     virtual void OnCryptoHandshakeComplete() = 0;
     virtual void OnIncomingStream(QuicStream* stream) = 0;
     virtual QuicConnection::Delegate& GetConnectionDelegate() = 0;
+    virtual uint64_t GetInstanceID() = 0;
   };
 
   OpenScreenSessionBase(
