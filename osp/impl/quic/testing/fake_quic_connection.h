@@ -49,7 +49,8 @@ class FakeQuicStream final : public QuicStream {
 
 class FakeQuicConnection final : public QuicConnection {
  public:
-  FakeQuicConnection(FakeQuicConnectionFactoryBridge& parent_factory,
+  FakeQuicConnection(const std::string& instance_name,
+                     FakeQuicConnectionFactoryBridge& parent_factory,
                      Delegate& delegate);
   ~FakeQuicConnection() override;
 
@@ -58,6 +59,7 @@ class FakeQuicConnection final : public QuicConnection {
     return streams_;
   }
 
+  void OnCryptoHandshakeComplete();
   FakeQuicStream* MakeIncomingStream();
 
   // QuicConnection overrides.
