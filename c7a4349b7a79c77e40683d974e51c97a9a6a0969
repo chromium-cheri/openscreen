@@ -35,6 +35,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5481d724_e70c607b",
+        "filename": "osp/impl/quic/certificates/quic_agent_certificate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-07-11T07:35:05Z",
+      "side": 1,
+      "message": "Thanks, done. Find a reference in chromium: https://source.chromium.org/chromium/chromium/src/+/main:chromeos/components/kcer/helpers/key_helper_unittest.cc;l\u003d39",
+      "parentUuid": "1bc4387d_37a8c780",
+      "revId": "c7a4349b7a79c77e40683d974e51c97a9a6a0969",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23482912_8d538c37",
@@ -48,6 +66,24 @@
       "writtenOn": "2024-06-27T03:50:46Z",
       "side": 1,
       "message": "Can you use the function in util/ to read a file to a string, and then use that to construct the EVP_PKEY?",
+      "revId": "c7a4349b7a79c77e40683d974e51c97a9a6a0969",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9117ea68_2079f3b3",
+        "filename": "osp/impl/quic/certificates/quic_agent_certificate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-07-11T07:35:05Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "23482912_8d538c37",
       "revId": "c7a4349b7a79c77e40683d974e51c97a9a6a0969",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -71,6 +107,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5f9ae794_0e62b699",
+        "filename": "osp/impl/quic/certificates/quic_agent_certificate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-07-11T07:35:05Z",
+      "side": 1,
+      "message": "Thanks, we also do this in cast: https://source.chromium.org/chromium/chromium/src/+/main:third_party/openscreen/src/cast/receiver/channel/static_credentials.cc;l\u003d150\n\nIf we convert key to std::string and then write the std::string to file, the codes look like this:\n```\n  bssl::UniquePtr\u003cEVP_PKEY\u003e root_key \u003d GeneratePrivateKey();\n  bssl::UniquePtr\u003cBIO\u003e temp_memory_bio(BIO_new(BIO_s_mem()));\n  if (!temp_memory_bio) {\n    return false;\n  }\n  \n  if (!PEM_write_bio_PrivateKey(temp_memory_bio.get(), key.get(), nullptr, nullptr, 0,\n                                nullptr, nullptr)) {\n    return false;\n  }\n  \n  const uint8_t* buffer;\n  size_t len;\n  if (!BIO_mem_contents(temp_memory_bio.get(), \u0026buffer, \u0026len)) {\n    return false;\n  }\n  \n std::string key_data \u003d std::string(reinterpret_cast\u003cconst char*\u003e(buffer), len);\n return WriteStringToFile(kPrivateKeyPath, key_data);\n```\nThis is more complicated, so I prefer the current way. WDYT?",
+      "parentUuid": "ed75c347_b60e507a",
+      "revId": "c7a4349b7a79c77e40683d974e51c97a9a6a0969",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7576e85e_f08b9b0c",
         "filename": "osp/impl/quic/certificates/quic_agent_certificate.h",
         "patchSetId": 1
@@ -82,6 +136,24 @@
       "writtenOn": "2024-06-27T03:50:46Z",
       "side": 1,
       "message": "Please add #includes for this.",
+      "revId": "c7a4349b7a79c77e40683d974e51c97a9a6a0969",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aac75d91_92984a9c",
+        "filename": "osp/impl/quic/certificates/quic_agent_certificate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-07-11T07:35:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7576e85e_f08b9b0c",
       "revId": "c7a4349b7a79c77e40683d974e51c97a9a6a0969",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
