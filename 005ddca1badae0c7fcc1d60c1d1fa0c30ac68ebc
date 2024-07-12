@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47c16a3d_e201c750",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-07-12T22:12:55Z",
+      "side": 1,
+      "message": "LGTM with a few minor cleanups/suggestions",
+      "revId": "005ddca1badae0c7fcc1d60c1d1fa0c30ac68ebc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d4c0245_4af486b2",
+        "filename": "osp/impl/quic/quic_connection.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-07-12T22:12:55Z",
+      "side": 1,
+      "message": "Please pass as std::string_view",
+      "revId": "005ddca1badae0c7fcc1d60c1d1fa0c30ac68ebc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66b87215_0be36bcf",
+        "filename": "osp/impl/quic/quic_connection.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-07-12T22:12:55Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "005ddca1badae0c7fcc1d60c1d1fa0c30ac68ebc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7899635c_d5284a6d",
+        "filename": "osp/impl/quic/quic_protocol_connection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-07-12T22:12:55Z",
+      "side": 1,
+      "message": "Nit: It\u0027s not worth passing a ByteView by reference as it is a small object (pointer + size_t).",
+      "revId": "005ddca1badae0c7fcc1d60c1d1fa0c30ac68ebc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cd03c91_0ca6d065",
+        "filename": "osp/impl/quic/quic_protocol_connection.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-07-12T22:12:55Z",
+      "side": 1,
+      "message": "Pass by reference?",
+      "revId": "005ddca1badae0c7fcc1d60c1d1fa0c30ac68ebc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f25f22fa_27bc7983",
+        "filename": "osp/impl/quic/quic_stream_manager.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-07-12T22:12:55Z",
+      "side": 1,
+      "message": "What is this for? Is this a signal to the delegate that the stream is closed?\n\nI would slightly prefer calling an explicit method on the delegate, like `delegate_.OnClose()`",
+      "revId": "005ddca1badae0c7fcc1d60c1d1fa0c30ac68ebc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfd32c59_952b55d5",
+        "filename": "osp/impl/quic/quic_stream_manager.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-07-12T22:12:55Z",
+      "side": 1,
+      "message": "Ditto about ByteView",
+      "revId": "005ddca1badae0c7fcc1d60c1d1fa0c30ac68ebc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af908094_b56b2d9f",
+        "filename": "osp/impl/quic/quic_stream_manager.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-07-12T22:12:55Z",
+      "side": 1,
+      "message": "Pass by reference?",
+      "revId": "005ddca1badae0c7fcc1d60c1d1fa0c30ac68ebc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
