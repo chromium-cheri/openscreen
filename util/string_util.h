@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef UTIL_STRINGUTIL_H_
-#define UTIL_STRINGUTIL_H_
+#ifndef UTIL_STRING_UTIL_H_
+#define UTIL_STRING_UTIL_H_
 
 #include <algorithm>
 #include <cstring>
@@ -94,4 +94,4 @@ inline std::string_view StripLeadingAsciiWhitespace(std::string_view str) {
 
 }  // namespace openscreen::stringutil
 
-#endif  // UTIL_STRINGUTIL_H_
+#endif  // UTIL_STRING_UTIL_H_
