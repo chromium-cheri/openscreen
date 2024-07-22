@@ -52,6 +52,24 @@
       "parentUuid": "53ad2ab8_2b0f9353",
       "revId": "3c6512bd3af10a1957fd57275bc998fd3af38da3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "195b6634_494e0fb6",
+        "filename": "cast/streaming/sender_stats.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-07-22T18:03:03Z",
+      "side": 1,
+      "message": "Currently network latency is computed separately for audio and video streams.\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/openscreen/src/cast/streaming/statistics_analyzer.cc;drc\u003dc85f08af47c25bc5eb4a7f81c0ac0620d8d767ca;l\u003d240\n\nIf there is some different measurement of network latency that you want to record, it would be better to add a separate message like NetworkStats instead of potentially changing the meanings of the existing fields.\n\nFor example I\u0027m not sure where statistics with MediaType \u003d\u003d MEDIA_TYPE_UNKNOWN would go. Would they go into audio_statistics or video_statistics below?",
+      "parentUuid": "c817f085_ce6a28b0",
+      "revId": "3c6512bd3af10a1957fd57275bc998fd3af38da3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
