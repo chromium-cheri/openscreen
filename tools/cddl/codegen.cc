@@ -27,24 +27,6 @@ std::string ToUnderscoreId(const std::string& x) {
   return result;
 }
 
-// Return default value for each type. The default value is used to
-// avoid undefined behavior when struct is initialized on the stack.
-std::string GetTypeDefaultValue(const std::string& type) {
-  if (type == "uint64_t") {
-    return " = 0ull";
-  } else if (type == "int64_t") {
-    return " = 0ll";
-  } else if (type == "bool") {
-    return " = false";
-  } else if (type == "float") {
-    return " = 0.0f";
-  } else if (type.find("std::array") != std::string::npos) {
-    return "{}";
-  } else {
-    return "";
-  }
-}
-
 // Convert a CDDL identifier to camel case for use as a C typename.  E.g.
 // presentation-connection-message to PresentationConnectionMessage.
 std::string ToCamelCase(const std::string& x) {
@@ -63,6 +45,43 @@ std::string ToCamelCase(const std::string& x) {
   }
   result.resize(new_size);
   return result;
+}
+
+// Return default value for each type. The default value is used to
+// avoid undefined behavior when struct is initialized on the stack.
+std::string GetTypeDefaultValue(const CppType& type,
+                                std::string cpp_type_string = "") {
+  switch (type.which) {
+    case CppType::Which::kBool:
+      return " = false";
+    case CppType::Which::kFloat:
+      return " = 0.0f";
+    case CppType::Which::kInt64:
+      return " = 0ll";
+    case CppType::Which::kUint64:
+      return " = 0ull";
+    case CppType::Which::kBytes:
+      return type.bytes_type.fixed_size ? " = {0}" : "";
+    case CppType::Which::kString:
+    case CppType::Which::kVector:
+      return "";
+    case CppType::Which::kOptional:
+      return GetTypeDefaultValue(*type.optional_type);
+    case CppType::Which::kEnum: {
+      const auto first_member = type.enum_type.members.cbegin();
+      if (first_member == type.enum_type.members.cend()) {
+        return "FUBAR!!!";
+      } else {
+        return " = " + cpp_type_string + "::k" +
+               ToCamelCase(first_member->first) + "";
+      }
+    }
+    case CppType::Which::kTaggedType:
+      assert(type.tagged_type.real_type);
+      return GetTypeDefaultValue(*type.tagged_type.real_type);
+    default:
+      return " = {}";
+  }
 }
 
 // Returns a string which represents the C++ type of |cpp_type|.  Returns an
@@ -384,7 +403,7 @@ bool WriteStructMembers(
       return false;
     dprintf(fd, "  %s %s%s;\n", type_string.c_str(),
             ToUnderscoreId(x.name).c_str(),
-            GetTypeDefaultValue(type_string).c_str());
+            GetTypeDefaultValue(*x.type, type_string).c_str());
   }
   return true;
 }
