@@ -16,6 +16,23 @@
       "message": "Hi, mark. PTAL, thanks.",
       "revId": "0243467f415b58fa8922ac4a23e383602833620c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28da9214_3a954928",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-07-23T21:16:41Z",
+      "side": 1,
+      "message": "I agree it\u0027s simpler to separate the QUIC connection from the protocol connection establishment.  The protocol connection is a high level object that only knows how to send/receive CBOR messages and should not know about details of the QUIC establishment (except as needed to e.g. implement SPAKE2 authentication).",
+      "revId": "0243467f415b58fa8922ac4a23e383602833620c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
