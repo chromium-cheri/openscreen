@@ -5,6 +5,7 @@
 #include "osp/impl/quic/quic_server.h"
 
 #include <functional>
+#include <random>
 #include <utility>
 
 #include "quiche/quic/core/quic_utils.h"
@@ -27,7 +28,9 @@ QuicServer::QuicServer(
                       InstanceRequestIds::Role::kServer,
                       now_function,
                       task_runner),
-      instance_name_(config.instance_name) {}
+      instance_name_(config.instance_name) {
+  auth_token_ = GenerateToken(16);
+}
 
 QuicServer::~QuicServer() = default;
 
@@ -78,6 +81,10 @@ std::string QuicServer::GetAgentFingerprint() {
   return GetAgentCertificate().GetAgentFingerprint();
 }
 
+std::string QuicServer::GetAuthToken() {
+  return auth_token_;
+}
+
 void QuicServer::OnClientCertificates(std::string_view instance_name,
                                       const std::vector<std::string>& certs) {
   fingerprint_map_.emplace(instance_name,
@@ -93,6 +100,20 @@ void QuicServer::OnIncomingConnection(
       instance_name,
       PendingConnectionData(ServiceConnectionData(
           std::move(connection), std::make_unique<QuicStreamManager>(*this))));
+}
+
+std::string QuicServer::GenerateToken(int length) {
+  static std::string characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+  std::random_device dev;
+  std::mt19937 gen(dev());
+  std::uniform_int_distribution<> dis(0, characters.size() - 1);
+  std::string token;
+  for (int i = 0; i < length; i++) {
+    token += characters[dis(gen)];
+  }
+
+  return token;
 }
 
 }  // namespace openscreen::osp
