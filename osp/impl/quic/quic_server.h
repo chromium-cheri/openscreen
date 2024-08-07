@@ -54,6 +54,7 @@ class QuicServer final : public ProtocolConnectionServer,
   std::unique_ptr<ProtocolConnection> CreateProtocolConnection(
       uint64_t instance_id) override;
   std::string GetAgentFingerprint() override;
+  std::string GetAuthToken() override;
 
   // QuicServiceBase overrides.
   void OnClientCertificates(std::string_view instance_name,
@@ -69,6 +70,10 @@ class QuicServer final : public ProtocolConnectionServer,
 
   // This is used for server name indication check.
   const std::string instance_name_;
+
+  // An alphanumeric and unguessable token for authentication.
+  // See https://w3c.github.io/openscreenprotocol/#authentication.
+  std::string auth_token_;
 
   // Maps an instance name to the fingerprint of the instance's active agent
   // certificate.

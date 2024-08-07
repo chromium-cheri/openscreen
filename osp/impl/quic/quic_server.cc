@@ -27,7 +27,10 @@ QuicServer::QuicServer(
                       InstanceRequestIds::Role::kServer,
                       now_function,
                       task_runner),
-      instance_name_(config.instance_name) {}
+      instance_name_(config.instance_name) {
+  // Generate token?
+  auth_token_ = "test_toke";
+}
 
 QuicServer::~QuicServer() = default;
 
@@ -76,6 +79,10 @@ std::unique_ptr<ProtocolConnection> QuicServer::CreateProtocolConnection(
 
 std::string QuicServer::GetAgentFingerprint() {
   return GetAgentCertificate().GetAgentFingerprint();
+}
+
+std::string QuicServer::GetAuthToken() {
+  return auth_token_;
 }
 
 void QuicServer::OnClientCertificates(std::string_view instance_name,
