@@ -120,7 +120,7 @@ ErrorOr<size_t> Receiver::OnStreamMessage(uint64_t instance_id,
                    "kPresentationUrlAvailabilityRequest");
       OSP_VLOG << "got presentation-url-availability-request";
       msgs::PresentationUrlAvailabilityRequest request;
-      ssize_t decode_result = msgs::DecodePresentationUrlAvailabilityRequest(
+      size_t decode_result = msgs::DecodePresentationUrlAvailabilityRequest(
           buffer, buffer_size, request);
       if (decode_result < 0) {
         OSP_LOG_WARN << "Presentation-url-availability-request parse error: "
@@ -143,7 +143,7 @@ ErrorOr<size_t> Receiver::OnStreamMessage(uint64_t instance_id,
       TRACE_SCOPED(TraceCategory::kPresentation, "kPresentationStartRequest");
       OSP_VLOG << "got presentation-start-request";
       msgs::PresentationStartRequest request;
-      const ssize_t result =
+      const size_t result =
           msgs::DecodePresentationStartRequest(buffer, buffer_size, request);
       if (result < 0) {
         OSP_LOG_WARN << "Presentation-initiation-request parse error: "
@@ -206,7 +206,7 @@ ErrorOr<size_t> Receiver::OnStreamMessage(uint64_t instance_id,
                    "kPresentationConnectionOpenRequest");
       OSP_VLOG << "Got a presentation-connection-open-request";
       msgs::PresentationConnectionOpenRequest request;
-      const ssize_t result = msgs::DecodePresentationConnectionOpenRequest(
+      const size_t result = msgs::DecodePresentationConnectionOpenRequest(
           buffer, buffer_size, request);
       if (result < 0) {
         OSP_LOG_WARN << "Presentation-connection-open-request parse error: "
@@ -275,7 +275,7 @@ ErrorOr<size_t> Receiver::OnStreamMessage(uint64_t instance_id,
                    "kPresentationTerminationRequest");
       OSP_VLOG << "got presentation-termination-request";
       msgs::PresentationTerminationRequest request;
-      const ssize_t result = msgs::DecodePresentationTerminationRequest(
+      const size_t result = msgs::DecodePresentationTerminationRequest(
           buffer, buffer_size, request);
       if (result < 0) {
         OSP_LOG_WARN << "Presentation-termination-request parse error: "
