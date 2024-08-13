@@ -62,8 +62,17 @@ class QuicClient final : public ProtocolConnectionClient,
   std::unique_ptr<ProtocolConnection> CreateProtocolConnection(
       uint64_t instance_id) override;
   bool Connect(std::string_view instance_name,
+               std::string_view password,
                ConnectRequest& request,
                ConnectRequestCallback* request_callback) override;
+
+  // QuicServiceBase overrides.
+  ErrorOr<size_t> OnStreamMessage(uint64_t instance_id,
+                                  uint64_t connection_id,
+                                  msgs::Type message_type,
+                                  const uint8_t* buffer,
+                                  size_t buffer_size,
+                                  Clock::time_point now) override;
 
  private:
   // FakeQuicBridge needs to access `instance_infos_` and struct InstanceInfo
@@ -85,6 +94,9 @@ class QuicClient final : public ProtocolConnectionClient,
     // is valid.
     IPEndpoint v4_endpoint;
     IPEndpoint v6_endpoint;
+
+    // passed in by user for authentication.
+    std::string password;
   };
 
   // ServiceListener::Observer overrides.
@@ -99,12 +111,13 @@ class QuicClient final : public ProtocolConnectionClient,
   void OnError(const Error& error) override;
   void OnMetrics(ServiceListener::Metrics) override;
 
-  bool CreatePendingConnection(std::string_view instance_name,
-                               ConnectRequest& request,
-                               ConnectRequestCallback* request_callback);
-  uint64_t StartConnectionRequest(std::string_view instance_name,
-                                  ConnectRequestCallback* request_callback);
+  bool StartConnectionRequest(std::string_view instance_name,
+                              std::string_view password,
+                              ConnectRequest& request,
+                              ConnectRequestCallback* request_callback);
   void CancelConnectRequest(uint64_t request_id) override;
+
+  void HandleAuthenticationFailure(uint64_t instance_id);
 
   // Value that will be used for the next new connection request.
   uint64_t next_request_id_ = 1u;

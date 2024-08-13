@@ -57,6 +57,12 @@ class QuicServer final : public ProtocolConnectionServer,
   std::string GetAuthToken() override;
 
   // QuicServiceBase overrides.
+  ErrorOr<size_t> OnStreamMessage(uint64_t instance_id,
+                                  uint64_t connection_id,
+                                  msgs::Type message_type,
+                                  const uint8_t* buffer,
+                                  size_t buffer_size,
+                                  Clock::time_point now) override;
   void OnClientCertificates(std::string_view instance_name,
                             const std::vector<std::string>& certs) override;
 
@@ -68,10 +74,16 @@ class QuicServer final : public ProtocolConnectionServer,
   void OnIncomingConnection(
       std::unique_ptr<QuicConnection> connection) override;
 
+  // QuicServiceBase overrides.
+  void StartAuthentication(uint64_t instance_id) override;
+
   std::string GenerateToken(int length);
 
   // This is used for server name indication check.
   const std::string instance_name_;
+
+  // Set by the user for authentication.
+  std::string password_;
 
   // An alphanumeric and unguessable token for authentication.
   // See https://w3c.github.io/openscreenprotocol/#authentication.
