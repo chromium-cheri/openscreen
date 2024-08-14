@@ -5,6 +5,7 @@
 #ifndef OSP_IMPL_QUIC_QUIC_SERVICE_BASE_H_
 #define OSP_IMPL_QUIC_QUIC_SERVICE_BASE_H_
 
+#include <array>
 #include <cstdint>
 #include <functional>
 #include <map>
@@ -15,6 +16,7 @@
 
 #include "osp/impl/quic/certificates/quic_agent_certificate.h"
 #include "osp/impl/quic/quic_connection_factory_base.h"
+#include "osp/impl/quic/quic_protocol_connection.h"
 #include "osp/impl/quic/quic_stream_manager.h"
 #include "osp/public/connect_request.h"
 #include "osp/public/instance_request_ids.h"
@@ -33,7 +35,8 @@ namespace openscreen::osp {
 // in the connection establishment process, but they share much of the same
 // logic. This class holds common codes for the two classes.
 class QuicServiceBase : public QuicConnection::Delegate,
-                        public QuicStreamManager::Delegate {
+                        public QuicStreamManager::Delegate,
+                        public MessageDemuxer::MessageCallback {
  public:
   static QuicAgentCertificate& GetAgentCertificate();
 
@@ -65,6 +68,10 @@ class QuicServiceBase : public QuicConnection::Delegate,
                       ByteView bytes) override;
   void OnClose(uint64_t instance_id, uint64_t protocol_connection_id) override;
 
+  // This is only used by test to bypass handshake and authentication, and
+  // establish a connection directly.
+  uint64_t CompleteConnectionForTest(std::string_view instance_name);
+
  protected:
   struct ServiceConnectionData {
     ServiceConnectionData(std::unique_ptr<QuicConnection> connection,
@@ -77,6 +84,14 @@ class QuicServiceBase : public QuicConnection::Delegate,
 
     std::unique_ptr<QuicConnection> connection;
     std::unique_ptr<QuicStreamManager> stream_manager;
+    // The following members are used to deal with authentication related
+    // messages.
+    std::unique_ptr<QuicProtocolConnection> sender;
+    std::unique_ptr<QuicProtocolConnection> receiver;
+    MessageDemuxer::MessageWatch auth_handshake_watch;
+    MessageDemuxer::MessageWatch auth_confirmation_watch;
+    MessageDemuxer::MessageWatch auth_status_watch;
+    std::array<uint8_t, 64> shared_key;
   };
 
   struct PendingConnectionData {
@@ -100,6 +115,14 @@ class QuicServiceBase : public QuicConnection::Delegate,
   bool ResumeImpl();
   std::unique_ptr<ProtocolConnection> CreateProtocolConnectionImpl(
       uint64_t instance_id);
+
+  // Used to for authentication with SPAKE2.
+  std::vector<uint8_t> ComputePublicValue(
+      const std::vector<uint8_t>& self_private_key);
+  std::array<uint8_t, 64> ComputeSharedKey(
+      const std::vector<uint8_t>& self_private_key,
+      const std::vector<uint8_t>& peer_public_value,
+      const std::string& password);
 
   ProtocolConnectionEndpoint::State state_ =
       ProtocolConnectionEndpoint::State::kStopped;
@@ -129,7 +152,19 @@ class QuicServiceBase : public QuicConnection::Delegate,
   std::map<std::string, PendingConnectionData, std::less<>>
       pending_connections_;
 
+  // Maps an instance ID to data about connections that have successfully
+  // completed the QUIC handshake but haven't successfully completed the
+  // authentication.
+  std::map<uint64_t, PendingConnectionData> pending_authentications_;
+
+  // Map an instance ID to data about connections that have successfully
+  // completed the QUIC handshake and authentication.
+  std::map<uint64_t, ServiceConnectionData> connections_;
+
  private:
+  // Implemented by QuicServer to start authentication.
+  virtual void StartAuthentication(uint64_t instance_id);
+
   void CloseAllConnections();
 
   // Delete dead QUIC connections and schedule the next call to this function.
@@ -137,10 +172,6 @@ class QuicServiceBase : public QuicConnection::Delegate,
 
   // Value that will be used for the next new instance.
   uint64_t next_instance_id_ = 1u;
-
-  // Map an instance ID to data about connections that have successfully
-  // completed the QUIC handshake.
-  std::map<uint64_t, ServiceConnectionData> connections_;
 
   // Connections (instance IDs) that need to be destroyed, but have to wait
   // for the next event loop due to the underlying QUIC implementation's way of

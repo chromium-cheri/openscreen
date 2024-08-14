@@ -28,7 +28,8 @@ QuicServer::QuicServer(
                       InstanceRequestIds::Role::kServer,
                       now_function,
                       task_runner),
-      instance_name_(config.instance_name) {
+      instance_name_(config.instance_name),
+      password_(config.password) {
   auth_token_ = GenerateToken(16);
 }
 
@@ -85,6 +86,83 @@ std::string QuicServer::GetAuthToken() {
   return auth_token_;
 }
 
+ErrorOr<size_t> QuicServer::OnStreamMessage(uint64_t instance_id,
+                                            uint64_t connection_id,
+                                            msgs::Type message_type,
+                                            const uint8_t* buffer,
+                                            size_t buffer_size,
+                                            Clock::time_point now) {
+  auto authentication_entry = pending_authentications_.find(instance_id);
+  if (authentication_entry == pending_authentications_.end()) {
+    return Error::Code::kNoActiveConnection;
+  }
+
+  switch (message_type) {
+    case msgs::Type::kAuthSpake2Handshake: {
+      msgs::AuthSpake2Handshake handshake;
+      ssize_t result =
+          msgs::DecodeAuthSpake2Handshake(buffer, buffer_size, handshake);
+      if (result < 0) {
+        OSP_LOG_WARN << "parse error: " << result;
+        pending_authentications_.erase(authentication_entry);
+        if (result == msgs::kParserEOF) {
+          return Error::Code::kCborIncompleteMessage;
+        }
+        return Error::Code::kCborParsing;
+      } else {
+        OSP_CHECK(handshake.initiation_token.has_token);
+        OSP_CHECK_EQ(handshake.psk_status,
+                     msgs::AuthSpake2PskStatus::kPskInput);
+        if (handshake.initiation_token.token == auth_token_) {
+          std::string fingerprint = GetAgentFingerprint();
+          std::vector<uint8_t> decoded_fingerprint;
+          base64::Decode(fingerprint, &decoded_fingerprint);
+          msgs::AuthSpake2Confirmation message = {
+              .confirmation_value = ComputeSharedKey(
+                  decoded_fingerprint, handshake.public_value, password_)};
+          auto& sender = authentication_entry->second.data.sender;
+          if (!sender) {
+            sender = QuicProtocolConnection::FromExisting(
+                *this, *authentication_entry->second.data.connection,
+                *authentication_entry->second.data.stream_manager, instance_id);
+          }
+          sender->WriteMessage(message, &msgs::EncodeAuthSpake2Confirmation);
+        } else {
+          OSP_LOG_WARN << "Authentication failed: initiation token mismatch";
+          pending_authentications_.erase(authentication_entry);
+        }
+        return result;
+      }
+    }
+    case msgs::Type::kAuthStatus: {
+      msgs::AuthStatus status;
+      ssize_t result = msgs::DecodeAuthStatus(buffer, buffer_size, status);
+      if (result < 0) {
+        OSP_LOG_WARN << "parse error: " << result;
+        pending_authentications_.erase(authentication_entry);
+        if (result == msgs::kParserEOF) {
+          return Error::Code::kCborIncompleteMessage;
+        }
+        return Error::Code::kCborParsing;
+      } else {
+        if (status.result == msgs::AuthStatusResult::kAuthenticated) {
+          connections_.emplace(instance_id,
+                               std::move(authentication_entry->second.data));
+        } else {
+          OSP_LOG_WARN << "Authentication failed: " << status.result;
+        }
+        pending_authentications_.erase(authentication_entry);
+        return result;
+      }
+    }
+    default: {
+      OSP_LOG_WARN << "QuicServer receives message with unprocessable type.";
+      break;
+    }
+  }
+  return Error::Code::kCborParsing;
+}
+
 void QuicServer::OnClientCertificates(std::string_view instance_name,
                                       const std::vector<std::string>& certs) {
   fingerprint_map_.emplace(instance_name,
@@ -100,6 +178,34 @@ void QuicServer::OnIncomingConnection(
       instance_name,
       PendingConnectionData(ServiceConnectionData(
           std::move(connection), std::make_unique<QuicStreamManager>(*this))));
+}
+
+void QuicServer::StartAuthentication(uint64_t instance_id) {
+  auto authentication_entry = pending_authentications_.find(instance_id);
+  if (authentication_entry == pending_authentications_.end()) {
+    return;
+  }
+
+  std::string fingerprint = GetAgentFingerprint();
+  std::vector<uint8_t> decoded_fingerprint;
+  base64::Decode(fingerprint, &decoded_fingerprint);
+  msgs::AuthSpake2Handshake message = {
+      .initiation_token =
+          msgs::AuthInitiationToken{
+              .has_token = true,
+              .token = auth_token_,
+          },
+      .psk_status = msgs::AuthSpake2PskStatus::kPskShown,
+      .public_value = ComputePublicValue(decoded_fingerprint)};
+
+  auto& sender = authentication_entry->second.data.sender;
+  if (!sender) {
+    sender = QuicProtocolConnection::FromExisting(
+        *this, *authentication_entry->second.data.connection,
+        *authentication_entry->second.data.stream_manager, instance_id);
+  }
+
+  sender->WriteMessage(message, &msgs::EncodeAuthSpake2Handshake);
 }
 
 std::string QuicServer::GenerateToken(int length) {
