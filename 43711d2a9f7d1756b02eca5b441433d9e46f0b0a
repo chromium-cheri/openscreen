@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "21ad640b_5e68e551",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1893,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-08-15T01:22:39Z",
+      "side": 1,
+      "message": "Thanks, I will change the position() method.",
+      "parentUuid": "9a9c930e_5f4b8e97",
+      "revId": "43711d2a9f7d1756b02eca5b441433d9e46f0b0a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "22804f72_7ac48348",
         "filename": "tools/cddl/codegen.cc",
         "patchSetId": 1
@@ -48,6 +66,24 @@
       "writtenOn": "2024-08-15T01:07:12Z",
       "side": 1,
       "message": "IIUC, `position_` points to the next write location in `data_`. Then we shouldn\u0027t need to update its value if we\u0027re not writing to `data_`.",
+      "revId": "43711d2a9f7d1756b02eca5b441433d9e46f0b0a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "667df09d_4cc7f276",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1904,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-08-15T01:22:39Z",
+      "side": 1,
+      "message": "If we use resize to reduce the size of `data_`, it means the valid values in `data_` also decreases. If we don\u0027t update `position_`, we will access an invalid memory location when calling `Position()` and get wroing value when calling `AvailableLength()`.",
+      "parentUuid": "22804f72_7ac48348",
       "revId": "43711d2a9f7d1756b02eca5b441433d9e46f0b0a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
