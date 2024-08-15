@@ -16,6 +16,40 @@
       "message": "Hi, mark is OoO. Can any one of you help review this? thanks.",
       "revId": "43711d2a9f7d1756b02eca5b441433d9e46f0b0a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a9c930e_5f4b8e97",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1893,
+      "author": {
+        "id": 1410933
+      },
+      "writtenOn": "2024-08-15T01:07:12Z",
+      "side": 1,
+      "message": "I think the root cause of the memory access issue is not here, but in line 1765 `return \u0026data_[0] + position_;`.\n\nWhen `CborEncodeBuffer` is initialized, `data_` is empty, and it should be valid.",
+      "revId": "43711d2a9f7d1756b02eca5b441433d9e46f0b0a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22804f72_7ac48348",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1904,
+      "author": {
+        "id": 1410933
+      },
+      "writtenOn": "2024-08-15T01:07:12Z",
+      "side": 1,
+      "message": "IIUC, `position_` points to the next write location in `data_`. Then we shouldn\u0027t need to update its value if we\u0027re not writing to `data_`.",
+      "revId": "43711d2a9f7d1756b02eca5b441433d9e46f0b0a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
