@@ -16,6 +16,74 @@
       "message": "Hi, mark. PTAL, thanks.",
       "revId": "88a5dbf93c1d27ebb18ecb06735a4fbe1a9f920a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3b676ef_f4ca280f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-08-19T18:02:55Z",
+      "side": 1,
+      "message": "Thanks for trying to improve the handling of incomplete messages.  I\u0027m unsure on how the loop in the message demuxer is supposed to work though.",
+      "revId": "88a5dbf93c1d27ebb18ecb06735a4fbe1a9f920a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4ecc5a8_0cfa4bb7",
+        "filename": "osp/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-08-19T18:02:55Z",
+      "side": 1,
+      "message": "FYI, it looks like nothing actually uses this return value, which seems strange.  I believe the spec requires the connection to be closed if an unknown or invalid CBOR message is received.  Right now it just leaves the unhandled bytes in the buffer.",
+      "revId": "88a5dbf93c1d27ebb18ecb06735a4fbe1a9f920a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be31299f_0743ec25",
+        "filename": "osp/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-08-19T18:02:55Z",
+      "side": 1,
+      "message": "I don\u0027t quite follow what is supposed to happen in the case of `kCborIncompleteMessage`.  It is saying the message was handled (sort of) and no bytes were consumed, but won\u0027t that exit `HandleStreamBufferLoop`?  Will there be another chance to handle the message once more bytes were received?",
+      "revId": "88a5dbf93c1d27ebb18ecb06735a4fbe1a9f920a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "698553be_ecff8da4",
+        "filename": "osp/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-08-19T18:02:55Z",
+      "side": 1,
+      "message": "It would make more sense for .consumed to be `consumed_or_error.value() + msg_type_byte_length` since that is how many bytes are being consumed from buffer.",
+      "revId": "88a5dbf93c1d27ebb18ecb06735a4fbe1a9f920a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
