@@ -34,6 +34,7 @@ class ProtocolConnectionClient : public ProtocolConnectionEndpoint,
   // false otherwise. `request` is overwritten with the result of a successful
   // connection attempt.
   virtual bool Connect(std::string_view instance_name,
+                       std::string_view password,
                        ConnectRequest& request,
                        ConnectRequestCallback* request_callback) = 0;
 

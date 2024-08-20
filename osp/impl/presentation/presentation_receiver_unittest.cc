@@ -72,8 +72,8 @@ class PresentationReceiverTest : public ::testing::Test {
   std::unique_ptr<ProtocolConnection> MakeClientStream() {
     MockConnectRequestCallback mock_connect_request_callback;
     NetworkServiceManager::Get()->GetProtocolConnectionClient()->Connect(
-        quic_bridge_.kInstanceName, connect_request_,
-        &mock_connect_request_callback);
+        quic_bridge_.kInstanceName, quic_bridge_.kInstancePassword,
+        connect_request_, &mock_connect_request_callback);
     EXPECT_TRUE(connect_request_);
     std::unique_ptr<ProtocolConnection> stream;
     EXPECT_CALL(mock_connect_request_callback, OnConnectSucceed(_, _))
