@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e8c3c664_f675c6c5",
+        "filename": "osp/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-08-20T03:27:22Z",
+      "side": 1,
+      "message": "Thanks. I agree that we should close the conneciton when receiving an invalid message. But I think it is beyond the scope of this CL and we can\u0027t easily implment it on current basis. Can we implement it in another CL?",
+      "parentUuid": "b4ecc5a8_0cfa4bb7",
+      "revId": "88a5dbf93c1d27ebb18ecb06735a4fbe1a9f920a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "be31299f_0743ec25",
         "filename": "osp/impl/message_demuxer.cc",
         "patchSetId": 1
@@ -71,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "35bc97af_8865ba8a",
+        "filename": "osp/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-08-20T03:27:22Z",
+      "side": 1,
+      "message": "Thanks. When we try to send a message, the message may be split into two QUIC packets. When the first QUIC packect arrives, the first part of the message is cached and `HandleStreamBuffer` is called to try to process it.\n\nFor the case of `kCborIncompleteMessage`: 1. returning `handled \u003d true` means there do have a message callback to process it, so we don\u0027t need to use the default one in `HandleStreamBufferLoop`. 2. returning `.consumed \u003d 0` means we try to but don\u0027t really process it because we don\u0027t have the second part of the message now. But we need to keep the cached data.\n\nFor the case of other errors, we should clear the buffer and as you said close the connection, because the message is not valid anymore.\n\nWhen the second QUIC packect arrives, the second part of the message is cached and `HandleStreamBuffer` is called again. The message can be processed successfully now.",
+      "parentUuid": "be31299f_0743ec25",
+      "revId": "88a5dbf93c1d27ebb18ecb06735a4fbe1a9f920a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "698553be_ecff8da4",
         "filename": "osp/impl/message_demuxer.cc",
         "patchSetId": 1
@@ -82,6 +118,24 @@
       "writtenOn": "2024-08-19T18:02:55Z",
       "side": 1,
       "message": "It would make more sense for .consumed to be `consumed_or_error.value() + msg_type_byte_length` since that is how many bytes are being consumed from buffer.",
+      "revId": "88a5dbf93c1d27ebb18ecb06735a4fbe1a9f920a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5097f187_3f8b0173",
+        "filename": "osp/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-08-20T03:27:22Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "698553be_ecff8da4",
       "revId": "88a5dbf93c1d27ebb18ecb06735a4fbe1a9f920a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
