@@ -33,6 +33,24 @@
       "message": "Isn\u0027t `data_.size()` also out of the valid range? The last position should be `data_.size() - 1` right?",
       "revId": "d36681180d6654da5ba355cb02666df7bde6eeba",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93816a6b_8b41bf0f",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1901,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-08-21T01:38:03Z",
+      "side": 1,
+      "message": "The last valid position is `data_.size() - 1`, but `position_ ` points to the next write positon. When the vector is full, `position_ ` should be `data_.size()`. It is a bit like a tail iterator.",
+      "parentUuid": "3e313a06_4fb25cac",
+      "revId": "d36681180d6654da5ba355cb02666df7bde6eeba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
