@@ -71,6 +71,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e09fe8a_e181d27c",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1893,
+      "author": {
+        "id": 1410933
+      },
+      "writtenOn": "2024-08-21T16:45:55Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f2c5a17b_60356bc1",
+      "revId": "43711d2a9f7d1756b02eca5b441433d9e46f0b0a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22804f72_7ac48348",
@@ -120,6 +138,24 @@
       "side": 1,
       "message": "Suppose `data_ \u003d {1, 2, 3, 4, 0, 0}`, then `data_.size()` is 6 and `position_` is 4. When we call `ResizeBy(-3)`, `data_` becomes `{1, 2, 3}`. We need to updata `position_` to 3 to make `AvailableLength()` reutrn 0.\n\nBesides, if we don\u0027t update `position_`, `data_` becomes `{1, 2, 3, 0, 0, 0}` when we call `ResizeBy(3)` and we will continue writing data from `data_[4]`. There will be an extra 0 in the middle.",
       "parentUuid": "667df09d_4cc7f276",
+      "revId": "43711d2a9f7d1756b02eca5b441433d9e46f0b0a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8aa334f_84ea5451",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1904,
+      "author": {
+        "id": 1410933
+      },
+      "writtenOn": "2024-08-21T16:45:55Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c0a1c0cb_58e991b1",
       "revId": "43711d2a9f7d1756b02eca5b441433d9e46f0b0a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
