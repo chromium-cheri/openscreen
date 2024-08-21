@@ -70,6 +70,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2a0d0aa_93b7b5c2",
+        "filename": "osp/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-08-21T16:46:09Z",
+      "side": 1,
+      "message": "Sure, it was more just a comment trying to understand this code.",
+      "parentUuid": "e8c3c664_f675c6c5",
+      "revId": "88a5dbf93c1d27ebb18ecb06735a4fbe1a9f920a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be31299f_0743ec25",
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "Thanks. When we try to send a message, the message may be split into two QUIC packets. When the first QUIC packect arrives, the first part of the message is cached and `HandleStreamBuffer` is called to try to process it.\n\nFor the case of `kCborIncompleteMessage`: 1. returning `handled \u003d true` means there do have a message callback to process it, so we don\u0027t need to use the default one in `HandleStreamBufferLoop`. 2. returning `.consumed \u003d 0` means we try to but don\u0027t really process it because we don\u0027t have the second part of the message now. But we need to keep the cached data.\n\nFor the case of other errors, we should clear the buffer and as you said close the connection, because the message is not valid anymore.\n\nWhen the second QUIC packect arrives, the second part of the message is cached and `HandleStreamBuffer` is called again. The message can be processed successfully now.",
       "parentUuid": "be31299f_0743ec25",
+      "revId": "88a5dbf93c1d27ebb18ecb06735a4fbe1a9f920a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d9b023f_6e290d51",
+        "filename": "osp/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-08-21T16:46:09Z",
+      "side": 1,
+      "message": "Thanks for your clear explanation!  Maybe this code could be clarified in the future to be more obvious.\n\nIn the meantime, I would appreciate it if you could take your comment above and put it as a code comment here so we don\u0027t have to figure this out again in the future :)",
+      "parentUuid": "35bc97af_8865ba8a",
       "revId": "88a5dbf93c1d27ebb18ecb06735a4fbe1a9f920a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
