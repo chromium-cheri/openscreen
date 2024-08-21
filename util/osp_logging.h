@@ -138,7 +138,7 @@ class Voidify {
 // statement for non-void returning functions/methods).
 #define OSP_NOTREACHED()                                \
   {                                                     \
-    OSP_LOG_FATAL << __func__ << ": NOTREACHED() hit."; \
+    OSP_LOG_FATAL << __func__ << "(" << __FILE__ << ":" << __LINE__ << "): NOTREACHED() hit."; \
     Break();                                            \
   }
 
