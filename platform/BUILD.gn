@@ -145,6 +145,8 @@ if (!build_with_chromium) {
         "impl/udp_socket_reader_posix.cc",
         "impl/udp_socket_reader_posix.h",
       ]
+    } else if (is_win) {
+      sources += [ "impl/logging_win.cc" ]
     }
 
     deps = [
