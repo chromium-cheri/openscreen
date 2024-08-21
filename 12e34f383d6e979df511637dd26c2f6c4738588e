@@ -16,6 +16,24 @@
       "message": "It looks like OSP_LOG_FATAL eventually uses OSP_LOG_STREAM, which already passes __FILE__ and __LINE__ to create the log message.\n\nDoes your implementation of openscreen::LogWithLevel use these values?",
       "revId": "12e34f383d6e979df511637dd26c2f6c4738588e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aacb5e43_8ccda761",
+        "filename": "util/osp_logging.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1594026
+      },
+      "writtenOn": "2024-08-21T19:25:40Z",
+      "side": 1,
+      "message": "Thank you, I completely missed that control was given back to us. Fixing it in ADB and abandoning this CL.",
+      "parentUuid": "79629944_d3243a4d",
+      "revId": "12e34f383d6e979df511637dd26c2f6c4738588e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
