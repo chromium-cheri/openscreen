@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79629944_d3243a4d",
+        "filename": "util/osp_logging.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-08-21T02:27:20Z",
+      "side": 1,
+      "message": "It looks like OSP_LOG_FATAL eventually uses OSP_LOG_STREAM, which already passes __FILE__ and __LINE__ to create the log message.\n\nDoes your implementation of openscreen::LogWithLevel use these values?",
+      "revId": "12e34f383d6e979df511637dd26c2f6c4738588e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
