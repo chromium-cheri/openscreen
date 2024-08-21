@@ -2,12 +2,11 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include <getopt.h>
-
 #include <iostream>
 #include <string>
 
 #include "gtest/gtest.h"
+#include "third_party/getopt/getopt.h"
 
 // The test main must toggle logging and trace logging features because
 // tests will be run in environments that support them (in which case we
@@ -49,7 +48,7 @@ GlobalTestState InitFromArgs(int argc, char** argv) {
   // between all Open Screen executables. If it is a platform feature
   // being exposed, consider if it applies to the standalone receiver,
   // standalone sender, osp demo, and test_main argument options.
-  const struct option kArgumentOptions[] = {
+  const getopt::option kArgumentOptions[] = {
       {"tracing", no_argument, nullptr, 't'},
       {"verbose", no_argument, nullptr, 'v'},
       {"help", no_argument, nullptr, 'h'},
@@ -57,8 +56,8 @@ GlobalTestState InitFromArgs(int argc, char** argv) {
 
   GlobalTestState state;
   int ch = -1;
-  while ((ch = getopt_long(argc, argv, "tvh", kArgumentOptions, nullptr)) !=
-         -1) {
+  while ((ch = getopt::getopt_long(argc, argv, "tvh", kArgumentOptions,
+                                   nullptr)) != -1) {
     switch (ch) {
 #ifdef ENABLE_TRACE_LOGGING
       case 't':
