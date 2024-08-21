@@ -18,6 +18,74 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1da68d1a_2456e0cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-08-21T16:39:54Z",
+      "side": 1,
+      "message": "This looks correct, but see my comments below about making more substantial improvements here.  Doing a re-write of this codegen utility is one of my \"fun projects\" I hope to do when I get a fixit week.",
+      "revId": "d36681180d6654da5ba355cb02666df7bde6eeba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6d454cc_dfc6c4c8",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1759,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-08-21T16:39:54Z",
+      "side": 1,
+      "message": "The entire design of this object is bad :-(\n\nThe caller should not be responsible for manually resizing the buffer. \n That makes usage complex and error-prone.\n \nIt could just have an API like:\n\n// Append bytes to the buffer, return -1 if buffer hits max size\nsize_t Append(ByteView bytes)\n\n// Shrink buffer to min size for re-use\nShrink()\n\n// Get the available portion of the buffer for appending\nByteBuffer Position();\n\nBut that is a big change to the codegen...",
+      "revId": "d36681180d6654da5ba355cb02666df7bde6eeba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81c8aa79_d042c6d3",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1892,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-08-21T16:39:54Z",
+      "side": 1,
+      "message": "if (data.size() + delta \u003c 0)",
+      "revId": "d36681180d6654da5ba355cb02666df7bde6eeba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "470bb16e_59d5a2e3",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1895,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-08-21T16:39:54Z",
+      "side": 1,
+      "message": "if (data.size() + delta \u003e max_size_)",
+      "revId": "d36681180d6654da5ba355cb02666df7bde6eeba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e313a06_4fb25cac",
