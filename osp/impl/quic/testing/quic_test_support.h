@@ -53,6 +53,7 @@ class FakeQuicBridge {
   const IPEndpoint kControllerEndpoint{{192, 168, 1, 3}, 4321};
   const IPEndpoint kReceiverEndpoint{{192, 168, 1, 17}, 1234};
   const std::string kInstanceName{"test instance name"};
+  const std::string kInstancePassword{"test password"};
   const std::string kFingerprint{"test fringprint"};
   const std::string kAuthToken{"test token"};
 
