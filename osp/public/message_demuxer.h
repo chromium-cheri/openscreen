@@ -47,13 +47,18 @@ class MessageDemuxer {
                  bool is_default,
                  uint64_t instance_id,
                  msgs::Type message_type);
+    MessageWatch(const MessageWatch&) = delete;
+    MessageWatch& operator=(const MessageWatch&) = delete;
     MessageWatch(MessageWatch&&) noexcept;
-    ~MessageWatch();
     MessageWatch& operator=(MessageWatch&&) noexcept;
+    ~MessageWatch();
 
     explicit operator bool() const { return parent_; }
+    void Reset();
 
    private:
+    void StopWatch();
+
     MessageDemuxer* parent_ = nullptr;
     bool is_default_ = false;
     uint64_t instance_id_ = 0u;

@@ -90,7 +90,33 @@ MessageDemuxer::MessageWatch::MessageWatch(
   *this = std::move(other);
 }
 
+MessageDemuxer::MessageWatch& MessageDemuxer::MessageWatch::operator=(
+    MessageWatch&& other) noexcept {
+  // Although all fields are POD, this does not use the default `operator=`
+  // implementation because it is important that we should stop current watch
+  // for `parent_` before taking values from `other` and make `other` invalid.
+  StopWatch();
+  parent_ = other.parent_;
+  is_default_ = other.is_default_;
+  instance_id_ = other.instance_id_;
+  message_type_ = other.message_type_;
+  other.parent_ = nullptr;
+  return *this;
+}
+
 MessageDemuxer::MessageWatch::~MessageWatch() {
+  StopWatch();
+}
+
+void MessageDemuxer::MessageWatch::Reset() {
+  StopWatch();
+  parent_ = nullptr;
+  is_default_ = false;
+  instance_id_ = 0u;
+  message_type_ = msgs::Type::kUnknown;
+}
+
+void MessageDemuxer::MessageWatch::StopWatch() {
   if (parent_) {
     if (is_default_) {
       OSP_VLOG << "dropping default handler for type: "
@@ -102,19 +128,6 @@ MessageDemuxer::MessageWatch::~MessageWatch() {
       parent_->StopWatchingMessageType(instance_id_, message_type_);
     }
   }
-}
-
-MessageDemuxer::MessageWatch& MessageDemuxer::MessageWatch::operator=(
-    MessageWatch&& other) noexcept {
-  // Although all fields are POD, this does not use the default `operator=`
-  // implementation because it is important that exactly one of `this` or
-  // `other` refers to `parent_`, so that the destructor behaves correctly.
-  using std::swap;
-  swap(parent_, other.parent_);
-  swap(is_default_, other.is_default_);
-  swap(instance_id_, other.instance_id_);
-  swap(message_type_, other.message_type_);
-  return *this;
 }
 
 MessageDemuxer::MessageDemuxer(ClockNowFunctionPtr now_function,
@@ -306,7 +319,7 @@ MessageDemuxer::HandleStreamBufferResult MessageDemuxer::HandleStreamBuffer(
 }
 
 void StopWatching(MessageDemuxer::MessageWatch* watch) {
-  *watch = MessageDemuxer::MessageWatch();
+  watch->Reset();
 }
 
 }  // namespace openscreen::osp

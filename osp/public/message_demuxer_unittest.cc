@@ -86,7 +86,7 @@ TEST_F(MessageDemuxerTest, WatchStartStop) {
                         buffer_.size());
   ExpectDecodedRequest(decode_result, received_request);
 
-  watch = MessageDemuxer::MessageWatch();
+  watch.Reset();
   EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _, _)).Times(0);
   demuxer_.OnStreamData(endpoint_id_, connection_id_, buffer_.data(),
                         buffer_.size());
