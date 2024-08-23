@@ -502,7 +502,7 @@ Error Receiver::OnPresentationTerminated(const std::string& presentation_id,
     return Error::Code::kNoStartedPresentation;
 
   Presentation& presentation = presentation_entry->second;
-  presentation.terminate_watch = MessageDemuxer::MessageWatch();
+  presentation.terminate_watch.Reset();
   std::unique_ptr<ProtocolConnection> protocol_connection =
       GetProtocolConnection(presentation.instance_id);
 
