@@ -2,8 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include <getopt.h>
-
 #include <algorithm>
 #include <iostream>
 #include <memory>
@@ -22,6 +20,7 @@
 #include "platform/impl/platform_client_posix.h"
 #include "platform/impl/task_runner.h"
 #include "platform/impl/text_trace_logging_platform.h"
+#include "third_party/getopt/getopt.h"
 #include "util/chrono_helpers.h"
 #include "util/stringprintf.h"
 #include "util/trace_logging.h"
@@ -123,7 +122,7 @@ int RunStandaloneReceiver(int argc, char* argv[]) {
   // between all Open Screen executables. If it is a platform feature
   // being exposed, consider if it applies to the standalone receiver,
   // standalone sender, osp demo, and test_main argument options.
-  const struct option kArgumentOptions[] = {
+  const custom_getopt::option kArgumentOptions[] = {
       {"private-key", required_argument, nullptr, 'p'},
       {"developer-certificate", required_argument, nullptr, 'd'},
       {"generate-credentials", no_argument, nullptr, 'g'},
@@ -147,8 +146,8 @@ int RunStandaloneReceiver(int argc, char* argv[]) {
   bool should_generate_credentials = false;
   std::unique_ptr<TextTraceLoggingPlatform> trace_logger;
   int ch = -1;
-  while ((ch = getopt_long(argc, argv, "p:d:f:m:grtvhx", kArgumentOptions,
-                           nullptr)) != -1) {
+  while ((ch = custom_getopt::getopt_long(argc, argv, "p:d:f:m:grtvhx",
+                                          kArgumentOptions, nullptr)) != -1) {
     switch (ch) {
       case 'p':
         private_key_path = optarg;

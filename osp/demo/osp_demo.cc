@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include <getopt.h>
 #include <poll.h>
 #include <signal.h>
 #include <unistd.h>
@@ -35,6 +34,7 @@
 #include "platform/impl/platform_client_posix.h"
 #include "platform/impl/task_runner.h"
 #include "platform/impl/text_trace_logging_platform.h"
+#include "third_party/getopt/getopt.h"
 #include "third_party/tinycbor/src/src/cbor.h"
 #include "util/trace_logging.h"
 
@@ -649,7 +649,7 @@ InputArgs GetInputArgs(int argc, char** argv) {
   // between all Open Screen executables. If it is a platform feature
   // being exposed, consider if it applies to the standalone receiver,
   // standalone sender, osp demo, and test_main argument options.
-  const struct option kArgumentOptions[] = {
+  const custom_getopt::option kArgumentOptions[] = {
       {"tracing", no_argument, nullptr, 't'},
       {"verbose", no_argument, nullptr, 'v'},
       {"help", no_argument, nullptr, 'h'},
@@ -657,8 +657,8 @@ InputArgs GetInputArgs(int argc, char** argv) {
 
   InputArgs args = {};
   int ch = -1;
-  while ((ch = getopt_long(argc, argv, "tvh", kArgumentOptions, nullptr)) !=
-         -1) {
+  while ((ch = custom_getopt::getopt_long(argc, argv, "tvh", kArgumentOptions,
+                                          nullptr)) != -1) {
     switch (ch) {
       case 't':
         args.tracing_enabled = true;
