@@ -79,9 +79,13 @@ class ControllerTest : public ::testing::Test {
       : fake_clock_(Clock::time_point(std::chrono::milliseconds(11111))),
         task_runner_(fake_clock_),
         quic_bridge_(task_runner_, FakeClock::now) {
-    receiver_info1 = {quic_bridge_.kInstanceName,     "lucas-auer",
-                      quic_bridge_.kFingerprint,      1,
-                      quic_bridge_.kReceiverEndpoint, {}};
+    receiver_info1 = {quic_bridge_.kInstanceName,
+                      "lucas-auer",
+                      quic_bridge_.kFingerprint,
+                      quic_bridge_.kAuthToken,
+                      1,
+                      quic_bridge_.kReceiverEndpoint,
+                      {}};
   }
 
  protected:
@@ -115,7 +119,7 @@ class ControllerTest : public ::testing::Test {
 
   void ExpectAvailabilityRequest(
       msgs::PresentationUrlAvailabilityRequest& request) {
-    ssize_t decode_result = -1;
+    size_t decode_result = -1;
     msgs::Type msg_type;
     EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _, _))
         .WillOnce(Invoke([&request, &msg_type, &decode_result](
@@ -203,7 +207,7 @@ class ControllerTest : public ::testing::Test {
   void ExpectCloseRequest(MockMessageCallback* mock_callback,
                           msgs::PresentationConnectionCloseRequest& request,
                           Connection* connection) {
-    ssize_t decode_result = -1;
+    size_t decode_result = -1;
     msgs::Type msg_type;
     EXPECT_CALL(*mock_callback, OnStreamMessage(_, _, _, _, _, _))
         .WillOnce(Invoke([&request, &msg_type, &decode_result](
@@ -268,7 +272,7 @@ class ControllerTest : public ::testing::Test {
                              msgs::Type message_type, const uint8_t* buffer,
                              size_t buffer_size, Clock::time_point now) {
           msg_type = message_type;
-          ssize_t result = msgs::DecodePresentationStartRequest(
+          size_t result = msgs::DecodePresentationStartRequest(
               buffer, buffer_size, request);
           return result;
         }));
@@ -416,7 +420,7 @@ TEST_F(ControllerTest, TerminatePresentationFromController) {
                            msgs::Type message_type, const uint8_t* buffer,
                            size_t buffer_size, Clock::time_point now) {
         msg_type = message_type;
-        ssize_t result = msgs::DecodePresentationTerminationRequest(
+        size_t result = msgs::DecodePresentationTerminationRequest(
             buffer, buffer_size, termination_request);
         return result;
       }));
@@ -497,7 +501,7 @@ TEST_F(ControllerTest, Reconnect) {
       controller_->ReconnectConnection(std::move(connection),
                                        &reconnect_delegate);
   ASSERT_TRUE(reconnect_request);
-  ssize_t decode_result = -1;
+  size_t decode_result = -1;
   msgs::Type msg_type;
   EXPECT_CALL(mock_callback, OnStreamMessage(_, _, _, _, _, _))
       .WillOnce(Invoke([&open_request, &msg_type, &decode_result](

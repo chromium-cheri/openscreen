@@ -49,7 +49,11 @@ class UrlAvailabilityRequesterTest : public Test {
       : fake_clock_(Clock::time_point(std::chrono::milliseconds(1298424))),
         task_runner_(fake_clock_),
         quic_bridge_(task_runner_, FakeClock::now) {
-    info1_ = {instance_name_, friendly_name_, quic_bridge_.kFingerprint, 1,
+    info1_ = {instance_name_,
+              friendly_name_,
+              quic_bridge_.kFingerprint,
+              quic_bridge_.kAuthToken,
+              1,
               quic_bridge_.kReceiverEndpoint};
   }
 
@@ -88,7 +92,7 @@ class UrlAvailabilityRequesterTest : public Test {
             Invoke([&request](uint64_t endpoint_id, uint64_t cid,
                               msgs::Type message_type, const uint8_t* buffer,
                               size_t buffer_size, Clock::time_point now) {
-              ssize_t request_result_size =
+              size_t request_result_size =
                   msgs::DecodePresentationUrlAvailabilityRequest(
                       buffer, buffer_size, request);
               OSP_CHECK_GT(request_result_size, 0);
@@ -104,7 +108,7 @@ class UrlAvailabilityRequesterTest : public Test {
         .request_id = request.request_id,
         .url_availabilities = std::move(availabilities)};
     msgs::CborEncodeBuffer buffer;
-    ssize_t encode_result =
+    size_t encode_result =
         msgs::EncodePresentationUrlAvailabilityResponse(response, &buffer);
     ASSERT_GT(encode_result, 0);
     stream->Write(ByteView(buffer.data(), buffer.size()));
@@ -117,7 +121,7 @@ class UrlAvailabilityRequesterTest : public Test {
     msgs::PresentationUrlAvailabilityEvent event = {
         .watch_id = watch_id, .url_availabilities = std::move(availabilities)};
     msgs::CborEncodeBuffer buffer;
-    ssize_t encode_result =
+    size_t encode_result =
         msgs::EncodePresentationUrlAvailabilityEvent(event, &buffer);
     ASSERT_GT(encode_result, 0);
     stream->Write(ByteView(buffer.data(), buffer.size()));

@@ -143,7 +143,7 @@ TEST_F(PresentationReceiverTest, QueryAvailability) {
       .WillOnce(Invoke([&response](uint64_t instance_id, uint64_t cid,
                                    msgs::Type message_type, const uint8_t* buf,
                                    size_t buffer_size, Clock::time_point now) {
-        ssize_t result = msgs::DecodePresentationUrlAvailabilityResponse(
+        auto result = msgs::DecodePresentationUrlAvailabilityResponse(
             buf, buffer_size, response);
         return result;
       }));
@@ -190,7 +190,7 @@ TEST_F(PresentationReceiverTest, StartPresentation) {
       .WillOnce(Invoke([&response](uint64_t instance_id, uint64_t cid,
                                    msgs::Type message_type, const uint8_t* buf,
                                    size_t buf_size, Clock::time_point now) {
-        ssize_t result =
+        size_t result =
             msgs::DecodePresentationStartResponse(buf, buf_size, response);
         return result;
       }));
