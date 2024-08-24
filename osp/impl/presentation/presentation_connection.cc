@@ -179,7 +179,7 @@ ErrorOr<size_t> ConnectionManager::OnStreamMessage(uint64_t instance_id,
   switch (message_type) {
     case msgs::Type::kPresentationConnectionMessage: {
       msgs::PresentationConnectionMessage message;
-      ssize_t bytes_decoded = msgs::DecodePresentationConnectionMessage(
+      size_t bytes_decoded = msgs::DecodePresentationConnectionMessage(
           buffer, buffer_size, message);
       if (bytes_decoded < 0) {
         if (bytes_decoded == msgs::kParserEOF) {
@@ -211,7 +211,7 @@ ErrorOr<size_t> ConnectionManager::OnStreamMessage(uint64_t instance_id,
 
     case msgs::Type::kPresentationConnectionCloseRequest: {
       msgs::PresentationConnectionCloseRequest request;
-      ssize_t bytes_decoded = msgs::DecodePresentationConnectionCloseRequest(
+      size_t bytes_decoded = msgs::DecodePresentationConnectionCloseRequest(
           buffer, buffer_size, request);
       if (bytes_decoded < 0) {
         if (bytes_decoded == msgs::kParserEOF) {
@@ -251,7 +251,7 @@ ErrorOr<size_t> ConnectionManager::OnStreamMessage(uint64_t instance_id,
 
     case msgs::Type::kPresentationConnectionCloseEvent: {
       msgs::PresentationConnectionCloseEvent event;
-      ssize_t bytes_decoded = msgs::DecodePresentationConnectionCloseEvent(
+      size_t bytes_decoded = msgs::DecodePresentationConnectionCloseEvent(
           buffer, buffer_size, event);
       if (bytes_decoded < 0) {
         if (bytes_decoded == msgs::kParserEOF) {

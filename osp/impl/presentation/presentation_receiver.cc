@@ -120,8 +120,9 @@ ErrorOr<size_t> Receiver::OnStreamMessage(uint64_t instance_id,
                    "kPresentationUrlAvailabilityRequest");
       OSP_VLOG << "got presentation-url-availability-request";
       msgs::PresentationUrlAvailabilityRequest request;
-      ssize_t decode_result = msgs::DecodePresentationUrlAvailabilityRequest(
-          buffer, buffer_size, request);
+      auto decode_result = static_cast<msgs::CborErrors>(
+          msgs::DecodePresentationUrlAvailabilityRequest(buffer, buffer_size,
+                                                         request));
       if (decode_result < 0) {
         if (decode_result == msgs::kParserEOF) {
           return Error::Code::kCborIncompleteMessage;
@@ -146,8 +147,8 @@ ErrorOr<size_t> Receiver::OnStreamMessage(uint64_t instance_id,
       TRACE_SCOPED(TraceCategory::kPresentation, "kPresentationStartRequest");
       OSP_VLOG << "got presentation-start-request";
       msgs::PresentationStartRequest request;
-      const ssize_t result =
-          msgs::DecodePresentationStartRequest(buffer, buffer_size, request);
+      const auto result = static_cast<msgs::CborErrors>(
+          msgs::DecodePresentationStartRequest(buffer, buffer_size, request));
       if (result < 0) {
         if (result == msgs::kParserEOF) {
           return Error::Code::kCborIncompleteMessage;
@@ -213,8 +214,9 @@ ErrorOr<size_t> Receiver::OnStreamMessage(uint64_t instance_id,
                    "kPresentationConnectionOpenRequest");
       OSP_VLOG << "Got a presentation-connection-open-request";
       msgs::PresentationConnectionOpenRequest request;
-      const ssize_t result = msgs::DecodePresentationConnectionOpenRequest(
-          buffer, buffer_size, request);
+      const auto result = static_cast<msgs::CborErrors>(
+          msgs::DecodePresentationConnectionOpenRequest(buffer, buffer_size,
+                                                        request));
       if (result < 0) {
         if (result == msgs::kParserEOF) {
           return Error::Code::kCborIncompleteMessage;
@@ -287,8 +289,9 @@ ErrorOr<size_t> Receiver::OnStreamMessage(uint64_t instance_id,
                    "kPresentationTerminationRequest");
       OSP_VLOG << "got presentation-termination-request";
       msgs::PresentationTerminationRequest request;
-      const ssize_t result = msgs::DecodePresentationTerminationRequest(
-          buffer, buffer_size, request);
+      const auto result = static_cast<msgs::CborErrors>(
+          msgs::DecodePresentationTerminationRequest(buffer, buffer_size,
+                                                     request));
       if (result < 0) {
         if (result == msgs::kParserEOF) {
           return Error::Code::kCborIncompleteMessage;

@@ -636,8 +636,8 @@ ErrorOr<size_t> Controller::TerminationListener::OnStreamMessage(
   OSP_CHECK_EQ(static_cast<int>(msgs::Type::kPresentationTerminationEvent),
                static_cast<int>(message_type));
   msgs::PresentationTerminationEvent event;
-  ssize_t result =
-      msgs::DecodePresentationTerminationEvent(buffer, buffer_size, event);
+  auto result = static_cast<msgs::CborErrors>(
+      msgs::DecodePresentationTerminationEvent(buffer, buffer_size, event));
   if (result < 0) {
     if (result == msgs::kParserEOF) {
       return Error::Code::kCborIncompleteMessage;

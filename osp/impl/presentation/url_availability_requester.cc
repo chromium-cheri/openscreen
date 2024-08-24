@@ -433,8 +433,9 @@ ErrorOr<size_t> UrlAvailabilityRequester::ReceiverRequester::OnStreamMessage(
   switch (message_type) {
     case msgs::Type::kPresentationUrlAvailabilityResponse: {
       msgs::PresentationUrlAvailabilityResponse response;
-      ssize_t result = msgs::DecodePresentationUrlAvailabilityResponse(
-          buffer, buffer_size, response);
+      auto result = static_cast<msgs::CborErrors>(
+          msgs::DecodePresentationUrlAvailabilityResponse(buffer, buffer_size,
+                                                          response));
       if (result < 0) {
         if (result == msgs::kParserEOF) {
           return Error::Code::kCborIncompleteMessage;
@@ -467,8 +468,9 @@ ErrorOr<size_t> UrlAvailabilityRequester::ReceiverRequester::OnStreamMessage(
     }
     case msgs::Type::kPresentationUrlAvailabilityEvent: {
       msgs::PresentationUrlAvailabilityEvent event;
-      ssize_t result = msgs::DecodePresentationUrlAvailabilityEvent(
-          buffer, buffer_size, event);
+      auto result = static_cast<msgs::CborErrors>(
+          msgs::DecodePresentationUrlAvailabilityEvent(buffer, buffer_size,
+                                                       event));
       if (result < 0) {
         if (result == msgs::kParserEOF) {
           return Error::Code::kCborIncompleteMessage;

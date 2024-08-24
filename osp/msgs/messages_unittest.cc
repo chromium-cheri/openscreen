@@ -16,13 +16,13 @@ namespace openscreen::osp {
 TEST(PresentationMessagesTest, EncodeRequestOneUrl) {
   uint8_t buffer[256];
   std::vector<std::string> urls{"https://example.com/receiver.html"};
-  ssize_t bytes_out = EncodePresentationUrlAvailabilityRequest(
+  size_t bytes_out = EncodePresentationUrlAvailabilityRequest(
       PresentationUrlAvailabilityRequest{7, urls}, buffer, sizeof(buffer));
-  ASSERT_LE(bytes_out, static_cast<ssize_t>(sizeof(buffer)));
-  ASSERT_GT(bytes_out, 0);
+  ASSERT_LE(bytes_out, static_cast<size_t>(sizeof(buffer)));
+  ASSERT_GT(bytes_out, 0u);
 
   PresentationUrlAvailabilityRequest decoded_request;
-  ssize_t bytes_read = DecodePresentationUrlAvailabilityRequest(
+  size_t bytes_read = DecodePresentationUrlAvailabilityRequest(
       buffer, bytes_out, decoded_request);
   ASSERT_EQ(bytes_read, bytes_out);
   EXPECT_EQ(7u, decoded_request.request_id);
@@ -34,13 +34,13 @@ TEST(PresentationMessagesTest, EncodeRequestMultipleUrls) {
   std::vector<std::string> urls{"https://example.com/receiver.html",
                                 "https://openscreen.org/demo_receiver.html",
                                 "https://turt.le/asdfXCV"};
-  ssize_t bytes_out = EncodePresentationUrlAvailabilityRequest(
+  size_t bytes_out = EncodePresentationUrlAvailabilityRequest(
       PresentationUrlAvailabilityRequest{7, urls}, buffer, sizeof(buffer));
-  ASSERT_LE(bytes_out, static_cast<ssize_t>(sizeof(buffer)));
-  ASSERT_GT(bytes_out, 0);
+  ASSERT_LE(bytes_out, static_cast<size_t>(sizeof(buffer)));
+  ASSERT_GT(bytes_out, 0u);
 
   PresentationUrlAvailabilityRequest decoded_request;
-  ssize_t bytes_read = DecodePresentationUrlAvailabilityRequest(
+  size_t bytes_read = DecodePresentationUrlAvailabilityRequest(
       buffer, bytes_out, decoded_request);
   ASSERT_EQ(bytes_read, bytes_out);
   EXPECT_EQ(7u, decoded_request.request_id);
@@ -50,34 +50,34 @@ TEST(PresentationMessagesTest, EncodeRequestMultipleUrls) {
 TEST(PresentationMessagesTest, EncodeWouldOverflow) {
   uint8_t buffer[40];
   std::vector<std::string> urls{"https://example.com/receiver.html"};
-  ssize_t bytes_out = EncodePresentationUrlAvailabilityRequest(
+  size_t bytes_out = EncodePresentationUrlAvailabilityRequest(
       PresentationUrlAvailabilityRequest{7, urls}, buffer, sizeof(buffer));
-  ASSERT_GT(bytes_out, static_cast<ssize_t>(sizeof(buffer)));
+  ASSERT_GT(bytes_out, static_cast<size_t>(sizeof(buffer)));
 }
 
 // TODO(btolsch): Expand invalid utf8 testing to good/bad files and fuzzing.
 TEST(PresentationMessagesTest, EncodeInvalidUtf8) {
   uint8_t buffer[256];
   std::vector<std::string> urls{"\xc0"};
-  ssize_t bytes_out = EncodePresentationUrlAvailabilityRequest(
+  size_t bytes_out = EncodePresentationUrlAvailabilityRequest(
       PresentationUrlAvailabilityRequest{7, urls}, buffer, sizeof(buffer));
-  ASSERT_GT(0, bytes_out);
+  ASSERT_GT(0u, bytes_out);
 }
 
 TEST(PresentationMessagesTest, DecodeInvalidUtf8) {
   uint8_t buffer[256];
   std::vector<std::string> urls{"https://example.com/receiver.html"};
-  ssize_t bytes_out = EncodePresentationUrlAvailabilityRequest(
+  size_t bytes_out = EncodePresentationUrlAvailabilityRequest(
       PresentationUrlAvailabilityRequest{7, urls}, buffer, sizeof(buffer));
-  ASSERT_LE(bytes_out, static_cast<ssize_t>(sizeof(buffer)));
-  ASSERT_GT(bytes_out, 0);
+  ASSERT_LE(bytes_out, static_cast<size_t>(sizeof(buffer)));
+  ASSERT_GT(bytes_out, 0u);
   // Manually change a character in the url string to be non-utf8.
   buffer[30] = 0xc0;
 
   PresentationUrlAvailabilityRequest decoded_request;
-  ssize_t bytes_read = DecodePresentationUrlAvailabilityRequest(
+  size_t bytes_read = DecodePresentationUrlAvailabilityRequest(
       buffer, bytes_out, decoded_request);
-  ASSERT_GT(0, bytes_read);
+  ASSERT_GT(0u, bytes_read);
 }
 
 TEST(PresentationMessagesTest, InitiationRequest) {
@@ -85,14 +85,14 @@ TEST(PresentationMessagesTest, InitiationRequest) {
   const std::string kPresentationId = "lksdjfloiqwerlkjasdlfq";
   const std::string kPresentationUrl = "https://example.com/receiver.html";
   std::vector<HttpHeader> headers;
-  ssize_t bytes_out = EncodePresentationStartRequest(
+  size_t bytes_out = EncodePresentationStartRequest(
       PresentationStartRequest{13, kPresentationId, kPresentationUrl, headers},
       buffer, sizeof(buffer));
-  ASSERT_LE(bytes_out, static_cast<ssize_t>(sizeof(buffer)));
-  ASSERT_GT(bytes_out, 0);
+  ASSERT_LE(bytes_out, static_cast<size_t>(sizeof(buffer)));
+  ASSERT_GT(bytes_out, 0u);
 
   PresentationStartRequest decoded_request;
-  ssize_t bytes_read =
+  size_t bytes_read =
       DecodePresentationStartRequest(buffer, bytes_out, decoded_request);
   ASSERT_EQ(bytes_read, bytes_out);
   EXPECT_EQ(13u, decoded_request.request_id);
@@ -106,14 +106,14 @@ TEST(PresentationMessagesTest, InitiationRequestWithoutOptional) {
   const std::string kPresentationId = "lksdjfloiqwerlkjasdlfq";
   const std::string kPresentationUrl = "https://example.com/receiver.html";
   std::vector<HttpHeader> headers;
-  ssize_t bytes_out = EncodePresentationStartRequest(
+  size_t bytes_out = EncodePresentationStartRequest(
       PresentationStartRequest{13, kPresentationId, kPresentationUrl, headers},
       buffer, sizeof(buffer));
-  ASSERT_LE(bytes_out, static_cast<ssize_t>(sizeof(buffer)));
-  ASSERT_GT(bytes_out, 0);
+  ASSERT_LE(bytes_out, static_cast<size_t>(sizeof(buffer)));
+  ASSERT_GT(bytes_out, 0u);
 
   PresentationStartRequest decoded_request;
-  ssize_t bytes_read =
+  size_t bytes_read =
       DecodePresentationStartRequest(buffer, bytes_out, decoded_request);
   ASSERT_EQ(bytes_read, bytes_out);
   EXPECT_EQ(13u, decoded_request.request_id);
@@ -129,15 +129,15 @@ TEST(PresentationMessagesTest, EncodeConnectionMessageString) {
   message.message.which =
       PresentationConnectionMessage::Message::Which::kString;
   new (&message.message.str) std::string("test message as a string");
-  ssize_t bytes_out =
+  size_t bytes_out =
       EncodePresentationConnectionMessage(message, buffer, sizeof(buffer));
-  ASSERT_LE(bytes_out, static_cast<ssize_t>(sizeof(buffer)));
-  ASSERT_GT(bytes_out, 0);
+  ASSERT_LE(bytes_out, static_cast<size_t>(sizeof(buffer)));
+  ASSERT_GT(bytes_out, 0u);
 
   PresentationConnectionMessage decoded_message;
-  ssize_t bytes_read =
+  size_t bytes_read =
       DecodePresentationConnectionMessage(buffer, bytes_out, decoded_message);
-  ASSERT_GT(bytes_read, 0);
+  ASSERT_GT(bytes_read, 0u);
   EXPECT_EQ(bytes_read, bytes_out);
   EXPECT_EQ(message.connection_id, decoded_message.connection_id);
   ASSERT_EQ(message.message.which, decoded_message.message.which);
@@ -151,15 +151,15 @@ TEST(PresentationMessagesTest, EncodeConnectionMessageBytes) {
   message.message.which = PresentationConnectionMessage::Message::Which::kBytes;
   new (&message.message.bytes)
       std::vector<uint8_t>{0, 1, 2, 3, 255, 254, 253, 86, 71, 0, 0, 1, 0, 2};
-  ssize_t bytes_out =
+  size_t bytes_out =
       EncodePresentationConnectionMessage(message, buffer, sizeof(buffer));
-  ASSERT_LE(bytes_out, static_cast<ssize_t>(sizeof(buffer)));
-  ASSERT_GT(bytes_out, 0);
+  ASSERT_LE(bytes_out, static_cast<size_t>(sizeof(buffer)));
+  ASSERT_GT(bytes_out, 0u);
 
   PresentationConnectionMessage decoded_message;
-  ssize_t bytes_read =
+  size_t bytes_read =
       DecodePresentationConnectionMessage(buffer, bytes_out, decoded_message);
-  ASSERT_GT(bytes_read, 0);
+  ASSERT_GT(bytes_read, 0u);
   EXPECT_EQ(bytes_read, bytes_out);
   EXPECT_EQ(message.connection_id, decoded_message.connection_id);
   ASSERT_EQ(message.message.which, decoded_message.message.which);
@@ -193,9 +193,9 @@ TEST(PresentationMessagesTest, CborEncodeBufferMedium) {
   EXPECT_GT(buffer.size(), CborEncodeBuffer::kDefaultInitialEncodeBufferSize);
 
   PresentationUrlAvailabilityRequest decoded_request;
-  ssize_t bytes_read = DecodePresentationUrlAvailabilityRequest(
+  size_t bytes_read = DecodePresentationUrlAvailabilityRequest(
       buffer.data() + 1, buffer.size() - 1, decoded_request);
-  ASSERT_GT(bytes_read, 0);
+  ASSERT_GT(bytes_read, 0u);
   EXPECT_EQ(static_cast<size_t>(bytes_read), buffer.size() - 1);
   EXPECT_EQ(request.request_id, decoded_request.request_id);
   EXPECT_EQ(request.urls, decoded_request.urls);
