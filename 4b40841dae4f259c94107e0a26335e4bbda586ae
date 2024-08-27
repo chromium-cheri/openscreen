@@ -55,6 +55,75 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "14319edb_fa87fb8d",
+        "filename": "osp/impl/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-08-27T15:42:34Z",
+      "side": 1,
+      "message": "An alternative would be passing by unique_ptr.  I agree that if we need to pass these around, then a correct move operator is better.",
+      "parentUuid": "dc4bcdb3_d9f1c69e",
+      "revId": "4b40841dae4f259c94107e0a26335e4bbda586ae",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a18b15b0_e665b1ff",
+        "filename": "osp/impl/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-08-27T15:42:34Z",
+      "side": 1,
+      "message": "This is somewhat surprising.  The following code stops the watching started by `a`.\n\n```\nMessageWatch a \u003d WatchMessageType(...);\nMessageWatch b \u003d std::move(a);\n```\n\nI think the move operator should just reset the fields in `a` but not call `StopWatch`.  Instead the dtor should call `StopWatch` when `parent_` is not null.  Then when `b` is out of scope, that ends the watch.",
+      "revId": "4b40841dae4f259c94107e0a26335e4bbda586ae",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ae7795a_2622cf50",
+        "filename": "osp/impl/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-08-27T15:42:34Z",
+      "side": 1,
+      "message": "Do we need to call other.Reset() here to clear out the other fields?",
+      "revId": "4b40841dae4f259c94107e0a26335e4bbda586ae",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "935ca97c_ddc54634",
+        "filename": "osp/impl/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-08-27T15:42:34Z",
+      "side": 1,
+      "message": "I don\u0027t think this should stop the watch, see above.",
+      "revId": "4b40841dae4f259c94107e0a26335e4bbda586ae",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "473fd9e3_754396b4",
         "filename": "osp/public/message_demuxer.h",
         "patchSetId": 2
