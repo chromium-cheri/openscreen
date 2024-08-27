@@ -33,6 +33,24 @@
       "message": "Do we actually need a move operator for this type?  It might be clearer if the code that manages MessageWatch would keep a single instance per watch.",
       "revId": "4b40841dae4f259c94107e0a26335e4bbda586ae",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc4bcdb3_d9f1c69e",
+        "filename": "osp/impl/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-08-27T01:06:39Z",
+      "side": 1,
+      "message": "Because we return MessageWatch instance in both MessageDemuxer::WatchMessageType and MessageDemuxer::SetDefaultMessageTypeWatch methods now. If we delete the move operator, we need to pass MessageWatch\u0026 to they. Besides, MessageWatch needs an interface to set its members.\n\nCurrent way is clearer to me, WDYT?",
+      "parentUuid": "74937ae2_7e1d1330",
+      "revId": "4b40841dae4f259c94107e0a26335e4bbda586ae",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
