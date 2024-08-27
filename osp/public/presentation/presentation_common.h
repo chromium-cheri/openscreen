@@ -2,28 +2,47 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef OSP_IMPL_PRESENTATION_PRESENTATION_COMMON_H_
-#define OSP_IMPL_PRESENTATION_PRESENTATION_COMMON_H_
+#ifndef OSP_PUBLIC_PRESENTATION_PRESENTATION_COMMON_H_
+#define OSP_PUBLIC_PRESENTATION_PRESENTATION_COMMON_H_
 
-#include <algorithm>
-#include <memory>
 #include <string>
 
 #include "osp/msgs/osp_messages.h"
 #include "osp/public/message_demuxer.h"
-#include "osp/public/network_service_manager.h"
-#include "osp/public/protocol_connection_server.h"
-#include "platform/api/time.h"
-#include "util/osp_logging.h"
+#include "platform/base/error.h"
 
 namespace openscreen::osp {
 
-// This method asks the singleton NetworkServiceManager
-// to create a new protocol connection for the given instance.
-// Typically, the same QuicConnection and ServiceConnectionDelegate
-// are reused (see QuicProtocolConnection::FromExisting) for the new
-// ProtocolConnection instance.
-std::unique_ptr<ProtocolConnection> GetProtocolConnection(uint64_t instance_id);
+enum class TerminationSource {
+  kController = 0,
+  kReceiver,
+};
+
+msgs::PresentationTerminationSource ConvertTerminationSource(
+    TerminationSource source);
+
+enum class TerminationReason {
+  kApplicationTerminated = 0,
+  kUserTerminated,
+  kReceiverPresentationReplaced,
+  kReceiverIdleTooLong,
+  kReceiverPresentationUnloaded,
+  kReceiverShuttingDown,
+  kReceiverError,
+};
+
+msgs::PresentationTerminationReason ConvertTerminationReason(
+    TerminationReason reason);
+
+enum class ResponseResult {
+  kSuccess = 0,
+  kInvalidUrl,
+  kRequestTimedOut,
+  kRequestFailedTransient,
+  kRequestFailedPermanent,
+  kHttpError,
+  kUnknown,
+};
 
 // These methods retrieve the server and client demuxers, respectively. These
 // are retrieved from the protocol connection server and client. The lifetime of
@@ -45,4 +64,4 @@ class PresentationID {
 
 }  // namespace openscreen::osp
 
-#endif  // OSP_IMPL_PRESENTATION_PRESENTATION_COMMON_H_
+#endif  // OSP_PUBLIC_PRESENTATION_PRESENTATION_COMMON_H_

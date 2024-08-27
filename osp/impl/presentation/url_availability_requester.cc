@@ -10,8 +10,8 @@
 #include <utility>
 #include <vector>
 
-#include "osp/impl/presentation/presentation_common.h"
 #include "osp/public/network_service_manager.h"
+#include "osp/public/presentation/presentation_common.h"
 #include "platform/base/span.h"
 #include "util/chrono_helpers.h"
 #include "util/osp_logging.h"
