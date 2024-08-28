@@ -354,6 +354,24 @@
       "parentUuid": "4034fcb0_d0154f6c",
       "revId": "fbcc1733391c64d9ce0e9529d5769a13b93fcc8b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72e36f04_2a15b276",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1498402
+      },
+      "writtenOn": "2024-08-28T22:56:22Z",
+      "side": 1,
+      "message": "Hi Mark. Sorry about the long, long delay in response.\n\nI started working on this project again and made some progress implementing your plan to have an alternate chromium `main.cc` that uses the Chrome openscreen platform library. Unfortunately, I hit an issue that provides some difficulty.\n\nThe Chrome platform uses a `NetworkContext`, which is provided by a Chrome service. See mojo definition [here](https://source.chromium.org/chromium/chromium/src/+/main:services/network/public/mojom/network_context.mojom;l\u003d992;drc\u003d82dff63dbf9db05e9274e11d9128af7b9f51ceaa). I don\u0027t think it is feasible to use Chrome\u0027s network service due to mojo trust directions.\n\nThere _is_ a mock Network context that I could use [TestNetworkContext](https://source.chromium.org/chromium/chromium/src/+/main:services/network/test/test_network_context.h;l\u003d56;drc\u003d5bded18ec517be35b872d271377fda1e9cb66a9b) and implement the socket requirements. However, to do this would require either duplicating or depending on socket code that is already written in the standalone implementation. Instead of doing that, I think it would be preferable to simply depend on the standalone implementation.\n\nYou had voiced concerns about making the standalone implementation visible from Chromium builds. I think this can be handled, however by changing the visibility of the `platform:standalone_impl` source set to the targets that actually use it:\n\n* cast/common:discovery_e2e_test\n* cast/standalone_receiver:cast_receiver\n* cast/standalone_sender:cast_sender\n* cast/test:e2e_tests\n* osp:osp_demo\n* test:test_main\n\nThis should give some assurance that the standalone implementation should not be transitively included by Chrome itself.\n\nWe could also make `platform:standalone_impl` and `cast/standalone_receiver:cast_receiver` define `testonly \u003d true` when being built in Chrome, which would further ensure that the standalone implementation is not accidentally included in Chrome.\n\nWhat do you think?",
+      "parentUuid": "72cc0737_783810b9",
+      "revId": "fbcc1733391c64d9ce0e9529d5769a13b93fcc8b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
