@@ -26,10 +26,10 @@ using ::testing::NiceMock;
 
 namespace {
 
-class MockParentDelegate : public Connection::ParentDelegate {
+class MockController : public Connection::Controller {
  public:
-  MockParentDelegate() = default;
-  ~MockParentDelegate() override = default;
+  MockController() = default;
+  ~MockController() override = default;
 
   MOCK_METHOD2(CloseConnection, Error(Connection*, Connection::CloseReason));
   MOCK_METHOD3(OnPresentationTerminated,
@@ -81,8 +81,8 @@ class ConnectionTest : public ::testing::Test {
   FakeQuicBridge quic_bridge_;
   ConnectionManager controller_connection_manager_;
   ConnectionManager receiver_connection_manager_;
-  NiceMock<MockParentDelegate> mock_controller_;
-  NiceMock<MockParentDelegate> mock_receiver_;
+  NiceMock<MockController> mock_controller_;
+  NiceMock<MockController> mock_receiver_;
 };
 
 TEST_F(ConnectionTest, ConnectAndSend) {
