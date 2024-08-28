@@ -16,6 +16,125 @@
       "message": "Hi, mark. PTAL, thanks.",
       "revId": "1b0f27f749d6d6c23ac6dfb0a6da3bec9337de4f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0447a853_661a2265",
+        "filename": "osp/public/presentation/presentation_common.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-08-28T07:11:51Z",
+      "side": 1,
+      "message": "Conversion to/from CBOR messages should only be necessary in the implementation and shouldn\u0027t be exposed in the public API. Can these functions be moved to their own file in impl/?",
+      "revId": "1b0f27f749d6d6c23ac6dfb0a6da3bec9337de4f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88afcd3d_9f757d08",
+        "filename": "osp/public/presentation/presentation_common.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-08-28T07:11:51Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "1b0f27f749d6d6c23ac6dfb0a6da3bec9337de4f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f04ba85_9d6d2431",
+        "filename": "osp/public/presentation/presentation_common.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-08-28T07:11:51Z",
+      "side": 1,
+      "message": "Where are these called?",
+      "revId": "1b0f27f749d6d6c23ac6dfb0a6da3bec9337de4f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef64824b_dc9bf503",
+        "filename": "osp/public/presentation/presentation_common.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-08-28T07:11:51Z",
+      "side": 1,
+      "message": "1. Can this be replaced by a typedef to `std::optional\u003cstd::string\u003e`?  There is no way to assign an error, so ErrorOr is not necessary.\n\n2. This is only used in the implementation, so does not need to be declared in the public API.",
+      "revId": "1b0f27f749d6d6c23ac6dfb0a6da3bec9337de4f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "080294ff_e77e6aee",
+        "filename": "osp/public/presentation/presentation_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-08-28T07:11:51Z",
+      "side": 1,
+      "message": "This include does not appear to be used.",
+      "revId": "1b0f27f749d6d6c23ac6dfb0a6da3bec9337de4f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d0cdacc_89459034",
+        "filename": "osp/public/presentation/presentation_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-08-28T07:11:51Z",
+      "side": 1,
+      "message": "I would prefer that this be renamed to something else as normally delegates are called by the implementation, not clients.  Possibly `Connection::Controller`.",
+      "revId": "1b0f27f749d6d6c23ac6dfb0a6da3bec9337de4f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb4424ae_a9cfc054",
+        "filename": "osp/public/presentation/presentation_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-08-28T07:11:51Z",
+      "side": 1,
+      "message": "See previous comment.",
+      "revId": "1b0f27f749d6d6c23ac6dfb0a6da3bec9337de4f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
