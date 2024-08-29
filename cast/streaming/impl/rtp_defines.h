@@ -44,13 +44,13 @@ constexpr int kMaxRtpPacketSizeForIpv6UdpOnEthernet = 1500 - 40 - 8;
 //  0                   1                   2                   3
 //  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ ^
-// |V=2|P|X| CC=0  |M|      PT     |      sequence number          | |
+// |V=2|P|X| CC=0  `M`      PT     |      sequence number          | |
 // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+RTP
 // +                         RTP timestamp                         |Spec
 // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ |
 // +         synchronization source (SSRC) identifier              | v
 // +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
-// |K|R| EXT count |  FID          |              PID              | ^
+// `K`R| EXT count |  FID          |              PID              | ^
 // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+Cast
 // |             Max PID           |  optional fields, extensions,  Spec
 // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  then payload...                v
@@ -107,7 +107,7 @@ enum class RtpPayloadType : uint8_t {
 // Returns the stream type associated with the RTP payload type.
 StreamType ToStreamType(RtpPayloadType type, bool use_android_rtp_hack);
 
-// Setting |use_android_rtp_hack| to true means that we match the legacy Chrome
+// Setting `use_android_rtp_hack` to true means that we match the legacy Chrome
 // sender's behavior of always sending the audio and video hacks for AndroidTV,
 // as some legacy android receivers require these.
 // TODO(issuetracker.google.com/184438154): we need to figure out what receivers
@@ -115,7 +115,7 @@ StreamType ToStreamType(RtpPayloadType type, bool use_android_rtp_hack);
 RtpPayloadType GetPayloadType(AudioCodec codec, bool use_android_rtp_hack);
 RtpPayloadType GetPayloadType(VideoCodec codec, bool use_android_rtp_hack);
 
-// Returns true if the |raw_byte| can be type-casted to a RtpPayloadType, and is
+// Returns true if the `raw_byte` can be type-casted to a RtpPayloadType, and is
 // also not RtpPayloadType::kNull. The caller should mask the byte, to select
 // the lower 7 bits, if applicable.
 bool IsRtpPayloadType(uint8_t raw_byte);
@@ -144,7 +144,7 @@ constexpr int kNumExtensionDataSizeFieldBits = 10;
 //  0                   1                   2                   3
 //  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-// |V=2|P|RC/Subtyp|  Packet Type  |            Length             |
+// |V=2`P`RC/Subtyp|  Packet Type  |            Length             |
 // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 constexpr int kRtcpCommonHeaderSize = 4;
 // All RTCP packets must carry the version 2 flag and not use padding.
@@ -163,7 +163,7 @@ enum class RtcpPacketType : uint8_t {
   kExtendedReports = 207,
 };
 
-// Returns true if the |raw_byte| can be type-casted to a RtcpPacketType, and is
+// Returns true if the `raw_byte` can be type-casted to a RtcpPacketType, and is
 // also not RtcpPacketType::kNull.
 bool IsRtcpPacketType(uint8_t raw_byte);
 
