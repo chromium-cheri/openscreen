@@ -347,7 +347,7 @@ TEST(MdnsNsecRecordRdataTest, Construct) {
   // - DnsType kA = 1 (encoded in byte 1)
   // So the full encoded version is:
   //   00000000 00000001 01000000
-  //   |window| | size | | 0-7  |
+  //   `window` | size | | 0-7  |
   // For a total of 3 bytes.
   EXPECT_EQ(rdata.encoded_types(), (std::vector<uint8_t>{0x00, 0x01, 0x40}));
   EXPECT_EQ(rdata.MaxWireSize(), domain.MaxWireSize() + 3);
@@ -360,7 +360,7 @@ TEST(MdnsNsecRecordRdataTest, Construct) {
   // - DnsTypes  kTXT = 16 (encoded in byte 3)
   // So the full encoded version is:
   //   00000000 00000011 00000000 00000000 10000000
-  //   |window| | size | | 0-7  | | 8-15 | |16-23 |
+  //   `window` | size | | 0-7  | | 8-15 | |16-23 |
   // For a total of 5 bytes.
   rdata = NsecRecordRdata(domain, DnsType::kTXT);
   EXPECT_EQ(rdata.encoded_types(),
@@ -375,7 +375,7 @@ TEST(MdnsNsecRecordRdataTest, Construct) {
   // - DnsTypes kSRV = 33 (encoded in byte 5)
   // So the full encoded version is:
   //   00000000 00000101 00000000 00000000 00000000 00000000 01000000
-  //   |window| | size | | 0-7  | | 8-15 | |16-23 | |24-31 | |32-39 |
+  //   `window` | size | | 0-7  | | 8-15 | |16-23 | |24-31 | |32-39 |
   // For a total of 7 bytes.
   rdata = NsecRecordRdata(domain, DnsType::kSRV);
   EXPECT_EQ(rdata.encoded_types(),
@@ -390,7 +390,7 @@ TEST(MdnsNsecRecordRdataTest, Construct) {
   // - DnsTypes kNSEC = 47
   // So the full encoded version is:
   //   00000000 00000110 00000000 00000000 00000000 00000000 0000000  00000001
-  //   |window| | size | | 0-7  | | 8-15 | |16-23 | |24-31 | |32-39 | |40-47 |
+  //   `window` | size | | 0-7  | | 8-15 | |16-23 | |24-31 | |32-39 | |40-47 |
   // For a total of 8 bytes.
   rdata = NsecRecordRdata(domain, DnsType::kNSEC);
   EXPECT_EQ(
@@ -427,7 +427,7 @@ TEST(MdnsNsecRecordRdataTest, Construct) {
   // - The largest of these is 47, so 6 bytes are needed to encode this data.
   // So the full encoded version is:
   //   00000000 00000110 01000000 00000000 10000000 00000000 0100000  00000001
-  //   |window| | size | | 0-7  | | 8-15 | |16-23 | |24-31 | |32-39 | |40-47 |
+  //   `window` | size | | 0-7  | | 8-15 | |16-23 | |24-31 | |32-39 | |40-47 |
   // For a total of 8 bytes.
   rdata = NsecRecordRdata(domain, DnsType::kA, DnsType::kTXT, DnsType::kSRV,
                           DnsType::kNSEC);

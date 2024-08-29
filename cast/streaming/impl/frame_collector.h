@@ -28,8 +28,8 @@ class FrameCollector {
 
   // Examine the parsed packet, representing part of the whole frame, and
   // collect any data/metadata from it that helps complete the frame. Returns
-  // false if the |part| contained invalid data. On success, this method takes
-  // the data contained within the |buffer|, into which |part.payload| is
+  // false if the `part` contained invalid data. On success, this method takes
+  // the data contained within the `buffer`, into which |part.payload| is
   // pointing, in lieu of copying the data.
   [[nodiscard]] bool CollectRtpPacket(const RtpPacketParser::ParseResult& part,
                                       std::vector<uint8_t>* buffer);
@@ -38,7 +38,7 @@ class FrameCollector {
   // assembled.
   bool is_complete() const { return num_missing_packets_ == 0; }
 
-  // Appends zero or more elements to |nacks| representing which packets are not
+  // Appends zero or more elements to `nacks` representing which packets are not
   // yet collected. If all packets for the frame are missing, this appends a
   // single element containing the special kAllPacketsLost packet ID. Otherwise,
   // one element is appended for each missing packet, in increasing order of
