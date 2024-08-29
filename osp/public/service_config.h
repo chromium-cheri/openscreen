@@ -19,6 +19,10 @@ struct ServiceConfig {
 
   // This is empty for QuicClient and is only used by QuicServer.
   std::string instance_name;
+
+  // Set by the user for authentication. This is empty for QuicClient and is
+  // only used by QuicServer.
+  std::string password;
 };
 
 }  // namespace openscreen::osp

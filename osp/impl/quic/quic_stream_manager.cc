@@ -16,7 +16,6 @@ QuicStreamManager::QuicStreamManager(Delegate& delegate)
 
 QuicStreamManager::~QuicStreamManager() {
   DestroyClosedStreams();
-  OSP_CHECK(streams_.empty());
 }
 
 void QuicStreamManager::OnReceived(QuicStream* stream, ByteView bytes) {
