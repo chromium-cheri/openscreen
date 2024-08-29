@@ -277,7 +277,7 @@ TEST(MdnsWriterTest, WriteNSECRecordRdata) {
     // - The largest of these is 47, so 6 bytes are needed to encode this data.
     // So the full encoded version is:
     //   00000000 00000110 01000000 00000000 10000000 00000000 0100000  00000001
-    //   |window| | size | | 0-7  | | 8-15 | |16-23 | |24-31 | |32-39 | |40-47 |
+    //   `window` | size | | 0-7  | | 8-15 | |16-23 | |24-31 | |32-39 | |40-47 |
           0x00,    0x06,    0x40,    0x00,    0x80,    0x00,    0x40,    0x01
   };
   // clang-format on

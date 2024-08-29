@@ -154,9 +154,9 @@ void RtcpReportBlock::SetPacketFractionLostNumerator(
     return;
   }
   // The following computes the fraction of packets lost as "one minus
-  // |num_received| divided by |num_apparently_sent|" and scales by 256 (the
-  // kPacketFractionLostDenominator). It's valid for |num_received| to be
-  // greater than |num_apparently_sent| in some cases (e.g., if duplicate
+  // `num_received` divided by |num_apparently_sent|" and scales by 256 (the
+  // kPacketFractionLostDenominator). It's valid for `num_received` to be
+  // greater than `num_apparently_sent` in some cases (e.g., if duplicate
   // packets were received from the network).
   const int64_t numerator =
       ((num_apparently_sent - num_received) * kPacketFractionLostDenominator) /
@@ -171,7 +171,7 @@ void RtcpReportBlock::SetCumulativePacketsLost(int64_t num_apparently_sent,
   const int64_t num_lost = num_apparently_sent - num_received;
   // Clamp to valid range supported by the wire format (and RTP spec).
   //
-  // Note that |num_lost| can be negative if duplicate packets were received.
+  // Note that `num_lost` can be negative if duplicate packets were received.
   // The RFC spec (https://tools.ietf.org/html/rfc3550#section-6.4.1) states
   // this should result in a clamped, "zero loss" value.
   cumulative_packets_lost = static_cast<int>(
@@ -197,7 +197,7 @@ void RtcpReportBlock::SetDelaySinceLastReport(
     return;
   }
 
-  // If this point is reached, then the |local_clock_delay| is representable as
+  // If this point is reached, then the `local_clock_delay` is representable as
   // a Delay within the valid range.
   delay_since_last_report =
       std::chrono::duration_cast<Delay>(local_clock_delay);
