@@ -112,7 +112,7 @@ class ServiceListener {
   // Suspends background listening. For example, the tab wanting receiver
   // availability might go in the background, meaning we can suspend listening
   // to save power.
-  // Returns true if state() == (kRunning|kSearching|kStarting), meaning the
+  // Returns true if state() == (kRunning`kSearching`kStarting), meaning the
   // suspension will take effect.
   virtual bool Suspend() = 0;
 

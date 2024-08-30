@@ -98,7 +98,7 @@ TEST(TlsWriteBufferTest, TestWrapAround) {
   EXPECT_FALSE(buffer.Push(write_buffer));
   // Buffer contents should still be: |2222············|
   EXPECT_TRUE(buffer.Push(write_buffer.first(buffer_size * 3 / 4)));
-  // Buffer contents should now be: |2222333333333333|
+  // Buffer contents should now be: `2222333333333333`
   EXPECT_FALSE(buffer.Push(write_buffer));           // Not enough room.
   EXPECT_FALSE(buffer.Push(write_buffer.first(1)));  // Not enough room.
   region = buffer.GetReadableRegion();
