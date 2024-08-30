@@ -52,6 +52,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb6cfd4f_cee5a8ee",
+        "filename": "osp/impl/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-08-30T04:47:51Z",
+      "side": 1,
+      "message": "If we remove this we will get a compilation error:\n```\n../../osp/impl/message_demuxer.cc:90:9: error: overload resolution selected deleted operator \u0027\u003d\u0027\n   90 |   *this \u003d other;\n      |   ~~~~~ ^ ~~~~~\n../../osp/public/message_demuxer.h:51:19: note: candidate function has been explicitly deleted\n   51 |     MessageWatch\u0026 operator\u003d(const MessageWatch\u0026) \u003d delete;\n      |                   ^\n../../osp/public/message_demuxer.h:53:19: note: candidate function not viable: expects an rvalue for 1st argument\n   53 |     MessageWatch\u0026 operator\u003d(MessageWatch\u0026\u0026) noexcept;\n      |                   ^         ~~~~~~~~~~~~~~\n1 error generated.\n```",
+      "parentUuid": "c63c1699_11786ae5",
+      "revId": "4b40841dae4f259c94107e0a26335e4bbda586ae",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74937ae2_7e1d1330",
@@ -266,6 +284,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d71cc332_62e34d0f",
+        "filename": "osp/impl/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-08-30T04:47:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c2e6cd2_64c9aa38",
+      "revId": "4b40841dae4f259c94107e0a26335e4bbda586ae",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "473fd9e3_754396b4",
         "filename": "osp/public/message_demuxer.h",
         "patchSetId": 2
@@ -310,6 +346,30 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0532e7a_c88bcf2d",
+        "filename": "osp/public/message_demuxer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-08-30T04:47:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32e41925_56f73f67",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 55
+      },
+      "revId": "4b40841dae4f259c94107e0a26335e4bbda586ae",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e23fed07_75554ef6",
@@ -323,6 +383,24 @@
       "writtenOn": "2024-08-29T14:23:14Z",
       "side": 1,
       "message": "Can you make sure that this unit test exercises the move and copy operators for the MessageWatch.  Thanks.",
+      "revId": "4b40841dae4f259c94107e0a26335e4bbda586ae",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e3fbc3b_ebfe74ab",
+        "filename": "osp/public/message_demuxer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-08-30T04:47:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e23fed07_75554ef6",
       "revId": "4b40841dae4f259c94107e0a26335e4bbda586ae",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
