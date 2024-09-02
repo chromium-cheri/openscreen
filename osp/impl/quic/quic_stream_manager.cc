@@ -14,9 +14,7 @@ namespace openscreen::osp {
 QuicStreamManager::QuicStreamManager(Delegate& delegate)
     : delegate_(delegate) {}
 
-QuicStreamManager::~QuicStreamManager() {
-  OSP_CHECK(streams_.empty());
-}
+QuicStreamManager::~QuicStreamManager() = default;
 
 void QuicStreamManager::OnReceived(QuicStream* stream, ByteView bytes) {
   auto stream_entry = streams_.find(stream->GetStreamId());
