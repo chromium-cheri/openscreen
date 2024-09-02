@@ -100,6 +100,10 @@ class Controller::MessageGroupStreams final
 
   Controller* const controller_;
   const std::string instance_name_;
+  // TODO(Wei): This is hard coded temporarily as a work around for osp_demo. We
+  // need to change interfaces in presentation to make this value passed in by
+  // user.
+  const std::string password_ = "hello123";
 
   uint64_t next_internal_request_id_ = 1;
   openscreen::osp::ConnectRequest initiation_connect_request_;
@@ -128,7 +132,7 @@ uint64_t Controller::MessageGroupStreams::SendStartRequest(
   uint64_t request_id = GetNextInternalRequestId();
   if (!initiation_protocol_connection_ && !initiation_connect_request_) {
     NetworkServiceManager::Get()->GetProtocolConnectionClient()->Connect(
-        instance_name_, initiation_connect_request_, this);
+        instance_name_, password_, initiation_connect_request_, this);
   }
   initiation_handler_.WriteMessage(request_id, std::move(request));
   return request_id;
@@ -177,7 +181,7 @@ uint64_t Controller::MessageGroupStreams::SendConnectionOpenRequest(
   uint64_t request_id = GetNextInternalRequestId();
   if (!connection_protocol_connection_ && !connection_connect_request_) {
     NetworkServiceManager::Get()->GetProtocolConnectionClient()->Connect(
-        instance_name_, connection_connect_request_, this);
+        instance_name_, password_, connection_connect_request_, this);
   }
   connection_open_handler_.WriteMessage(request_id, std::move(request));
   return request_id;
@@ -227,7 +231,7 @@ void Controller::MessageGroupStreams::SendTerminationRequest(
     TerminationRequest request) {
   if (!initiation_protocol_connection_ && !initiation_connect_request_) {
     NetworkServiceManager::Get()->GetProtocolConnectionClient()->Connect(
-        instance_name_, initiation_connect_request_, this);
+        instance_name_, password_, initiation_connect_request_, this);
   }
   termination_handler_.WriteMessage(std::move(request));
 }

@@ -55,6 +55,7 @@ class FakeQuicBridge {
   const std::string kInstanceName{"test instance name"};
   const std::string kFingerprint{"test fringprint"};
   const std::string kAuthToken{"test token"};
+  const std::string kInstancePassword{"test password"};
 
   void CreateNetworkServiceManager(
       std::unique_ptr<ServiceListener> service_listener,
