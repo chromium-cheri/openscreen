@@ -291,7 +291,6 @@ include_rules = [
   '+absl/hash/hash.h',
   '+absl/hash/hash_testing.h',
   '+absl/strings/str_join.h',
-  '+absl/strings/str_split.h',
   '+absl/types/variant.h',
 
   # Similar to abseil, don't include boringssl using root path.  Instead,
