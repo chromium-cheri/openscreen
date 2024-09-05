@@ -87,7 +87,8 @@ class DemoListenerObserver final : public ServiceListener::Observer {
   void OnSearching() override { OSP_LOG_INFO << "listener searching!"; }
 
   void OnReceiverAdded(const ServiceInfo& info) override {
-    OSP_LOG_INFO << "found! " << info.friendly_name;
+    OSP_LOG_INFO << "found! " << info.friendly_name
+                 << ", corresponding instance name is: " << info.instance_name;
   }
   void OnReceiverChanged(const ServiceInfo& info) override {
     OSP_LOG_INFO << "changed! " << info.friendly_name;
@@ -428,7 +429,16 @@ void RunControllerPollLoop(Controller* controller) {
       break;
     }
 
-    if (command_result.command_line.command == "avail") {
+    if (command_result.command_line.command == "connect") {
+      const std::string_view& argument_tail =
+          command_result.command_line.argument_tail;
+      size_t next_split = argument_tail.find_first_of(' ');
+      const std::string password =
+          std::string(argument_tail.substr(next_split + 1));
+      const std::string instance_name =
+          std::string(argument_tail.substr(0, next_split));
+      controller->BuildConnection(instance_name, password);
+    } else if (command_result.command_line.command == "avail") {
       watch = controller->RegisterReceiverWatch(
           {std::string(command_result.command_line.argument_tail)},
           &receiver_observer);
@@ -560,7 +570,7 @@ void CleanupPublisherDemo(NetworkServiceManager* manager) {
   NetworkServiceManager::Dispose();
 }
 
-void PublisherDemo(std::string_view friendly_name) {
+void PublisherDemo(std::string_view friendly_name, std::string_view password) {
   SignalThings();
 
   constexpr uint16_t server_port = 6667;
@@ -574,7 +584,8 @@ void PublisherDemo(std::string_view friendly_name) {
   // osp_demo. We need to change interfaces in presentation to make this value
   // passed in by user.
   ServiceConfig server_config = {
-      .instance_name = publisher_config.instance_name, .password = "hello123"};
+      .instance_name = publisher_config.instance_name,
+      .password = std::string(password)};
   for (const InterfaceInfo& interface : GetNetworkInterfaces()) {
     OSP_VLOG << "Found interface: " << interface;
     if (!interface.addresses.empty() &&
@@ -628,6 +639,7 @@ void PublisherDemo(std::string_view friendly_name) {
 
 struct InputArgs {
   std::string_view friendly_server_name;
+  std::string_view password;
   bool is_verbose;
   bool is_help;
   bool tracing_enabled;
@@ -681,6 +693,7 @@ InputArgs GetInputArgs(int argc, char** argv) {
 
   if (optind < argc) {
     args.friendly_server_name = argv[optind];
+    args.password = argv[optind + 1];
   }
 
   return args;
@@ -716,7 +729,7 @@ int main(int argc, char** argv) {
 
   if (is_receiver_demo) {
     OSP_LOG_INFO << "Running publisher demo...";
-    openscreen::osp::PublisherDemo(args.friendly_server_name);
+    openscreen::osp::PublisherDemo(args.friendly_server_name, args.password);
   } else {
     OSP_LOG_INFO << "Running listener demo...";
     openscreen::osp::ListenerDemo();

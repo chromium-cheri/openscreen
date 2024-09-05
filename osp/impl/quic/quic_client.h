@@ -111,11 +111,13 @@ class QuicClient final : public ProtocolConnectionClient,
   void OnError(const Error& error) override;
   void OnMetrics(ServiceListener::Metrics) override;
 
+  // ProtocolConnectionClient overrides.
+  void CancelConnectRequest(uint64_t request_id) override;
+
   bool StartConnectionRequest(std::string_view instance_name,
                               std::string_view password,
                               ConnectRequest& request,
                               ConnectRequestCallback* request_callback);
-  void CancelConnectRequest(uint64_t request_id) override;
   void HandleAuthenticationFailure(uint64_t instance_id);
 
   // Value that will be used for the next new connection request.

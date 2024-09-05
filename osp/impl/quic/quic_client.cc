@@ -72,7 +72,7 @@ bool QuicClient::Connect(std::string_view instance_name,
                          ConnectRequest& request,
                          ConnectRequestCallback* request_callback) {
   if (state_ != State::kRunning) {
-    request_callback->OnConnectFailed(0);
+    request_callback->OnConnectFailed(0, instance_name);
     OSP_LOG_ERROR << "QuicClient connect failed: QuicClient is not running.";
     return false;
   }
@@ -98,7 +98,8 @@ bool QuicClient::Connect(std::string_view instance_name,
       // handshake and authentication.
       uint64_t request_id = next_request_id_++;
       request = ConnectRequest(this, request_id);
-      request_callback->OnConnectSucceed(request_id, instance_entry->second);
+      request_callback->OnConnectSucceed(request_id, instance_entry->first,
+                                         instance_entry->second);
       return true;
     }
   } else {
@@ -129,17 +130,13 @@ ErrorOr<size_t> QuicClient::OnStreamMessage(uint64_t instance_id,
     return Error::Code::kNoActiveConnection;
   }
 
-  auto instance_entry = std::find_if(
-      instance_map_.begin(), instance_map_.end(),
-      [instance_id](const std::pair<std::string, uint64_t>& instance) {
-        return instance.second == instance_id;
-      });
-  if (instance_entry == instance_map_.end()) {
+  std::string_view instance_name = FindInstanceNameById(instance_id);
+  if (instance_name.empty()) {
     HandleAuthenticationFailure(instance_id);
     return Error::Code::kItemNotFound;
   }
 
-  auto instance_infos_entry = instance_infos_.find(instance_entry->first);
+  auto instance_infos_entry = instance_infos_.find(instance_name);
   if (instance_infos_entry == instance_infos_.end()) {
     HandleAuthenticationFailure(instance_id);
     return Error::Code::kItemNotFound;
@@ -214,7 +211,8 @@ ErrorOr<size_t> QuicClient::OnStreamMessage(uint64_t instance_id,
           connections_.emplace(instance_id,
                                std::move(authentication_entry->second.data));
           for (auto& request : authentication_entry->second.callbacks) {
-            request.second->OnConnectSucceed(request.first, instance_id);
+            request.second->OnConnectSucceed(request.first, instance_name,
+                                             instance_id);
           }
           pending_authentications_.erase(authentication_entry);
         } else {
@@ -262,48 +260,6 @@ void QuicClient::OnAllReceiversRemoved() {
 
 void QuicClient::OnError(const Error&) {}
 void QuicClient::OnMetrics(ServiceListener::Metrics) {}
-
-bool QuicClient::StartConnectionRequest(
-    std::string_view instance_name,
-    std::string_view password,
-    ConnectRequest& request,
-    ConnectRequestCallback* request_callback) {
-  auto instance_entry = instance_infos_.find(instance_name);
-  if (instance_entry == instance_infos_.end()) {
-    request_callback->OnConnectFailed(0);
-    OSP_LOG_ERROR << "QuicClient connect failed: can't find information for "
-                  << instance_name;
-    return false;
-  }
-
-  IPEndpoint endpoint = instance_entry->second.v4_endpoint
-                            ? instance_entry->second.v4_endpoint
-                            : instance_entry->second.v6_endpoint;
-  QuicConnectionFactoryClient::ConnectData connect_data = {
-      .instance_name = std::string(instance_name),
-      .fingerprint = instance_entry->second.fingerprint};
-  ErrorOr<std::unique_ptr<QuicConnection>> connection =
-      static_cast<QuicConnectionFactoryClient*>(connection_factory_.get())
-          ->Connect(connection_endpoints_[0], endpoint, connect_data, this);
-  if (!connection) {
-    request_callback->OnConnectFailed(0);
-    OSP_LOG_ERROR << "Factory connect failed: " << connection.error();
-    return false;
-  }
-
-  // Save the password passed in by user and it will be used in authentication
-  // later.
-  instance_entry->second.password = password;
-  auto pending_result = pending_connections_.emplace(
-      instance_name, PendingConnectionData(ServiceConnectionData(
-                         std::move(connection.value()),
-                         std::make_unique<QuicStreamManager>(*this))));
-  uint64_t request_id = next_request_id_++;
-  request = ConnectRequest(this, request_id);
-  pending_result.first->second.callbacks.emplace_back(request_id,
-                                                      request_callback);
-  return true;
-}
 
 void QuicClient::CancelConnectRequest(uint64_t request_id) {
   // Remove request from `pending_connections_`.
@@ -359,14 +315,57 @@ void QuicClient::CancelConnectRequest(uint64_t request_id) {
   }
 }
 
+bool QuicClient::StartConnectionRequest(
+    std::string_view instance_name,
+    std::string_view password,
+    ConnectRequest& request,
+    ConnectRequestCallback* request_callback) {
+  auto instance_entry = instance_infos_.find(instance_name);
+  if (instance_entry == instance_infos_.end()) {
+    request_callback->OnConnectFailed(0, instance_name);
+    OSP_LOG_ERROR << "QuicClient connect failed: can't find information for "
+                  << instance_name;
+    return false;
+  }
+
+  IPEndpoint endpoint = instance_entry->second.v4_endpoint
+                            ? instance_entry->second.v4_endpoint
+                            : instance_entry->second.v6_endpoint;
+  QuicConnectionFactoryClient::ConnectData connect_data = {
+      .instance_name = std::string(instance_name),
+      .fingerprint = instance_entry->second.fingerprint};
+  ErrorOr<std::unique_ptr<QuicConnection>> connection =
+      static_cast<QuicConnectionFactoryClient*>(connection_factory_.get())
+          ->Connect(connection_endpoints_[0], endpoint, connect_data, this);
+  if (!connection) {
+    request_callback->OnConnectFailed(0, instance_name);
+    OSP_LOG_ERROR << "Factory connect failed: " << connection.error();
+    return false;
+  }
+
+  // Save the password passed in by user and it will be used in authentication
+  // later.
+  instance_entry->second.password = password;
+  auto pending_result = pending_connections_.emplace(
+      instance_name, PendingConnectionData(ServiceConnectionData(
+                         std::move(connection.value()),
+                         std::make_unique<QuicStreamManager>(*this))));
+  uint64_t request_id = next_request_id_++;
+  request = ConnectRequest(this, request_id);
+  pending_result.first->second.callbacks.emplace_back(request_id,
+                                                      request_callback);
+  return true;
+}
+
 void QuicClient::HandleAuthenticationFailure(uint64_t instance_id) {
   auto authentication_entry = pending_authentications_.find(instance_id);
   if (authentication_entry == pending_authentications_.end()) {
     return;
   }
 
+  std::string_view instance_name = FindInstanceNameById(instance_id);
   for (auto& request : authentication_entry->second.callbacks) {
-    request.second->OnConnectFailed(0);
+    request.second->OnConnectFailed(0, instance_name);
   }
   pending_authentications_.erase(authentication_entry);
 }

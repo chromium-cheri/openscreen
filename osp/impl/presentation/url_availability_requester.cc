@@ -58,6 +58,14 @@ UrlAvailabilityRequester::UrlAvailabilityRequester(
 
 UrlAvailabilityRequester::~UrlAvailabilityRequester() = default;
 
+void UrlAvailabilityRequester::CreateReceiverRequester(
+    std::string_view instance_name,
+    uint64_t instance_id) {
+  receiver_by_instance_name_.emplace(
+      instance_name,
+      std::make_unique<ReceiverRequester>(*this, instance_name, instance_id));
+}
+
 void UrlAvailabilityRequester::AddObserver(const std::vector<std::string>& urls,
                                            ReceiverObserver* observer) {
   for (const auto& url : urls) {
@@ -119,18 +127,7 @@ void UrlAvailabilityRequester::RemoveObserver(ReceiverObserver* observer) {
   }
 }
 
-void UrlAvailabilityRequester::AddReceiver(const ServiceInfo& info) {
-  auto result = receiver_by_instance_name_.emplace(
-      info.instance_name,
-      std::make_unique<ReceiverRequester>(*this, info.instance_name));
-  std::unique_ptr<ReceiverRequester>& receiver = result.first->second;
-  std::vector<std::string> urls;
-  urls.reserve(observers_by_url_.size());
-  for (const auto& url : observers_by_url_) {
-    urls.push_back(url.first);
-  }
-  receiver->RequestUrlAvailabilities(std::move(urls));
-}
+void UrlAvailabilityRequester::AddReceiver(const ServiceInfo& info) {}
 
 void UrlAvailabilityRequester::ChangeReceiver(const ServiceInfo& info) {}
 
@@ -167,13 +164,15 @@ Clock::time_point UrlAvailabilityRequester::RefreshWatches() {
 
 UrlAvailabilityRequester::ReceiverRequester::ReceiverRequester(
     UrlAvailabilityRequester& listener,
-    const std::string& instance_name)
-    : listener_(listener), instance_name_(instance_name) {
-  // TODO(Wei): The password is hard coded temporarily as a work around for
-  // osp_demo. We need to change interfaces in presentation to make this value
-  // passed in by user.
-  NetworkServiceManager::Get()->GetProtocolConnectionClient()->Connect(
-      instance_name, /*password*/ "hello123", connect_request_, this);
+    std::string_view instance_name,
+    uint64_t instance_id)
+    : listener_(listener),
+      instance_name_(instance_name),
+      instance_id_(instance_id) {
+  connection_ = CreateClientProtocolConnection(instance_id);
+  if (!connection_) {
+    OSP_DLOG_WARN << "There is no valid underlying connection.";
+  }
 }
 
 UrlAvailabilityRequester::ReceiverRequester::~ReceiverRequester() = default;
@@ -202,6 +201,7 @@ void UrlAvailabilityRequester::ReceiverRequester::GetOrRequestAvailabilities(
       }
     }
   }
+
   if (!unknown_urls.empty()) {
     RequestUrlAvailabilities(std::move(unknown_urls));
   }
@@ -212,21 +212,28 @@ void UrlAvailabilityRequester::ReceiverRequester::RequestUrlAvailabilities(
   if (urls.empty()) {
     return;
   }
+
   const uint64_t request_id = GetNextRequestId(instance_id_);
-  ErrorOr<uint64_t> watch_id_or_error(0);
-  if (!connection_ || (watch_id_or_error = SendRequest(request_id, urls))) {
+  ErrorOr<uint64_t> watch_id_or_error = SendRequest(request_id, urls);
+  if (watch_id_or_error) {
     request_by_id_.emplace(request_id,
                            Request{watch_id_or_error.value(), std::move(urls)});
   } else {
-    for (const auto& url : urls)
-      for (auto& observer : listener_.observers_by_url_[url])
+    for (const auto& url : urls) {
+      for (auto& observer : listener_.observers_by_url_[url]) {
         observer->OnRequestFailed(url, instance_name_);
+      }
+    }
   }
 }
 
 ErrorOr<uint64_t> UrlAvailabilityRequester::ReceiverRequester::SendRequest(
     uint64_t request_id,
     const std::vector<std::string>& urls) {
+  if (!connection_) {
+    return Error::Code::kNoActiveConnection;
+  }
+
   uint64_t watch_id = next_watch_id_++;
   msgs::PresentationUrlAvailabilityRequest cbor_request = {
       .request_id = request_id,
@@ -290,8 +297,10 @@ Error::Code UrlAvailabilityRequester::ReceiverRequester::UpdateAvailabilities(
   }
   for (const auto& url : urls) {
     auto observer_entry = listener_.observers_by_url_.find(url);
-    if (observer_entry == listener_.observers_by_url_.end())
+    if (observer_entry == listener_.observers_by_url_.end()) {
       continue;
+    }
+
     std::vector<ReceiverObserver*>& observers = observer_entry->second;
     auto result = known_availability_by_url_.emplace(url, *availability_it);
     auto entry = result.first;
@@ -300,13 +309,15 @@ Error::Code UrlAvailabilityRequester::ReceiverRequester::UpdateAvailabilities(
     if (inserted || updated) {
       switch (*availability_it) {
         case msgs::UrlAvailability::kAvailable:
-          for (auto* observer : observers)
+          for (auto* observer : observers) {
             observer->OnReceiverAvailable(url, instance_name_);
+          }
           break;
         case msgs::UrlAvailability::kUnavailable:
         case msgs::UrlAvailability::kInvalid:
-          for (auto* observer : observers)
+          for (auto* observer : observers) {
             observer->OnReceiverUnavailable(url, instance_name_);
+          }
           break;
         default:
           break;
@@ -328,27 +339,31 @@ void UrlAvailabilityRequester::ReceiverRequester::RemoveUnobservedRequests(
     if (split == request.urls.end()) {
       continue;
     }
+
     MoveVectorSegment(request.urls.begin(), split, &still_observed_urls);
     if (connection_) {
       watch_by_id_.erase(request.watch_id);
     }
   }
+
   if (!still_observed_urls.empty()) {
-    const uint64_t new_request_id = GetNextRequestId(instance_id_);
-    ErrorOr<uint64_t> watch_id_or_error(0);
     std::vector<std::string> urls;
     urls.reserve(still_observed_urls.size());
     for (auto& url : still_observed_urls) {
       urls.emplace_back(std::move(url));
     }
-    if (!connection_ ||
-        (watch_id_or_error = SendRequest(new_request_id, urls))) {
+
+    const uint64_t new_request_id = GetNextRequestId(instance_id_);
+    ErrorOr<uint64_t> watch_id_or_error = SendRequest(new_request_id, urls);
+    if (watch_id_or_error) {
       new_requests.emplace(new_request_id,
                            Request{watch_id_or_error.value(), std::move(urls)});
     } else {
-      for (const auto& url : urls)
-        for (auto& observer : listener_.observers_by_url_[url])
+      for (const auto& url : urls) {
+        for (auto& observer : listener_.observers_by_url_[url]) {
           observer->OnRequestFailed(url, instance_name_);
+        }
+      }
     }
   }
 
@@ -397,50 +412,6 @@ void UrlAvailabilityRequester::ReceiverRequester::RemoveReceiver() {
       }
     }
   }
-}
-
-void UrlAvailabilityRequester::ReceiverRequester::OnConnectSucceed(
-    uint64_t request_id,
-    uint64_t instance_id) {
-  OSP_CHECK_EQ(request_id, connect_request_.request_id());
-  connect_request_.MarkComplete();
-
-  // TODO(btolsch): This is one place where we need to make sure the QUIC
-  // connection stays alive, even without constant traffic.
-  instance_id_ = instance_id;
-  connection_ = CreateClientProtocolConnection(instance_id);
-  ErrorOr<uint64_t> watch_id_or_error(0);
-  for (auto entry = request_by_id_.begin(); entry != request_by_id_.end();) {
-    if ((watch_id_or_error = SendRequest(entry->first, entry->second.urls))) {
-      entry->second.watch_id = watch_id_or_error.value();
-      ++entry;
-    } else {
-      entry = request_by_id_.erase(entry);
-    }
-  }
-}
-
-void UrlAvailabilityRequester::ReceiverRequester::OnConnectFailed(
-    uint64_t request_id) {
-  if (connect_request_ && connect_request_.request_id() == request_id) {
-    connect_request_.MarkComplete();
-  }
-
-  std::set<std::string> waiting_urls;
-  for (auto& entry : request_by_id_) {
-    Request& request = entry.second;
-    for (auto& url : request.urls) {
-      waiting_urls.emplace(std::move(url));
-    }
-  }
-  for (const auto& url : waiting_urls) {
-    for (auto& observer : listener_.observers_by_url_[url]) {
-      observer->OnRequestFailed(url, instance_name_);
-    }
-  }
-
-  std::string name = std::move(instance_name_);
-  listener_.receiver_by_instance_name_.erase(name);
 }
 
 ErrorOr<size_t> UrlAvailabilityRequester::ReceiverRequester::OnStreamMessage(

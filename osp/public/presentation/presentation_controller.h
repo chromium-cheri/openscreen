@@ -5,6 +5,7 @@
 #ifndef OSP_PUBLIC_PRESENTATION_PRESENTATION_CONTROLLER_H_
 #define OSP_PUBLIC_PRESENTATION_PRESENTATION_CONTROLLER_H_
 
+#include <functional>
 #include <map>
 #include <memory>
 #include <optional>
@@ -12,6 +13,7 @@
 #include <utility>
 #include <vector>
 
+#include "osp/public/connect_request.h"
 #include "osp/public/presentation/presentation_common.h"
 #include "osp/public/presentation/presentation_connection.h"
 #include "osp/public/protocol_connection.h"
@@ -61,7 +63,8 @@ class ReceiverObserver {
 };
 
 class Controller final : public ServiceListener::Observer,
-                         public Connection::Controller {
+                         public Connection::Controller,
+                         public ConnectRequestCallback {
  public:
   class ReceiverWatch {
    public:
@@ -123,6 +126,12 @@ class Controller final : public ServiceListener::Observer,
                                  TerminationSource source,
                                  TerminationReason reason) override;
   void OnConnectionDestroyed(Connection* connection) override;
+
+  // Build an underlying connection to `instance_name` and `password` is used
+  // for authentication. `OnConnectSucceed` is called if succeed. Otherwise,
+  // `OnConnectFailed` is called.
+  void BuildConnection(const std::string& instance_name,
+                       const std::string& password);
 
   // Requests receivers compatible with all urls in `urls` and registers
   // `observer` for availability changes.  The screens will be a subset of the
@@ -188,6 +197,13 @@ class Controller final : public ServiceListener::Observer,
   void OnError(const Error& error) override;
   void OnMetrics(ServiceListener::Metrics) override;
 
+  // ConnectRequestCallback overrides.
+  void OnConnectSucceed(uint64_t request_id,
+                        std::string_view instance_name,
+                        uint64_t instance_id) override;
+  void OnConnectFailed(uint64_t request_id,
+                       std::string_view instance_name) override;
+
   static std::string MakePresentationId(const std::string& url,
                                         const std::string& instance_name);
 
@@ -216,11 +232,14 @@ class Controller final : public ServiceListener::Observer,
   std::unique_ptr<UrlAvailabilityRequester> availability_requester_;
 
   std::map<std::string, ControlledPresentation> presentations_by_id_;
-  // TODO(crbug.com/347268871): Replace instance_name as an agent identifier
-  std::map<std::string, std::unique_ptr<MessageGroupStreams>>
-      group_streams_by_instance_name_;
   std::map<std::string, std::unique_ptr<TerminationListener>>
       termination_listener_by_id_;
+
+  // TODO(crbug.com/347268871): Replace instance_name as an agent identifier
+  std::map<std::string, openscreen::osp::ConnectRequest>
+      connect_requests_by_instance_name_;
+  std::map<std::string, std::unique_ptr<MessageGroupStreams>>
+      group_streams_by_instance_name_;
 };
 
 }  // namespace openscreen::osp
