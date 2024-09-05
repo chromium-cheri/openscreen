@@ -124,6 +124,8 @@ class QuicServiceBase : public QuicConnection::Delegate,
       const std::vector<uint8_t>& peer_public_value,
       const std::string& password);
 
+  std::string_view FindInstanceNameById(uint64_t instance_id);
+
   ProtocolConnectionEndpoint::State state_ =
       ProtocolConnectionEndpoint::State::kStopped;
   InstanceRequestIds instance_request_ids_;

@@ -87,7 +87,8 @@ class DemoListenerObserver final : public ServiceListener::Observer {
   void OnSearching() override { OSP_LOG_INFO << "listener searching!"; }
 
   void OnReceiverAdded(const ServiceInfo& info) override {
-    OSP_LOG_INFO << "found! " << info.friendly_name;
+    OSP_LOG_INFO << "found! " << info.friendly_name
+                 << ", corresponding instance name is: " << info.instance_name;
   }
   void OnReceiverChanged(const ServiceInfo& info) override {
     OSP_LOG_INFO << "changed! " << info.friendly_name;
@@ -428,7 +429,16 @@ void RunControllerPollLoop(Controller* controller) {
       break;
     }
 
-    if (command_result.command_line.command == "avail") {
+    if (command_result.command_line.command == "connect") {
+      const std::string_view& argument_tail =
+          command_result.command_line.argument_tail;
+      size_t next_split = argument_tail.find_first_of(' ');
+      const std::string password =
+          std::string(argument_tail.substr(next_split + 1));
+      const std::string instance_name =
+          std::string(argument_tail.substr(0, next_split));
+      controller->BuildConnection(instance_name, password);
+    } else if (command_result.command_line.command == "avail") {
       watch = controller->RegisterReceiverWatch(
           {std::string(command_result.command_line.argument_tail)},
           &receiver_observer);
