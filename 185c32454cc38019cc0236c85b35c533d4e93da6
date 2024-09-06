@@ -16,6 +16,24 @@
       "message": "Can you write this as if (!build_with_chromium \u0026\u0026 build_receiver_with_sdl)?  That would simplify things slightly I think.",
       "revId": "185c32454cc38019cc0236c85b35c533d4e93da6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bba1aca9_28e97890",
+        "filename": "cast/standalone_receiver/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1498402
+      },
+      "writtenOn": "2024-09-06T18:25:01Z",
+      "side": 1,
+      "message": "Thanks for the feedback. I cleaned this up in the latest patchset. For Chromium builds, `have_libsdl2` and `have_ffmpeg` are false, so we would not build with SDL.\n\nI flattened the conditional so it is just checking `build_receiver_with_sdl`. Doing this keeps the `cast_receiver` source set dependency logic simple.",
+      "parentUuid": "016f6109_ee03346d",
+      "revId": "185c32454cc38019cc0236c85b35c533d4e93da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
