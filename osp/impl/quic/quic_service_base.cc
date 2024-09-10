@@ -26,8 +26,9 @@ QuicServiceBase::QuicServiceBase(
       demuxer_(now_function, buffer_limit),
       connection_factory_(std::move(connection_factory)),
       connection_endpoints_(config.connection_endpoints),
-      observer_(observer),
-      cleanup_alarm_(now_function, task_runner) {}
+      now_function_(now_function),
+      task_runner_(task_runner),
+      observer_(observer) {}
 
 QuicServiceBase::~QuicServiceBase() {
   CloseAllConnections();
@@ -87,9 +88,7 @@ void QuicServiceBase::OnConnectionClosed(uint64_t instance_id) {
     return;
   }
 
-  connection_factory_->OnConnectionClosed(
-      connection_entry->second.connection.get());
-  delete_connections_.push_back(instance_id);
+  ScheduleCleanup(instance_id);
   instance_request_ids_.ResetRequestId(instance_id);
 }
 
@@ -169,7 +168,6 @@ bool QuicServiceBase::StartImpl() {
   }
 
   state_ = ProtocolConnectionEndpoint::State::kRunning;
-  Cleanup();  // Start periodic clean-ups.
   observer_.OnRunning();
   return true;
 }
@@ -182,7 +180,6 @@ bool QuicServiceBase::StopImpl() {
 
   CloseAllConnections();
   state_ = ProtocolConnectionEndpoint::State::kStopped;
-  Cleanup();  // Final clean-up.
   observer_.OnStopped();
   return true;
 }
@@ -242,22 +239,29 @@ void QuicServiceBase::CloseAllConnections() {
   connections_.clear();
 
   instance_map_.clear();
+  cleanup_alarms_.clear();
   next_instance_id_ = 1;
   instance_request_ids_.Reset();
 }
 
-void QuicServiceBase::Cleanup() {
-  for (uint64_t instance_id : delete_connections_) {
-    auto it = connections_.find(instance_id);
-    if (it != connections_.end()) {
-      connections_.erase(it);
-    }
+void QuicServiceBase::ScheduleCleanup(uint64_t instance_id) {
+  constexpr Clock::duration kQuicCleanupDelay = std::chrono::milliseconds(500);
+  auto result = cleanup_alarms_.emplace(
+      instance_id, std::make_unique<Alarm>(now_function_, task_runner_));
+  if (result.second) {
+    result.first->second->ScheduleFromNow(
+        [this, instance_id] { Cleanup(instance_id); }, kQuicCleanupDelay);
   }
-  delete_connections_.clear();
+}
 
-  constexpr Clock::duration kQuicCleanupPeriod = std::chrono::milliseconds(500);
-  if (state_ != ProtocolConnectionEndpoint::State::kStopped) {
-    cleanup_alarm_.ScheduleFromNow([this] { Cleanup(); }, kQuicCleanupPeriod);
+void QuicServiceBase::Cleanup(uint64_t instance_id) {
+  cleanup_alarms_.erase(instance_id);
+
+  auto connection_entry = connections_.find(instance_id);
+  if (connection_entry != connections_.end()) {
+    connection_factory_->OnConnectionClosed(
+        connection_entry->second.connection.get());
+    connections_.erase(connection_entry);
   }
 }
 

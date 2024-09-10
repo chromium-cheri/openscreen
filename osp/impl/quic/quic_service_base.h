@@ -132,8 +132,15 @@ class QuicServiceBase : public QuicConnection::Delegate,
  private:
   void CloseAllConnections();
 
-  // Delete dead QUIC connections and schedule the next call to this function.
-  void Cleanup();
+  // Schedule the call to `Cleanup` for `instance_id`. This is called when
+  // connection for `instance_id` needs to be destroyed, but have to wait for
+  // the next event loop becuase related resouces are still needed by the
+  // underlying QUIC implementation during the process of closing.
+  void ScheduleCleanup(uint64_t instance_id);
+
+  // Delete dead QUIC connection for `instance_id` and notify
+  // `connection_factory_` to delete related socket if needed.
+  void Cleanup(uint64_t instance_id);
 
   // Value that will be used for the next new instance.
   uint64_t next_instance_id_ = 1u;
@@ -142,13 +149,12 @@ class QuicServiceBase : public QuicConnection::Delegate,
   // completed the QUIC handshake.
   std::map<uint64_t, ServiceConnectionData> connections_;
 
-  // Connections (instance IDs) that need to be destroyed, but have to wait
-  // for the next event loop due to the underlying QUIC implementation's way of
-  // referencing them.
-  std::vector<uint64_t> delete_connections_;
+  // Map an instance ID to alarm used to delete dead QUIC connection.
+  std::map<uint64_t, std::unique_ptr<Alarm>> cleanup_alarms_;
 
+  const ClockNowFunctionPtr now_function_;
+  TaskRunner& task_runner_;
   ProtocolConnectionServiceObserver& observer_;
-  Alarm cleanup_alarm_;
 };
 
 }  // namespace openscreen::osp
