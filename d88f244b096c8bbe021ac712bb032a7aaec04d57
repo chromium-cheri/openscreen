@@ -16,6 +16,74 @@
       "message": "Hi, mark. PTAL, thanks.",
       "revId": "d88f244b096c8bbe021ac712bb032a7aaec04d57",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d095735a_e748df58",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-09-10T20:44:40Z",
+      "side": 1,
+      "message": "This looks like it works for closing individual connections, but if the QuicServiceBase is being torn down we need to handle that case too?",
+      "revId": "d88f244b096c8bbe021ac712bb032a7aaec04d57",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b87ef785_fda62cc5",
+        "filename": "osp/impl/quic/quic_service_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-09-10T20:44:40Z",
+      "side": 1,
+      "message": "If `this` is deleted then alarms to clean up the sockets for closed connections can\u0027t refer to `this`.",
+      "revId": "d88f244b096c8bbe021ac712bb032a7aaec04d57",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de5e4e41_3ed0cc49",
+        "filename": "osp/impl/quic/quic_service_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-09-10T20:44:40Z",
+      "side": 1,
+      "message": "ISM this needs to be fixed to also call connection_factory_-\u003eOnConnectionClosed asynchronously.",
+      "revId": "d88f244b096c8bbe021ac712bb032a7aaec04d57",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b65a8617_6459ff25",
+        "filename": "osp/impl/quic/quic_service_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-09-10T20:44:40Z",
+      "side": 1,
+      "message": "If we need to close connections later, then we can\u0027t clear the alarms yet.",
+      "revId": "d88f244b096c8bbe021ac712bb032a7aaec04d57",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
