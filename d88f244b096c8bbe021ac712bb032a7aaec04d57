@@ -72,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "36c5b441_580eb30c",
+        "filename": "osp/impl/quic/quic_service_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-09-12T02:13:26Z",
+      "side": 1,
+      "message": "When this is deleted, all related resources are also deleted, including the underlying QUIC resources. So maybe no special treatment is needed here?",
+      "parentUuid": "f9862841_89013837",
+      "revId": "d88f244b096c8bbe021ac712bb032a7aaec04d57",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de5e4e41_3ed0cc49",
         "filename": "osp/impl/quic/quic_service_base.cc",
         "patchSetId": 1
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "Yes, this is the question. We should call connection_factory_-\u003eOnConnectionClosed asynchronously here. `CloseAllConnections` is called both in `StopImpl` and `~QuicServiceBase`. It is ok for `StopImpl`, but I don\u0027t know to deal with `~QuicServiceBase`. Please see my question above.",
       "parentUuid": "de5e4e41_3ed0cc49",
+      "revId": "d88f244b096c8bbe021ac712bb032a7aaec04d57",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70c795ee_11802279",
+        "filename": "osp/impl/quic/quic_service_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-09-12T02:13:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f3d8597_2e6af42b",
       "revId": "d88f244b096c8bbe021ac712bb032a7aaec04d57",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -136,6 +172,24 @@
       "side": 1,
       "message": "Yes, I agree.",
       "parentUuid": "b65a8617_6459ff25",
+      "revId": "d88f244b096c8bbe021ac712bb032a7aaec04d57",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cad3b86_ef3ba27c",
+        "filename": "osp/impl/quic/quic_service_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-09-12T02:13:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0967245_1fbdf0d7",
       "revId": "d88f244b096c8bbe021ac712bb032a7aaec04d57",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
