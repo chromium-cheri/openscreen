@@ -50,6 +50,91 @@
       "message": "Sorry for the delay.  I will look soon.",
       "revId": "f6ed1d73690ccb20a91612baaaa3c8aca9ce6df6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8df8bca_a0697ec3",
+        "filename": "osp/impl/presentation/url_availability_requester.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-09-12T23:51:38Z",
+      "side": 1,
+      "message": "The agent should only be receiving URL availability requests from agents that are already authenticated, so the password should not be necessary here.",
+      "revId": "f6ed1d73690ccb20a91612baaaa3c8aca9ce6df6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c0eec2f_5bb4fbe1",
+        "filename": "osp/impl/quic/quic_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-09-12T23:51:38Z",
+      "side": 1,
+      "message": "Can this token be looked up at the time the authentication entry is created, to avoid the extra lookup code at L132-146?",
+      "revId": "f6ed1d73690ccb20a91612baaaa3c8aca9ce6df6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc4b23bd_726bf293",
+        "filename": "osp/impl/quic/quic_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-09-12T23:51:38Z",
+      "side": 1,
+      "message": "This CL adds a lot of complexity to the QUIC layer of OSP, and in fact the SPAKE2 authentication is independent of QUIC.\n\nThe authentication entry should be made into two top level objects in the impl/ folder.  One object is for the Alice party and the other is for the Bob party in the authentication ceremony.  Let\u0027s call them AuthenticationAlice and AuthenticationBob.\n\nEach object needs to be initialized with:\n\n- The auth token\n- The agent fingerprint\n- Either a pre-generated password (for the PSK presenter) or a slot to accept the password entered by the user (for the PSK consumer)\n\nEither Alice or Bob should be created according to who sent and who received the auth-spake2-handshake message.  (Or it can be hard coded to the QUIC client/server roles, but in fact it is independent of that.)\n\nThe message handling and value computation code should be moved to those objects.\n\nOnce the code is refactored this way, we can figure out how to hook it up into the rest of the implementation.",
+      "revId": "f6ed1d73690ccb20a91612baaaa3c8aca9ce6df6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89583f9f_87f7e929",
+        "filename": "osp/impl/quic/quic_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-09-12T23:51:38Z",
+      "side": 1,
+      "message": "The password is only used as a one-time password during SPAKE2, not every time a connection is started.",
+      "revId": "f6ed1d73690ccb20a91612baaaa3c8aca9ce6df6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9270095_3563b74f",
+        "filename": "osp/impl/quic/quic_server.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-09-12T23:51:38Z",
+      "side": 1,
+      "message": "Which agent creates/displays the password, and which agent requests that the user enter the password, is negotiated by the agents and not dependent on the QUIC client/server status.",
+      "revId": "f6ed1d73690ccb20a91612baaaa3c8aca9ce6df6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
