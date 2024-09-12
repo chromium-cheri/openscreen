@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fc7c6a4_972246ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-09-12T21:23:51Z",
+      "side": 1,
+      "message": "This change seems fine.  However, if the QuicServiceBase is deleted, then any scheduled alarms to clean up the UDP sockets will be deleted and won\u0027t run.  So whatever owns the QuicServiceBase will be responsible for ensuring that the sockets are eventually closed and deleted.",
+      "revId": "b7c517caa3c19482fbdc5ac53b75400c16212e8c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "786fe80f_85afb22b",
+        "filename": "osp/impl/quic/quic_service_base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-09-12T21:23:51Z",
+      "side": 1,
+      "message": "Nit: Typo in resources",
+      "revId": "b7c517caa3c19482fbdc5ac53b75400c16212e8c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
