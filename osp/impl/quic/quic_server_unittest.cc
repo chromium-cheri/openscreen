@@ -95,7 +95,7 @@ class QuicServerTest : public Test {
     connection->Write(ByteView(buffer.data(), buffer.size()));
     connection->CloseWriteEnd();
 
-    ssize_t decode_result = 0;
+    size_t decode_result = 0;
     msgs::PresentationConnectionMessage received_message;
     EXPECT_CALL(mock_message_callback,
                 OnStreamMessage(
@@ -113,7 +113,7 @@ class QuicServerTest : public Test {
     quic_bridge_.RunTasksUntilIdle();
 
     ASSERT_GT(decode_result, 0);
-    EXPECT_EQ(decode_result, static_cast<ssize_t>(buffer.size() - 1));
+    EXPECT_EQ(decode_result, static_cast<size_t>(buffer.size() - 1));
     EXPECT_EQ(received_message.connection_id, message.connection_id);
     ASSERT_EQ(received_message.message.which,
               decltype(received_message.message.which)::kString);
