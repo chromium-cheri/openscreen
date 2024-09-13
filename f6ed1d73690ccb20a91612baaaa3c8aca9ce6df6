@@ -71,6 +71,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6f9ea8cc_d144df78",
+        "filename": "osp/impl/presentation/url_availability_requester.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-09-13T07:46:29Z",
+      "side": 1,
+      "message": "Yes, this is the behavior we want, but it is the only way we can do with the current interfaces. I have another CL in progess that changes interfaces to support this: https://chromium-review.googlesource.com/c/openscreen/+/5838019/2.",
+      "parentUuid": "c8df8bca_a0697ec3",
+      "revId": "f6ed1d73690ccb20a91612baaaa3c8aca9ce6df6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6c0eec2f_5bb4fbe1",
         "filename": "osp/impl/quic/quic_client.cc",
         "patchSetId": 2
@@ -82,6 +100,24 @@
       "writtenOn": "2024-09-12T23:51:38Z",
       "side": 1,
       "message": "Can this token be looked up at the time the authentication entry is created, to avoid the extra lookup code at L132-146?",
+      "revId": "f6ed1d73690ccb20a91612baaaa3c8aca9ce6df6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be330af7_16c2eaa6",
+        "filename": "osp/impl/quic/quic_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-09-13T07:46:29Z",
+      "side": 1,
+      "message": "Do you mean looking up this at the time the authentication entry is created and save it as a member of PendingConnectionData, then we don\u0027t need to look up this in this function?",
+      "parentUuid": "6c0eec2f_5bb4fbe1",
       "revId": "f6ed1d73690ccb20a91612baaaa3c8aca9ce6df6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -105,6 +141,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2a8889df_f25c1e9a",
+        "filename": "osp/impl/quic/quic_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-09-13T07:46:29Z",
+      "side": 1,
+      "message": "Do you mean moving message handling and SPAKE2 value computation codes to another class in impl/ folder and use the class here?\n\nIs the all process like this:\n1. QuicService creates pending_authentication entry when OnCryptoHandshakeComplete is called.\n2. QuicService notify Authentication to do authentication and Authentication will deal with message and value computation.\n3. Authentication notify QuicService the authentication result througth interfaces like OnAuthenticationSucceed/OnAuthenticationfailed.\n4. QuicService notify embedder connection result through OnConnectSucceed/OnConnectFailed interfaces.\n\n```Either Alice or Bob should be created according to who sent and who received the\nauth-spake2-handshake message. (Or it can be hard coded to the QUIC client/server\nroles, but in fact it is independent of that.)```\nIs it ok to hard code that server is PSK presenter and initiate authentication now for simplification?\n\nIf we do this kind of refactoring, there will be some data interaction between QuicService and Authentication classes. I still need some time to firgure out.",
+      "parentUuid": "cc4b23bd_726bf293",
+      "revId": "f6ed1d73690ccb20a91612baaaa3c8aca9ce6df6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "89583f9f_87f7e929",
         "filename": "osp/impl/quic/quic_client.h",
         "patchSetId": 2
@@ -122,6 +176,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b96af825_70741e89",
+        "filename": "osp/impl/quic/quic_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-09-13T07:46:29Z",
+      "side": 1,
+      "message": "Yes, if we add Authentication class to handle with authentication, the one-time password should be passed to the class not this interface, right?",
+      "parentUuid": "89583f9f_87f7e929",
+      "revId": "f6ed1d73690ccb20a91612baaaa3c8aca9ce6df6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d9270095_3563b74f",
         "filename": "osp/impl/quic/quic_server.h",
         "patchSetId": 2
@@ -133,6 +205,24 @@
       "writtenOn": "2024-09-12T23:51:38Z",
       "side": 1,
       "message": "Which agent creates/displays the password, and which agent requests that the user enter the password, is negotiated by the agents and not dependent on the QUIC client/server status.",
+      "revId": "f6ed1d73690ccb20a91612baaaa3c8aca9ce6df6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c7def4d_7faa252e",
+        "filename": "osp/impl/quic/quic_server.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-09-13T07:46:29Z",
+      "side": 1,
+      "message": "See comments above.",
+      "parentUuid": "d9270095_3563b74f",
       "revId": "f6ed1d73690ccb20a91612baaaa3c8aca9ce6df6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
