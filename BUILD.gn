@@ -63,9 +63,14 @@ group("gn_all") {
     }
   }
 
+  # The cast_receiver depends on the standalone implementation which is not
+  # available or not complete on Windows, IOS, or Fuchsia.
+  if (!is_win && !is_ios && !is_fuchsia) {
+    deps += [ "cast/standalone_receiver:cast_receiver" ]
+  }
+
   if (!build_with_chromium) {
     deps += [
-      "cast/standalone_receiver:cast_receiver",
       "cast/standalone_sender:cast_sender",
       "third_party/protobuf:protoc($host_toolchain)",
       "third_party/zlib",
