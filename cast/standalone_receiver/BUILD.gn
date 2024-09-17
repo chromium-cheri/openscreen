@@ -3,8 +3,8 @@
 # found in the LICENSE file.
 
 import("//build_overrides/build.gni")
-import("//cast/streaming/external_libraries.gni")
 import("../../gni/openscreen.gni")
+import("../streaming/external_libraries.gni")
 
 visibility = [ "./*" ]
 
@@ -13,7 +13,7 @@ visibility = [ "./*" ]
 # application.
 #
 # See [external_libraries.md](../../build/config/external_libraries.md) for more information.
-if (!build_with_chromium) {
+if (!is_win) {
   shared_public = [ "cast_service.h" ]
 
   shared_sources = [
@@ -36,9 +36,9 @@ if (!build_with_chromium) {
     "../streaming:receiver",
   ]
 
-  have_external_libs = have_ffmpeg && have_libsdl2
+  build_receiver_with_sdl = have_ffmpeg && have_libsdl2
 
-  if (have_external_libs) {
+  if (build_receiver_with_sdl) {
     openscreen_source_set("standalone_receiver_sdl") {
       testonly = true
       public = shared_public
@@ -88,7 +88,7 @@ if (!build_with_chromium) {
            ]
     configs = [ "../common:certificate_config" ]
 
-    if (have_external_libs) {
+    if (build_receiver_with_sdl) {
       deps += [ ":standalone_receiver_sdl" ]
     } else {
       deps += [ ":standalone_receiver_dummy" ]
