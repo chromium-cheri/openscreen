@@ -53,6 +53,7 @@ group("gn_all") {
   # TODO(issuetracker.google.com/236160471): CDDL does not compile on Windows.
   if (!is_win) {
     deps += [
+      "cast/standalone_receiver:cast_receiver",
       "osp",
       "osp/msgs",
       "tools/cddl($host_toolchain)",
@@ -65,7 +66,6 @@ group("gn_all") {
 
   if (!build_with_chromium) {
     deps += [
-      "cast/standalone_receiver:cast_receiver",
       "cast/standalone_sender:cast_sender",
       "third_party/protobuf:protoc($host_toolchain)",
       "third_party/zlib",
