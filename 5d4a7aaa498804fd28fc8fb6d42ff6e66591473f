@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68e64042_54bfe573",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1498402
+      },
+      "writtenOn": "2024-09-18T18:49:28Z",
+      "side": 1,
+      "message": "My previous CL (https://crrev.com/c/5870906) did not fix the `ios_simulator` Chrome build. 😢\n\nI don\u0027t think the IOS SDK includes the same network interface includes as the Mac SDK. This change is intended to disable the standalone_impl target for IOS and unbreak the `ios_simulator` Chrome build. Sorry about the churn.",
+      "revId": "5d4a7aaa498804fd28fc8fb6d42ff6e66591473f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25ee0ea1_ce9abfe3",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1498402
+      },
+      "writtenOn": "2024-09-18T18:49:28Z",
+      "side": 1,
+      "message": "I included this predicate as an attempt to preserve the previous behavior where IOS builds could be attempted for standalone builds (even though they fail). I don\u0027t think it is necessary, and it may be needlessly confusing.\n\nLMK if I should remove it and just use `if (!is_ios)`.",
+      "range": {
+        "startLine": 86,
+        "startChar": 5,
+        "endLine": 86,
+        "endChar": 24
+      },
+      "revId": "5d4a7aaa498804fd28fc8fb6d42ff6e66591473f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
