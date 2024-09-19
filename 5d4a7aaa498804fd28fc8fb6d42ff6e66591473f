@@ -39,6 +39,30 @@
       },
       "revId": "5d4a7aaa498804fd28fc8fb6d42ff6e66591473f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39aa444c_99d9536b",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-09-19T03:34:27Z",
+      "side": 1,
+      "message": "I\u0027m not sure I follow this change, don\u0027t you need this built with the ChromeOS tests downstream? Would the following work:\n\n- Keep the existing logic for !build_with_chromium\n- Wrap the standalone_impl rule in (!is_ios)\n\nIdeally we would just assert(!is_ios) inside the rule but Chromium tries to build every target in the repo that it sees...",
+      "parentUuid": "25ee0ea1_ce9abfe3",
+      "range": {
+        "startLine": 86,
+        "startChar": 5,
+        "endLine": 86,
+        "endChar": 24
+      },
+      "revId": "5d4a7aaa498804fd28fc8fb6d42ff6e66591473f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
