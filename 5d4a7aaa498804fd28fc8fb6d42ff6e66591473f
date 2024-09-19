@@ -63,6 +63,30 @@
       },
       "revId": "5d4a7aaa498804fd28fc8fb6d42ff6e66591473f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f850396_8dfa105b",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1498402
+      },
+      "writtenOn": "2024-09-19T18:07:24Z",
+      "side": 1,
+      "message": "I think I was over-complicating this.\n\nThe conditional is equivalent to `!(build_with_chromium \u0026\u0026 is_ios)`. The goal was to disable the target for Chromium IOS builds since Chromium builds every target like you said, but allow IOS builds outside of Chromium since that is allowed today.\n\nThat said, IOS builds outside of Chromium are most likely going to fail since IOS\u0027s SDK doesn\u0027t have the same POSIX network interface includes as MacOS.\n\nIn the latest patchset, I changed the conditional to always disable IOS standalone_impl builds. I agree that asserting would be more clear if the Chromium builders didn\u0027t behave this way.",
+      "parentUuid": "39aa444c_99d9536b",
+      "range": {
+        "startLine": 86,
+        "startChar": 5,
+        "endLine": 86,
+        "endChar": 24
+      },
+      "revId": "5d4a7aaa498804fd28fc8fb6d42ff6e66591473f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
