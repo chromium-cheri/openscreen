@@ -19,8 +19,6 @@ namespace openscreen {
 //    new Foo(),
 //    TaskRunnerDeleter(task_runner));
 struct TaskRunnerDeleter {
-  // Exists for backwards compatibility with SerialDeletePtr; can be removed
-  // with SerialDeletePtr.
   TaskRunnerDeleter();
   explicit TaskRunnerDeleter(TaskRunner& task_runner);
   ~TaskRunnerDeleter();
