@@ -19,7 +19,6 @@
 #include "platform/api/task_runner_deleter.h"
 #include "platform/base/error.h"
 #include "platform/base/ip_address.h"
-#include "util/serial_delete_ptr.h"
 
 namespace openscreen {
 
@@ -69,7 +68,8 @@ class CastService final : public discovery::ReportingClient {
   using LazyDeletedDiscoveryService =
       std::unique_ptr<discovery::DnsSdService, TaskRunnerDeleter>;
   using LazyDeletedDiscoveryPublisher =
-      SerialDeletePtr<discovery::DnsSdServicePublisher<ReceiverInfo>>;
+      std::unique_ptr<discovery::DnsSdServicePublisher<ReceiverInfo>,
+                      TaskRunnerDeleter>;
 
   // discovery::ReportingClient overrides.
   void OnFatalError(const Error& error) final;

@@ -60,12 +60,12 @@ CastService::CastService(CastService::Configuration config)
                              : LazyDeletedDiscoveryService()),
       discovery_publisher_(
           discovery_service_
-              ? MakeSerialDelete<
-                    discovery::DnsSdServicePublisher<ReceiverInfo>>(
-                    &config.task_runner,
-                    discovery_service_.get(),
-                    kCastV2ServiceId,
-                    ReceiverInfoToDnsSdInstance)
+              ? LazyDeletedDiscoveryPublisher(
+                    new discovery::DnsSdServicePublisher<ReceiverInfo>(
+                        discovery_service_.get(),
+                        kCastV2ServiceId,
+                        ReceiverInfoToDnsSdInstance),
+                    TaskRunnerDeleter(config.task_runner))
               : LazyDeletedDiscoveryPublisher()) {
   connection_factory_->SetListenCredentials(credentials_.tls_credentials);
   connection_factory_->Listen(local_endpoint_, kDefaultListenOptions);
