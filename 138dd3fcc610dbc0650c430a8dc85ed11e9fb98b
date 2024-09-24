@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "907bdc37_55a2921a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1498402
+      },
+      "writtenOn": "2024-09-24T22:15:58Z",
+      "side": 1,
+      "message": "Hi Mark. This is something like a reland of https://chromium-review.googlesource.com/c/openscreen/+/5369648\n\nFrom reviewing the Chrome uprev failures of openscreen, it looked like there were issues with Windows, Fuchsia, and Android builds. I was able to verify that the Android `cast_receiver` target builds with this change. For Windows, Fuchsia, and IOS, this disables the `cast_receiver` target. Fuchsia and IOS are not posix, so they are missing parts of the network standalone implementation.",
+      "revId": "138dd3fcc610dbc0650c430a8dc85ed11e9fb98b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
