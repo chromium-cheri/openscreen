@@ -5,7 +5,6 @@
 #include "tools/cddl/sema.h"
 
 #include <string.h>
-#include <unistd.h>
 
 #include <cinttypes>
 #include <cstdlib>
@@ -165,7 +164,7 @@ CddlType* AnalyzeType2(CddlSymbolTable* table, const AstNode& type2) {
     return value;
   } else if (node->type == AstNode::Type::kTypename) {
     if (type2.text[0] == '~') {
-      dprintf(STDERR_FILENO, "We don't support the '~' operator.\n");
+      std::cerr << "We don't support the '~' operator." << std::endl;
       return nullptr;
     }
     CddlType* id = AddCddlType(table, CddlType::Which::kId);
@@ -179,7 +178,7 @@ CddlType* AnalyzeType2(CddlSymbolTable* table, const AstNode& type2) {
       tagged_type->tagged_type.type = AnalyzeType(table, *node);
       return tagged_type;
     }
-    dprintf(STDERR_FILENO, "Unknown type2 value, expected #6.[uint]\n");
+    std::cerr << "Unknown type2 value, expected #6.[uint]" << std::endl;
   } else if (node->type == AstNode::Type::kGroup) {
     if (type2.text[0] == '{') {
       CddlType* map = AddCddlType(table, CddlType::Which::kMap);
@@ -214,16 +213,16 @@ CddlType::Op AnalyzeRangeop(const AstNode& rangeop) {
   } else if (rangeop.text == "...") {
     return CddlType::Op::kExclusiveRange;
   } else {
-    dprintf(STDERR_FILENO, "Unsupported '%s' range operator.\n",
-            rangeop.text.c_str());
+    std::cerr << "Unsupported '" << rangeop.text << "' range operator."
+              << std::endl;
     return CddlType::Op::kNone;
   }
 }
 
 CddlType::Op AnalyzeCtlop(const AstNode& ctlop) {
   if (!ctlop.children) {
-    dprintf(STDERR_FILENO, "Missing id for control operator '%s'.\n",
-            ctlop.text.c_str());
+    std::cerr << "Missing id for control operator '" << ctlop.text << "'"
+              << std::endl;
     return CddlType::Op::kNone;
   }
   const std::string& id = ctlop.children->text;
@@ -256,8 +255,8 @@ CddlType::Op AnalyzeCtlop(const AstNode& ctlop) {
   } else if (id == "default") {
     return CddlType::Op::kDefault;
   } else {
-    dprintf(STDERR_FILENO, "Unsupported '%s' control operator.\n",
-            ctlop.text.c_str());
+    std::cerr << "Unsupported '" << ctlop.text << "' control operator."
+              << std::endl;
     return CddlType::Op::kNone;
   }
 }
@@ -266,15 +265,14 @@ CddlType::Op AnalyzeCtlop(const AstNode& ctlop) {
 // ABNF rule: type1 = type2 [S (rangeop / ctlop) S type2]
 CddlType* AnalyzeType1(CddlSymbolTable* table, const AstNode& type1) {
   if (!type1.children) {
-    dprintf(STDERR_FILENO, "Missing type2 in type1 '%s'.\n",
-            type1.text.c_str());
+    std::cerr << "Missing type2 in type1 '" << type1.text << "'" << std::endl;
     return nullptr;
   }
   const AstNode& target_type = *type1.children;
   CddlType* analyzed_type = AnalyzeType2(table, target_type);
   if (!analyzed_type) {
-    dprintf(STDERR_FILENO, "Invalid type2 '%s' in type1 '%s'.\n",
-            target_type.text.c_str(), type1.text.c_str());
+    std::cerr << "Invalid type2 " << target_type.text << "' in type1 '"
+              << type1.text << "'." << std::endl;
     return nullptr;
   }
   if (!target_type.sibling) {
@@ -291,24 +289,21 @@ CddlType* AnalyzeType1(CddlSymbolTable* table, const AstNode& type1) {
     op = CddlType::Op::kNone;
   }
   if (op == CddlType::Op::kNone) {
-    dprintf(STDERR_FILENO,
-            "Unsupported or missing operator '%s' in type1 '%s'.\n",
-            operator_type.text.c_str(), type1.text.c_str());
+    std::cerr << "Unsupported or missing operator '" << operator_type.text
+              << "'in type1 '" << type1.text << "'." << std::endl;
     return nullptr;
   }
   if (!operator_type.sibling) {
-    dprintf(STDERR_FILENO,
-            "Missing controller type for operator '%s' in type1 '%s'.\n",
-            operator_type.text.c_str(), type1.text.c_str());
+    std::cerr << "Missing controller type for operator '" << operator_type.text
+              << "' in type1 '" << type1.text << "'." << std::endl;
     return nullptr;
   }
   const AstNode& controller_type = *operator_type.sibling;
   CddlType* constraint_type = AnalyzeType2(table, controller_type);
   if (!constraint_type) {
-    dprintf(STDERR_FILENO,
-            "Invalid controller type '%s' for operator '%s' in type1 '%s'.\n",
-            controller_type.text.c_str(), operator_type.text.c_str(),
-            type1.text.c_str());
+    std::cerr << "Invalid controller type '" << controller_type.text
+              << "' for operator '" << operator_type.text << "' in type1 '"
+              << type1.text << "'." << std::endl;
     return nullptr;
   }
   analyzed_type->op = op;
