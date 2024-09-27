@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <cstdio>
 #include <cstdlib>
 #include <iostream>
 #include <string>
@@ -83,9 +84,10 @@ class Logger {
     // warning generated since the compiler is attempting to prevent a string
     // format vulnerability. This is not a risk for us since this code is only
     // used at compile time. The below #pragma commands suppress the warning for
-    // just the one dprintf(...) line.
+    // just the one snprintf(...) line.
     // For more details: https://www.owasp.org/index.php/Format_string_attack
-    char* str_buffer;
+    const size_t kBufferSize = 1024;
+    char str_buffer[kBufferSize];
 #if defined(__clang__)
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wformat-security"
@@ -93,8 +95,9 @@ class Logger {
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wformat-security"
 #endif  // defined(__clang__)
-    int byte_count = asprintf(&str_buffer, message.c_str(),
-                              this->MakePrintable(std::forward<Args>(args))...);
+    const int byte_count =
+        snprintf(str_buffer, kBufferSize, message.c_str(),
+                 this->MakePrintable(std::forward<Args>(args))...);
 #if defined(__clang__)
 #pragma clang diagnostic pop
 #elif defined(__GNUC__)
@@ -102,7 +105,6 @@ class Logger {
 #endif  // defined(__clang__)
     CHECK_GE(byte_count, 0);
     std::cerr << str_buffer << std::endl;
-    free(str_buffer);
   }
 
   // Writes an error message.
