@@ -2,8 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include <getopt.h>
-
 #include <algorithm>
 #include <iostream>
 #include <memory>
@@ -21,6 +19,7 @@
 #include "platform/impl/platform_client_posix.h"
 #include "platform/impl/task_runner.h"
 #include "platform/impl/text_trace_logging_platform.h"
+#include "third_party/getopt/getopt.h"
 #include "util/chrono_helpers.h"
 #include "util/string_util.h"
 #include "util/stringprintf.h"
