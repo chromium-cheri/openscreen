@@ -16,6 +16,40 @@
       "message": "Hi Mark. This is something like a reland of https://chromium-review.googlesource.com/c/openscreen/+/5369648\n\nFrom reviewing the Chrome uprev failures of openscreen, it looked like there were issues with Windows, Fuchsia, and Android builds. I was able to verify that the Android `cast_receiver` target builds with this change. For Windows, Fuchsia, and IOS, this disables the `cast_receiver` target. Fuchsia and IOS are not posix, so they are missing parts of the network standalone implementation.",
       "revId": "138dd3fcc610dbc0650c430a8dc85ed11e9fb98b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "519e51db_fd979599",
+        "filename": "BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-09-27T00:57:59Z",
+      "side": 1,
+      "message": "I\u0027d prefer this be reversed and only include the receiver on supported platforms (is_linux || is_mac || is_chromeos || is_android)",
+      "revId": "138dd3fcc610dbc0650c430a8dc85ed11e9fb98b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a87e4c3_0b9377ab",
+        "filename": "cast/standalone_receiver/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-09-27T00:57:59Z",
+      "side": 1,
+      "message": "Can you combine :standalone_receiver_sdl and :standalone_receiver_dummy into :cast_receiver_lib to eliminate some duplication?  I.e. moving `if (build_receiver_with_sdl)` inside the target definition.",
+      "revId": "138dd3fcc610dbc0650c430a8dc85ed11e9fb98b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
