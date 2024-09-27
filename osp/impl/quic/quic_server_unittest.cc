@@ -54,9 +54,9 @@ class QuicServerTest : public Test {
  protected:
   std::unique_ptr<ProtocolConnection> ExpectIncomingConnection() {
     MockConnectRequestCallback mock_connect_request_callback;
-    quic_bridge_.GetQuicClient()->Connect(quic_bridge_.kInstanceName,
-                                          connect_request_,
-                                          &mock_connect_request_callback);
+    quic_bridge_.GetQuicClient()->Connect(
+        quic_bridge_.kInstanceName, quic_bridge_.kInstancePassword,
+        connect_request_, &mock_connect_request_callback);
     std::unique_ptr<ProtocolConnection> stream;
     EXPECT_CALL(mock_connect_request_callback, OnConnectSucceed(_, _))
         .WillOnce(Invoke([this](uint64_t request_id, uint64_t instance_id) {

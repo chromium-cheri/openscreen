@@ -131,7 +131,8 @@ TEST_F(ConnectionTest, ConnectAndSend) {
   ConnectRequest request;
   std::unique_ptr<ProtocolConnection> controller_stream;
   std::unique_ptr<ProtocolConnection> receiver_stream;
-  quic_bridge_.GetQuicClient()->Connect(quic_bridge_.kInstanceName, request,
+  quic_bridge_.GetQuicClient()->Connect(quic_bridge_.kInstanceName,
+                                        quic_bridge_.kInstancePassword, request,
                                         &mock_connect_request_callback);
   EXPECT_TRUE(request);
   EXPECT_CALL(mock_connect_request_callback, OnConnectSucceed(_, _))

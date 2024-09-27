@@ -125,7 +125,8 @@ TEST_F(QuicClientTest, Connect) {
 
   ConnectCallback connection_callback;
   ConnectRequest request;
-  bool result = client_->Connect(quic_bridge_.kInstanceName, request,
+  bool result = client_->Connect(quic_bridge_.kInstanceName,
+                                 quic_bridge_.kInstancePassword, request,
                                  &connection_callback);
   ASSERT_TRUE(result);
   ASSERT_TRUE(request);
@@ -146,7 +147,8 @@ TEST_F(QuicClientTest, DoubleConnect) {
 
   ConnectCallback connection_callback1;
   ConnectRequest request1;
-  bool result = client_->Connect(quic_bridge_.kInstanceName, request1,
+  bool result = client_->Connect(quic_bridge_.kInstanceName,
+                                 quic_bridge_.kInstancePassword, request1,
                                  &connection_callback1);
   ASSERT_TRUE(result);
   ASSERT_TRUE(request1);
@@ -154,7 +156,8 @@ TEST_F(QuicClientTest, DoubleConnect) {
 
   ConnectCallback connection_callback2;
   ConnectRequest request2;
-  result = client_->Connect(quic_bridge_.kInstanceName, request2,
+  result = client_->Connect(quic_bridge_.kInstanceName,
+                            quic_bridge_.kInstancePassword, request2,
                             &connection_callback2);
   ASSERT_TRUE(result);
   ASSERT_TRUE(request2);
@@ -181,7 +184,8 @@ TEST_F(QuicClientTest, OpenImmediate) {
 
   ConnectCallback connection_callback;
   ConnectRequest request;
-  bool result = client_->Connect(quic_bridge_.kInstanceName, request,
+  bool result = client_->Connect(quic_bridge_.kInstanceName,
+                                 quic_bridge_.kInstancePassword, request,
                                  &connection_callback);
   ASSERT_TRUE(result);
   ASSERT_TRUE(request);
@@ -205,7 +209,8 @@ TEST_F(QuicClientTest, States) {
   client_->Stop();
   ConnectCallback connection_callback1;
   ConnectRequest request1;
-  bool result = client_->Connect(quic_bridge_.kInstanceName, request1,
+  bool result = client_->Connect(quic_bridge_.kInstanceName,
+                                 quic_bridge_.kInstancePassword, request1,
                                  &connection_callback1);
   EXPECT_FALSE(result);
   EXPECT_FALSE(request1);
@@ -220,7 +225,8 @@ TEST_F(QuicClientTest, States) {
 
   ConnectCallback connection_callback2;
   ConnectRequest request2;
-  result = client_->Connect(quic_bridge_.kInstanceName, request2,
+  result = client_->Connect(quic_bridge_.kInstanceName,
+                            quic_bridge_.kInstancePassword, request2,
                             &connection_callback2);
   ASSERT_TRUE(result);
   ASSERT_TRUE(request2);
@@ -247,7 +253,8 @@ TEST_F(QuicClientTest, States) {
 
   ConnectCallback connection_callback3;
   ConnectRequest request3;
-  result = client_->Connect(quic_bridge_.kInstanceName, request3,
+  result = client_->Connect(quic_bridge_.kInstanceName,
+                            quic_bridge_.kInstancePassword, request3,
                             &connection_callback3);
   EXPECT_FALSE(result);
   EXPECT_FALSE(request3);
@@ -264,7 +271,8 @@ TEST_F(QuicClientTest, RequestIds) {
       }));
   ConnectCallback connection_callback;
   ConnectRequest request;
-  bool result = client_->Connect(quic_bridge_.kInstanceName, request,
+  bool result = client_->Connect(quic_bridge_.kInstanceName,
+                                 quic_bridge_.kInstancePassword, request,
                                  &connection_callback);
   ASSERT_TRUE(result);
   ASSERT_TRUE(request);
