@@ -48,17 +48,25 @@ class QuicServer final : public ProtocolConnectionServer,
   bool Stop() override;
   bool Suspend() override;
   bool Resume() override;
-  State GetState() override;
-  MessageDemuxer& GetMessageDemuxer() override;
-  InstanceRequestIds& GetInstanceRequestIds() override;
+  State GetState() override { return state_; }
+  MessageDemuxer& GetMessageDemuxer() override { return demuxer_; }
+  InstanceRequestIds& GetInstanceRequestIds() override {
+    return instance_request_ids_;
+  }
+  std::string GetAuthToken() override { return auth_token_; }
   std::unique_ptr<ProtocolConnection> CreateProtocolConnection(
       uint64_t instance_id) override;
   std::string GetAgentFingerprint() override;
-  std::string GetAuthToken() override;
 
   // QuicServiceBase overrides.
   void OnClientCertificates(std::string_view instance_name,
                             const std::vector<std::string>& certs) override;
+
+  // AuthenticaionBase::Delegate overrides.
+  void InitAuthenticationData(std::string_view instance_name,
+                              uint64_t instance_id) override;
+  void OnAuthenticationSucceed(uint64_t instance_id) override;
+  void OnAuthenticationFailed(uint64_t instance_id) override;
 
   const std::string& instance_name() const { return instance_name_; }
 

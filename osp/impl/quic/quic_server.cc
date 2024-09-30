@@ -8,6 +8,7 @@
 #include <random>
 #include <utility>
 
+#include "osp/public/authentication_alice.h"
 #include "quiche/quic/core/quic_utils.h"
 #include "util/base64.h"
 #include "util/osp_logging.h"
@@ -30,6 +31,12 @@ QuicServer::QuicServer(
                       buffer_limit),
       instance_name_(config.instance_name) {
   auth_token_ = GenerateToken(16);
+  std::string fingerprint = GetAgentFingerprint();
+  std::vector<uint8_t> decoded_fingerprint;
+  base64::Decode(fingerprint, &decoded_fingerprint);
+  authentication_ = std::make_unique<AuthenticationAlice>(
+      demuxer_, *this, std::move(decoded_fingerprint), auth_token_,
+      config.password);
 }
 
 QuicServer::~QuicServer() = default;
@@ -60,18 +67,6 @@ bool QuicServer::Resume() {
   return ResumeImpl();
 }
 
-ProtocolConnectionEndpoint::State QuicServer::GetState() {
-  return state_;
-}
-
-MessageDemuxer& QuicServer::GetMessageDemuxer() {
-  return demuxer_;
-}
-
-InstanceRequestIds& QuicServer::GetInstanceRequestIds() {
-  return instance_request_ids_;
-}
-
 std::unique_ptr<ProtocolConnection> QuicServer::CreateProtocolConnection(
     uint64_t instance_id) {
   return CreateProtocolConnectionImpl(instance_id);
@@ -81,14 +76,44 @@ std::string QuicServer::GetAgentFingerprint() {
   return GetAgentCertificate().GetAgentFingerprint();
 }
 
-std::string QuicServer::GetAuthToken() {
-  return auth_token_;
-}
-
 void QuicServer::OnClientCertificates(std::string_view instance_name,
                                       const std::vector<std::string>& certs) {
   fingerprint_map_.emplace(instance_name,
                            base64::Encode(quic::RawSha256(certs[0])));
+}
+
+void QuicServer::InitAuthenticationData(std::string_view instance_name,
+                                        uint64_t instance_id) {
+  auto authentication_entry = pending_authentications_.find(instance_id);
+  if (authentication_entry == pending_authentications_.end()) {
+    return;
+  }
+
+  authentication_->SetSender(
+      instance_id,
+      QuicProtocolConnection::FromExisting(
+          *this, *authentication_entry->second.data.connection,
+          *authentication_entry->second.data.stream_manager, instance_id));
+}
+
+void QuicServer::OnAuthenticationSucceed(uint64_t instance_id) {
+  auto authentication_entry = pending_authentications_.find(instance_id);
+  if (authentication_entry == pending_authentications_.end()) {
+    return;
+  }
+
+  connections_.emplace(instance_id,
+                       std::move(authentication_entry->second.data));
+  pending_authentications_.erase(authentication_entry);
+}
+
+void QuicServer::OnAuthenticationFailed(uint64_t instance_id) {
+  auto authentication_entry = pending_authentications_.find(instance_id);
+  if (authentication_entry == pending_authentications_.end()) {
+    return;
+  }
+
+  pending_authentications_.erase(authentication_entry);
 }
 
 void QuicServer::OnIncomingConnection(

@@ -16,6 +16,7 @@
 #include "osp/impl/quic/certificates/quic_agent_certificate.h"
 #include "osp/impl/quic/quic_connection_factory_base.h"
 #include "osp/impl/quic/quic_stream_manager.h"
+#include "osp/public/authentication_base.h"
 #include "osp/public/connect_request.h"
 #include "osp/public/instance_request_ids.h"
 #include "osp/public/message_demuxer.h"
@@ -33,7 +34,8 @@ namespace openscreen::osp {
 // in the connection establishment process, but they share much of the same
 // logic. This class holds common codes for the two classes.
 class QuicServiceBase : public QuicConnection::Delegate,
-                        public QuicStreamManager::Delegate {
+                        public QuicStreamManager::Delegate,
+                        public AuthenticationBase::Delegate {
  public:
   static QuicAgentCertificate& GetAgentCertificate();
 
@@ -64,6 +66,10 @@ class QuicServiceBase : public QuicConnection::Delegate,
                       uint64_t protocol_connection_id,
                       ByteView bytes) override;
   void OnClose(uint64_t instance_id, uint64_t protocol_connection_id) override;
+
+  // This is only used by test to bypass handshake and authentication, and
+  // establish a connection directly.
+  uint64_t CompleteConnectionForTest(std::string_view instance_name);
 
  protected:
   struct ServiceConnectionData {
@@ -106,6 +112,7 @@ class QuicServiceBase : public QuicConnection::Delegate,
   InstanceRequestIds instance_request_ids_;
   MessageDemuxer demuxer_;
   std::unique_ptr<QuicConnectionFactoryBase> connection_factory_;
+  std::unique_ptr<AuthenticationBase> authentication_;
 
   // IPEndpoints used by this service to build connection.
   //
@@ -129,6 +136,15 @@ class QuicServiceBase : public QuicConnection::Delegate,
   std::map<std::string, PendingConnectionData, std::less<>>
       pending_connections_;
 
+  // Maps an instance ID to data about connections that have successfully
+  // completed the QUIC handshake but haven't successfully completed the
+  // authentication.
+  std::map<uint64_t, PendingConnectionData> pending_authentications_;
+
+  // Map an instance ID to data about connections that have successfully
+  // completed the QUIC handshake and authentication.
+  std::map<uint64_t, ServiceConnectionData> connections_;
+
  private:
   void CloseAllConnections();
 
@@ -144,10 +160,6 @@ class QuicServiceBase : public QuicConnection::Delegate,
 
   // Value that will be used for the next new instance.
   uint64_t next_instance_id_ = 1u;
-
-  // Map an instance ID to data about connections that have successfully
-  // completed the QUIC handshake.
-  std::map<uint64_t, ServiceConnectionData> connections_;
 
   // Map an instance name to alarm used to delete dead QUIC connection.
   std::map<std::string, std::unique_ptr<Alarm>> cleanup_alarms_;

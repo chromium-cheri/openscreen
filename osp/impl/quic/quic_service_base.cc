@@ -45,18 +45,21 @@ uint64_t QuicServiceBase::OnCryptoHandshakeComplete(
     return 0;
   }
 
-  ServiceConnectionData connection_data = std::move(pending_entry->second.data);
-  auto callbacks = std::move(pending_entry->second.callbacks);
+  PendingConnectionData pending_data = std::move(pending_entry->second);
   pending_connections_.erase(pending_entry);
   uint64_t instance_id = next_instance_id_++;
   instance_map_.emplace(instance_name, instance_id);
-  connection_data.stream_manager->set_quic_connection(
-      connection_data.connection.get());
-  connections_.emplace(instance_id, std::move(connection_data));
+  pending_data.data.stream_manager->set_quic_connection(
+      pending_data.data.connection.get());
+  bool is_server = pending_data.callbacks.empty();
+  pending_authentications_.emplace(instance_id, std::move(pending_data));
 
-  // `callbacks` is empty for QuicServer, so this only works for QuicClient.
-  for (auto& request : callbacks) {
-    request.second->OnConnectSucceed(request.first, instance_id);
+  // Initialize authentication related data before starting authentication.
+  InitAuthenticationData(instance_name, instance_id);
+
+  // The QuicServer initiates the authentication process.
+  if (is_server) {
+    authentication_->StartAuthentication(instance_id);
   }
 
   return instance_id;
@@ -68,14 +71,24 @@ void QuicServiceBase::OnIncomingStream(uint64_t instance_id,
     return;
   }
 
-  auto connection_entry = connections_.find(instance_id);
-  if (connection_entry == connections_.end()) {
+  // The first incoming stream is used for receiving authentication related
+  // messages.
+  auto authentication_entry = pending_authentications_.find(instance_id);
+  if (authentication_entry != pending_authentications_.end()) {
+    authentication_->SetReceiver(
+        instance_id,
+        authentication_entry->second.data.stream_manager->OnIncomingStream(
+            stream));
     return;
   }
 
-  std::unique_ptr<QuicProtocolConnection> connection =
-      connection_entry->second.stream_manager->OnIncomingStream(stream);
-  observer_.OnIncomingConnection(std::move(connection));
+  // The incoming stream after authentication is used by embedder.
+  auto connection_entry = connections_.find(instance_id);
+  if (connection_entry != connections_.end()) {
+    std::unique_ptr<QuicProtocolConnection> connection =
+        connection_entry->second.stream_manager->OnIncomingStream(stream);
+    observer_.OnIncomingConnection(std::move(connection));
+  }
 }
 
 void QuicServiceBase::OnConnectionClosed(std::string_view instance_name) {
@@ -90,8 +103,11 @@ void QuicServiceBase::OnConnectionClosed(std::string_view instance_name) {
       return;
     } else {
       uint64_t instance_id = instance_entry->second;
+      auto authentication_entry = pending_authentications_.find(instance_id);
       auto connection_entry = connections_.find(instance_id);
-      if (connection_entry == connections_.end()) {
+      if (authentication_entry == pending_authentications_.end() &&
+          connection_entry == connections_.end()) {
+        instance_map_.erase(instance_entry);
         return;
       } else {
         instance_request_ids_.ResetRequestId(instance_id);
@@ -103,10 +119,18 @@ void QuicServiceBase::OnConnectionClosed(std::string_view instance_name) {
 }
 
 QuicStream::Delegate& QuicServiceBase::GetStreamDelegate(uint64_t instance_id) {
+  auto authentication_entry = pending_authentications_.find(instance_id);
+  if (authentication_entry != pending_authentications_.end()) {
+    auto& stream_manager = authentication_entry->second.data.stream_manager;
+    OSP_CHECK(stream_manager);
+    return *stream_manager;
+  }
+
   auto connection_entry = connections_.find(instance_id);
   OSP_CHECK(connection_entry != connections_.end());
-
-  return *(connection_entry->second.stream_manager);
+  auto& stream_manager = connection_entry->second.stream_manager;
+  OSP_CHECK(stream_manager);
+  return *stream_manager;
 }
 
 void QuicServiceBase::OnClientCertificates(
@@ -117,8 +141,11 @@ void QuicServiceBase::OnClientCertificates(
 
 void QuicServiceBase::OnConnectionDestroyed(
     QuicProtocolConnection& connection) {
+  auto authentication_entry =
+      pending_authentications_.find(connection.GetInstanceID());
   auto connection_entry = connections_.find(connection.GetInstanceID());
-  if (connection_entry == connections_.end()) {
+  if (authentication_entry == pending_authentications_.end() &&
+      connection_entry == connections_.end()) {
     return;
   }
 
@@ -143,6 +170,34 @@ void QuicServiceBase::OnClose(uint64_t instance_id,
   }
 
   demuxer_.OnStreamClose(instance_id, protocol_connection_id);
+}
+
+uint64_t QuicServiceBase::CompleteConnectionForTest(
+    std::string_view instance_name) {
+  if (state_ != ProtocolConnectionEndpoint::State::kRunning) {
+    return 0;
+  }
+
+  auto pending_entry = pending_connections_.find(instance_name);
+  if (pending_entry == pending_connections_.end()) {
+    return 0;
+  }
+
+  ServiceConnectionData connection_data = std::move(pending_entry->second.data);
+  auto callbacks = std::move(pending_entry->second.callbacks);
+  pending_connections_.erase(pending_entry);
+  uint64_t instance_id = next_instance_id_++;
+  instance_map_.emplace(instance_name, instance_id);
+  connection_data.stream_manager->set_quic_connection(
+      connection_data.connection.get());
+  connections_.emplace(instance_id, std::move(connection_data));
+
+  // `callbacks` is empty for QuicServer, so this only works for QuicClient.
+  for (auto& request : callbacks) {
+    request.second->OnConnectSucceed(request.first, instance_id);
+  }
+
+  return instance_id;
 }
 
 QuicServiceBase::ServiceConnectionData::ServiceConnectionData(
@@ -240,6 +295,16 @@ void QuicServiceBase::CloseAllConnections() {
     }
   }
 
+  for (auto& conn : pending_authentications_) {
+    conn.second.data.connection->Close();
+    connection_factory_->OnConnectionClosed(conn.second.data.connection.get());
+    // `callbacks` is empty for QuicServer, so this only works for QuicClient.
+    for (auto& item : conn.second.callbacks) {
+      item.second->OnConnectFailed(item.first);
+    }
+  }
+  pending_authentications_.clear();
+
   for (auto& conn : connections_) {
     conn.second.connection->Close();
   }
@@ -265,11 +330,21 @@ void QuicServiceBase::Cleanup(std::string_view instance_name) {
     connection_factory_->OnConnectionClosed(
         pending_entry->second.data.connection.get());
     pending_connections_.erase(pending_entry);
+    return;
   }
 
   auto instance_entry = instance_map_.find(instance_name);
   if (instance_entry != instance_map_.end()) {
     uint64_t instance_id = instance_entry->second;
+    auto authentication_entry = pending_authentications_.find(instance_id);
+    if (authentication_entry != pending_authentications_.end()) {
+      connection_factory_->OnConnectionClosed(
+          authentication_entry->second.data.connection.get());
+      instance_map_.erase(instance_entry);
+      pending_authentications_.erase(authentication_entry);
+      return;
+    }
+
     auto connection_entry = connections_.find(instance_id);
     if (connection_entry != connections_.end()) {
       connection_factory_->OnConnectionClosed(

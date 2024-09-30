@@ -7,6 +7,7 @@
 #include <memory>
 #include <utility>
 
+#include "osp/impl/quic/quic_service_base.h"
 #include "osp/impl/quic/testing/fake_quic_connection_factory.h"
 #include "util/osp_logging.h"
 
@@ -59,7 +60,10 @@ FakeQuicConnection::FakeQuicConnection(
 FakeQuicConnection::~FakeQuicConnection() = default;
 
 void FakeQuicConnection::OnCryptoHandshakeComplete() {
-  instance_id_ = delegate_.OnCryptoHandshakeComplete(instance_name_);
+  instance_id_ =
+      static_cast<QuicServiceBase&>(delegate_).CompleteConnectionForTest(
+          instance_name_);
+  OSP_CHECK_GT(instance_id_, 0);
 }
 
 FakeQuicStream* FakeQuicConnection::MakeIncomingStream() {

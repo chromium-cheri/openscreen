@@ -7,7 +7,9 @@
 #include <algorithm>
 #include <functional>
 
+#include "osp/public/authentication_bob.h"
 #include "osp/public/connect_request.h"
+#include "util/base64.h"
 #include "util/osp_logging.h"
 
 namespace openscreen::osp {
@@ -25,7 +27,13 @@ QuicClient::QuicClient(
                       InstanceRequestIds::Role::kClient,
                       now_function,
                       task_runner,
-                      buffer_limit) {}
+                      buffer_limit) {
+  std::string fingerprint = GetAgentCertificate().GetAgentFingerprint();
+  std::vector<uint8_t> decoded_fingerprint;
+  base64::Decode(fingerprint, &decoded_fingerprint);
+  authentication_ = std::make_unique<AuthenticationBob>(
+      demuxer_, *this, std::move(decoded_fingerprint));
+}
 
 QuicClient::~QuicClient() = default;
 
@@ -49,21 +57,19 @@ bool QuicClient::Resume() {
   OSP_NOTREACHED();
 }
 
-ProtocolConnectionEndpoint::State QuicClient::GetState() {
-  return state_;
-}
-
-MessageDemuxer& QuicClient::GetMessageDemuxer() {
-  return demuxer_;
-}
-
-InstanceRequestIds& QuicClient::GetInstanceRequestIds() {
-  return instance_request_ids_;
-}
-
 std::unique_ptr<ProtocolConnection> QuicClient::CreateProtocolConnection(
     uint64_t instance_id) {
   return CreateProtocolConnectionImpl(instance_id);
+}
+
+void QuicClient::SetPassword(std::string_view instance_name,
+                             std::string_view password) {
+  auto instance_entry = instance_infos_.find(instance_name);
+  if (instance_entry == instance_infos_.end()) {
+    return;
+  }
+
+  instance_entry->second.password = password;
 }
 
 bool QuicClient::Connect(std::string_view instance_name,
@@ -77,25 +83,86 @@ bool QuicClient::Connect(std::string_view instance_name,
 
   auto instance_entry = instance_map_.find(instance_name);
   // If there is a `instance_entry` for `instance_name`, it means there is an
-  // available connection. Otherwise, it means there is no available connection
-  // or the connection is still in the process of QUIC handshake.
+  // available connection that has already completed QUIC handshake and
+  // authentication or the connection is in process of authentication.
+  // Otherwise, it means there is no available connection or the connection is
+  // still in the process of QUIC handshake.
   if (instance_entry != instance_map_.end()) {
-    uint64_t request_id = next_request_id_++;
-    request = ConnectRequest(this, request_id);
-    request_callback->OnConnectSucceed(request_id, instance_entry->second);
-    return true;
+    auto pending_authentication =
+        pending_authentications_.find(instance_entry->second);
+    if (pending_authentication != pending_authentications_.end()) {
+      // Case 1: there is a connection in process of authentication.
+      uint64_t request_id = next_request_id_++;
+      pending_authentication->second.callbacks.emplace_back(request_id,
+                                                            request_callback);
+      request = ConnectRequest(this, request_id);
+      return true;
+    } else {
+      // Case 2: there is a connection that has already completed QUIC
+      // handshake and authentication.
+      uint64_t request_id = next_request_id_++;
+      request = ConnectRequest(this, request_id);
+      request_callback->OnConnectSucceed(request_id, instance_entry->second);
+      return true;
+    }
   } else {
     auto pending_connection = pending_connections_.find(instance_name);
     if (pending_connection != pending_connections_.end()) {
+      // Case 3: there is a connection in process of QUIC handshake.
       uint64_t request_id = next_request_id_++;
       pending_connection->second.callbacks.emplace_back(request_id,
                                                         request_callback);
       request = ConnectRequest(this, request_id);
       return true;
     } else {
+      // Case 4: there is no available connection.
       return StartConnectionRequest(instance_name, request, request_callback);
     }
   }
+}
+
+void QuicClient::InitAuthenticationData(std::string_view instance_name,
+                                        uint64_t instance_id) {
+  auto authentication_entry = pending_authentications_.find(instance_id);
+  if (authentication_entry == pending_authentications_.end()) {
+    return;
+  }
+
+  authentication_->SetSender(
+      instance_id,
+      QuicProtocolConnection::FromExisting(
+          *this, *authentication_entry->second.data.connection,
+          *authentication_entry->second.data.stream_manager, instance_id));
+  authentication_->SetAuthenticationToken(
+      instance_id, instance_infos_[std::string(instance_name)].auth_token);
+  authentication_->SetPassword(
+      instance_id, instance_infos_[std::string(instance_name)].password);
+}
+
+void QuicClient::OnAuthenticationSucceed(uint64_t instance_id) {
+  auto authentication_entry = pending_authentications_.find(instance_id);
+  if (authentication_entry == pending_authentications_.end()) {
+    return;
+  }
+
+  connections_.emplace(instance_id,
+                       std::move(authentication_entry->second.data));
+  for (auto& request : authentication_entry->second.callbacks) {
+    request.second->OnConnectSucceed(request.first, instance_id);
+  }
+  pending_authentications_.erase(authentication_entry);
+}
+
+void QuicClient::OnAuthenticationFailed(uint64_t instance_id) {
+  auto authentication_entry = pending_authentications_.find(instance_id);
+  if (authentication_entry == pending_authentications_.end()) {
+    return;
+  }
+
+  for (auto& request : authentication_entry->second.callbacks) {
+    request.second->OnConnectFailed(0);
+  }
+  pending_authentications_.erase(authentication_entry);
 }
 
 void QuicClient::OnStarted() {}
@@ -164,6 +231,7 @@ bool QuicClient::StartConnectionRequest(
 }
 
 void QuicClient::CancelConnectRequest(uint64_t request_id) {
+  // Remove request from `pending_connections_`.
   for (auto it = pending_connections_.begin(); it != pending_connections_.end();
        ++it) {
     auto& callbacks = it->second.callbacks;
@@ -179,6 +247,32 @@ void QuicClient::CancelConnectRequest(uint64_t request_id) {
 
     if (callbacks.empty()) {
       pending_connections_.erase(it);
+      return;
+    }
+
+    // If the size of the callbacks vector has changed, we have found the entry
+    // and can break out of the loop.
+    if (size_before_delete > callbacks.size()) {
+      return;
+    }
+  }
+
+  // Remove request from `pending_authentications_`.
+  for (auto it = pending_authentications_.begin();
+       it != pending_authentications_.end(); ++it) {
+    auto& callbacks = it->second.callbacks;
+    auto size_before_delete = callbacks.size();
+    callbacks.erase(
+        std::remove_if(
+            callbacks.begin(), callbacks.end(),
+            [request_id](
+                const std::pair<uint64_t, ConnectRequestCallback*>& callback) {
+              return request_id == callback.first;
+            }),
+        callbacks.end());
+
+    if (callbacks.empty()) {
+      pending_authentications_.erase(it);
       return;
     }
 
