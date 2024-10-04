@@ -1,0 +1,310 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f3056e7_0da6925d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-04T19:56:12Z",
+      "side": 1,
+      "message": "Thank you for the good work here, comments marked Not Blocking are not asking for code changes here.",
+      "revId": "bf0e1acad5b04a466f423259d1b52d11e1061557",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49f8dbfe_1421b7a9",
+        "filename": "BUILD.gn",
+        "patchSetId": 20
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-04T19:56:12Z",
+      "side": 1,
+      "message": "Can you give me some idea of the remaining issues? Is this general portability stuff, Windows toolchain compatibility, or are there deeper issues?  Or is it all because there\u0027s no platform impl to link to?\n\n[Not blocking]",
+      "revId": "bf0e1acad5b04a466f423259d1b52d11e1061557",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f51029a6_31f2e79f",
+        "filename": "BUILD.gn",
+        "patchSetId": 20
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-04T19:56:12Z",
+      "side": 1,
+      "message": "Presumably there is a solution to this in Chromium...\n\n[Not blocking]",
+      "revId": "bf0e1acad5b04a466f423259d1b52d11e1061557",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dad9bff2_76732637",
+        "filename": "cast/streaming/impl/frame_collector.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-04T19:56:12Z",
+      "side": 1,
+      "message": "It\u0027s weird that the auto formatter didn\u0027t fix these when I shuffled the headers around.\n\nIf you\u0027re concerned about a possible revert, maybe move all the reformatting to a different CL",
+      "revId": "bf0e1acad5b04a466f423259d1b52d11e1061557",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "853a5de3_170651f3",
+        "filename": "osp/impl/presentation/presentation_controller_unittest.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-04T19:56:12Z",
+      "side": 1,
+      "message": "This should stay as Reset() I think.\n\n\nhttps://chromium-review.googlesource.com/c/openscreen/+/5856124/4/osp/impl/presentation/presentation_controller_unittest.cc",
+      "revId": "bf0e1acad5b04a466f423259d1b52d11e1061557",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93138b85_212fcf98",
+        "filename": "osp/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-04T19:56:12Z",
+      "side": 1,
+      "message": "Maybe this should be `const int64_t` everywhere a message decoder function is called?\n\nAlso, a reason to declare a type alias for the decoder result in osp_messages.h.\n\n[Not Blocking]",
+      "revId": "bf0e1acad5b04a466f423259d1b52d11e1061557",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8b51c8b_4c392ae4",
+        "filename": "osp/msgs/BUILD.gn",
+        "patchSetId": 20
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-04T19:56:12Z",
+      "side": 1,
+      "message": "There is no usage of abseil in the messages code.",
+      "revId": "bf0e1acad5b04a466f423259d1b52d11e1061557",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cba19b5_1bb212df",
+        "filename": "osp/msgs/BUILD.gn",
+        "patchSetId": 20
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-04T19:56:12Z",
+      "side": 1,
+      "message": "Typo in reserver?",
+      "revId": "bf0e1acad5b04a466f423259d1b52d11e1061557",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18f65132_64df5bf3",
+        "filename": "osp/msgs/BUILD.gn",
+        "patchSetId": 20
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-04T19:56:12Z",
+      "side": 1,
+      "message": "Are these all VS toolchain only errors reported against the generated messages code? 😞\n\n[Not Blocking]",
+      "revId": "bf0e1acad5b04a466f423259d1b52d11e1061557",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ae07363_dd7de058",
+        "filename": "platform/impl/logging_win.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-04T19:56:12Z",
+      "side": 1,
+      "message": "Is this the only difference between this file and logging_posix.cc?\n\nCould we just have a single logging.cc that uses this implementation and doesn\u0027t mess with POSIX fds?\n\nThe only thing I would consider checking is whether std:ofstream has extra buffering; if so we should try to flush writes so that we don\u0027t lose logs on an abrupt exit.",
+      "revId": "bf0e1acad5b04a466f423259d1b52d11e1061557",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f973f36_a7c692ba",
+        "filename": "platform/impl/logging_win.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-04T19:56:12Z",
+      "side": 1,
+      "message": "POSIX SetLogFifoOrDie() does some other stuff (closes an existing stream, checks that filename points to a FIFO).\n\nPersonally I don\u0027t care whether the filename points to a FIFO or not, so maybe there\u0027s an opportunity to simplify here.\n\nBut I think closing an existing stream that is not stdout/stderr should be ported over.",
+      "revId": "bf0e1acad5b04a466f423259d1b52d11e1061557",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76ff0b96_c317ec15",
+        "filename": "platform/impl/logging_win.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-04T19:56:12Z",
+      "side": 1,
+      "message": "Will this truncate or append to `filename`?\n\n[Not Blocking]",
+      "revId": "bf0e1acad5b04a466f423259d1b52d11e1061557",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e67318ee_ea68e53a",
+        "filename": "third_party/getopt/README.openscreen",
+        "patchSetId": 20
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-04T19:56:12Z",
+      "side": 1,
+      "message": "I think there\u0027s some additional boilerplate needed now (Version)?",
+      "revId": "bf0e1acad5b04a466f423259d1b52d11e1061557",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e953248d_650975ce",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-04T19:56:12Z",
+      "side": 1,
+      "message": "Nice hack 😊",
+      "revId": "bf0e1acad5b04a466f423259d1b52d11e1061557",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea1573ae_c0f09aac",
+        "filename": "tools/cddl/logging.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-04T19:56:12Z",
+      "side": 1,
+      "message": "This is gross.\n\n1. I only found one place that uses format arguments and could be replaced with normal string appending or string_util::StrCat\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/openscreen/src/tools/cddl/parse.cc;drc\u003de92b5f17ef26b70c8498b59b65974f7652855e60;l\u003d1004\n\nThen all of this can get vastly simplified I hope?\n\n[Not Blocking]\n\n2. Once we have a Windows platform impl we can just use //util logging instead I think?",
+      "revId": "bf0e1acad5b04a466f423259d1b52d11e1061557",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d703330_c0721d85",
+        "filename": "tools/cddl/main.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-04T19:56:12Z",
+      "side": 1,
+      "message": "Nit: OpenFile",
+      "revId": "bf0e1acad5b04a466f423259d1b52d11e1061557",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0397bbf_cfe1e349",
+        "filename": "tools/cddl/main.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-04T19:56:12Z",
+      "side": 1,
+      "message": "Nit: CloseFile",
+      "revId": "bf0e1acad5b04a466f423259d1b52d11e1061557",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e290431f_504164de",
+        "filename": "tools/cddl/main.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-04T19:56:12Z",
+      "side": 1,
+      "message": "The file open/close should really be RAII so all the early returns above also close the files cleanly.\n\n[Not Blocking]",
+      "revId": "bf0e1acad5b04a466f423259d1b52d11e1061557",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
