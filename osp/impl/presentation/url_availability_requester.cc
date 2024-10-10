@@ -169,6 +169,11 @@ UrlAvailabilityRequester::ReceiverRequester::ReceiverRequester(
     UrlAvailabilityRequester& listener,
     const std::string& instance_name)
     : listener_(listener), instance_name_(instance_name) {
+  // TODO(Wei): The password is hard coded temporarily as a work around for
+  // osp_demo. We need to change interfaces in presentation to make this value
+  // passed in by user.
+  NetworkServiceManager::Get()->GetProtocolConnectionClient()->SetPassword(
+      instance_name, /*password*/ "hello123");
   NetworkServiceManager::Get()->GetProtocolConnectionClient()->Connect(
       instance_name, connect_request_, this);
 }

@@ -28,6 +28,10 @@ class ProtocolConnectionClient : public ProtocolConnectionEndpoint,
       delete;
   ~ProtocolConnectionClient() override;
 
+  // Set `password` for `instance_name` before calling `Connect`.
+  virtual void SetPassword(std::string_view instance_name,
+                           std::string_view password) = 0;
+
   // Open a new connection to `instance_name`.  This may succeed synchronously
   // if there are already connections open to `instance_name`, otherwise it will
   // be asynchronous. Returns true if succeed synchronously or asynchronously,

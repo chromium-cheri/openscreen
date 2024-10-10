@@ -491,8 +491,11 @@ void PublisherDemo(std::string_view friendly_name) {
       .instance_name = "deadbeef",
       .connection_server_port = server_port};
 
-  ServiceConfig server_config = {.instance_name =
-                                     publisher_config.instance_name};
+  // TODO(Wei): The password is hard coded temporarily as a work around for
+  // osp_demo. We need to change interfaces in presentation to make this value
+  // passed in by user.
+  ServiceConfig server_config = {
+      .instance_name = publisher_config.instance_name, .password = "hello123"};
   for (const InterfaceInfo& interface : GetNetworkInterfaces()) {
     OSP_VLOG << "Found interface: " << interface;
     if (!interface.addresses.empty() &&
