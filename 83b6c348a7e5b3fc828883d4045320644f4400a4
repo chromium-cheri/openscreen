@@ -16,6 +16,74 @@
       "message": "Hi, mark. This is rebased. PTAL, thanks.",
       "revId": "83b6c348a7e5b3fc828883d4045320644f4400a4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10f1275a_676ac9de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-11T21:40:27Z",
+      "side": 1,
+      "message": "Thanks for your patience. This still has layering problems because the authentication flow is embedded into the QUIC implementation instead of layered on top of it, so it is very hard to detangle the status of the connection from TLS\u0027s point of view from the authentication status from OSP\u0027s point of view.\n\nKeep in mind that the authentication flow is actually separate from TLS and QUIC.   The link between the two is that the same X.509 (Agent) certificate is used for TLS and as an input to SPAKE2.  However we may end up using the same authentication protocol for non-QUIC connections in the future like DTLS.  That is why it\u0027s important to keep them separate.  \n\nLet\u0027s take this one step at a time to make them easier to review. Can you split off the changes in OSP/public into their own change including the SPAKE2 implementation.  This will help me do a careful review of the SPAKE2 algorithm and propose how to organize and test that piece.\n\nThen let\u0027s get a design doc for implementing the authentication flow on top of QUIC that we both agree on.  I will start this document and share it for your input.   This should also include the public API for managing authentication (https://issuetracker.google.com/372955443).\n\nI can also review the future changes you have in this area if you think that would be helpful.",
+      "revId": "83b6c348a7e5b3fc828883d4045320644f4400a4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7632ea3_8de0dca4",
+        "filename": "osp/demo/osp_demo.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-11T21:40:27Z",
+      "side": 1,
+      "message": "I filed an issue here to track this.\n\n\n```suggestion\n  // TODO(issuetracker.google.com/372955443): The password is hard coded temporarily as a work around for\n```",
+      "revId": "83b6c348a7e5b3fc828883d4045320644f4400a4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a981d58_0d6137fe",
+        "filename": "osp/impl/presentation/presentation_controller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-11T21:40:27Z",
+      "side": 1,
+      "message": "```suggestion\n  // TODO(issuetracker.google.com/372955443): The password is hard coded temporarily as a work around for\n```",
+      "revId": "83b6c348a7e5b3fc828883d4045320644f4400a4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2465c5ef_b262798c",
+        "filename": "osp/impl/presentation/url_availability_requester.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-11T21:40:27Z",
+      "side": 1,
+      "message": "```suggestion\n  // TODO(issuetracker.google.com/372955443): The password is hard coded temporarily as a work around for\n```",
+      "revId": "83b6c348a7e5b3fc828883d4045320644f4400a4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
