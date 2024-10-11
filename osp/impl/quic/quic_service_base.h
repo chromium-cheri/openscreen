@@ -106,6 +106,8 @@ class QuicServiceBase : public QuicConnection::Delegate,
   std::unique_ptr<ProtocolConnection> CreateProtocolConnectionImpl(
       uint64_t instance_id);
 
+  std::string_view FindInstanceNameById(uint64_t instance_id);
+
   ProtocolConnectionEndpoint::State state_ =
       ProtocolConnectionEndpoint::State::kStopped;
   InstanceRequestIds instance_request_ids_;
