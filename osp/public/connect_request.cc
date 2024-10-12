@@ -32,8 +32,9 @@ ConnectRequest& ConnectRequest::operator=(ConnectRequest&& other) noexcept {
 }
 
 ConnectRequest::~ConnectRequest() {
-  if (request_id_)
+  if (request_id_) {
     parent_->CancelConnectRequest(request_id_);
+  }
 }
 
 }  // namespace openscreen::osp

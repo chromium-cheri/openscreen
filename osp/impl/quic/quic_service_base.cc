@@ -181,7 +181,7 @@ uint64_t QuicServiceBase::CompleteConnectionForTest(
 
   // `callbacks` is empty for QuicServer, so this only works for QuicClient.
   for (auto& request : callbacks) {
-    request.second->OnConnectSucceed(request.first, instance_id);
+    request.second->OnConnectSucceed(request.first, instance_name, instance_id);
   }
 
   return instance_id;
@@ -273,12 +273,26 @@ QuicServiceBase::CreateProtocolConnectionImpl(uint64_t instance_id) {
       *connection_entry->second.stream_manager, instance_id);
 }
 
+std::string_view QuicServiceBase::FindInstanceNameById(uint64_t instance_id) {
+  auto instance_entry = std::find_if(
+      instance_map_.begin(), instance_map_.end(),
+      [instance_id](const std::pair<std::string, uint64_t>& instance) {
+        return instance.second == instance_id;
+      });
+
+  if (instance_entry != instance_map_.end()) {
+    return instance_entry->first;
+  } else {
+    return std::string_view();
+  }
+}
+
 void QuicServiceBase::CloseAllConnections() {
   for (auto& conn : pending_connections_) {
     conn.second.data.connection->Close();
     // `callbacks` is empty for QuicServer, so this only works for QuicClient.
     for (auto& item : conn.second.callbacks) {
-      item.second->OnConnectFailed(item.first);
+      item.second->OnConnectFailed(item.first, conn.first);
     }
   }
 
@@ -287,7 +301,8 @@ void QuicServiceBase::CloseAllConnections() {
     connection_factory_->OnConnectionClosed(conn.second.data.connection.get());
     // `callbacks` is empty for QuicServer, so this only works for QuicClient.
     for (auto& item : conn.second.callbacks) {
-      item.second->OnConnectFailed(item.first);
+      item.second->OnConnectFailed(item.first,
+                                   FindInstanceNameById(conn.first));
     }
   }
   pending_authentications_.clear();
