@@ -56,14 +56,24 @@ class QuicClient final : public ProtocolConnectionClient,
   bool Stop() override;
   bool Suspend() override;
   bool Resume() override;
-  State GetState() override;
-  MessageDemuxer& GetMessageDemuxer() override;
-  InstanceRequestIds& GetInstanceRequestIds() override;
+  State GetState() override { return state_; }
+  MessageDemuxer& GetMessageDemuxer() override { return demuxer_; }
+  InstanceRequestIds& GetInstanceRequestIds() override {
+    return instance_request_ids_;
+  }
   std::unique_ptr<ProtocolConnection> CreateProtocolConnection(
       uint64_t instance_id) override;
+  void SetPassword(std::string_view instance_name,
+                   std::string_view password) override;
   bool Connect(std::string_view instance_name,
                ConnectRequest& request,
                ConnectRequestCallback* request_callback) override;
+
+  // AuthenticaionBase::Delegate overrides.
+  void InitAuthenticationData(std::string_view instance_name,
+                              uint64_t instance_id) override;
+  void OnAuthenticationSucceed(uint64_t instance_id) override;
+  void OnAuthenticationFailed(uint64_t instance_id) override;
 
  private:
   // FakeQuicBridge needs to access `instance_infos_` and struct InstanceInfo
@@ -85,6 +95,9 @@ class QuicClient final : public ProtocolConnectionClient,
     // is valid.
     IPEndpoint v4_endpoint;
     IPEndpoint v6_endpoint;
+
+    // Passed in by user for authentication using SPAKE2.
+    std::string password;
   };
 
   // ServiceListener::Observer overrides.

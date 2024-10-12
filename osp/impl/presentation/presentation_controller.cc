@@ -119,7 +119,13 @@ Controller::MessageGroupStreams::MessageGroupStreams(
       instance_name_(instance_name),
       initiation_handler_(*this),
       connection_open_handler_(*this),
-      termination_handler_(*this) {}
+      termination_handler_(*this) {
+  // TODO(Wei): The password is hard coded temporarily as a work around for
+  // osp_demo. We need to change interfaces in presentation to make this value
+  // passed in by user.
+  NetworkServiceManager::Get()->GetProtocolConnectionClient()->SetPassword(
+      instance_name, /*password*/ "hello123");
+}
 
 Controller::MessageGroupStreams::~MessageGroupStreams() = default;
 
