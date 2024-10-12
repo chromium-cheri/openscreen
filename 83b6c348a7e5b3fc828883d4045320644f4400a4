@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b0aa19f7_d79205e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-10-12T02:39:49Z",
+      "side": 1,
+      "message": "```This still has layering problems because the authentication flow is embedded into the QUIC implementation instead of layered on top of it, so it is very hard to detangle the status of the connection from TLS\u0027s point of view from the authentication status from OSP\u0027s point of view.```\nSo this means we should not change current QUIC implementation for building connection. When the connection is built successfully, authentication class should be notified first instead of embedder. Authentication class starts authentication process then. If failed, destory the connection. Otherwise, notify the embedder that the connection is built successfully. Then embedder can creat ProtocolConnection on the connection. Is this right?\n\n```Can you split off the changes in OSP/public into their own change including the SPAKE2 implementation.```\nPlease help review this CL: https://chromium-review.googlesource.com/c/openscreen/+/5926703",
+      "parentUuid": "10f1275a_676ac9de",
+      "revId": "83b6c348a7e5b3fc828883d4045320644f4400a4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e7632ea3_8de0dca4",
         "filename": "osp/demo/osp_demo.cc",
         "patchSetId": 5
