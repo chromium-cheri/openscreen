@@ -11,6 +11,10 @@
 #include <string>
 #include <vector>
 
+#if defined(__FreeBSD__)
+#include <sys/stat.h>
+#endif
+
 #include "tools/cddl/codegen.h"
 #include "tools/cddl/logging.h"
 #include "tools/cddl/parse.h"
