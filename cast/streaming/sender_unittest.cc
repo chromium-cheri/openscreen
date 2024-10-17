@@ -122,8 +122,15 @@ class SimulatedNetworkPipe {
     hextets[0] = 0x2001;
     hextets[1] = 0x0db8;
     auto* const this_pointer = this;
+#if defined(__CHERI_PURE_CAPABILITY__)
+    static_assert(sizeof(ptraddr_t) <= (6 * sizeof(uint16_t)), "");
+    ptraddr_t this_pointer_addr =
+        static_cast<ptraddr_t>(reinterpret_cast<uintptr_t>(this_pointer));
+    memcpy(&hextets[2], &this_pointer_addr, sizeof(this_pointer_addr));
+#else   // !__CHERI_PURE_CAPABILITY__
     static_assert(sizeof(this_pointer) <= (6 * sizeof(uint16_t)), "");
     memcpy(&hextets[2], &this_pointer, sizeof(this_pointer));
+#endif  // !__CHERI_PURE_CAPABILITY__
     local_endpoint_ = IPEndpoint{IPAddress(hextets), 2344};
   }
 
