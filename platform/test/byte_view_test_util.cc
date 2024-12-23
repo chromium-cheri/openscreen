@@ -40,7 +40,7 @@ void ExpectByteViewsHaveDifferentBytes(const ByteView& first,
 
 ByteView ByteViewFromLiteral(const char* literal) {
   return ByteView{reinterpret_cast<const uint8_t* const>(literal),
-                  sizeof(literal) - 1};
+                  strlen(literal)};
 }
 
 }  // namespace openscreen
